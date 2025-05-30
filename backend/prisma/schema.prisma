@@ -18,6 +18,22 @@ enum Role {
   MEMBER
 }
 
+enum PaymentMethod {
+  CASH 
+  BANK 
+  GCASH
+}
+
+enum Day {
+  Mon 
+  Tue 
+  Wed
+  Thu
+  Fri
+  Sat
+  Sun
+}
+
 model User {
   id           String   @id @default(uuid()) 
   firstname     String   
@@ -27,11 +43,27 @@ model User {
   password_hash     String   
   role     Role @default(MEMBER)   
   is_active     Boolean @default(true)
-
-  gyms Gym[]
-
   created_at   DateTime @default(now()) @db.Timestamptz
   created_by_id String
+
+  created_by      User    @relation("UserCreatedBy", fields: [created_by_id], references: [id])
+
+  gyms Gym[]
+  memberships Membership[]
+  payments    Payment[]  
+  attendance_logs    AttendanceLog[]  
+  member_assignments    InstructorAssignment[] @relation("MemberAssignment")
+  instructor_assignments    InstructorAssignment[] @relation("InstructorAssignment")
+  member_workout_plans    WorkoutPlan[] @relation("WorkoutPlanMember")
+  instructor_workout_plans    WorkoutPlan[] @relation("WorkoutPlanInstructor")
+  created_users   User[]   @relation("UserCreatedBy")
+  created_gyms    Gym[]    @relation("GymCreatedBy")
+  created_memberships    Membership[]    @relation("MembershipCreatedBy")
+  created_plans    Plan[]    @relation("PlanCreatedBy")
+  created_payments    Payment[]    @relation("PaymentCreatedBy")
+  created_attendance_logs    AttendanceLog[]    @relation("AttendanceCreatedBy")
+  created_instructor_assignments    InstructorAssignment[]    @relation("InstructorAssignmentCreatedBy")
+  created_workout_plans    WorkoutPlan[]    @relation("WorkoutPlanCreatedBy")
 
   @@index([email])
   @@map("users")
@@ -42,12 +74,145 @@ model Gym {
   name     String   
   location     String   
   owner_id     String   
+  created_by_id String
+  created_at   DateTime @default(now()) @db.Timestamptz
+
+  owner       User        @relation(fields: [owner_id], references: [id], onDelete: Restrict)
+  memberships Membership[]
+  attendance_logs    AttendanceLog[]  
+  created_by      User     @relation("GymCreatedBy", fields: [created_by_id], references: [id], onDelete: Cascade)
+
+  @@index([owner_id])
+  @@map("gyms")
+}
+
+model Membership {
+  id           String   @id @default(uuid()) 
+  member_id     String   
+  gym_id     String   
+  plan_id     String   
+  start_date     DateTime @default(now()) @db.Timestamptz   
+  end_date     DateTime? @default(now()) @db.Timestamptz   
+  is_active     Boolean @default(true)
+  is_paid     Boolean @default(true)
+  created_at   DateTime @default(now()) @db.Timestamptz
+  created_by_id String
+
+  created_by      User     @relation("MembershipCreatedBy", fields: [created_by_id], references: [id], onDelete: Cascade)
+  member       User        @relation(fields: [member_id], references: [id], onDelete: Restrict)
+  gym       Gym        @relation(fields: [gym_id], references: [id], onDelete: Restrict)
+  plan       Plan        @relation(fields: [plan_id], references: [id], onDelete: Restrict)
+
+  @@index([member_id])
+  @@index([gym_id])
+  @@map("memberships")
+}
+
+model Plan {
+  id           String   @id @default(uuid()) 
+  name     String   
+  description     String?
+  price     String
+  num_of_days     Int   
+  num_of_sessions     Int
+  is_active     Boolean @default(true)
+  is_default     Boolean @default(false)
+  created_by_id String
+  created_at   DateTime @default(now()) @db.Timestamptz
+
+  created_by      User     @relation("PlanCreatedBy", fields: [created_by_id], references: [id], onDelete: Cascade)
+  memberships Membership[]
+
+  @@index([created_by_id])
+  @@map("plans")
+}
+
+model Payment {
+  id           String   @id @default(uuid()) 
+  member_id     String   
+  amount Float
+  payment_method PaymentMethod @default(CASH)
+  paid_at DateTime @default(now()) @db.Timestamptz
+  created_by_id String
+  created_at   DateTime @default(now()) @db.Timestamptz
+
+  created_by      User     @relation("PaymentCreatedBy", fields: [created_by_id], references: [id], onDelete: Cascade)
+  member      User     @relation(fields: [member_id], references: [id], onDelete: Cascade)
+
+  @@index([created_by_id])
+  @@index([member_id])
+  @@map("payments")
+}
+
+model AttendanceLog {
+  id         Int     @id @default(autoincrement())
+  member_id     String   
+  gym_id     String   
+  created_by_id String
+  checked_in_at   DateTime @default(now()) @db.Timestamptz
+
+  created_by      User     @relation("AttendanceCreatedBy", fields: [created_by_id], references: [id], onDelete: Cascade)
+  member      User     @relation(fields: [member_id], references: [id], onDelete: Cascade)
+  gym      Gym     @relation(fields: [gym_id], references: [id], onDelete: Cascade)
+
+  @@index([created_by_id])
+  @@index([member_id])
+  @@index([gym_id])
+  @@map("attendance_logs")
+}
+
+model InstructorAssignment {
+  id         Int     @id @default(autoincrement())
+  instructor_id     String   
+  member_id     String   
+  assigned_at   DateTime @default(now()) @db.Timestamptz
+  created_by_id String
+
+  created_by      User     @relation("InstructorAssignmentCreatedBy", fields: [created_by_id], references: [id], onDelete: Cascade)
+  instructor      User     @relation("InstructorAssignment", fields: [instructor_id], references: [id], onDelete: Cascade)
+  member      User     @relation("MemberAssignment", fields: [member_id], references: [id], onDelete: Cascade)
+
+  @@index([instructor_id])
+  @@index([created_by_id])
+  @@index([member_id])
+  @@map("instructor_assignments")
+}
+
+model WorkoutPlan {
+  id           String   @id @default(uuid()) 
+  instructor_id     String   
+  member_id     String   
+  title     String   
+  notes     String?   
 
   created_at   DateTime @default(now()) @db.Timestamptz
   created_by_id String
 
-  owner       User        @relation(fields: [owner_id], references: [id], onDelete: Restrict)
+  created_by      User     @relation("WorkoutPlanCreatedBy", fields: [created_by_id], references: [id], onDelete: Cascade)
+  instructor      User     @relation("WorkoutPlanInstructor", fields: [instructor_id], references: [id], onDelete: Cascade)
+  member      User     @relation("WorkoutPlanMember", fields: [member_id], references: [id], onDelete: Cascade)
+  workout_entries WorkoutEntry[]
 
-  @@index([owner_id])
-  @@map("gyms")
+  @@index([instructor_id])
+  @@index([created_by_id])
+  @@index([member_id])
+  @@map("workout_plans")
+}
+
+model WorkoutEntry {
+  id           String   @id @default(uuid()) 
+  workout_plan_id     String   
+  exercise_name     String   
+  sets     Int
+  reps     Int
+  weight     Float   
+  day Day
+  notes     String?
+
+  created_at   DateTime @default(now()) @db.Timestamptz
+
+  workout_plan      WorkoutPlan     @relation(fields: [workout_plan_id], references: [id], onDelete: Cascade)
+
+  @@index([workout_plan_id])
+  @@map("workout_entries")
 }
