@@ -24,6 +24,11 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  */
 export type Gym = $Result.DefaultSelection<Prisma.$GymPayload>
 /**
+ * Model GymInstructor
+ * 
+ */
+export type GymInstructor = $Result.DefaultSelection<Prisma.$GymInstructorPayload>
+/**
  * Model Membership
  * 
  */
@@ -253,6 +258,16 @@ export class PrismaClient<
     * ```
     */
   get gym(): Prisma.GymDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.gymInstructor`: Exposes CRUD operations for the **GymInstructor** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GymInstructors
+    * const gymInstructors = await prisma.gymInstructor.findMany()
+    * ```
+    */
+  get gymInstructor(): Prisma.GymInstructorDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.membership`: Exposes CRUD operations for the **Membership** model.
@@ -765,6 +780,7 @@ export namespace Prisma {
   export const ModelName: {
     User: 'User',
     Gym: 'Gym',
+    GymInstructor: 'GymInstructor',
     Membership: 'Membership',
     Plan: 'Plan',
     Payment: 'Payment',
@@ -790,7 +806,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "gym" | "membership" | "plan" | "payment" | "attendanceLog" | "instructorAssignment" | "workoutPlan" | "workoutEntry"
+      modelProps: "user" | "gym" | "gymInstructor" | "membership" | "plan" | "payment" | "attendanceLog" | "instructorAssignment" | "workoutPlan" | "workoutEntry"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -939,6 +955,80 @@ export namespace Prisma {
           count: {
             args: Prisma.GymCountArgs<ExtArgs>
             result: $Utils.Optional<GymCountAggregateOutputType> | number
+          }
+        }
+      }
+      GymInstructor: {
+        payload: Prisma.$GymInstructorPayload<ExtArgs>
+        fields: Prisma.GymInstructorFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GymInstructorFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymInstructorPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GymInstructorFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymInstructorPayload>
+          }
+          findFirst: {
+            args: Prisma.GymInstructorFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymInstructorPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GymInstructorFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymInstructorPayload>
+          }
+          findMany: {
+            args: Prisma.GymInstructorFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymInstructorPayload>[]
+          }
+          create: {
+            args: Prisma.GymInstructorCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymInstructorPayload>
+          }
+          createMany: {
+            args: Prisma.GymInstructorCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GymInstructorCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymInstructorPayload>[]
+          }
+          delete: {
+            args: Prisma.GymInstructorDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymInstructorPayload>
+          }
+          update: {
+            args: Prisma.GymInstructorUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymInstructorPayload>
+          }
+          deleteMany: {
+            args: Prisma.GymInstructorDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GymInstructorUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GymInstructorUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymInstructorPayload>[]
+          }
+          upsert: {
+            args: Prisma.GymInstructorUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymInstructorPayload>
+          }
+          aggregate: {
+            args: Prisma.GymInstructorAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGymInstructor>
+          }
+          groupBy: {
+            args: Prisma.GymInstructorGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GymInstructorGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GymInstructorCountArgs<ExtArgs>
+            result: $Utils.Optional<GymInstructorCountAggregateOutputType> | number
           }
         }
       }
@@ -1546,6 +1636,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     user?: UserOmit
     gym?: GymOmit
+    gymInstructor?: GymInstructorOmit
     membership?: MembershipOmit
     plan?: PlanOmit
     payment?: PaymentOmit
@@ -1647,6 +1738,7 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
+    gym_instructor_at: number
     gyms: number
     memberships: number
     payments: number
@@ -1666,6 +1758,7 @@ export namespace Prisma {
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    gym_instructor_at?: boolean | UserCountOutputTypeCountGym_instructor_atArgs
     gyms?: boolean | UserCountOutputTypeCountGymsArgs
     memberships?: boolean | UserCountOutputTypeCountMembershipsArgs
     payments?: boolean | UserCountOutputTypeCountPaymentsArgs
@@ -1693,6 +1786,13 @@ export namespace Prisma {
      * Select specific fields to fetch from the UserCountOutputType
      */
     select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountGym_instructor_atArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GymInstructorWhereInput
   }
 
   /**
@@ -1814,11 +1914,13 @@ export namespace Prisma {
 
   export type GymCountOutputType = {
     memberships: number
+    instructors: number
     attendance_logs: number
   }
 
   export type GymCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     memberships?: boolean | GymCountOutputTypeCountMembershipsArgs
+    instructors?: boolean | GymCountOutputTypeCountInstructorsArgs
     attendance_logs?: boolean | GymCountOutputTypeCountAttendance_logsArgs
   }
 
@@ -1838,6 +1940,13 @@ export namespace Prisma {
    */
   export type GymCountOutputTypeCountMembershipsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MembershipWhereInput
+  }
+
+  /**
+   * GymCountOutputType without action
+   */
+  export type GymCountOutputTypeCountInstructorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GymInstructorWhereInput
   }
 
   /**
@@ -2082,7 +2191,7 @@ export namespace Prisma {
     firstname: string
     middlename: string | null
     lastname: string
-    email: string
+    email: string | null
     password_hash: string
     role: $Enums.Role
     is_active: boolean
@@ -2119,6 +2228,7 @@ export namespace Prisma {
     created_at?: boolean
     created_by_id?: boolean
     created_by?: boolean | User$created_byArgs<ExtArgs>
+    gym_instructor_at?: boolean | User$gym_instructor_atArgs<ExtArgs>
     gyms?: boolean | User$gymsArgs<ExtArgs>
     memberships?: boolean | User$membershipsArgs<ExtArgs>
     payments?: boolean | User$paymentsArgs<ExtArgs>
@@ -2182,6 +2292,7 @@ export namespace Prisma {
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstname" | "middlename" | "lastname" | "email" | "password_hash" | "role" | "is_active" | "created_at" | "created_by_id", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     created_by?: boolean | User$created_byArgs<ExtArgs>
+    gym_instructor_at?: boolean | User$gym_instructor_atArgs<ExtArgs>
     gyms?: boolean | User$gymsArgs<ExtArgs>
     memberships?: boolean | User$membershipsArgs<ExtArgs>
     payments?: boolean | User$paymentsArgs<ExtArgs>
@@ -2211,6 +2322,7 @@ export namespace Prisma {
     name: "User"
     objects: {
       created_by: Prisma.$UserPayload<ExtArgs> | null
+      gym_instructor_at: Prisma.$GymInstructorPayload<ExtArgs>[]
       gyms: Prisma.$GymPayload<ExtArgs>[]
       memberships: Prisma.$MembershipPayload<ExtArgs>[]
       payments: Prisma.$PaymentPayload<ExtArgs>[]
@@ -2233,7 +2345,7 @@ export namespace Prisma {
       firstname: string
       middlename: string | null
       lastname: string
-      email: string
+      email: string | null
       password_hash: string
       role: $Enums.Role
       is_active: boolean
@@ -2634,6 +2746,7 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     created_by<T extends User$created_byArgs<ExtArgs> = {}>(args?: Subset<T, User$created_byArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    gym_instructor_at<T extends User$gym_instructor_atArgs<ExtArgs> = {}>(args?: Subset<T, User$gym_instructor_atArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GymInstructorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     gyms<T extends User$gymsArgs<ExtArgs> = {}>(args?: Subset<T, User$gymsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GymPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     memberships<T extends User$membershipsArgs<ExtArgs> = {}>(args?: Subset<T, User$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     payments<T extends User$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, User$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3101,6 +3214,30 @@ export namespace Prisma {
      */
     include?: UserInclude<ExtArgs> | null
     where?: UserWhereInput
+  }
+
+  /**
+   * User.gym_instructor_at
+   */
+  export type User$gym_instructor_atArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymInstructor
+     */
+    select?: GymInstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymInstructor
+     */
+    omit?: GymInstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymInstructorInclude<ExtArgs> | null
+    where?: GymInstructorWhereInput
+    orderBy?: GymInstructorOrderByWithRelationInput | GymInstructorOrderByWithRelationInput[]
+    cursor?: GymInstructorWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GymInstructorScalarFieldEnum | GymInstructorScalarFieldEnum[]
   }
 
   /**
@@ -3680,6 +3817,7 @@ export namespace Prisma {
     created_at?: boolean
     owner?: boolean | UserDefaultArgs<ExtArgs>
     memberships?: boolean | Gym$membershipsArgs<ExtArgs>
+    instructors?: boolean | Gym$instructorsArgs<ExtArgs>
     attendance_logs?: boolean | Gym$attendance_logsArgs<ExtArgs>
     created_by?: boolean | UserDefaultArgs<ExtArgs>
     _count?: boolean | GymCountOutputTypeDefaultArgs<ExtArgs>
@@ -3720,6 +3858,7 @@ export namespace Prisma {
   export type GymInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     owner?: boolean | UserDefaultArgs<ExtArgs>
     memberships?: boolean | Gym$membershipsArgs<ExtArgs>
+    instructors?: boolean | Gym$instructorsArgs<ExtArgs>
     attendance_logs?: boolean | Gym$attendance_logsArgs<ExtArgs>
     created_by?: boolean | UserDefaultArgs<ExtArgs>
     _count?: boolean | GymCountOutputTypeDefaultArgs<ExtArgs>
@@ -3738,6 +3877,7 @@ export namespace Prisma {
     objects: {
       owner: Prisma.$UserPayload<ExtArgs>
       memberships: Prisma.$MembershipPayload<ExtArgs>[]
+      instructors: Prisma.$GymInstructorPayload<ExtArgs>[]
       attendance_logs: Prisma.$AttendanceLogPayload<ExtArgs>[]
       created_by: Prisma.$UserPayload<ExtArgs>
     }
@@ -4144,6 +4284,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     owner<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     memberships<T extends Gym$membershipsArgs<ExtArgs> = {}>(args?: Subset<T, Gym$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    instructors<T extends Gym$instructorsArgs<ExtArgs> = {}>(args?: Subset<T, Gym$instructorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GymInstructorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     attendance_logs<T extends Gym$attendance_logsArgs<ExtArgs> = {}>(args?: Subset<T, Gym$attendance_logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AttendanceLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     created_by<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -4601,6 +4742,30 @@ export namespace Prisma {
   }
 
   /**
+   * Gym.instructors
+   */
+  export type Gym$instructorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymInstructor
+     */
+    select?: GymInstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymInstructor
+     */
+    omit?: GymInstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymInstructorInclude<ExtArgs> | null
+    where?: GymInstructorWhereInput
+    orderBy?: GymInstructorOrderByWithRelationInput | GymInstructorOrderByWithRelationInput[]
+    cursor?: GymInstructorWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GymInstructorScalarFieldEnum | GymInstructorScalarFieldEnum[]
+  }
+
+  /**
    * Gym.attendance_logs
    */
   export type Gym$attendance_logsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4640,6 +4805,1059 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: GymInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model GymInstructor
+   */
+
+  export type AggregateGymInstructor = {
+    _count: GymInstructorCountAggregateOutputType | null
+    _min: GymInstructorMinAggregateOutputType | null
+    _max: GymInstructorMaxAggregateOutputType | null
+  }
+
+  export type GymInstructorMinAggregateOutputType = {
+    id: string | null
+    gym_id: string | null
+    user_id: string | null
+    assigned_at: Date | null
+  }
+
+  export type GymInstructorMaxAggregateOutputType = {
+    id: string | null
+    gym_id: string | null
+    user_id: string | null
+    assigned_at: Date | null
+  }
+
+  export type GymInstructorCountAggregateOutputType = {
+    id: number
+    gym_id: number
+    user_id: number
+    assigned_at: number
+    _all: number
+  }
+
+
+  export type GymInstructorMinAggregateInputType = {
+    id?: true
+    gym_id?: true
+    user_id?: true
+    assigned_at?: true
+  }
+
+  export type GymInstructorMaxAggregateInputType = {
+    id?: true
+    gym_id?: true
+    user_id?: true
+    assigned_at?: true
+  }
+
+  export type GymInstructorCountAggregateInputType = {
+    id?: true
+    gym_id?: true
+    user_id?: true
+    assigned_at?: true
+    _all?: true
+  }
+
+  export type GymInstructorAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GymInstructor to aggregate.
+     */
+    where?: GymInstructorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GymInstructors to fetch.
+     */
+    orderBy?: GymInstructorOrderByWithRelationInput | GymInstructorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GymInstructorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GymInstructors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GymInstructors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GymInstructors
+    **/
+    _count?: true | GymInstructorCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GymInstructorMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GymInstructorMaxAggregateInputType
+  }
+
+  export type GetGymInstructorAggregateType<T extends GymInstructorAggregateArgs> = {
+        [P in keyof T & keyof AggregateGymInstructor]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGymInstructor[P]>
+      : GetScalarType<T[P], AggregateGymInstructor[P]>
+  }
+
+
+
+
+  export type GymInstructorGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GymInstructorWhereInput
+    orderBy?: GymInstructorOrderByWithAggregationInput | GymInstructorOrderByWithAggregationInput[]
+    by: GymInstructorScalarFieldEnum[] | GymInstructorScalarFieldEnum
+    having?: GymInstructorScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GymInstructorCountAggregateInputType | true
+    _min?: GymInstructorMinAggregateInputType
+    _max?: GymInstructorMaxAggregateInputType
+  }
+
+  export type GymInstructorGroupByOutputType = {
+    id: string
+    gym_id: string
+    user_id: string
+    assigned_at: Date
+    _count: GymInstructorCountAggregateOutputType | null
+    _min: GymInstructorMinAggregateOutputType | null
+    _max: GymInstructorMaxAggregateOutputType | null
+  }
+
+  type GetGymInstructorGroupByPayload<T extends GymInstructorGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GymInstructorGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GymInstructorGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GymInstructorGroupByOutputType[P]>
+            : GetScalarType<T[P], GymInstructorGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GymInstructorSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    gym_id?: boolean
+    user_id?: boolean
+    assigned_at?: boolean
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+    instructor?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gymInstructor"]>
+
+  export type GymInstructorSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    gym_id?: boolean
+    user_id?: boolean
+    assigned_at?: boolean
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+    instructor?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gymInstructor"]>
+
+  export type GymInstructorSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    gym_id?: boolean
+    user_id?: boolean
+    assigned_at?: boolean
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+    instructor?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gymInstructor"]>
+
+  export type GymInstructorSelectScalar = {
+    id?: boolean
+    gym_id?: boolean
+    user_id?: boolean
+    assigned_at?: boolean
+  }
+
+  export type GymInstructorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "gym_id" | "user_id" | "assigned_at", ExtArgs["result"]["gymInstructor"]>
+  export type GymInstructorInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+    instructor?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type GymInstructorIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+    instructor?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type GymInstructorIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+    instructor?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $GymInstructorPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GymInstructor"
+    objects: {
+      gym: Prisma.$GymPayload<ExtArgs>
+      instructor: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      gym_id: string
+      user_id: string
+      assigned_at: Date
+    }, ExtArgs["result"]["gymInstructor"]>
+    composites: {}
+  }
+
+  type GymInstructorGetPayload<S extends boolean | null | undefined | GymInstructorDefaultArgs> = $Result.GetResult<Prisma.$GymInstructorPayload, S>
+
+  type GymInstructorCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GymInstructorFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GymInstructorCountAggregateInputType | true
+    }
+
+  export interface GymInstructorDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GymInstructor'], meta: { name: 'GymInstructor' } }
+    /**
+     * Find zero or one GymInstructor that matches the filter.
+     * @param {GymInstructorFindUniqueArgs} args - Arguments to find a GymInstructor
+     * @example
+     * // Get one GymInstructor
+     * const gymInstructor = await prisma.gymInstructor.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GymInstructorFindUniqueArgs>(args: SelectSubset<T, GymInstructorFindUniqueArgs<ExtArgs>>): Prisma__GymInstructorClient<$Result.GetResult<Prisma.$GymInstructorPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one GymInstructor that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GymInstructorFindUniqueOrThrowArgs} args - Arguments to find a GymInstructor
+     * @example
+     * // Get one GymInstructor
+     * const gymInstructor = await prisma.gymInstructor.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GymInstructorFindUniqueOrThrowArgs>(args: SelectSubset<T, GymInstructorFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GymInstructorClient<$Result.GetResult<Prisma.$GymInstructorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GymInstructor that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GymInstructorFindFirstArgs} args - Arguments to find a GymInstructor
+     * @example
+     * // Get one GymInstructor
+     * const gymInstructor = await prisma.gymInstructor.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GymInstructorFindFirstArgs>(args?: SelectSubset<T, GymInstructorFindFirstArgs<ExtArgs>>): Prisma__GymInstructorClient<$Result.GetResult<Prisma.$GymInstructorPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GymInstructor that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GymInstructorFindFirstOrThrowArgs} args - Arguments to find a GymInstructor
+     * @example
+     * // Get one GymInstructor
+     * const gymInstructor = await prisma.gymInstructor.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GymInstructorFindFirstOrThrowArgs>(args?: SelectSubset<T, GymInstructorFindFirstOrThrowArgs<ExtArgs>>): Prisma__GymInstructorClient<$Result.GetResult<Prisma.$GymInstructorPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more GymInstructors that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GymInstructorFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GymInstructors
+     * const gymInstructors = await prisma.gymInstructor.findMany()
+     * 
+     * // Get first 10 GymInstructors
+     * const gymInstructors = await prisma.gymInstructor.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const gymInstructorWithIdOnly = await prisma.gymInstructor.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GymInstructorFindManyArgs>(args?: SelectSubset<T, GymInstructorFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GymInstructorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a GymInstructor.
+     * @param {GymInstructorCreateArgs} args - Arguments to create a GymInstructor.
+     * @example
+     * // Create one GymInstructor
+     * const GymInstructor = await prisma.gymInstructor.create({
+     *   data: {
+     *     // ... data to create a GymInstructor
+     *   }
+     * })
+     * 
+     */
+    create<T extends GymInstructorCreateArgs>(args: SelectSubset<T, GymInstructorCreateArgs<ExtArgs>>): Prisma__GymInstructorClient<$Result.GetResult<Prisma.$GymInstructorPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many GymInstructors.
+     * @param {GymInstructorCreateManyArgs} args - Arguments to create many GymInstructors.
+     * @example
+     * // Create many GymInstructors
+     * const gymInstructor = await prisma.gymInstructor.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GymInstructorCreateManyArgs>(args?: SelectSubset<T, GymInstructorCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GymInstructors and returns the data saved in the database.
+     * @param {GymInstructorCreateManyAndReturnArgs} args - Arguments to create many GymInstructors.
+     * @example
+     * // Create many GymInstructors
+     * const gymInstructor = await prisma.gymInstructor.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GymInstructors and only return the `id`
+     * const gymInstructorWithIdOnly = await prisma.gymInstructor.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GymInstructorCreateManyAndReturnArgs>(args?: SelectSubset<T, GymInstructorCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GymInstructorPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a GymInstructor.
+     * @param {GymInstructorDeleteArgs} args - Arguments to delete one GymInstructor.
+     * @example
+     * // Delete one GymInstructor
+     * const GymInstructor = await prisma.gymInstructor.delete({
+     *   where: {
+     *     // ... filter to delete one GymInstructor
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GymInstructorDeleteArgs>(args: SelectSubset<T, GymInstructorDeleteArgs<ExtArgs>>): Prisma__GymInstructorClient<$Result.GetResult<Prisma.$GymInstructorPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one GymInstructor.
+     * @param {GymInstructorUpdateArgs} args - Arguments to update one GymInstructor.
+     * @example
+     * // Update one GymInstructor
+     * const gymInstructor = await prisma.gymInstructor.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GymInstructorUpdateArgs>(args: SelectSubset<T, GymInstructorUpdateArgs<ExtArgs>>): Prisma__GymInstructorClient<$Result.GetResult<Prisma.$GymInstructorPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more GymInstructors.
+     * @param {GymInstructorDeleteManyArgs} args - Arguments to filter GymInstructors to delete.
+     * @example
+     * // Delete a few GymInstructors
+     * const { count } = await prisma.gymInstructor.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GymInstructorDeleteManyArgs>(args?: SelectSubset<T, GymInstructorDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GymInstructors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GymInstructorUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GymInstructors
+     * const gymInstructor = await prisma.gymInstructor.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GymInstructorUpdateManyArgs>(args: SelectSubset<T, GymInstructorUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GymInstructors and returns the data updated in the database.
+     * @param {GymInstructorUpdateManyAndReturnArgs} args - Arguments to update many GymInstructors.
+     * @example
+     * // Update many GymInstructors
+     * const gymInstructor = await prisma.gymInstructor.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GymInstructors and only return the `id`
+     * const gymInstructorWithIdOnly = await prisma.gymInstructor.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GymInstructorUpdateManyAndReturnArgs>(args: SelectSubset<T, GymInstructorUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GymInstructorPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one GymInstructor.
+     * @param {GymInstructorUpsertArgs} args - Arguments to update or create a GymInstructor.
+     * @example
+     * // Update or create a GymInstructor
+     * const gymInstructor = await prisma.gymInstructor.upsert({
+     *   create: {
+     *     // ... data to create a GymInstructor
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GymInstructor we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GymInstructorUpsertArgs>(args: SelectSubset<T, GymInstructorUpsertArgs<ExtArgs>>): Prisma__GymInstructorClient<$Result.GetResult<Prisma.$GymInstructorPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of GymInstructors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GymInstructorCountArgs} args - Arguments to filter GymInstructors to count.
+     * @example
+     * // Count the number of GymInstructors
+     * const count = await prisma.gymInstructor.count({
+     *   where: {
+     *     // ... the filter for the GymInstructors we want to count
+     *   }
+     * })
+    **/
+    count<T extends GymInstructorCountArgs>(
+      args?: Subset<T, GymInstructorCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GymInstructorCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GymInstructor.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GymInstructorAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GymInstructorAggregateArgs>(args: Subset<T, GymInstructorAggregateArgs>): Prisma.PrismaPromise<GetGymInstructorAggregateType<T>>
+
+    /**
+     * Group by GymInstructor.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GymInstructorGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GymInstructorGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GymInstructorGroupByArgs['orderBy'] }
+        : { orderBy?: GymInstructorGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GymInstructorGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGymInstructorGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GymInstructor model
+   */
+  readonly fields: GymInstructorFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GymInstructor.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GymInstructorClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    gym<T extends GymDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GymDefaultArgs<ExtArgs>>): Prisma__GymClient<$Result.GetResult<Prisma.$GymPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    instructor<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GymInstructor model
+   */
+  interface GymInstructorFieldRefs {
+    readonly id: FieldRef<"GymInstructor", 'String'>
+    readonly gym_id: FieldRef<"GymInstructor", 'String'>
+    readonly user_id: FieldRef<"GymInstructor", 'String'>
+    readonly assigned_at: FieldRef<"GymInstructor", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GymInstructor findUnique
+   */
+  export type GymInstructorFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymInstructor
+     */
+    select?: GymInstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymInstructor
+     */
+    omit?: GymInstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymInstructorInclude<ExtArgs> | null
+    /**
+     * Filter, which GymInstructor to fetch.
+     */
+    where: GymInstructorWhereUniqueInput
+  }
+
+  /**
+   * GymInstructor findUniqueOrThrow
+   */
+  export type GymInstructorFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymInstructor
+     */
+    select?: GymInstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymInstructor
+     */
+    omit?: GymInstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymInstructorInclude<ExtArgs> | null
+    /**
+     * Filter, which GymInstructor to fetch.
+     */
+    where: GymInstructorWhereUniqueInput
+  }
+
+  /**
+   * GymInstructor findFirst
+   */
+  export type GymInstructorFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymInstructor
+     */
+    select?: GymInstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymInstructor
+     */
+    omit?: GymInstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymInstructorInclude<ExtArgs> | null
+    /**
+     * Filter, which GymInstructor to fetch.
+     */
+    where?: GymInstructorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GymInstructors to fetch.
+     */
+    orderBy?: GymInstructorOrderByWithRelationInput | GymInstructorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GymInstructors.
+     */
+    cursor?: GymInstructorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GymInstructors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GymInstructors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GymInstructors.
+     */
+    distinct?: GymInstructorScalarFieldEnum | GymInstructorScalarFieldEnum[]
+  }
+
+  /**
+   * GymInstructor findFirstOrThrow
+   */
+  export type GymInstructorFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymInstructor
+     */
+    select?: GymInstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymInstructor
+     */
+    omit?: GymInstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymInstructorInclude<ExtArgs> | null
+    /**
+     * Filter, which GymInstructor to fetch.
+     */
+    where?: GymInstructorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GymInstructors to fetch.
+     */
+    orderBy?: GymInstructorOrderByWithRelationInput | GymInstructorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GymInstructors.
+     */
+    cursor?: GymInstructorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GymInstructors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GymInstructors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GymInstructors.
+     */
+    distinct?: GymInstructorScalarFieldEnum | GymInstructorScalarFieldEnum[]
+  }
+
+  /**
+   * GymInstructor findMany
+   */
+  export type GymInstructorFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymInstructor
+     */
+    select?: GymInstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymInstructor
+     */
+    omit?: GymInstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymInstructorInclude<ExtArgs> | null
+    /**
+     * Filter, which GymInstructors to fetch.
+     */
+    where?: GymInstructorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GymInstructors to fetch.
+     */
+    orderBy?: GymInstructorOrderByWithRelationInput | GymInstructorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GymInstructors.
+     */
+    cursor?: GymInstructorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GymInstructors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GymInstructors.
+     */
+    skip?: number
+    distinct?: GymInstructorScalarFieldEnum | GymInstructorScalarFieldEnum[]
+  }
+
+  /**
+   * GymInstructor create
+   */
+  export type GymInstructorCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymInstructor
+     */
+    select?: GymInstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymInstructor
+     */
+    omit?: GymInstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymInstructorInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GymInstructor.
+     */
+    data: XOR<GymInstructorCreateInput, GymInstructorUncheckedCreateInput>
+  }
+
+  /**
+   * GymInstructor createMany
+   */
+  export type GymInstructorCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GymInstructors.
+     */
+    data: GymInstructorCreateManyInput | GymInstructorCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GymInstructor createManyAndReturn
+   */
+  export type GymInstructorCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymInstructor
+     */
+    select?: GymInstructorSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymInstructor
+     */
+    omit?: GymInstructorOmit<ExtArgs> | null
+    /**
+     * The data used to create many GymInstructors.
+     */
+    data: GymInstructorCreateManyInput | GymInstructorCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymInstructorIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GymInstructor update
+   */
+  export type GymInstructorUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymInstructor
+     */
+    select?: GymInstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymInstructor
+     */
+    omit?: GymInstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymInstructorInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GymInstructor.
+     */
+    data: XOR<GymInstructorUpdateInput, GymInstructorUncheckedUpdateInput>
+    /**
+     * Choose, which GymInstructor to update.
+     */
+    where: GymInstructorWhereUniqueInput
+  }
+
+  /**
+   * GymInstructor updateMany
+   */
+  export type GymInstructorUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GymInstructors.
+     */
+    data: XOR<GymInstructorUpdateManyMutationInput, GymInstructorUncheckedUpdateManyInput>
+    /**
+     * Filter which GymInstructors to update
+     */
+    where?: GymInstructorWhereInput
+    /**
+     * Limit how many GymInstructors to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GymInstructor updateManyAndReturn
+   */
+  export type GymInstructorUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymInstructor
+     */
+    select?: GymInstructorSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymInstructor
+     */
+    omit?: GymInstructorOmit<ExtArgs> | null
+    /**
+     * The data used to update GymInstructors.
+     */
+    data: XOR<GymInstructorUpdateManyMutationInput, GymInstructorUncheckedUpdateManyInput>
+    /**
+     * Filter which GymInstructors to update
+     */
+    where?: GymInstructorWhereInput
+    /**
+     * Limit how many GymInstructors to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymInstructorIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GymInstructor upsert
+   */
+  export type GymInstructorUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymInstructor
+     */
+    select?: GymInstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymInstructor
+     */
+    omit?: GymInstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymInstructorInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GymInstructor to update in case it exists.
+     */
+    where: GymInstructorWhereUniqueInput
+    /**
+     * In case the GymInstructor found by the `where` argument doesn't exist, create a new GymInstructor with this data.
+     */
+    create: XOR<GymInstructorCreateInput, GymInstructorUncheckedCreateInput>
+    /**
+     * In case the GymInstructor was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GymInstructorUpdateInput, GymInstructorUncheckedUpdateInput>
+  }
+
+  /**
+   * GymInstructor delete
+   */
+  export type GymInstructorDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymInstructor
+     */
+    select?: GymInstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymInstructor
+     */
+    omit?: GymInstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymInstructorInclude<ExtArgs> | null
+    /**
+     * Filter which GymInstructor to delete.
+     */
+    where: GymInstructorWhereUniqueInput
+  }
+
+  /**
+   * GymInstructor deleteMany
+   */
+  export type GymInstructorDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GymInstructors to delete
+     */
+    where?: GymInstructorWhereInput
+    /**
+     * Limit how many GymInstructors to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GymInstructor without action
+   */
+  export type GymInstructorDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymInstructor
+     */
+    select?: GymInstructorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymInstructor
+     */
+    omit?: GymInstructorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymInstructorInclude<ExtArgs> | null
   }
 
 
@@ -12647,6 +13865,16 @@ export namespace Prisma {
   export type GymScalarFieldEnum = (typeof GymScalarFieldEnum)[keyof typeof GymScalarFieldEnum]
 
 
+  export const GymInstructorScalarFieldEnum: {
+    id: 'id',
+    gym_id: 'gym_id',
+    user_id: 'user_id',
+    assigned_at: 'assigned_at'
+  };
+
+  export type GymInstructorScalarFieldEnum = (typeof GymInstructorScalarFieldEnum)[keyof typeof GymInstructorScalarFieldEnum]
+
+
   export const MembershipScalarFieldEnum: {
     id: 'id',
     member_id: 'member_id',
@@ -12887,13 +14115,14 @@ export namespace Prisma {
     firstname?: StringFilter<"User"> | string
     middlename?: StringNullableFilter<"User"> | string | null
     lastname?: StringFilter<"User"> | string
-    email?: StringFilter<"User"> | string
+    email?: StringNullableFilter<"User"> | string | null
     password_hash?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
     is_active?: BoolFilter<"User"> | boolean
     created_at?: DateTimeFilter<"User"> | Date | string
     created_by_id?: StringNullableFilter<"User"> | string | null
     created_by?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    gym_instructor_at?: GymInstructorListRelationFilter
     gyms?: GymListRelationFilter
     memberships?: MembershipListRelationFilter
     payments?: PaymentListRelationFilter
@@ -12917,13 +14146,14 @@ export namespace Prisma {
     firstname?: SortOrder
     middlename?: SortOrderInput | SortOrder
     lastname?: SortOrder
-    email?: SortOrder
+    email?: SortOrderInput | SortOrder
     password_hash?: SortOrder
     role?: SortOrder
     is_active?: SortOrder
     created_at?: SortOrder
     created_by_id?: SortOrderInput | SortOrder
     created_by?: UserOrderByWithRelationInput
+    gym_instructor_at?: GymInstructorOrderByRelationAggregateInput
     gyms?: GymOrderByRelationAggregateInput
     memberships?: MembershipOrderByRelationAggregateInput
     payments?: PaymentOrderByRelationAggregateInput
@@ -12957,6 +14187,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"User"> | Date | string
     created_by_id?: StringNullableFilter<"User"> | string | null
     created_by?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    gym_instructor_at?: GymInstructorListRelationFilter
     gyms?: GymListRelationFilter
     memberships?: MembershipListRelationFilter
     payments?: PaymentListRelationFilter
@@ -12980,7 +14211,7 @@ export namespace Prisma {
     firstname?: SortOrder
     middlename?: SortOrderInput | SortOrder
     lastname?: SortOrder
-    email?: SortOrder
+    email?: SortOrderInput | SortOrder
     password_hash?: SortOrder
     role?: SortOrder
     is_active?: SortOrder
@@ -12999,7 +14230,7 @@ export namespace Prisma {
     firstname?: StringWithAggregatesFilter<"User"> | string
     middlename?: StringNullableWithAggregatesFilter<"User"> | string | null
     lastname?: StringWithAggregatesFilter<"User"> | string
-    email?: StringWithAggregatesFilter<"User"> | string
+    email?: StringNullableWithAggregatesFilter<"User"> | string | null
     password_hash?: StringWithAggregatesFilter<"User"> | string
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     is_active?: BoolWithAggregatesFilter<"User"> | boolean
@@ -13019,6 +14250,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Gym"> | Date | string
     owner?: XOR<UserScalarRelationFilter, UserWhereInput>
     memberships?: MembershipListRelationFilter
+    instructors?: GymInstructorListRelationFilter
     attendance_logs?: AttendanceLogListRelationFilter
     created_by?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
@@ -13032,6 +14264,7 @@ export namespace Prisma {
     created_at?: SortOrder
     owner?: UserOrderByWithRelationInput
     memberships?: MembershipOrderByRelationAggregateInput
+    instructors?: GymInstructorOrderByRelationAggregateInput
     attendance_logs?: AttendanceLogOrderByRelationAggregateInput
     created_by?: UserOrderByWithRelationInput
   }
@@ -13048,6 +14281,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Gym"> | Date | string
     owner?: XOR<UserScalarRelationFilter, UserWhereInput>
     memberships?: MembershipListRelationFilter
+    instructors?: GymInstructorListRelationFilter
     attendance_logs?: AttendanceLogListRelationFilter
     created_by?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
@@ -13074,6 +14308,60 @@ export namespace Prisma {
     owner_id?: StringWithAggregatesFilter<"Gym"> | string
     created_by_id?: StringWithAggregatesFilter<"Gym"> | string
     created_at?: DateTimeWithAggregatesFilter<"Gym"> | Date | string
+  }
+
+  export type GymInstructorWhereInput = {
+    AND?: GymInstructorWhereInput | GymInstructorWhereInput[]
+    OR?: GymInstructorWhereInput[]
+    NOT?: GymInstructorWhereInput | GymInstructorWhereInput[]
+    id?: StringFilter<"GymInstructor"> | string
+    gym_id?: StringFilter<"GymInstructor"> | string
+    user_id?: StringFilter<"GymInstructor"> | string
+    assigned_at?: DateTimeFilter<"GymInstructor"> | Date | string
+    gym?: XOR<GymScalarRelationFilter, GymWhereInput>
+    instructor?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type GymInstructorOrderByWithRelationInput = {
+    id?: SortOrder
+    gym_id?: SortOrder
+    user_id?: SortOrder
+    assigned_at?: SortOrder
+    gym?: GymOrderByWithRelationInput
+    instructor?: UserOrderByWithRelationInput
+  }
+
+  export type GymInstructorWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    gym_id_user_id?: GymInstructorGym_idUser_idCompoundUniqueInput
+    AND?: GymInstructorWhereInput | GymInstructorWhereInput[]
+    OR?: GymInstructorWhereInput[]
+    NOT?: GymInstructorWhereInput | GymInstructorWhereInput[]
+    gym_id?: StringFilter<"GymInstructor"> | string
+    user_id?: StringFilter<"GymInstructor"> | string
+    assigned_at?: DateTimeFilter<"GymInstructor"> | Date | string
+    gym?: XOR<GymScalarRelationFilter, GymWhereInput>
+    instructor?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "gym_id_user_id">
+
+  export type GymInstructorOrderByWithAggregationInput = {
+    id?: SortOrder
+    gym_id?: SortOrder
+    user_id?: SortOrder
+    assigned_at?: SortOrder
+    _count?: GymInstructorCountOrderByAggregateInput
+    _max?: GymInstructorMaxOrderByAggregateInput
+    _min?: GymInstructorMinOrderByAggregateInput
+  }
+
+  export type GymInstructorScalarWhereWithAggregatesInput = {
+    AND?: GymInstructorScalarWhereWithAggregatesInput | GymInstructorScalarWhereWithAggregatesInput[]
+    OR?: GymInstructorScalarWhereWithAggregatesInput[]
+    NOT?: GymInstructorScalarWhereWithAggregatesInput | GymInstructorScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"GymInstructor"> | string
+    gym_id?: StringWithAggregatesFilter<"GymInstructor"> | string
+    user_id?: StringWithAggregatesFilter<"GymInstructor"> | string
+    assigned_at?: DateTimeWithAggregatesFilter<"GymInstructor"> | Date | string
   }
 
   export type MembershipWhereInput = {
@@ -13602,12 +14890,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by?: UserCreateNestedOneWithoutCreated_usersInput
+    gym_instructor_at?: GymInstructorCreateNestedManyWithoutInstructorInput
     gyms?: GymCreateNestedManyWithoutOwnerInput
     memberships?: MembershipCreateNestedManyWithoutMemberInput
     payments?: PaymentCreateNestedManyWithoutMemberInput
@@ -13631,12 +14920,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by_id?: string | null
+    gym_instructor_at?: GymInstructorUncheckedCreateNestedManyWithoutInstructorInput
     gyms?: GymUncheckedCreateNestedManyWithoutOwnerInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutMemberInput
     payments?: PaymentUncheckedCreateNestedManyWithoutMemberInput
@@ -13660,12 +14950,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: UserUpdateOneWithoutCreated_usersNestedInput
+    gym_instructor_at?: GymInstructorUpdateManyWithoutInstructorNestedInput
     gyms?: GymUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUpdateManyWithoutMemberNestedInput
     payments?: PaymentUpdateManyWithoutMemberNestedInput
@@ -13689,12 +14980,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by_id?: NullableStringFieldUpdateOperationsInput | string | null
+    gym_instructor_at?: GymInstructorUncheckedUpdateManyWithoutInstructorNestedInput
     gyms?: GymUncheckedUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutMemberNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutMemberNestedInput
@@ -13718,7 +15010,7 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
@@ -13731,7 +15023,7 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
@@ -13743,7 +15035,7 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
@@ -13758,6 +15050,7 @@ export namespace Prisma {
     created_at?: Date | string
     owner: UserCreateNestedOneWithoutGymsInput
     memberships?: MembershipCreateNestedManyWithoutGymInput
+    instructors?: GymInstructorCreateNestedManyWithoutGymInput
     attendance_logs?: AttendanceLogCreateNestedManyWithoutGymInput
     created_by: UserCreateNestedOneWithoutCreated_gymsInput
   }
@@ -13770,6 +15063,7 @@ export namespace Prisma {
     created_by_id: string
     created_at?: Date | string
     memberships?: MembershipUncheckedCreateNestedManyWithoutGymInput
+    instructors?: GymInstructorUncheckedCreateNestedManyWithoutGymInput
     attendance_logs?: AttendanceLogUncheckedCreateNestedManyWithoutGymInput
   }
 
@@ -13780,6 +15074,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneRequiredWithoutGymsNestedInput
     memberships?: MembershipUpdateManyWithoutGymNestedInput
+    instructors?: GymInstructorUpdateManyWithoutGymNestedInput
     attendance_logs?: AttendanceLogUpdateManyWithoutGymNestedInput
     created_by?: UserUpdateOneRequiredWithoutCreated_gymsNestedInput
   }
@@ -13792,6 +15087,7 @@ export namespace Prisma {
     created_by_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     memberships?: MembershipUncheckedUpdateManyWithoutGymNestedInput
+    instructors?: GymInstructorUncheckedUpdateManyWithoutGymNestedInput
     attendance_logs?: AttendanceLogUncheckedUpdateManyWithoutGymNestedInput
   }
 
@@ -13818,6 +15114,53 @@ export namespace Prisma {
     owner_id?: StringFieldUpdateOperationsInput | string
     created_by_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GymInstructorCreateInput = {
+    id?: string
+    assigned_at?: Date | string
+    gym: GymCreateNestedOneWithoutInstructorsInput
+    instructor: UserCreateNestedOneWithoutGym_instructor_atInput
+  }
+
+  export type GymInstructorUncheckedCreateInput = {
+    id?: string
+    gym_id: string
+    user_id: string
+    assigned_at?: Date | string
+  }
+
+  export type GymInstructorUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    assigned_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    gym?: GymUpdateOneRequiredWithoutInstructorsNestedInput
+    instructor?: UserUpdateOneRequiredWithoutGym_instructor_atNestedInput
+  }
+
+  export type GymInstructorUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gym_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    assigned_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GymInstructorCreateManyInput = {
+    id?: string
+    gym_id: string
+    user_id: string
+    assigned_at?: Date | string
+  }
+
+  export type GymInstructorUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    assigned_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GymInstructorUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gym_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    assigned_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MembershipCreateInput = {
@@ -14381,6 +15724,12 @@ export namespace Prisma {
     isNot?: UserWhereInput | null
   }
 
+  export type GymInstructorListRelationFilter = {
+    every?: GymInstructorWhereInput
+    some?: GymInstructorWhereInput
+    none?: GymInstructorWhereInput
+  }
+
   export type GymListRelationFilter = {
     every?: GymWhereInput
     some?: GymWhereInput
@@ -14432,6 +15781,10 @@ export namespace Prisma {
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type GymInstructorOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type GymOrderByRelationAggregateInput = {
@@ -14605,6 +15958,37 @@ export namespace Prisma {
     created_at?: SortOrder
   }
 
+  export type GymScalarRelationFilter = {
+    is?: GymWhereInput
+    isNot?: GymWhereInput
+  }
+
+  export type GymInstructorGym_idUser_idCompoundUniqueInput = {
+    gym_id: string
+    user_id: string
+  }
+
+  export type GymInstructorCountOrderByAggregateInput = {
+    id?: SortOrder
+    gym_id?: SortOrder
+    user_id?: SortOrder
+    assigned_at?: SortOrder
+  }
+
+  export type GymInstructorMaxOrderByAggregateInput = {
+    id?: SortOrder
+    gym_id?: SortOrder
+    user_id?: SortOrder
+    assigned_at?: SortOrder
+  }
+
+  export type GymInstructorMinOrderByAggregateInput = {
+    id?: SortOrder
+    gym_id?: SortOrder
+    user_id?: SortOrder
+    assigned_at?: SortOrder
+  }
+
   export type DateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
@@ -14614,11 +15998,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type GymScalarRelationFilter = {
-    is?: GymWhereInput
-    isNot?: GymWhereInput
   }
 
   export type PlanScalarRelationFilter = {
@@ -15017,6 +16396,13 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type GymInstructorCreateNestedManyWithoutInstructorInput = {
+    create?: XOR<GymInstructorCreateWithoutInstructorInput, GymInstructorUncheckedCreateWithoutInstructorInput> | GymInstructorCreateWithoutInstructorInput[] | GymInstructorUncheckedCreateWithoutInstructorInput[]
+    connectOrCreate?: GymInstructorCreateOrConnectWithoutInstructorInput | GymInstructorCreateOrConnectWithoutInstructorInput[]
+    createMany?: GymInstructorCreateManyInstructorInputEnvelope
+    connect?: GymInstructorWhereUniqueInput | GymInstructorWhereUniqueInput[]
+  }
+
   export type GymCreateNestedManyWithoutOwnerInput = {
     create?: XOR<GymCreateWithoutOwnerInput, GymUncheckedCreateWithoutOwnerInput> | GymCreateWithoutOwnerInput[] | GymUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: GymCreateOrConnectWithoutOwnerInput | GymCreateOrConnectWithoutOwnerInput[]
@@ -15127,6 +16513,13 @@ export namespace Prisma {
     connectOrCreate?: WorkoutPlanCreateOrConnectWithoutCreated_byInput | WorkoutPlanCreateOrConnectWithoutCreated_byInput[]
     createMany?: WorkoutPlanCreateManyCreated_byInputEnvelope
     connect?: WorkoutPlanWhereUniqueInput | WorkoutPlanWhereUniqueInput[]
+  }
+
+  export type GymInstructorUncheckedCreateNestedManyWithoutInstructorInput = {
+    create?: XOR<GymInstructorCreateWithoutInstructorInput, GymInstructorUncheckedCreateWithoutInstructorInput> | GymInstructorCreateWithoutInstructorInput[] | GymInstructorUncheckedCreateWithoutInstructorInput[]
+    connectOrCreate?: GymInstructorCreateOrConnectWithoutInstructorInput | GymInstructorCreateOrConnectWithoutInstructorInput[]
+    createMany?: GymInstructorCreateManyInstructorInputEnvelope
+    connect?: GymInstructorWhereUniqueInput | GymInstructorWhereUniqueInput[]
   }
 
   export type GymUncheckedCreateNestedManyWithoutOwnerInput = {
@@ -15269,6 +16662,20 @@ export namespace Prisma {
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCreated_usersInput, UserUpdateWithoutCreated_usersInput>, UserUncheckedUpdateWithoutCreated_usersInput>
+  }
+
+  export type GymInstructorUpdateManyWithoutInstructorNestedInput = {
+    create?: XOR<GymInstructorCreateWithoutInstructorInput, GymInstructorUncheckedCreateWithoutInstructorInput> | GymInstructorCreateWithoutInstructorInput[] | GymInstructorUncheckedCreateWithoutInstructorInput[]
+    connectOrCreate?: GymInstructorCreateOrConnectWithoutInstructorInput | GymInstructorCreateOrConnectWithoutInstructorInput[]
+    upsert?: GymInstructorUpsertWithWhereUniqueWithoutInstructorInput | GymInstructorUpsertWithWhereUniqueWithoutInstructorInput[]
+    createMany?: GymInstructorCreateManyInstructorInputEnvelope
+    set?: GymInstructorWhereUniqueInput | GymInstructorWhereUniqueInput[]
+    disconnect?: GymInstructorWhereUniqueInput | GymInstructorWhereUniqueInput[]
+    delete?: GymInstructorWhereUniqueInput | GymInstructorWhereUniqueInput[]
+    connect?: GymInstructorWhereUniqueInput | GymInstructorWhereUniqueInput[]
+    update?: GymInstructorUpdateWithWhereUniqueWithoutInstructorInput | GymInstructorUpdateWithWhereUniqueWithoutInstructorInput[]
+    updateMany?: GymInstructorUpdateManyWithWhereWithoutInstructorInput | GymInstructorUpdateManyWithWhereWithoutInstructorInput[]
+    deleteMany?: GymInstructorScalarWhereInput | GymInstructorScalarWhereInput[]
   }
 
   export type GymUpdateManyWithoutOwnerNestedInput = {
@@ -15493,6 +16900,20 @@ export namespace Prisma {
     update?: WorkoutPlanUpdateWithWhereUniqueWithoutCreated_byInput | WorkoutPlanUpdateWithWhereUniqueWithoutCreated_byInput[]
     updateMany?: WorkoutPlanUpdateManyWithWhereWithoutCreated_byInput | WorkoutPlanUpdateManyWithWhereWithoutCreated_byInput[]
     deleteMany?: WorkoutPlanScalarWhereInput | WorkoutPlanScalarWhereInput[]
+  }
+
+  export type GymInstructorUncheckedUpdateManyWithoutInstructorNestedInput = {
+    create?: XOR<GymInstructorCreateWithoutInstructorInput, GymInstructorUncheckedCreateWithoutInstructorInput> | GymInstructorCreateWithoutInstructorInput[] | GymInstructorUncheckedCreateWithoutInstructorInput[]
+    connectOrCreate?: GymInstructorCreateOrConnectWithoutInstructorInput | GymInstructorCreateOrConnectWithoutInstructorInput[]
+    upsert?: GymInstructorUpsertWithWhereUniqueWithoutInstructorInput | GymInstructorUpsertWithWhereUniqueWithoutInstructorInput[]
+    createMany?: GymInstructorCreateManyInstructorInputEnvelope
+    set?: GymInstructorWhereUniqueInput | GymInstructorWhereUniqueInput[]
+    disconnect?: GymInstructorWhereUniqueInput | GymInstructorWhereUniqueInput[]
+    delete?: GymInstructorWhereUniqueInput | GymInstructorWhereUniqueInput[]
+    connect?: GymInstructorWhereUniqueInput | GymInstructorWhereUniqueInput[]
+    update?: GymInstructorUpdateWithWhereUniqueWithoutInstructorInput | GymInstructorUpdateWithWhereUniqueWithoutInstructorInput[]
+    updateMany?: GymInstructorUpdateManyWithWhereWithoutInstructorInput | GymInstructorUpdateManyWithWhereWithoutInstructorInput[]
+    deleteMany?: GymInstructorScalarWhereInput | GymInstructorScalarWhereInput[]
   }
 
   export type GymUncheckedUpdateManyWithoutOwnerNestedInput = {
@@ -15732,6 +17153,13 @@ export namespace Prisma {
     connect?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
   }
 
+  export type GymInstructorCreateNestedManyWithoutGymInput = {
+    create?: XOR<GymInstructorCreateWithoutGymInput, GymInstructorUncheckedCreateWithoutGymInput> | GymInstructorCreateWithoutGymInput[] | GymInstructorUncheckedCreateWithoutGymInput[]
+    connectOrCreate?: GymInstructorCreateOrConnectWithoutGymInput | GymInstructorCreateOrConnectWithoutGymInput[]
+    createMany?: GymInstructorCreateManyGymInputEnvelope
+    connect?: GymInstructorWhereUniqueInput | GymInstructorWhereUniqueInput[]
+  }
+
   export type AttendanceLogCreateNestedManyWithoutGymInput = {
     create?: XOR<AttendanceLogCreateWithoutGymInput, AttendanceLogUncheckedCreateWithoutGymInput> | AttendanceLogCreateWithoutGymInput[] | AttendanceLogUncheckedCreateWithoutGymInput[]
     connectOrCreate?: AttendanceLogCreateOrConnectWithoutGymInput | AttendanceLogCreateOrConnectWithoutGymInput[]
@@ -15750,6 +17178,13 @@ export namespace Prisma {
     connectOrCreate?: MembershipCreateOrConnectWithoutGymInput | MembershipCreateOrConnectWithoutGymInput[]
     createMany?: MembershipCreateManyGymInputEnvelope
     connect?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+  }
+
+  export type GymInstructorUncheckedCreateNestedManyWithoutGymInput = {
+    create?: XOR<GymInstructorCreateWithoutGymInput, GymInstructorUncheckedCreateWithoutGymInput> | GymInstructorCreateWithoutGymInput[] | GymInstructorUncheckedCreateWithoutGymInput[]
+    connectOrCreate?: GymInstructorCreateOrConnectWithoutGymInput | GymInstructorCreateOrConnectWithoutGymInput[]
+    createMany?: GymInstructorCreateManyGymInputEnvelope
+    connect?: GymInstructorWhereUniqueInput | GymInstructorWhereUniqueInput[]
   }
 
   export type AttendanceLogUncheckedCreateNestedManyWithoutGymInput = {
@@ -15779,6 +17214,20 @@ export namespace Prisma {
     update?: MembershipUpdateWithWhereUniqueWithoutGymInput | MembershipUpdateWithWhereUniqueWithoutGymInput[]
     updateMany?: MembershipUpdateManyWithWhereWithoutGymInput | MembershipUpdateManyWithWhereWithoutGymInput[]
     deleteMany?: MembershipScalarWhereInput | MembershipScalarWhereInput[]
+  }
+
+  export type GymInstructorUpdateManyWithoutGymNestedInput = {
+    create?: XOR<GymInstructorCreateWithoutGymInput, GymInstructorUncheckedCreateWithoutGymInput> | GymInstructorCreateWithoutGymInput[] | GymInstructorUncheckedCreateWithoutGymInput[]
+    connectOrCreate?: GymInstructorCreateOrConnectWithoutGymInput | GymInstructorCreateOrConnectWithoutGymInput[]
+    upsert?: GymInstructorUpsertWithWhereUniqueWithoutGymInput | GymInstructorUpsertWithWhereUniqueWithoutGymInput[]
+    createMany?: GymInstructorCreateManyGymInputEnvelope
+    set?: GymInstructorWhereUniqueInput | GymInstructorWhereUniqueInput[]
+    disconnect?: GymInstructorWhereUniqueInput | GymInstructorWhereUniqueInput[]
+    delete?: GymInstructorWhereUniqueInput | GymInstructorWhereUniqueInput[]
+    connect?: GymInstructorWhereUniqueInput | GymInstructorWhereUniqueInput[]
+    update?: GymInstructorUpdateWithWhereUniqueWithoutGymInput | GymInstructorUpdateWithWhereUniqueWithoutGymInput[]
+    updateMany?: GymInstructorUpdateManyWithWhereWithoutGymInput | GymInstructorUpdateManyWithWhereWithoutGymInput[]
+    deleteMany?: GymInstructorScalarWhereInput | GymInstructorScalarWhereInput[]
   }
 
   export type AttendanceLogUpdateManyWithoutGymNestedInput = {
@@ -15817,6 +17266,20 @@ export namespace Prisma {
     deleteMany?: MembershipScalarWhereInput | MembershipScalarWhereInput[]
   }
 
+  export type GymInstructorUncheckedUpdateManyWithoutGymNestedInput = {
+    create?: XOR<GymInstructorCreateWithoutGymInput, GymInstructorUncheckedCreateWithoutGymInput> | GymInstructorCreateWithoutGymInput[] | GymInstructorUncheckedCreateWithoutGymInput[]
+    connectOrCreate?: GymInstructorCreateOrConnectWithoutGymInput | GymInstructorCreateOrConnectWithoutGymInput[]
+    upsert?: GymInstructorUpsertWithWhereUniqueWithoutGymInput | GymInstructorUpsertWithWhereUniqueWithoutGymInput[]
+    createMany?: GymInstructorCreateManyGymInputEnvelope
+    set?: GymInstructorWhereUniqueInput | GymInstructorWhereUniqueInput[]
+    disconnect?: GymInstructorWhereUniqueInput | GymInstructorWhereUniqueInput[]
+    delete?: GymInstructorWhereUniqueInput | GymInstructorWhereUniqueInput[]
+    connect?: GymInstructorWhereUniqueInput | GymInstructorWhereUniqueInput[]
+    update?: GymInstructorUpdateWithWhereUniqueWithoutGymInput | GymInstructorUpdateWithWhereUniqueWithoutGymInput[]
+    updateMany?: GymInstructorUpdateManyWithWhereWithoutGymInput | GymInstructorUpdateManyWithWhereWithoutGymInput[]
+    deleteMany?: GymInstructorScalarWhereInput | GymInstructorScalarWhereInput[]
+  }
+
   export type AttendanceLogUncheckedUpdateManyWithoutGymNestedInput = {
     create?: XOR<AttendanceLogCreateWithoutGymInput, AttendanceLogUncheckedCreateWithoutGymInput> | AttendanceLogCreateWithoutGymInput[] | AttendanceLogUncheckedCreateWithoutGymInput[]
     connectOrCreate?: AttendanceLogCreateOrConnectWithoutGymInput | AttendanceLogCreateOrConnectWithoutGymInput[]
@@ -15829,6 +17292,34 @@ export namespace Prisma {
     update?: AttendanceLogUpdateWithWhereUniqueWithoutGymInput | AttendanceLogUpdateWithWhereUniqueWithoutGymInput[]
     updateMany?: AttendanceLogUpdateManyWithWhereWithoutGymInput | AttendanceLogUpdateManyWithWhereWithoutGymInput[]
     deleteMany?: AttendanceLogScalarWhereInput | AttendanceLogScalarWhereInput[]
+  }
+
+  export type GymCreateNestedOneWithoutInstructorsInput = {
+    create?: XOR<GymCreateWithoutInstructorsInput, GymUncheckedCreateWithoutInstructorsInput>
+    connectOrCreate?: GymCreateOrConnectWithoutInstructorsInput
+    connect?: GymWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutGym_instructor_atInput = {
+    create?: XOR<UserCreateWithoutGym_instructor_atInput, UserUncheckedCreateWithoutGym_instructor_atInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGym_instructor_atInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type GymUpdateOneRequiredWithoutInstructorsNestedInput = {
+    create?: XOR<GymCreateWithoutInstructorsInput, GymUncheckedCreateWithoutInstructorsInput>
+    connectOrCreate?: GymCreateOrConnectWithoutInstructorsInput
+    upsert?: GymUpsertWithoutInstructorsInput
+    connect?: GymWhereUniqueInput
+    update?: XOR<XOR<GymUpdateToOneWithWhereWithoutInstructorsInput, GymUpdateWithoutInstructorsInput>, GymUncheckedUpdateWithoutInstructorsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutGym_instructor_atNestedInput = {
+    create?: XOR<UserCreateWithoutGym_instructor_atInput, UserUncheckedCreateWithoutGym_instructor_atInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGym_instructor_atInput
+    upsert?: UserUpsertWithoutGym_instructor_atInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutGym_instructor_atInput, UserUpdateWithoutGym_instructor_atInput>, UserUncheckedUpdateWithoutGym_instructor_atInput>
   }
 
   export type UserCreateNestedOneWithoutCreated_membershipsInput = {
@@ -16427,12 +17918,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by?: UserCreateNestedOneWithoutCreated_usersInput
+    gym_instructor_at?: GymInstructorCreateNestedManyWithoutInstructorInput
     gyms?: GymCreateNestedManyWithoutOwnerInput
     memberships?: MembershipCreateNestedManyWithoutMemberInput
     payments?: PaymentCreateNestedManyWithoutMemberInput
@@ -16455,12 +17947,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by_id?: string | null
+    gym_instructor_at?: GymInstructorUncheckedCreateNestedManyWithoutInstructorInput
     gyms?: GymUncheckedCreateNestedManyWithoutOwnerInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutMemberInput
     payments?: PaymentUncheckedCreateNestedManyWithoutMemberInput
@@ -16483,12 +17976,35 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutCreated_usersInput, UserUncheckedCreateWithoutCreated_usersInput>
   }
 
+  export type GymInstructorCreateWithoutInstructorInput = {
+    id?: string
+    assigned_at?: Date | string
+    gym: GymCreateNestedOneWithoutInstructorsInput
+  }
+
+  export type GymInstructorUncheckedCreateWithoutInstructorInput = {
+    id?: string
+    gym_id: string
+    assigned_at?: Date | string
+  }
+
+  export type GymInstructorCreateOrConnectWithoutInstructorInput = {
+    where: GymInstructorWhereUniqueInput
+    create: XOR<GymInstructorCreateWithoutInstructorInput, GymInstructorUncheckedCreateWithoutInstructorInput>
+  }
+
+  export type GymInstructorCreateManyInstructorInputEnvelope = {
+    data: GymInstructorCreateManyInstructorInput | GymInstructorCreateManyInstructorInput[]
+    skipDuplicates?: boolean
+  }
+
   export type GymCreateWithoutOwnerInput = {
     id?: string
     name: string
     location: string
     created_at?: Date | string
     memberships?: MembershipCreateNestedManyWithoutGymInput
+    instructors?: GymInstructorCreateNestedManyWithoutGymInput
     attendance_logs?: AttendanceLogCreateNestedManyWithoutGymInput
     created_by: UserCreateNestedOneWithoutCreated_gymsInput
   }
@@ -16500,6 +18016,7 @@ export namespace Prisma {
     created_by_id: string
     created_at?: Date | string
     memberships?: MembershipUncheckedCreateNestedManyWithoutGymInput
+    instructors?: GymInstructorUncheckedCreateNestedManyWithoutGymInput
     attendance_logs?: AttendanceLogUncheckedCreateNestedManyWithoutGymInput
   }
 
@@ -16709,11 +18226,12 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
+    gym_instructor_at?: GymInstructorCreateNestedManyWithoutInstructorInput
     gyms?: GymCreateNestedManyWithoutOwnerInput
     memberships?: MembershipCreateNestedManyWithoutMemberInput
     payments?: PaymentCreateNestedManyWithoutMemberInput
@@ -16737,11 +18255,12 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
+    gym_instructor_at?: GymInstructorUncheckedCreateNestedManyWithoutInstructorInput
     gyms?: GymUncheckedCreateNestedManyWithoutOwnerInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutMemberInput
     payments?: PaymentUncheckedCreateNestedManyWithoutMemberInput
@@ -16777,6 +18296,7 @@ export namespace Prisma {
     created_at?: Date | string
     owner: UserCreateNestedOneWithoutGymsInput
     memberships?: MembershipCreateNestedManyWithoutGymInput
+    instructors?: GymInstructorCreateNestedManyWithoutGymInput
     attendance_logs?: AttendanceLogCreateNestedManyWithoutGymInput
   }
 
@@ -16787,6 +18307,7 @@ export namespace Prisma {
     owner_id: string
     created_at?: Date | string
     memberships?: MembershipUncheckedCreateNestedManyWithoutGymInput
+    instructors?: GymInstructorUncheckedCreateNestedManyWithoutGymInput
     attendance_logs?: AttendanceLogUncheckedCreateNestedManyWithoutGymInput
   }
 
@@ -16990,12 +18511,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: UserUpdateOneWithoutCreated_usersNestedInput
+    gym_instructor_at?: GymInstructorUpdateManyWithoutInstructorNestedInput
     gyms?: GymUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUpdateManyWithoutMemberNestedInput
     payments?: PaymentUpdateManyWithoutMemberNestedInput
@@ -17018,12 +18540,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by_id?: NullableStringFieldUpdateOperationsInput | string | null
+    gym_instructor_at?: GymInstructorUncheckedUpdateManyWithoutInstructorNestedInput
     gyms?: GymUncheckedUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutMemberNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutMemberNestedInput
@@ -17039,6 +18562,32 @@ export namespace Prisma {
     created_attendance_logs?: AttendanceLogUncheckedUpdateManyWithoutCreated_byNestedInput
     created_instructor_assignments?: InstructorAssignmentUncheckedUpdateManyWithoutCreated_byNestedInput
     created_workout_plans?: WorkoutPlanUncheckedUpdateManyWithoutCreated_byNestedInput
+  }
+
+  export type GymInstructorUpsertWithWhereUniqueWithoutInstructorInput = {
+    where: GymInstructorWhereUniqueInput
+    update: XOR<GymInstructorUpdateWithoutInstructorInput, GymInstructorUncheckedUpdateWithoutInstructorInput>
+    create: XOR<GymInstructorCreateWithoutInstructorInput, GymInstructorUncheckedCreateWithoutInstructorInput>
+  }
+
+  export type GymInstructorUpdateWithWhereUniqueWithoutInstructorInput = {
+    where: GymInstructorWhereUniqueInput
+    data: XOR<GymInstructorUpdateWithoutInstructorInput, GymInstructorUncheckedUpdateWithoutInstructorInput>
+  }
+
+  export type GymInstructorUpdateManyWithWhereWithoutInstructorInput = {
+    where: GymInstructorScalarWhereInput
+    data: XOR<GymInstructorUpdateManyMutationInput, GymInstructorUncheckedUpdateManyWithoutInstructorInput>
+  }
+
+  export type GymInstructorScalarWhereInput = {
+    AND?: GymInstructorScalarWhereInput | GymInstructorScalarWhereInput[]
+    OR?: GymInstructorScalarWhereInput[]
+    NOT?: GymInstructorScalarWhereInput | GymInstructorScalarWhereInput[]
+    id?: StringFilter<"GymInstructor"> | string
+    gym_id?: StringFilter<"GymInstructor"> | string
+    user_id?: StringFilter<"GymInstructor"> | string
+    assigned_at?: DateTimeFilter<"GymInstructor"> | Date | string
   }
 
   export type GymUpsertWithWhereUniqueWithoutOwnerInput = {
@@ -17269,7 +18818,7 @@ export namespace Prisma {
     firstname?: StringFilter<"User"> | string
     middlename?: StringNullableFilter<"User"> | string | null
     lastname?: StringFilter<"User"> | string
-    email?: StringFilter<"User"> | string
+    email?: StringNullableFilter<"User"> | string | null
     password_hash?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
     is_active?: BoolFilter<"User"> | boolean
@@ -17410,12 +18959,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by?: UserCreateNestedOneWithoutCreated_usersInput
+    gym_instructor_at?: GymInstructorCreateNestedManyWithoutInstructorInput
     memberships?: MembershipCreateNestedManyWithoutMemberInput
     payments?: PaymentCreateNestedManyWithoutMemberInput
     attendance_logs?: AttendanceLogCreateNestedManyWithoutMemberInput
@@ -17438,12 +18988,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by_id?: string | null
+    gym_instructor_at?: GymInstructorUncheckedCreateNestedManyWithoutInstructorInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutMemberInput
     payments?: PaymentUncheckedCreateNestedManyWithoutMemberInput
     attendance_logs?: AttendanceLogUncheckedCreateNestedManyWithoutMemberInput
@@ -17500,6 +19051,28 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type GymInstructorCreateWithoutGymInput = {
+    id?: string
+    assigned_at?: Date | string
+    instructor: UserCreateNestedOneWithoutGym_instructor_atInput
+  }
+
+  export type GymInstructorUncheckedCreateWithoutGymInput = {
+    id?: string
+    user_id: string
+    assigned_at?: Date | string
+  }
+
+  export type GymInstructorCreateOrConnectWithoutGymInput = {
+    where: GymInstructorWhereUniqueInput
+    create: XOR<GymInstructorCreateWithoutGymInput, GymInstructorUncheckedCreateWithoutGymInput>
+  }
+
+  export type GymInstructorCreateManyGymInputEnvelope = {
+    data: GymInstructorCreateManyGymInput | GymInstructorCreateManyGymInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AttendanceLogCreateWithoutGymInput = {
     checked_in_at?: Date | string
     created_by: UserCreateNestedOneWithoutCreated_attendance_logsInput
@@ -17528,12 +19101,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by?: UserCreateNestedOneWithoutCreated_usersInput
+    gym_instructor_at?: GymInstructorCreateNestedManyWithoutInstructorInput
     gyms?: GymCreateNestedManyWithoutOwnerInput
     memberships?: MembershipCreateNestedManyWithoutMemberInput
     payments?: PaymentCreateNestedManyWithoutMemberInput
@@ -17556,12 +19130,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by_id?: string | null
+    gym_instructor_at?: GymInstructorUncheckedCreateNestedManyWithoutInstructorInput
     gyms?: GymUncheckedCreateNestedManyWithoutOwnerInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutMemberInput
     payments?: PaymentUncheckedCreateNestedManyWithoutMemberInput
@@ -17600,12 +19175,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: UserUpdateOneWithoutCreated_usersNestedInput
+    gym_instructor_at?: GymInstructorUpdateManyWithoutInstructorNestedInput
     memberships?: MembershipUpdateManyWithoutMemberNestedInput
     payments?: PaymentUpdateManyWithoutMemberNestedInput
     attendance_logs?: AttendanceLogUpdateManyWithoutMemberNestedInput
@@ -17628,12 +19204,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by_id?: NullableStringFieldUpdateOperationsInput | string | null
+    gym_instructor_at?: GymInstructorUncheckedUpdateManyWithoutInstructorNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutMemberNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutMemberNestedInput
     attendance_logs?: AttendanceLogUncheckedUpdateManyWithoutMemberNestedInput
@@ -17665,6 +19242,22 @@ export namespace Prisma {
   export type MembershipUpdateManyWithWhereWithoutGymInput = {
     where: MembershipScalarWhereInput
     data: XOR<MembershipUpdateManyMutationInput, MembershipUncheckedUpdateManyWithoutGymInput>
+  }
+
+  export type GymInstructorUpsertWithWhereUniqueWithoutGymInput = {
+    where: GymInstructorWhereUniqueInput
+    update: XOR<GymInstructorUpdateWithoutGymInput, GymInstructorUncheckedUpdateWithoutGymInput>
+    create: XOR<GymInstructorCreateWithoutGymInput, GymInstructorUncheckedCreateWithoutGymInput>
+  }
+
+  export type GymInstructorUpdateWithWhereUniqueWithoutGymInput = {
+    where: GymInstructorWhereUniqueInput
+    data: XOR<GymInstructorUpdateWithoutGymInput, GymInstructorUncheckedUpdateWithoutGymInput>
+  }
+
+  export type GymInstructorUpdateManyWithWhereWithoutGymInput = {
+    where: GymInstructorScalarWhereInput
+    data: XOR<GymInstructorUpdateManyMutationInput, GymInstructorUncheckedUpdateManyWithoutGymInput>
   }
 
   export type AttendanceLogUpsertWithWhereUniqueWithoutGymInput = {
@@ -17699,12 +19292,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: UserUpdateOneWithoutCreated_usersNestedInput
+    gym_instructor_at?: GymInstructorUpdateManyWithoutInstructorNestedInput
     gyms?: GymUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUpdateManyWithoutMemberNestedInput
     payments?: PaymentUpdateManyWithoutMemberNestedInput
@@ -17727,12 +19321,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by_id?: NullableStringFieldUpdateOperationsInput | string | null
+    gym_instructor_at?: GymInstructorUncheckedUpdateManyWithoutInstructorNestedInput
     gyms?: GymUncheckedUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutMemberNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutMemberNestedInput
@@ -17750,17 +19345,210 @@ export namespace Prisma {
     created_workout_plans?: WorkoutPlanUncheckedUpdateManyWithoutCreated_byNestedInput
   }
 
-  export type UserCreateWithoutCreated_membershipsInput = {
+  export type GymCreateWithoutInstructorsInput = {
+    id?: string
+    name: string
+    location: string
+    created_at?: Date | string
+    owner: UserCreateNestedOneWithoutGymsInput
+    memberships?: MembershipCreateNestedManyWithoutGymInput
+    attendance_logs?: AttendanceLogCreateNestedManyWithoutGymInput
+    created_by: UserCreateNestedOneWithoutCreated_gymsInput
+  }
+
+  export type GymUncheckedCreateWithoutInstructorsInput = {
+    id?: string
+    name: string
+    location: string
+    owner_id: string
+    created_by_id: string
+    created_at?: Date | string
+    memberships?: MembershipUncheckedCreateNestedManyWithoutGymInput
+    attendance_logs?: AttendanceLogUncheckedCreateNestedManyWithoutGymInput
+  }
+
+  export type GymCreateOrConnectWithoutInstructorsInput = {
+    where: GymWhereUniqueInput
+    create: XOR<GymCreateWithoutInstructorsInput, GymUncheckedCreateWithoutInstructorsInput>
+  }
+
+  export type UserCreateWithoutGym_instructor_atInput = {
     id?: string
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by?: UserCreateNestedOneWithoutCreated_usersInput
+    gyms?: GymCreateNestedManyWithoutOwnerInput
+    memberships?: MembershipCreateNestedManyWithoutMemberInput
+    payments?: PaymentCreateNestedManyWithoutMemberInput
+    attendance_logs?: AttendanceLogCreateNestedManyWithoutMemberInput
+    member_assignments?: InstructorAssignmentCreateNestedManyWithoutMemberInput
+    instructor_assignments?: InstructorAssignmentCreateNestedManyWithoutInstructorInput
+    member_workout_plans?: WorkoutPlanCreateNestedManyWithoutMemberInput
+    instructor_workout_plans?: WorkoutPlanCreateNestedManyWithoutInstructorInput
+    created_users?: UserCreateNestedManyWithoutCreated_byInput
+    created_gyms?: GymCreateNestedManyWithoutCreated_byInput
+    created_memberships?: MembershipCreateNestedManyWithoutCreated_byInput
+    created_plans?: PlanCreateNestedManyWithoutCreated_byInput
+    created_payments?: PaymentCreateNestedManyWithoutCreated_byInput
+    created_attendance_logs?: AttendanceLogCreateNestedManyWithoutCreated_byInput
+    created_instructor_assignments?: InstructorAssignmentCreateNestedManyWithoutCreated_byInput
+    created_workout_plans?: WorkoutPlanCreateNestedManyWithoutCreated_byInput
+  }
+
+  export type UserUncheckedCreateWithoutGym_instructor_atInput = {
+    id?: string
+    firstname: string
+    middlename?: string | null
+    lastname: string
+    email?: string | null
+    password_hash: string
+    role?: $Enums.Role
+    is_active?: boolean
+    created_at?: Date | string
+    created_by_id?: string | null
+    gyms?: GymUncheckedCreateNestedManyWithoutOwnerInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutMemberInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutMemberInput
+    attendance_logs?: AttendanceLogUncheckedCreateNestedManyWithoutMemberInput
+    member_assignments?: InstructorAssignmentUncheckedCreateNestedManyWithoutMemberInput
+    instructor_assignments?: InstructorAssignmentUncheckedCreateNestedManyWithoutInstructorInput
+    member_workout_plans?: WorkoutPlanUncheckedCreateNestedManyWithoutMemberInput
+    instructor_workout_plans?: WorkoutPlanUncheckedCreateNestedManyWithoutInstructorInput
+    created_users?: UserUncheckedCreateNestedManyWithoutCreated_byInput
+    created_gyms?: GymUncheckedCreateNestedManyWithoutCreated_byInput
+    created_memberships?: MembershipUncheckedCreateNestedManyWithoutCreated_byInput
+    created_plans?: PlanUncheckedCreateNestedManyWithoutCreated_byInput
+    created_payments?: PaymentUncheckedCreateNestedManyWithoutCreated_byInput
+    created_attendance_logs?: AttendanceLogUncheckedCreateNestedManyWithoutCreated_byInput
+    created_instructor_assignments?: InstructorAssignmentUncheckedCreateNestedManyWithoutCreated_byInput
+    created_workout_plans?: WorkoutPlanUncheckedCreateNestedManyWithoutCreated_byInput
+  }
+
+  export type UserCreateOrConnectWithoutGym_instructor_atInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutGym_instructor_atInput, UserUncheckedCreateWithoutGym_instructor_atInput>
+  }
+
+  export type GymUpsertWithoutInstructorsInput = {
+    update: XOR<GymUpdateWithoutInstructorsInput, GymUncheckedUpdateWithoutInstructorsInput>
+    create: XOR<GymCreateWithoutInstructorsInput, GymUncheckedCreateWithoutInstructorsInput>
+    where?: GymWhereInput
+  }
+
+  export type GymUpdateToOneWithWhereWithoutInstructorsInput = {
+    where?: GymWhereInput
+    data: XOR<GymUpdateWithoutInstructorsInput, GymUncheckedUpdateWithoutInstructorsInput>
+  }
+
+  export type GymUpdateWithoutInstructorsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneRequiredWithoutGymsNestedInput
+    memberships?: MembershipUpdateManyWithoutGymNestedInput
+    attendance_logs?: AttendanceLogUpdateManyWithoutGymNestedInput
+    created_by?: UserUpdateOneRequiredWithoutCreated_gymsNestedInput
+  }
+
+  export type GymUncheckedUpdateWithoutInstructorsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    owner_id?: StringFieldUpdateOperationsInput | string
+    created_by_id?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    memberships?: MembershipUncheckedUpdateManyWithoutGymNestedInput
+    attendance_logs?: AttendanceLogUncheckedUpdateManyWithoutGymNestedInput
+  }
+
+  export type UserUpsertWithoutGym_instructor_atInput = {
+    update: XOR<UserUpdateWithoutGym_instructor_atInput, UserUncheckedUpdateWithoutGym_instructor_atInput>
+    create: XOR<UserCreateWithoutGym_instructor_atInput, UserUncheckedCreateWithoutGym_instructor_atInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutGym_instructor_atInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutGym_instructor_atInput, UserUncheckedUpdateWithoutGym_instructor_atInput>
+  }
+
+  export type UserUpdateWithoutGym_instructor_atInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstname?: StringFieldUpdateOperationsInput | string
+    middlename?: NullableStringFieldUpdateOperationsInput | string | null
+    lastname?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password_hash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: UserUpdateOneWithoutCreated_usersNestedInput
+    gyms?: GymUpdateManyWithoutOwnerNestedInput
+    memberships?: MembershipUpdateManyWithoutMemberNestedInput
+    payments?: PaymentUpdateManyWithoutMemberNestedInput
+    attendance_logs?: AttendanceLogUpdateManyWithoutMemberNestedInput
+    member_assignments?: InstructorAssignmentUpdateManyWithoutMemberNestedInput
+    instructor_assignments?: InstructorAssignmentUpdateManyWithoutInstructorNestedInput
+    member_workout_plans?: WorkoutPlanUpdateManyWithoutMemberNestedInput
+    instructor_workout_plans?: WorkoutPlanUpdateManyWithoutInstructorNestedInput
+    created_users?: UserUpdateManyWithoutCreated_byNestedInput
+    created_gyms?: GymUpdateManyWithoutCreated_byNestedInput
+    created_memberships?: MembershipUpdateManyWithoutCreated_byNestedInput
+    created_plans?: PlanUpdateManyWithoutCreated_byNestedInput
+    created_payments?: PaymentUpdateManyWithoutCreated_byNestedInput
+    created_attendance_logs?: AttendanceLogUpdateManyWithoutCreated_byNestedInput
+    created_instructor_assignments?: InstructorAssignmentUpdateManyWithoutCreated_byNestedInput
+    created_workout_plans?: WorkoutPlanUpdateManyWithoutCreated_byNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutGym_instructor_atInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstname?: StringFieldUpdateOperationsInput | string
+    middlename?: NullableStringFieldUpdateOperationsInput | string | null
+    lastname?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password_hash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by_id?: NullableStringFieldUpdateOperationsInput | string | null
+    gyms?: GymUncheckedUpdateManyWithoutOwnerNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutMemberNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutMemberNestedInput
+    attendance_logs?: AttendanceLogUncheckedUpdateManyWithoutMemberNestedInput
+    member_assignments?: InstructorAssignmentUncheckedUpdateManyWithoutMemberNestedInput
+    instructor_assignments?: InstructorAssignmentUncheckedUpdateManyWithoutInstructorNestedInput
+    member_workout_plans?: WorkoutPlanUncheckedUpdateManyWithoutMemberNestedInput
+    instructor_workout_plans?: WorkoutPlanUncheckedUpdateManyWithoutInstructorNestedInput
+    created_users?: UserUncheckedUpdateManyWithoutCreated_byNestedInput
+    created_gyms?: GymUncheckedUpdateManyWithoutCreated_byNestedInput
+    created_memberships?: MembershipUncheckedUpdateManyWithoutCreated_byNestedInput
+    created_plans?: PlanUncheckedUpdateManyWithoutCreated_byNestedInput
+    created_payments?: PaymentUncheckedUpdateManyWithoutCreated_byNestedInput
+    created_attendance_logs?: AttendanceLogUncheckedUpdateManyWithoutCreated_byNestedInput
+    created_instructor_assignments?: InstructorAssignmentUncheckedUpdateManyWithoutCreated_byNestedInput
+    created_workout_plans?: WorkoutPlanUncheckedUpdateManyWithoutCreated_byNestedInput
+  }
+
+  export type UserCreateWithoutCreated_membershipsInput = {
+    id?: string
+    firstname: string
+    middlename?: string | null
+    lastname: string
+    email?: string | null
+    password_hash: string
+    role?: $Enums.Role
+    is_active?: boolean
+    created_at?: Date | string
+    created_by?: UserCreateNestedOneWithoutCreated_usersInput
+    gym_instructor_at?: GymInstructorCreateNestedManyWithoutInstructorInput
     gyms?: GymCreateNestedManyWithoutOwnerInput
     memberships?: MembershipCreateNestedManyWithoutMemberInput
     payments?: PaymentCreateNestedManyWithoutMemberInput
@@ -17783,12 +19571,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by_id?: string | null
+    gym_instructor_at?: GymInstructorUncheckedCreateNestedManyWithoutInstructorInput
     gyms?: GymUncheckedCreateNestedManyWithoutOwnerInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutMemberInput
     payments?: PaymentUncheckedCreateNestedManyWithoutMemberInput
@@ -17816,12 +19605,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by?: UserCreateNestedOneWithoutCreated_usersInput
+    gym_instructor_at?: GymInstructorCreateNestedManyWithoutInstructorInput
     gyms?: GymCreateNestedManyWithoutOwnerInput
     payments?: PaymentCreateNestedManyWithoutMemberInput
     attendance_logs?: AttendanceLogCreateNestedManyWithoutMemberInput
@@ -17844,12 +19634,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by_id?: string | null
+    gym_instructor_at?: GymInstructorUncheckedCreateNestedManyWithoutInstructorInput
     gyms?: GymUncheckedCreateNestedManyWithoutOwnerInput
     payments?: PaymentUncheckedCreateNestedManyWithoutMemberInput
     attendance_logs?: AttendanceLogUncheckedCreateNestedManyWithoutMemberInput
@@ -17878,6 +19669,7 @@ export namespace Prisma {
     location: string
     created_at?: Date | string
     owner: UserCreateNestedOneWithoutGymsInput
+    instructors?: GymInstructorCreateNestedManyWithoutGymInput
     attendance_logs?: AttendanceLogCreateNestedManyWithoutGymInput
     created_by: UserCreateNestedOneWithoutCreated_gymsInput
   }
@@ -17889,6 +19681,7 @@ export namespace Prisma {
     owner_id: string
     created_by_id: string
     created_at?: Date | string
+    instructors?: GymInstructorUncheckedCreateNestedManyWithoutGymInput
     attendance_logs?: AttendanceLogUncheckedCreateNestedManyWithoutGymInput
   }
 
@@ -17944,12 +19737,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: UserUpdateOneWithoutCreated_usersNestedInput
+    gym_instructor_at?: GymInstructorUpdateManyWithoutInstructorNestedInput
     gyms?: GymUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUpdateManyWithoutMemberNestedInput
     payments?: PaymentUpdateManyWithoutMemberNestedInput
@@ -17972,12 +19766,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by_id?: NullableStringFieldUpdateOperationsInput | string | null
+    gym_instructor_at?: GymInstructorUncheckedUpdateManyWithoutInstructorNestedInput
     gyms?: GymUncheckedUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutMemberNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutMemberNestedInput
@@ -18011,12 +19806,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: UserUpdateOneWithoutCreated_usersNestedInput
+    gym_instructor_at?: GymInstructorUpdateManyWithoutInstructorNestedInput
     gyms?: GymUpdateManyWithoutOwnerNestedInput
     payments?: PaymentUpdateManyWithoutMemberNestedInput
     attendance_logs?: AttendanceLogUpdateManyWithoutMemberNestedInput
@@ -18039,12 +19835,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by_id?: NullableStringFieldUpdateOperationsInput | string | null
+    gym_instructor_at?: GymInstructorUncheckedUpdateManyWithoutInstructorNestedInput
     gyms?: GymUncheckedUpdateManyWithoutOwnerNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutMemberNestedInput
     attendance_logs?: AttendanceLogUncheckedUpdateManyWithoutMemberNestedInput
@@ -18079,6 +19876,7 @@ export namespace Prisma {
     location?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneRequiredWithoutGymsNestedInput
+    instructors?: GymInstructorUpdateManyWithoutGymNestedInput
     attendance_logs?: AttendanceLogUpdateManyWithoutGymNestedInput
     created_by?: UserUpdateOneRequiredWithoutCreated_gymsNestedInput
   }
@@ -18090,6 +19888,7 @@ export namespace Prisma {
     owner_id?: StringFieldUpdateOperationsInput | string
     created_by_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    instructors?: GymInstructorUncheckedUpdateManyWithoutGymNestedInput
     attendance_logs?: AttendanceLogUncheckedUpdateManyWithoutGymNestedInput
   }
 
@@ -18135,12 +19934,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by?: UserCreateNestedOneWithoutCreated_usersInput
+    gym_instructor_at?: GymInstructorCreateNestedManyWithoutInstructorInput
     gyms?: GymCreateNestedManyWithoutOwnerInput
     memberships?: MembershipCreateNestedManyWithoutMemberInput
     payments?: PaymentCreateNestedManyWithoutMemberInput
@@ -18163,12 +19963,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by_id?: string | null
+    gym_instructor_at?: GymInstructorUncheckedCreateNestedManyWithoutInstructorInput
     gyms?: GymUncheckedCreateNestedManyWithoutOwnerInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutMemberInput
     payments?: PaymentUncheckedCreateNestedManyWithoutMemberInput
@@ -18241,12 +20042,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: UserUpdateOneWithoutCreated_usersNestedInput
+    gym_instructor_at?: GymInstructorUpdateManyWithoutInstructorNestedInput
     gyms?: GymUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUpdateManyWithoutMemberNestedInput
     payments?: PaymentUpdateManyWithoutMemberNestedInput
@@ -18269,12 +20071,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by_id?: NullableStringFieldUpdateOperationsInput | string | null
+    gym_instructor_at?: GymInstructorUncheckedUpdateManyWithoutInstructorNestedInput
     gyms?: GymUncheckedUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutMemberNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutMemberNestedInput
@@ -18313,12 +20116,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by?: UserCreateNestedOneWithoutCreated_usersInput
+    gym_instructor_at?: GymInstructorCreateNestedManyWithoutInstructorInput
     gyms?: GymCreateNestedManyWithoutOwnerInput
     memberships?: MembershipCreateNestedManyWithoutMemberInput
     payments?: PaymentCreateNestedManyWithoutMemberInput
@@ -18341,12 +20145,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by_id?: string | null
+    gym_instructor_at?: GymInstructorUncheckedCreateNestedManyWithoutInstructorInput
     gyms?: GymUncheckedCreateNestedManyWithoutOwnerInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutMemberInput
     payments?: PaymentUncheckedCreateNestedManyWithoutMemberInput
@@ -18374,12 +20179,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by?: UserCreateNestedOneWithoutCreated_usersInput
+    gym_instructor_at?: GymInstructorCreateNestedManyWithoutInstructorInput
     gyms?: GymCreateNestedManyWithoutOwnerInput
     memberships?: MembershipCreateNestedManyWithoutMemberInput
     attendance_logs?: AttendanceLogCreateNestedManyWithoutMemberInput
@@ -18402,12 +20208,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by_id?: string | null
+    gym_instructor_at?: GymInstructorUncheckedCreateNestedManyWithoutInstructorInput
     gyms?: GymUncheckedCreateNestedManyWithoutOwnerInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutMemberInput
     attendance_logs?: AttendanceLogUncheckedCreateNestedManyWithoutMemberInput
@@ -18446,12 +20253,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: UserUpdateOneWithoutCreated_usersNestedInput
+    gym_instructor_at?: GymInstructorUpdateManyWithoutInstructorNestedInput
     gyms?: GymUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUpdateManyWithoutMemberNestedInput
     payments?: PaymentUpdateManyWithoutMemberNestedInput
@@ -18474,12 +20282,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by_id?: NullableStringFieldUpdateOperationsInput | string | null
+    gym_instructor_at?: GymInstructorUncheckedUpdateManyWithoutInstructorNestedInput
     gyms?: GymUncheckedUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutMemberNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutMemberNestedInput
@@ -18513,12 +20322,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: UserUpdateOneWithoutCreated_usersNestedInput
+    gym_instructor_at?: GymInstructorUpdateManyWithoutInstructorNestedInput
     gyms?: GymUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUpdateManyWithoutMemberNestedInput
     attendance_logs?: AttendanceLogUpdateManyWithoutMemberNestedInput
@@ -18541,12 +20351,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by_id?: NullableStringFieldUpdateOperationsInput | string | null
+    gym_instructor_at?: GymInstructorUncheckedUpdateManyWithoutInstructorNestedInput
     gyms?: GymUncheckedUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutMemberNestedInput
     attendance_logs?: AttendanceLogUncheckedUpdateManyWithoutMemberNestedInput
@@ -18569,12 +20380,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by?: UserCreateNestedOneWithoutCreated_usersInput
+    gym_instructor_at?: GymInstructorCreateNestedManyWithoutInstructorInput
     gyms?: GymCreateNestedManyWithoutOwnerInput
     memberships?: MembershipCreateNestedManyWithoutMemberInput
     payments?: PaymentCreateNestedManyWithoutMemberInput
@@ -18597,12 +20409,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by_id?: string | null
+    gym_instructor_at?: GymInstructorUncheckedCreateNestedManyWithoutInstructorInput
     gyms?: GymUncheckedCreateNestedManyWithoutOwnerInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutMemberInput
     payments?: PaymentUncheckedCreateNestedManyWithoutMemberInput
@@ -18630,12 +20443,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by?: UserCreateNestedOneWithoutCreated_usersInput
+    gym_instructor_at?: GymInstructorCreateNestedManyWithoutInstructorInput
     gyms?: GymCreateNestedManyWithoutOwnerInput
     memberships?: MembershipCreateNestedManyWithoutMemberInput
     payments?: PaymentCreateNestedManyWithoutMemberInput
@@ -18658,12 +20472,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by_id?: string | null
+    gym_instructor_at?: GymInstructorUncheckedCreateNestedManyWithoutInstructorInput
     gyms?: GymUncheckedCreateNestedManyWithoutOwnerInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutMemberInput
     payments?: PaymentUncheckedCreateNestedManyWithoutMemberInput
@@ -18693,6 +20508,7 @@ export namespace Prisma {
     created_at?: Date | string
     owner: UserCreateNestedOneWithoutGymsInput
     memberships?: MembershipCreateNestedManyWithoutGymInput
+    instructors?: GymInstructorCreateNestedManyWithoutGymInput
     created_by: UserCreateNestedOneWithoutCreated_gymsInput
   }
 
@@ -18704,6 +20520,7 @@ export namespace Prisma {
     created_by_id: string
     created_at?: Date | string
     memberships?: MembershipUncheckedCreateNestedManyWithoutGymInput
+    instructors?: GymInstructorUncheckedCreateNestedManyWithoutGymInput
   }
 
   export type GymCreateOrConnectWithoutAttendance_logsInput = {
@@ -18727,12 +20544,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: UserUpdateOneWithoutCreated_usersNestedInput
+    gym_instructor_at?: GymInstructorUpdateManyWithoutInstructorNestedInput
     gyms?: GymUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUpdateManyWithoutMemberNestedInput
     payments?: PaymentUpdateManyWithoutMemberNestedInput
@@ -18755,12 +20573,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by_id?: NullableStringFieldUpdateOperationsInput | string | null
+    gym_instructor_at?: GymInstructorUncheckedUpdateManyWithoutInstructorNestedInput
     gyms?: GymUncheckedUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutMemberNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutMemberNestedInput
@@ -18794,12 +20613,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: UserUpdateOneWithoutCreated_usersNestedInput
+    gym_instructor_at?: GymInstructorUpdateManyWithoutInstructorNestedInput
     gyms?: GymUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUpdateManyWithoutMemberNestedInput
     payments?: PaymentUpdateManyWithoutMemberNestedInput
@@ -18822,12 +20642,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by_id?: NullableStringFieldUpdateOperationsInput | string | null
+    gym_instructor_at?: GymInstructorUncheckedUpdateManyWithoutInstructorNestedInput
     gyms?: GymUncheckedUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutMemberNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutMemberNestedInput
@@ -18863,6 +20684,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneRequiredWithoutGymsNestedInput
     memberships?: MembershipUpdateManyWithoutGymNestedInput
+    instructors?: GymInstructorUpdateManyWithoutGymNestedInput
     created_by?: UserUpdateOneRequiredWithoutCreated_gymsNestedInput
   }
 
@@ -18874,6 +20696,7 @@ export namespace Prisma {
     created_by_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     memberships?: MembershipUncheckedUpdateManyWithoutGymNestedInput
+    instructors?: GymInstructorUncheckedUpdateManyWithoutGymNestedInput
   }
 
   export type UserCreateWithoutCreated_instructor_assignmentsInput = {
@@ -18881,12 +20704,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by?: UserCreateNestedOneWithoutCreated_usersInput
+    gym_instructor_at?: GymInstructorCreateNestedManyWithoutInstructorInput
     gyms?: GymCreateNestedManyWithoutOwnerInput
     memberships?: MembershipCreateNestedManyWithoutMemberInput
     payments?: PaymentCreateNestedManyWithoutMemberInput
@@ -18909,12 +20733,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by_id?: string | null
+    gym_instructor_at?: GymInstructorUncheckedCreateNestedManyWithoutInstructorInput
     gyms?: GymUncheckedCreateNestedManyWithoutOwnerInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutMemberInput
     payments?: PaymentUncheckedCreateNestedManyWithoutMemberInput
@@ -18942,12 +20767,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by?: UserCreateNestedOneWithoutCreated_usersInput
+    gym_instructor_at?: GymInstructorCreateNestedManyWithoutInstructorInput
     gyms?: GymCreateNestedManyWithoutOwnerInput
     memberships?: MembershipCreateNestedManyWithoutMemberInput
     payments?: PaymentCreateNestedManyWithoutMemberInput
@@ -18970,12 +20796,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by_id?: string | null
+    gym_instructor_at?: GymInstructorUncheckedCreateNestedManyWithoutInstructorInput
     gyms?: GymUncheckedCreateNestedManyWithoutOwnerInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutMemberInput
     payments?: PaymentUncheckedCreateNestedManyWithoutMemberInput
@@ -19003,12 +20830,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by?: UserCreateNestedOneWithoutCreated_usersInput
+    gym_instructor_at?: GymInstructorCreateNestedManyWithoutInstructorInput
     gyms?: GymCreateNestedManyWithoutOwnerInput
     memberships?: MembershipCreateNestedManyWithoutMemberInput
     payments?: PaymentCreateNestedManyWithoutMemberInput
@@ -19031,12 +20859,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by_id?: string | null
+    gym_instructor_at?: GymInstructorUncheckedCreateNestedManyWithoutInstructorInput
     gyms?: GymUncheckedCreateNestedManyWithoutOwnerInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutMemberInput
     payments?: PaymentUncheckedCreateNestedManyWithoutMemberInput
@@ -19075,12 +20904,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: UserUpdateOneWithoutCreated_usersNestedInput
+    gym_instructor_at?: GymInstructorUpdateManyWithoutInstructorNestedInput
     gyms?: GymUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUpdateManyWithoutMemberNestedInput
     payments?: PaymentUpdateManyWithoutMemberNestedInput
@@ -19103,12 +20933,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by_id?: NullableStringFieldUpdateOperationsInput | string | null
+    gym_instructor_at?: GymInstructorUncheckedUpdateManyWithoutInstructorNestedInput
     gyms?: GymUncheckedUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutMemberNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutMemberNestedInput
@@ -19142,12 +20973,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: UserUpdateOneWithoutCreated_usersNestedInput
+    gym_instructor_at?: GymInstructorUpdateManyWithoutInstructorNestedInput
     gyms?: GymUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUpdateManyWithoutMemberNestedInput
     payments?: PaymentUpdateManyWithoutMemberNestedInput
@@ -19170,12 +21002,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by_id?: NullableStringFieldUpdateOperationsInput | string | null
+    gym_instructor_at?: GymInstructorUncheckedUpdateManyWithoutInstructorNestedInput
     gyms?: GymUncheckedUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutMemberNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutMemberNestedInput
@@ -19209,12 +21042,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: UserUpdateOneWithoutCreated_usersNestedInput
+    gym_instructor_at?: GymInstructorUpdateManyWithoutInstructorNestedInput
     gyms?: GymUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUpdateManyWithoutMemberNestedInput
     payments?: PaymentUpdateManyWithoutMemberNestedInput
@@ -19237,12 +21071,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by_id?: NullableStringFieldUpdateOperationsInput | string | null
+    gym_instructor_at?: GymInstructorUncheckedUpdateManyWithoutInstructorNestedInput
     gyms?: GymUncheckedUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutMemberNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutMemberNestedInput
@@ -19265,12 +21100,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by?: UserCreateNestedOneWithoutCreated_usersInput
+    gym_instructor_at?: GymInstructorCreateNestedManyWithoutInstructorInput
     gyms?: GymCreateNestedManyWithoutOwnerInput
     memberships?: MembershipCreateNestedManyWithoutMemberInput
     payments?: PaymentCreateNestedManyWithoutMemberInput
@@ -19293,12 +21129,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by_id?: string | null
+    gym_instructor_at?: GymInstructorUncheckedCreateNestedManyWithoutInstructorInput
     gyms?: GymUncheckedCreateNestedManyWithoutOwnerInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutMemberInput
     payments?: PaymentUncheckedCreateNestedManyWithoutMemberInput
@@ -19326,12 +21163,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by?: UserCreateNestedOneWithoutCreated_usersInput
+    gym_instructor_at?: GymInstructorCreateNestedManyWithoutInstructorInput
     gyms?: GymCreateNestedManyWithoutOwnerInput
     memberships?: MembershipCreateNestedManyWithoutMemberInput
     payments?: PaymentCreateNestedManyWithoutMemberInput
@@ -19354,12 +21192,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by_id?: string | null
+    gym_instructor_at?: GymInstructorUncheckedCreateNestedManyWithoutInstructorInput
     gyms?: GymUncheckedCreateNestedManyWithoutOwnerInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutMemberInput
     payments?: PaymentUncheckedCreateNestedManyWithoutMemberInput
@@ -19387,12 +21226,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by?: UserCreateNestedOneWithoutCreated_usersInput
+    gym_instructor_at?: GymInstructorCreateNestedManyWithoutInstructorInput
     gyms?: GymCreateNestedManyWithoutOwnerInput
     memberships?: MembershipCreateNestedManyWithoutMemberInput
     payments?: PaymentCreateNestedManyWithoutMemberInput
@@ -19415,12 +21255,13 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
     created_at?: Date | string
     created_by_id?: string | null
+    gym_instructor_at?: GymInstructorUncheckedCreateNestedManyWithoutInstructorInput
     gyms?: GymUncheckedCreateNestedManyWithoutOwnerInput
     memberships?: MembershipUncheckedCreateNestedManyWithoutMemberInput
     payments?: PaymentUncheckedCreateNestedManyWithoutMemberInput
@@ -19491,12 +21332,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: UserUpdateOneWithoutCreated_usersNestedInput
+    gym_instructor_at?: GymInstructorUpdateManyWithoutInstructorNestedInput
     gyms?: GymUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUpdateManyWithoutMemberNestedInput
     payments?: PaymentUpdateManyWithoutMemberNestedInput
@@ -19519,12 +21361,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by_id?: NullableStringFieldUpdateOperationsInput | string | null
+    gym_instructor_at?: GymInstructorUncheckedUpdateManyWithoutInstructorNestedInput
     gyms?: GymUncheckedUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutMemberNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutMemberNestedInput
@@ -19558,12 +21401,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: UserUpdateOneWithoutCreated_usersNestedInput
+    gym_instructor_at?: GymInstructorUpdateManyWithoutInstructorNestedInput
     gyms?: GymUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUpdateManyWithoutMemberNestedInput
     payments?: PaymentUpdateManyWithoutMemberNestedInput
@@ -19586,12 +21430,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by_id?: NullableStringFieldUpdateOperationsInput | string | null
+    gym_instructor_at?: GymInstructorUncheckedUpdateManyWithoutInstructorNestedInput
     gyms?: GymUncheckedUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutMemberNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutMemberNestedInput
@@ -19625,12 +21470,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: UserUpdateOneWithoutCreated_usersNestedInput
+    gym_instructor_at?: GymInstructorUpdateManyWithoutInstructorNestedInput
     gyms?: GymUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUpdateManyWithoutMemberNestedInput
     payments?: PaymentUpdateManyWithoutMemberNestedInput
@@ -19653,12 +21499,13 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by_id?: NullableStringFieldUpdateOperationsInput | string | null
+    gym_instructor_at?: GymInstructorUncheckedUpdateManyWithoutInstructorNestedInput
     gyms?: GymUncheckedUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutMemberNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutMemberNestedInput
@@ -19763,6 +21610,12 @@ export namespace Prisma {
     created_by_id?: StringFieldUpdateOperationsInput | string
   }
 
+  export type GymInstructorCreateManyInstructorInput = {
+    id?: string
+    gym_id: string
+    assigned_at?: Date | string
+  }
+
   export type GymCreateManyOwnerInput = {
     id?: string
     name: string
@@ -19836,7 +21689,7 @@ export namespace Prisma {
     firstname: string
     middlename?: string | null
     lastname: string
-    email: string
+    email?: string | null
     password_hash: string
     role?: $Enums.Role
     is_active?: boolean
@@ -19907,12 +21760,31 @@ export namespace Prisma {
     created_at?: Date | string
   }
 
+  export type GymInstructorUpdateWithoutInstructorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    assigned_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    gym?: GymUpdateOneRequiredWithoutInstructorsNestedInput
+  }
+
+  export type GymInstructorUncheckedUpdateWithoutInstructorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gym_id?: StringFieldUpdateOperationsInput | string
+    assigned_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GymInstructorUncheckedUpdateManyWithoutInstructorInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gym_id?: StringFieldUpdateOperationsInput | string
+    assigned_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type GymUpdateWithoutOwnerInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     memberships?: MembershipUpdateManyWithoutGymNestedInput
+    instructors?: GymInstructorUpdateManyWithoutGymNestedInput
     attendance_logs?: AttendanceLogUpdateManyWithoutGymNestedInput
     created_by?: UserUpdateOneRequiredWithoutCreated_gymsNestedInput
   }
@@ -19924,6 +21796,7 @@ export namespace Prisma {
     created_by_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     memberships?: MembershipUncheckedUpdateManyWithoutGymNestedInput
+    instructors?: GymInstructorUncheckedUpdateManyWithoutGymNestedInput
     attendance_logs?: AttendanceLogUncheckedUpdateManyWithoutGymNestedInput
   }
 
@@ -20121,11 +21994,12 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    gym_instructor_at?: GymInstructorUpdateManyWithoutInstructorNestedInput
     gyms?: GymUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUpdateManyWithoutMemberNestedInput
     payments?: PaymentUpdateManyWithoutMemberNestedInput
@@ -20149,11 +22023,12 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    gym_instructor_at?: GymInstructorUncheckedUpdateManyWithoutInstructorNestedInput
     gyms?: GymUncheckedUpdateManyWithoutOwnerNestedInput
     memberships?: MembershipUncheckedUpdateManyWithoutMemberNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutMemberNestedInput
@@ -20177,7 +22052,7 @@ export namespace Prisma {
     firstname?: StringFieldUpdateOperationsInput | string
     middlename?: NullableStringFieldUpdateOperationsInput | string | null
     lastname?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     is_active?: BoolFieldUpdateOperationsInput | boolean
@@ -20191,6 +22066,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     owner?: UserUpdateOneRequiredWithoutGymsNestedInput
     memberships?: MembershipUpdateManyWithoutGymNestedInput
+    instructors?: GymInstructorUpdateManyWithoutGymNestedInput
     attendance_logs?: AttendanceLogUpdateManyWithoutGymNestedInput
   }
 
@@ -20201,6 +22077,7 @@ export namespace Prisma {
     owner_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     memberships?: MembershipUncheckedUpdateManyWithoutGymNestedInput
+    instructors?: GymInstructorUncheckedUpdateManyWithoutGymNestedInput
     attendance_logs?: AttendanceLogUncheckedUpdateManyWithoutGymNestedInput
   }
 
@@ -20394,6 +22271,12 @@ export namespace Prisma {
     created_by_id: string
   }
 
+  export type GymInstructorCreateManyGymInput = {
+    id?: string
+    user_id: string
+    assigned_at?: Date | string
+  }
+
   export type AttendanceLogCreateManyGymInput = {
     id?: number
     member_id: string
@@ -20435,6 +22318,24 @@ export namespace Prisma {
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type GymInstructorUpdateWithoutGymInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    assigned_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    instructor?: UserUpdateOneRequiredWithoutGym_instructor_atNestedInput
+  }
+
+  export type GymInstructorUncheckedUpdateWithoutGymInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    assigned_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GymInstructorUncheckedUpdateManyWithoutGymInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    assigned_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AttendanceLogUpdateWithoutGymInput = {

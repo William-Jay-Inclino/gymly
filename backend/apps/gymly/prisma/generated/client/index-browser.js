@@ -142,6 +142,13 @@ exports.Prisma.GymScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.GymInstructorScalarFieldEnum = {
+  id: 'id',
+  gym_id: 'gym_id',
+  user_id: 'user_id',
+  assigned_at: 'assigned_at'
+};
+
 exports.Prisma.MembershipScalarFieldEnum = {
   id: 'id',
   member_id: 'member_id',
@@ -257,6 +264,7 @@ exports.Day = exports.$Enums.Day = {
 exports.Prisma.ModelName = {
   User: 'User',
   Gym: 'Gym',
+  GymInstructor: 'GymInstructor',
   Membership: 'Membership',
   Plan: 'Plan',
   Payment: 'Payment',
