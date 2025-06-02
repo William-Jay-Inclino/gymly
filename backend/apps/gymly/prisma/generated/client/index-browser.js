@@ -159,7 +159,8 @@ exports.Prisma.MembershipScalarFieldEnum = {
   is_active: 'is_active',
   is_paid: 'is_paid',
   created_at: 'created_at',
-  created_by_id: 'created_by_id'
+  created_by_id: 'created_by_id',
+  amount_paid: 'amount_paid'
 };
 
 exports.Prisma.PlanScalarFieldEnum = {

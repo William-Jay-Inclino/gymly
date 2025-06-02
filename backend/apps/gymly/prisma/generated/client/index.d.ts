@@ -5882,6 +5882,7 @@ export namespace Prisma {
     is_paid: boolean | null
     created_at: Date | null
     created_by_id: string | null
+    amount_paid: string | null
   }
 
   export type MembershipMaxAggregateOutputType = {
@@ -5895,6 +5896,7 @@ export namespace Prisma {
     is_paid: boolean | null
     created_at: Date | null
     created_by_id: string | null
+    amount_paid: string | null
   }
 
   export type MembershipCountAggregateOutputType = {
@@ -5908,6 +5910,7 @@ export namespace Prisma {
     is_paid: number
     created_at: number
     created_by_id: number
+    amount_paid: number
     _all: number
   }
 
@@ -5923,6 +5926,7 @@ export namespace Prisma {
     is_paid?: true
     created_at?: true
     created_by_id?: true
+    amount_paid?: true
   }
 
   export type MembershipMaxAggregateInputType = {
@@ -5936,6 +5940,7 @@ export namespace Prisma {
     is_paid?: true
     created_at?: true
     created_by_id?: true
+    amount_paid?: true
   }
 
   export type MembershipCountAggregateInputType = {
@@ -5949,6 +5954,7 @@ export namespace Prisma {
     is_paid?: true
     created_at?: true
     created_by_id?: true
+    amount_paid?: true
     _all?: true
   }
 
@@ -6035,6 +6041,7 @@ export namespace Prisma {
     is_paid: boolean
     created_at: Date
     created_by_id: string
+    amount_paid: string
     _count: MembershipCountAggregateOutputType | null
     _min: MembershipMinAggregateOutputType | null
     _max: MembershipMaxAggregateOutputType | null
@@ -6065,6 +6072,7 @@ export namespace Prisma {
     is_paid?: boolean
     created_at?: boolean
     created_by_id?: boolean
+    amount_paid?: boolean
     created_by?: boolean | UserDefaultArgs<ExtArgs>
     member?: boolean | UserDefaultArgs<ExtArgs>
     gym?: boolean | GymDefaultArgs<ExtArgs>
@@ -6082,6 +6090,7 @@ export namespace Prisma {
     is_paid?: boolean
     created_at?: boolean
     created_by_id?: boolean
+    amount_paid?: boolean
     created_by?: boolean | UserDefaultArgs<ExtArgs>
     member?: boolean | UserDefaultArgs<ExtArgs>
     gym?: boolean | GymDefaultArgs<ExtArgs>
@@ -6099,6 +6108,7 @@ export namespace Prisma {
     is_paid?: boolean
     created_at?: boolean
     created_by_id?: boolean
+    amount_paid?: boolean
     created_by?: boolean | UserDefaultArgs<ExtArgs>
     member?: boolean | UserDefaultArgs<ExtArgs>
     gym?: boolean | GymDefaultArgs<ExtArgs>
@@ -6116,9 +6126,10 @@ export namespace Prisma {
     is_paid?: boolean
     created_at?: boolean
     created_by_id?: boolean
+    amount_paid?: boolean
   }
 
-  export type MembershipOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "member_id" | "gym_id" | "plan_id" | "start_date" | "end_date" | "is_active" | "is_paid" | "created_at" | "created_by_id", ExtArgs["result"]["membership"]>
+  export type MembershipOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "member_id" | "gym_id" | "plan_id" | "start_date" | "end_date" | "is_active" | "is_paid" | "created_at" | "created_by_id" | "amount_paid", ExtArgs["result"]["membership"]>
   export type MembershipInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     created_by?: boolean | UserDefaultArgs<ExtArgs>
     member?: boolean | UserDefaultArgs<ExtArgs>
@@ -6157,6 +6168,7 @@ export namespace Prisma {
       is_paid: boolean
       created_at: Date
       created_by_id: string
+      amount_paid: string
     }, ExtArgs["result"]["membership"]>
     composites: {}
   }
@@ -6594,6 +6606,7 @@ export namespace Prisma {
     readonly is_paid: FieldRef<"Membership", 'Boolean'>
     readonly created_at: FieldRef<"Membership", 'DateTime'>
     readonly created_by_id: FieldRef<"Membership", 'String'>
+    readonly amount_paid: FieldRef<"Membership", 'String'>
   }
     
 
@@ -13885,7 +13898,8 @@ export namespace Prisma {
     is_active: 'is_active',
     is_paid: 'is_paid',
     created_at: 'created_at',
-    created_by_id: 'created_by_id'
+    created_by_id: 'created_by_id',
+    amount_paid: 'amount_paid'
   };
 
   export type MembershipScalarFieldEnum = (typeof MembershipScalarFieldEnum)[keyof typeof MembershipScalarFieldEnum]
@@ -14378,6 +14392,7 @@ export namespace Prisma {
     is_paid?: BoolFilter<"Membership"> | boolean
     created_at?: DateTimeFilter<"Membership"> | Date | string
     created_by_id?: StringFilter<"Membership"> | string
+    amount_paid?: StringFilter<"Membership"> | string
     created_by?: XOR<UserScalarRelationFilter, UserWhereInput>
     member?: XOR<UserScalarRelationFilter, UserWhereInput>
     gym?: XOR<GymScalarRelationFilter, GymWhereInput>
@@ -14395,6 +14410,7 @@ export namespace Prisma {
     is_paid?: SortOrder
     created_at?: SortOrder
     created_by_id?: SortOrder
+    amount_paid?: SortOrder
     created_by?: UserOrderByWithRelationInput
     member?: UserOrderByWithRelationInput
     gym?: GymOrderByWithRelationInput
@@ -14415,6 +14431,7 @@ export namespace Prisma {
     is_paid?: BoolFilter<"Membership"> | boolean
     created_at?: DateTimeFilter<"Membership"> | Date | string
     created_by_id?: StringFilter<"Membership"> | string
+    amount_paid?: StringFilter<"Membership"> | string
     created_by?: XOR<UserScalarRelationFilter, UserWhereInput>
     member?: XOR<UserScalarRelationFilter, UserWhereInput>
     gym?: XOR<GymScalarRelationFilter, GymWhereInput>
@@ -14432,6 +14449,7 @@ export namespace Prisma {
     is_paid?: SortOrder
     created_at?: SortOrder
     created_by_id?: SortOrder
+    amount_paid?: SortOrder
     _count?: MembershipCountOrderByAggregateInput
     _max?: MembershipMaxOrderByAggregateInput
     _min?: MembershipMinOrderByAggregateInput
@@ -14451,6 +14469,7 @@ export namespace Prisma {
     is_paid?: BoolWithAggregatesFilter<"Membership"> | boolean
     created_at?: DateTimeWithAggregatesFilter<"Membership"> | Date | string
     created_by_id?: StringWithAggregatesFilter<"Membership"> | string
+    amount_paid?: StringWithAggregatesFilter<"Membership"> | string
   }
 
   export type PlanWhereInput = {
@@ -15170,6 +15189,7 @@ export namespace Prisma {
     is_active?: boolean
     is_paid?: boolean
     created_at?: Date | string
+    amount_paid: string
     created_by: UserCreateNestedOneWithoutCreated_membershipsInput
     member: UserCreateNestedOneWithoutMembershipsInput
     gym: GymCreateNestedOneWithoutMembershipsInput
@@ -15187,6 +15207,7 @@ export namespace Prisma {
     is_paid?: boolean
     created_at?: Date | string
     created_by_id: string
+    amount_paid: string
   }
 
   export type MembershipUpdateInput = {
@@ -15196,6 +15217,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    amount_paid?: StringFieldUpdateOperationsInput | string
     created_by?: UserUpdateOneRequiredWithoutCreated_membershipsNestedInput
     member?: UserUpdateOneRequiredWithoutMembershipsNestedInput
     gym?: GymUpdateOneRequiredWithoutMembershipsNestedInput
@@ -15213,6 +15235,7 @@ export namespace Prisma {
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by_id?: StringFieldUpdateOperationsInput | string
+    amount_paid?: StringFieldUpdateOperationsInput | string
   }
 
   export type MembershipCreateManyInput = {
@@ -15226,6 +15249,7 @@ export namespace Prisma {
     is_paid?: boolean
     created_at?: Date | string
     created_by_id: string
+    amount_paid: string
   }
 
   export type MembershipUpdateManyMutationInput = {
@@ -15235,6 +15259,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    amount_paid?: StringFieldUpdateOperationsInput | string
   }
 
   export type MembershipUncheckedUpdateManyInput = {
@@ -15248,6 +15273,7 @@ export namespace Prisma {
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by_id?: StringFieldUpdateOperationsInput | string
+    amount_paid?: StringFieldUpdateOperationsInput | string
   }
 
   export type PlanCreateInput = {
@@ -16016,6 +16042,7 @@ export namespace Prisma {
     is_paid?: SortOrder
     created_at?: SortOrder
     created_by_id?: SortOrder
+    amount_paid?: SortOrder
   }
 
   export type MembershipMaxOrderByAggregateInput = {
@@ -16029,6 +16056,7 @@ export namespace Prisma {
     is_paid?: SortOrder
     created_at?: SortOrder
     created_by_id?: SortOrder
+    amount_paid?: SortOrder
   }
 
   export type MembershipMinOrderByAggregateInput = {
@@ -16042,6 +16070,7 @@ export namespace Prisma {
     is_paid?: SortOrder
     created_at?: SortOrder
     created_by_id?: SortOrder
+    amount_paid?: SortOrder
   }
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -18037,6 +18066,7 @@ export namespace Prisma {
     is_active?: boolean
     is_paid?: boolean
     created_at?: Date | string
+    amount_paid: string
     created_by: UserCreateNestedOneWithoutCreated_membershipsInput
     gym: GymCreateNestedOneWithoutMembershipsInput
     plan: PlanCreateNestedOneWithoutMembershipsInput
@@ -18052,6 +18082,7 @@ export namespace Prisma {
     is_paid?: boolean
     created_at?: Date | string
     created_by_id: string
+    amount_paid: string
   }
 
   export type MembershipCreateOrConnectWithoutMemberInput = {
@@ -18328,6 +18359,7 @@ export namespace Prisma {
     is_active?: boolean
     is_paid?: boolean
     created_at?: Date | string
+    amount_paid: string
     member: UserCreateNestedOneWithoutMembershipsInput
     gym: GymCreateNestedOneWithoutMembershipsInput
     plan: PlanCreateNestedOneWithoutMembershipsInput
@@ -18343,6 +18375,7 @@ export namespace Prisma {
     is_active?: boolean
     is_paid?: boolean
     created_at?: Date | string
+    amount_paid: string
   }
 
   export type MembershipCreateOrConnectWithoutCreated_byInput = {
@@ -18648,6 +18681,7 @@ export namespace Prisma {
     is_paid?: BoolFilter<"Membership"> | boolean
     created_at?: DateTimeFilter<"Membership"> | Date | string
     created_by_id?: StringFilter<"Membership"> | string
+    amount_paid?: StringFilter<"Membership"> | string
   }
 
   export type PaymentUpsertWithWhereUniqueWithoutMemberInput = {
@@ -19024,6 +19058,7 @@ export namespace Prisma {
     is_active?: boolean
     is_paid?: boolean
     created_at?: Date | string
+    amount_paid: string
     created_by: UserCreateNestedOneWithoutCreated_membershipsInput
     member: UserCreateNestedOneWithoutMembershipsInput
     plan: PlanCreateNestedOneWithoutMembershipsInput
@@ -19039,6 +19074,7 @@ export namespace Prisma {
     is_paid?: boolean
     created_at?: Date | string
     created_by_id: string
+    amount_paid: string
   }
 
   export type MembershipCreateOrConnectWithoutGymInput = {
@@ -19999,6 +20035,7 @@ export namespace Prisma {
     is_active?: boolean
     is_paid?: boolean
     created_at?: Date | string
+    amount_paid: string
     created_by: UserCreateNestedOneWithoutCreated_membershipsInput
     member: UserCreateNestedOneWithoutMembershipsInput
     gym: GymCreateNestedOneWithoutMembershipsInput
@@ -20014,6 +20051,7 @@ export namespace Prisma {
     is_paid?: boolean
     created_at?: Date | string
     created_by_id: string
+    amount_paid: string
   }
 
   export type MembershipCreateOrConnectWithoutPlanInput = {
@@ -21634,6 +21672,7 @@ export namespace Prisma {
     is_paid?: boolean
     created_at?: Date | string
     created_by_id: string
+    amount_paid: string
   }
 
   export type PaymentCreateManyMemberInput = {
@@ -21714,6 +21753,7 @@ export namespace Prisma {
     is_active?: boolean
     is_paid?: boolean
     created_at?: Date | string
+    amount_paid: string
   }
 
   export type PlanCreateManyCreated_byInput = {
@@ -21815,6 +21855,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    amount_paid?: StringFieldUpdateOperationsInput | string
     created_by?: UserUpdateOneRequiredWithoutCreated_membershipsNestedInput
     gym?: GymUpdateOneRequiredWithoutMembershipsNestedInput
     plan?: PlanUpdateOneRequiredWithoutMembershipsNestedInput
@@ -21830,6 +21871,7 @@ export namespace Prisma {
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by_id?: StringFieldUpdateOperationsInput | string
+    amount_paid?: StringFieldUpdateOperationsInput | string
   }
 
   export type MembershipUncheckedUpdateManyWithoutMemberInput = {
@@ -21842,6 +21884,7 @@ export namespace Prisma {
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by_id?: StringFieldUpdateOperationsInput | string
+    amount_paid?: StringFieldUpdateOperationsInput | string
   }
 
   export type PaymentUpdateWithoutMemberInput = {
@@ -22096,6 +22139,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    amount_paid?: StringFieldUpdateOperationsInput | string
     member?: UserUpdateOneRequiredWithoutMembershipsNestedInput
     gym?: GymUpdateOneRequiredWithoutMembershipsNestedInput
     plan?: PlanUpdateOneRequiredWithoutMembershipsNestedInput
@@ -22111,6 +22155,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    amount_paid?: StringFieldUpdateOperationsInput | string
   }
 
   export type MembershipUncheckedUpdateManyWithoutCreated_byInput = {
@@ -22123,6 +22168,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    amount_paid?: StringFieldUpdateOperationsInput | string
   }
 
   export type PlanUpdateWithoutCreated_byInput = {
@@ -22269,6 +22315,7 @@ export namespace Prisma {
     is_paid?: boolean
     created_at?: Date | string
     created_by_id: string
+    amount_paid: string
   }
 
   export type GymInstructorCreateManyGymInput = {
@@ -22291,6 +22338,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    amount_paid?: StringFieldUpdateOperationsInput | string
     created_by?: UserUpdateOneRequiredWithoutCreated_membershipsNestedInput
     member?: UserUpdateOneRequiredWithoutMembershipsNestedInput
     plan?: PlanUpdateOneRequiredWithoutMembershipsNestedInput
@@ -22306,6 +22354,7 @@ export namespace Prisma {
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by_id?: StringFieldUpdateOperationsInput | string
+    amount_paid?: StringFieldUpdateOperationsInput | string
   }
 
   export type MembershipUncheckedUpdateManyWithoutGymInput = {
@@ -22318,6 +22367,7 @@ export namespace Prisma {
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by_id?: StringFieldUpdateOperationsInput | string
+    amount_paid?: StringFieldUpdateOperationsInput | string
   }
 
   export type GymInstructorUpdateWithoutGymInput = {
@@ -22368,6 +22418,7 @@ export namespace Prisma {
     is_paid?: boolean
     created_at?: Date | string
     created_by_id: string
+    amount_paid: string
   }
 
   export type MembershipUpdateWithoutPlanInput = {
@@ -22377,6 +22428,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    amount_paid?: StringFieldUpdateOperationsInput | string
     created_by?: UserUpdateOneRequiredWithoutCreated_membershipsNestedInput
     member?: UserUpdateOneRequiredWithoutMembershipsNestedInput
     gym?: GymUpdateOneRequiredWithoutMembershipsNestedInput
@@ -22392,6 +22444,7 @@ export namespace Prisma {
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by_id?: StringFieldUpdateOperationsInput | string
+    amount_paid?: StringFieldUpdateOperationsInput | string
   }
 
   export type MembershipUncheckedUpdateManyWithoutPlanInput = {
@@ -22404,6 +22457,7 @@ export namespace Prisma {
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by_id?: StringFieldUpdateOperationsInput | string
+    amount_paid?: StringFieldUpdateOperationsInput | string
   }
 
   export type WorkoutEntryCreateManyWorkout_planInput = {

@@ -116,6 +116,7 @@ model Membership {
   is_paid     Boolean @default(true)
   created_at   DateTime @default(now()) @db.Timestamptz
   created_by_id String
+  amount_paid     String
 
   created_by      User     @relation("MembershipCreatedBy", fields: [created_by_id], references: [id], onDelete: Cascade)
   member       User        @relation(fields: [member_id], references: [id], onDelete: Restrict)

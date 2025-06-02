@@ -1,6 +1,6 @@
 <template>
     <div>
-        Dashboard content here  
+        Settings 
     </div>
 </template>
 

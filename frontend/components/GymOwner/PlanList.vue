@@ -1,0 +1,70 @@
+<template>
+    <div class="grid gap-4 sm:grid-cols-2">
+        <div
+            v-for="plan in plans"
+            :key="plan.id"
+            @click="toggle(plan.id)"
+            class="group cursor-pointer rounded-xl border transition-all duration-150 p-4 bg-base-100 hover:bg-primary/5 shadow-sm select-none"
+            :class="[
+                isSelected(plan.id)
+                    ? 'border-primary ring-2 ring-primary bg-primary/5'
+                    : 'border-base-200',
+                !plan.is_active && 'opacity-50 pointer-events-none'
+            ]"
+        >
+            <div class="flex items-center justify-between mb-1">
+                <span class="font-medium text-base text-base-content">
+                    {{ plan.name }}
+                </span>
+                <span
+                    v-if="plan.is_default"
+                    class="badge badge-outline badge-primary text-xs px-2 py-1"
+                >
+                    Default
+                </span>
+            </div>
+            <div class="text-sm text-base-content/70 mb-2">{{ plan.description }}</div>
+            <div class="flex items-center gap-2 mb-1">
+                <span class="font-semibold text-lg text-primary">₱{{ plan.price }}</span>
+                <span class="text-xs text-base-content/60">/ {{ plan.num_of_days }} days</span>
+            </div>
+            <div v-if="isSelected(plan.id)" class="flex justify-end">
+                <span class="badge badge-primary badge-sm">Selected</span>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script setup lang="ts">
+import { computed } from 'vue'
+
+const props = defineProps<{
+    plans: Array<{
+        id: string
+        name: string
+        description: string
+        price: string
+        num_of_days: number
+        num_of_sessions: number
+        is_active: boolean
+        is_default: boolean
+    }>
+    modelValue: string[] // Array of selected plan ids
+}>()
+
+const emit = defineEmits(['update:modelValue'])
+
+function isSelected(id: string) {
+    return props.modelValue.includes(id)
+}
+
+function toggle(id: string) {
+    let newValue: string[]
+    if (isSelected(id)) {
+        newValue = props.modelValue.filter(pid => pid !== id)
+    } else {
+        newValue = [...props.modelValue, id]
+    }
+    emit('update:modelValue', newValue)
+}
+</script>
