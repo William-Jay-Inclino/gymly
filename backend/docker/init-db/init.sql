@@ -1,1 +1,0 @@
-CREATE DATABASE gymly_db;

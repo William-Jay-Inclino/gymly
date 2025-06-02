@@ -3,7 +3,7 @@
         <div class="flex-1">
             <a class="btn btn-ghost text-2xl font-semibold text-neutral hover:bg-base-200 hover:text-primary transition duration-300 rounded-lg px-4 py-2">
                 <Dumbbell class="w-6 h-6 stroke-current" />
-                <span class="flex-1 text-left">Gymly</span>
+                <span class="flex-1 text-left">Gympol</span>
             </a>
         </div>
         <div class="flex-none">
