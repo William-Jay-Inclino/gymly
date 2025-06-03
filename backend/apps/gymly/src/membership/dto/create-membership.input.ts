@@ -1,9 +1,19 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
+import { IsNotEmpty } from 'class-validator';
 
 @InputType()
 export class CreateMembershipInput {
 
-  @Field()
-  exampleField: number;
+    @Field()
+    @IsNotEmpty()
+    member_id: string;
+
+    @Field()
+    @IsNotEmpty()
+    gym_id: string;
+
+    @Field()
+    @IsNotEmpty()
+    plan_id: string;
 
 }

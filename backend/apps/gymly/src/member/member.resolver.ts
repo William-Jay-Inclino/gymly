@@ -1,21 +1,27 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ResolveField, Parent } from '@nestjs/graphql';
 import { MemberService } from './member.service';
 import { CreateMemberInput } from './dto/create-member.input';
 import { Member } from './entities/member.entity';
+import { MutationMemberResponse } from './entities/member.response.entity';
 
-@Resolver('Member')
+@Resolver(() => Member)
 export class MemberResolver {
     constructor(private readonly memberService: MemberService) {}
 
-    @Query(() => [Member], { name: 'members' })
-    async getMembers() {
-        return this.memberService.findAll();
+    @Query(() => [Member])
+    async members() {
+        return this.memberService.find_all();
     }
 
-    @Mutation(() => Member)
-    async createMember(
+    @Mutation(() => MutationMemberResponse)
+    async create_member(
         @Args('data') data: CreateMemberInput,
     ) {
         return this.memberService.create(data);
+    }
+
+    @ResolveField(() => Boolean)
+    async is_active(@Parent() member: Member): Promise<boolean> {
+        return this.memberService.is_member_active(member.id);
     }
 }

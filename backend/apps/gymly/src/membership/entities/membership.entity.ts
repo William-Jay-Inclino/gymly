@@ -1,4 +1,4 @@
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class Membership {
@@ -18,8 +18,11 @@ export class Membership {
 	@Field()
 	start_date: string;
 
-	@Field()
-	end_date: string;
+	@Field({ nullable: true })
+	end_date: string | null;
+
+	@Field(() => Int, { nullable: true })
+	sessions_left: number | null;
 
 	@Field(() => Boolean)
 	is_active: boolean;

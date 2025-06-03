@@ -11,7 +11,6 @@
                             <span class="label-text text-base-content/80">Select Plan</span>
                         </label>
                         <PlanList
-                            :plans="plans"
                             v-model="selectedPlans"
                         />
                     </div>
@@ -28,71 +27,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, defineEmits, onMounted } from 'vue'
 import PlanList from './PlanList.vue'
 import type { Member } from '~/functions/member/member.types';
+import { usePlanStore } from '~/functions/plan/plan.store';
 
 const props = defineProps<{
     member?: Member
 }>()
 
-const plans = [
-    {
-        id: '1',
-        name: "1 Week",
-        description: "Short-term access for quick workouts.",
-        price: "300",
-        num_of_days: 7,
-        num_of_sessions: 3,
-        is_active: true,
-        is_default: false,
-    },
-    {
-        id: '2',
-        name: "1 Month",
-        description: "Monthly plan for consistent training.",
-        price: "1000",
-        num_of_days: 30,
-        num_of_sessions: 12,
-        is_active: true,
-        is_default: true,
-    },
-    {
-        id: '3',
-        name: "3 Months",
-        description: "Quarterly plan to stay on track.",
-        price: "2700",
-        num_of_days: 90,
-        num_of_sessions: 36,
-        is_active: true,
-        is_default: false,
-    },
-    {
-        id: '4',
-        name: "6 Months",
-        description: "Half-year plan for serious commitment.",
-        price: "5000",
-        num_of_days: 180,
-        num_of_sessions: 72,
-        is_active: true,
-        is_default: false,
-    },
-    {
-        id: '5',
-        name: "1 Year",
-        description: "Year-long access with the best value.",
-        price: "9000",
-        num_of_days: 365,
-        num_of_sessions: 150,
-        is_active: true,
-        is_default: false,
-    },
-]
-
 const emit = defineEmits(['close', 'submit'])
 
+const planStore = usePlanStore()
+const plans = computed(() => planStore.plans)
+
+
 const modalRef = ref<HTMLDialogElement | null>(null)
-const selectedPlans = ref<string[]>(plans.filter(p => p.is_default).map(p => p.id))
+const selectedPlans = ref<string[]>(plans.value.filter(p => p.is_default).map(p => p.id))
 
 const canSubmit = computed(() => selectedPlans.value.length > 0)
 

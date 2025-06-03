@@ -50,7 +50,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, defineProps, defineEmits } from 'vue'
 import type { Member } from '~/functions/member/member.types';
 
 const props = defineProps<{

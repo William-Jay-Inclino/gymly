@@ -167,6 +167,7 @@ exports.Prisma.MembershipScalarFieldEnum = {
   plan_id: 'plan_id',
   start_date: 'start_date',
   end_date: 'end_date',
+  sessions_left: 'sessions_left',
   is_active: 'is_active',
   is_paid: 'is_paid',
   amount_paid: 'amount_paid',

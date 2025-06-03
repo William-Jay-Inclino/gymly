@@ -11,6 +11,7 @@ import { GymModule } from './gym/gym.module';
 import { MemberModule } from './member/member.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { PlanModule } from './plan/plan.module';
 
 @Module({
 	imports: [
@@ -28,6 +29,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 		UserModule,
 		GymModule,
 		MemberModule,
+		PlanModule,
 	],
 	controllers: [GymlyController],
 	providers: [GymlyService, SeederService],

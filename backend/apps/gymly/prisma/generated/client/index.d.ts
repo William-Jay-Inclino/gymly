@@ -6554,8 +6554,18 @@ export namespace Prisma {
 
   export type AggregateMembership = {
     _count: MembershipCountAggregateOutputType | null
+    _avg: MembershipAvgAggregateOutputType | null
+    _sum: MembershipSumAggregateOutputType | null
     _min: MembershipMinAggregateOutputType | null
     _max: MembershipMaxAggregateOutputType | null
+  }
+
+  export type MembershipAvgAggregateOutputType = {
+    sessions_left: number | null
+  }
+
+  export type MembershipSumAggregateOutputType = {
+    sessions_left: number | null
   }
 
   export type MembershipMinAggregateOutputType = {
@@ -6565,6 +6575,7 @@ export namespace Prisma {
     plan_id: string | null
     start_date: Date | null
     end_date: Date | null
+    sessions_left: number | null
     is_active: boolean | null
     is_paid: boolean | null
     amount_paid: string | null
@@ -6579,6 +6590,7 @@ export namespace Prisma {
     plan_id: string | null
     start_date: Date | null
     end_date: Date | null
+    sessions_left: number | null
     is_active: boolean | null
     is_paid: boolean | null
     amount_paid: string | null
@@ -6593,6 +6605,7 @@ export namespace Prisma {
     plan_id: number
     start_date: number
     end_date: number
+    sessions_left: number
     is_active: number
     is_paid: number
     amount_paid: number
@@ -6602,6 +6615,14 @@ export namespace Prisma {
   }
 
 
+  export type MembershipAvgAggregateInputType = {
+    sessions_left?: true
+  }
+
+  export type MembershipSumAggregateInputType = {
+    sessions_left?: true
+  }
+
   export type MembershipMinAggregateInputType = {
     id?: true
     member_id?: true
@@ -6609,6 +6630,7 @@ export namespace Prisma {
     plan_id?: true
     start_date?: true
     end_date?: true
+    sessions_left?: true
     is_active?: true
     is_paid?: true
     amount_paid?: true
@@ -6623,6 +6645,7 @@ export namespace Prisma {
     plan_id?: true
     start_date?: true
     end_date?: true
+    sessions_left?: true
     is_active?: true
     is_paid?: true
     amount_paid?: true
@@ -6637,6 +6660,7 @@ export namespace Prisma {
     plan_id?: true
     start_date?: true
     end_date?: true
+    sessions_left?: true
     is_active?: true
     is_paid?: true
     amount_paid?: true
@@ -6683,6 +6707,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: MembershipAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MembershipSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: MembershipMinAggregateInputType
@@ -6713,6 +6749,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: MembershipCountAggregateInputType | true
+    _avg?: MembershipAvgAggregateInputType
+    _sum?: MembershipSumAggregateInputType
     _min?: MembershipMinAggregateInputType
     _max?: MembershipMaxAggregateInputType
   }
@@ -6724,12 +6762,15 @@ export namespace Prisma {
     plan_id: string
     start_date: Date
     end_date: Date | null
+    sessions_left: number | null
     is_active: boolean
     is_paid: boolean
     amount_paid: string
     created_at: Date
     created_by: string
     _count: MembershipCountAggregateOutputType | null
+    _avg: MembershipAvgAggregateOutputType | null
+    _sum: MembershipSumAggregateOutputType | null
     _min: MembershipMinAggregateOutputType | null
     _max: MembershipMaxAggregateOutputType | null
   }
@@ -6755,6 +6796,7 @@ export namespace Prisma {
     plan_id?: boolean
     start_date?: boolean
     end_date?: boolean
+    sessions_left?: boolean
     is_active?: boolean
     is_paid?: boolean
     amount_paid?: boolean
@@ -6774,6 +6816,7 @@ export namespace Prisma {
     plan_id?: boolean
     start_date?: boolean
     end_date?: boolean
+    sessions_left?: boolean
     is_active?: boolean
     is_paid?: boolean
     amount_paid?: boolean
@@ -6791,6 +6834,7 @@ export namespace Prisma {
     plan_id?: boolean
     start_date?: boolean
     end_date?: boolean
+    sessions_left?: boolean
     is_active?: boolean
     is_paid?: boolean
     amount_paid?: boolean
@@ -6808,6 +6852,7 @@ export namespace Prisma {
     plan_id?: boolean
     start_date?: boolean
     end_date?: boolean
+    sessions_left?: boolean
     is_active?: boolean
     is_paid?: boolean
     amount_paid?: boolean
@@ -6815,7 +6860,7 @@ export namespace Prisma {
     created_by?: boolean
   }
 
-  export type MembershipOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "member_id" | "gym_id" | "plan_id" | "start_date" | "end_date" | "is_active" | "is_paid" | "amount_paid" | "created_at" | "created_by", ExtArgs["result"]["membership"]>
+  export type MembershipOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "member_id" | "gym_id" | "plan_id" | "start_date" | "end_date" | "sessions_left" | "is_active" | "is_paid" | "amount_paid" | "created_at" | "created_by", ExtArgs["result"]["membership"]>
   export type MembershipInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     member?: boolean | MemberDefaultArgs<ExtArgs>
     gym?: boolean | GymDefaultArgs<ExtArgs>
@@ -6849,6 +6894,7 @@ export namespace Prisma {
       plan_id: string
       start_date: Date
       end_date: Date | null
+      sessions_left: number | null
       is_active: boolean
       is_paid: boolean
       amount_paid: string
@@ -7287,6 +7333,7 @@ export namespace Prisma {
     readonly plan_id: FieldRef<"Membership", 'String'>
     readonly start_date: FieldRef<"Membership", 'DateTime'>
     readonly end_date: FieldRef<"Membership", 'DateTime'>
+    readonly sessions_left: FieldRef<"Membership", 'Int'>
     readonly is_active: FieldRef<"Membership", 'Boolean'>
     readonly is_paid: FieldRef<"Membership", 'Boolean'>
     readonly amount_paid: FieldRef<"Membership", 'String'>
@@ -7934,8 +7981,8 @@ export namespace Prisma {
     name: string
     description: string | null
     price: string
-    num_of_days: number
-    num_of_sessions: number
+    num_of_days: number | null
+    num_of_sessions: number | null
     is_active: boolean
     is_default: boolean
     created_at: Date
@@ -8033,8 +8080,8 @@ export namespace Prisma {
       name: string
       description: string | null
       price: string
-      num_of_days: number
-      num_of_sessions: number
+      num_of_days: number | null
+      num_of_sessions: number | null
       is_active: boolean
       is_default: boolean
       created_at: Date
@@ -13407,6 +13454,7 @@ export namespace Prisma {
     plan_id: 'plan_id',
     start_date: 'start_date',
     end_date: 'end_date',
+    sessions_left: 'sessions_left',
     is_active: 'is_active',
     is_paid: 'is_paid',
     amount_paid: 'amount_paid',
@@ -13897,6 +13945,7 @@ export namespace Prisma {
     plan_id?: StringFilter<"Membership"> | string
     start_date?: DateTimeFilter<"Membership"> | Date | string
     end_date?: DateTimeNullableFilter<"Membership"> | Date | string | null
+    sessions_left?: IntNullableFilter<"Membership"> | number | null
     is_active?: BoolFilter<"Membership"> | boolean
     is_paid?: BoolFilter<"Membership"> | boolean
     amount_paid?: StringFilter<"Membership"> | string
@@ -13915,6 +13964,7 @@ export namespace Prisma {
     plan_id?: SortOrder
     start_date?: SortOrder
     end_date?: SortOrderInput | SortOrder
+    sessions_left?: SortOrderInput | SortOrder
     is_active?: SortOrder
     is_paid?: SortOrder
     amount_paid?: SortOrder
@@ -13936,6 +13986,7 @@ export namespace Prisma {
     plan_id?: StringFilter<"Membership"> | string
     start_date?: DateTimeFilter<"Membership"> | Date | string
     end_date?: DateTimeNullableFilter<"Membership"> | Date | string | null
+    sessions_left?: IntNullableFilter<"Membership"> | number | null
     is_active?: BoolFilter<"Membership"> | boolean
     is_paid?: BoolFilter<"Membership"> | boolean
     amount_paid?: StringFilter<"Membership"> | string
@@ -13954,14 +14005,17 @@ export namespace Prisma {
     plan_id?: SortOrder
     start_date?: SortOrder
     end_date?: SortOrderInput | SortOrder
+    sessions_left?: SortOrderInput | SortOrder
     is_active?: SortOrder
     is_paid?: SortOrder
     amount_paid?: SortOrder
     created_at?: SortOrder
     created_by?: SortOrder
     _count?: MembershipCountOrderByAggregateInput
+    _avg?: MembershipAvgOrderByAggregateInput
     _max?: MembershipMaxOrderByAggregateInput
     _min?: MembershipMinOrderByAggregateInput
+    _sum?: MembershipSumOrderByAggregateInput
   }
 
   export type MembershipScalarWhereWithAggregatesInput = {
@@ -13974,6 +14028,7 @@ export namespace Prisma {
     plan_id?: StringWithAggregatesFilter<"Membership"> | string
     start_date?: DateTimeWithAggregatesFilter<"Membership"> | Date | string
     end_date?: DateTimeNullableWithAggregatesFilter<"Membership"> | Date | string | null
+    sessions_left?: IntNullableWithAggregatesFilter<"Membership"> | number | null
     is_active?: BoolWithAggregatesFilter<"Membership"> | boolean
     is_paid?: BoolWithAggregatesFilter<"Membership"> | boolean
     amount_paid?: StringWithAggregatesFilter<"Membership"> | string
@@ -13989,8 +14044,8 @@ export namespace Prisma {
     name?: StringFilter<"Plan"> | string
     description?: StringNullableFilter<"Plan"> | string | null
     price?: StringFilter<"Plan"> | string
-    num_of_days?: IntFilter<"Plan"> | number
-    num_of_sessions?: IntFilter<"Plan"> | number
+    num_of_days?: IntNullableFilter<"Plan"> | number | null
+    num_of_sessions?: IntNullableFilter<"Plan"> | number | null
     is_active?: BoolFilter<"Plan"> | boolean
     is_default?: BoolFilter<"Plan"> | boolean
     created_at?: DateTimeFilter<"Plan"> | Date | string
@@ -14003,8 +14058,8 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     price?: SortOrder
-    num_of_days?: SortOrder
-    num_of_sessions?: SortOrder
+    num_of_days?: SortOrderInput | SortOrder
+    num_of_sessions?: SortOrderInput | SortOrder
     is_active?: SortOrder
     is_default?: SortOrder
     created_at?: SortOrder
@@ -14020,8 +14075,8 @@ export namespace Prisma {
     name?: StringFilter<"Plan"> | string
     description?: StringNullableFilter<"Plan"> | string | null
     price?: StringFilter<"Plan"> | string
-    num_of_days?: IntFilter<"Plan"> | number
-    num_of_sessions?: IntFilter<"Plan"> | number
+    num_of_days?: IntNullableFilter<"Plan"> | number | null
+    num_of_sessions?: IntNullableFilter<"Plan"> | number | null
     is_active?: BoolFilter<"Plan"> | boolean
     is_default?: BoolFilter<"Plan"> | boolean
     created_at?: DateTimeFilter<"Plan"> | Date | string
@@ -14034,8 +14089,8 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrderInput | SortOrder
     price?: SortOrder
-    num_of_days?: SortOrder
-    num_of_sessions?: SortOrder
+    num_of_days?: SortOrderInput | SortOrder
+    num_of_sessions?: SortOrderInput | SortOrder
     is_active?: SortOrder
     is_default?: SortOrder
     created_at?: SortOrder
@@ -14055,8 +14110,8 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Plan"> | string
     description?: StringNullableWithAggregatesFilter<"Plan"> | string | null
     price?: StringWithAggregatesFilter<"Plan"> | string
-    num_of_days?: IntWithAggregatesFilter<"Plan"> | number
-    num_of_sessions?: IntWithAggregatesFilter<"Plan"> | number
+    num_of_days?: IntNullableWithAggregatesFilter<"Plan"> | number | null
+    num_of_sessions?: IntNullableWithAggregatesFilter<"Plan"> | number | null
     is_active?: BoolWithAggregatesFilter<"Plan"> | boolean
     is_default?: BoolWithAggregatesFilter<"Plan"> | boolean
     created_at?: DateTimeWithAggregatesFilter<"Plan"> | Date | string
@@ -14637,6 +14692,7 @@ export namespace Prisma {
     id?: string
     start_date?: Date | string
     end_date?: Date | string | null
+    sessions_left?: number | null
     is_active?: boolean
     is_paid?: boolean
     amount_paid: string
@@ -14655,6 +14711,7 @@ export namespace Prisma {
     plan_id: string
     start_date?: Date | string
     end_date?: Date | string | null
+    sessions_left?: number | null
     is_active?: boolean
     is_paid?: boolean
     amount_paid: string
@@ -14667,6 +14724,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessions_left?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     amount_paid?: StringFieldUpdateOperationsInput | string
@@ -14685,6 +14743,7 @@ export namespace Prisma {
     plan_id?: StringFieldUpdateOperationsInput | string
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessions_left?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     amount_paid?: StringFieldUpdateOperationsInput | string
@@ -14700,6 +14759,7 @@ export namespace Prisma {
     plan_id: string
     start_date?: Date | string
     end_date?: Date | string | null
+    sessions_left?: number | null
     is_active?: boolean
     is_paid?: boolean
     amount_paid: string
@@ -14711,6 +14771,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessions_left?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     amount_paid?: StringFieldUpdateOperationsInput | string
@@ -14725,6 +14786,7 @@ export namespace Prisma {
     plan_id?: StringFieldUpdateOperationsInput | string
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessions_left?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     amount_paid?: StringFieldUpdateOperationsInput | string
@@ -14737,8 +14799,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     price: string
-    num_of_days: number
-    num_of_sessions: number
+    num_of_days?: number | null
+    num_of_sessions?: number | null
     is_active?: boolean
     is_default?: boolean
     created_at?: Date | string
@@ -14751,8 +14813,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     price: string
-    num_of_days: number
-    num_of_sessions: number
+    num_of_days?: number | null
+    num_of_sessions?: number | null
     is_active?: boolean
     is_default?: boolean
     created_at?: Date | string
@@ -14765,8 +14827,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: StringFieldUpdateOperationsInput | string
-    num_of_days?: IntFieldUpdateOperationsInput | number
-    num_of_sessions?: IntFieldUpdateOperationsInput | number
+    num_of_days?: NullableIntFieldUpdateOperationsInput | number | null
+    num_of_sessions?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_default?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14779,8 +14841,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: StringFieldUpdateOperationsInput | string
-    num_of_days?: IntFieldUpdateOperationsInput | number
-    num_of_sessions?: IntFieldUpdateOperationsInput | number
+    num_of_days?: NullableIntFieldUpdateOperationsInput | number | null
+    num_of_sessions?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_default?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14793,8 +14855,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     price: string
-    num_of_days: number
-    num_of_sessions: number
+    num_of_days?: number | null
+    num_of_sessions?: number | null
     is_active?: boolean
     is_default?: boolean
     created_at?: Date | string
@@ -14806,8 +14868,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: StringFieldUpdateOperationsInput | string
-    num_of_days?: IntFieldUpdateOperationsInput | number
-    num_of_sessions?: IntFieldUpdateOperationsInput | number
+    num_of_days?: NullableIntFieldUpdateOperationsInput | number | null
+    num_of_sessions?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_default?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14819,8 +14881,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: StringFieldUpdateOperationsInput | string
-    num_of_days?: IntFieldUpdateOperationsInput | number
-    num_of_sessions?: IntFieldUpdateOperationsInput | number
+    num_of_days?: NullableIntFieldUpdateOperationsInput | number | null
+    num_of_sessions?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_default?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15383,6 +15445,17 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type MemberScalarRelationFilter = {
     is?: MemberWhereInput
     isNot?: MemberWhereInput
@@ -15410,11 +15483,16 @@ export namespace Prisma {
     plan_id?: SortOrder
     start_date?: SortOrder
     end_date?: SortOrder
+    sessions_left?: SortOrder
     is_active?: SortOrder
     is_paid?: SortOrder
     amount_paid?: SortOrder
     created_at?: SortOrder
     created_by?: SortOrder
+  }
+
+  export type MembershipAvgOrderByAggregateInput = {
+    sessions_left?: SortOrder
   }
 
   export type MembershipMaxOrderByAggregateInput = {
@@ -15424,6 +15502,7 @@ export namespace Prisma {
     plan_id?: SortOrder
     start_date?: SortOrder
     end_date?: SortOrder
+    sessions_left?: SortOrder
     is_active?: SortOrder
     is_paid?: SortOrder
     amount_paid?: SortOrder
@@ -15438,11 +15517,16 @@ export namespace Prisma {
     plan_id?: SortOrder
     start_date?: SortOrder
     end_date?: SortOrder
+    sessions_left?: SortOrder
     is_active?: SortOrder
     is_paid?: SortOrder
     amount_paid?: SortOrder
     created_at?: SortOrder
     created_by?: SortOrder
+  }
+
+  export type MembershipSumOrderByAggregateInput = {
+    sessions_left?: SortOrder
   }
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -15459,15 +15543,20 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type PlanCountOrderByAggregateInput = {
@@ -15517,22 +15606,6 @@ export namespace Prisma {
   export type PlanSumOrderByAggregateInput = {
     num_of_days?: SortOrder
     num_of_sessions?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type FloatFilter<$PrismaModel = never> = {
@@ -15622,6 +15695,17 @@ export namespace Prisma {
     _max?: NestedEnumPaymentMethodFilter<$PrismaModel>
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type MemberTimeLogsCountOrderByAggregateInput = {
     id?: SortOrder
     member_id?: SortOrder
@@ -15652,6 +15736,22 @@ export namespace Prisma {
 
   export type MemberTimeLogsSumOrderByAggregateInput = {
     id?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type UserTimeLogsCountOrderByAggregateInput = {
@@ -16230,6 +16330,14 @@ export namespace Prisma {
     set?: Date | string | null
   }
 
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type MemberUpdateOneRequiredWithoutMembershipsNestedInput = {
     create?: XOR<MemberCreateWithoutMembershipsInput, MemberUncheckedCreateWithoutMembershipsInput>
     connectOrCreate?: MemberCreateOrConnectWithoutMembershipsInput
@@ -16294,14 +16402,6 @@ export namespace Prisma {
     connectOrCreate?: MembershipCreateOrConnectWithoutPlanInput | MembershipCreateOrConnectWithoutPlanInput[]
     createMany?: MembershipCreateManyPlanInputEnvelope
     connect?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type MembershipUpdateManyWithoutPlanNestedInput = {
@@ -16384,6 +16484,14 @@ export namespace Prisma {
     upsert?: GymUpsertWithoutMember_time_logsInput
     connect?: GymWhereUniqueInput
     update?: XOR<XOR<GymUpdateToOneWithWhereWithoutMember_time_logsInput, GymUpdateWithoutMember_time_logsInput>, GymUncheckedUpdateWithoutMember_time_logsInput>
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type UserCreateNestedOneWithoutAttendance_logsInput = {
@@ -16606,20 +16714,31 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedFloatFilter<$PrismaModel = never> = {
@@ -16664,6 +16783,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumPaymentMethodFilter<$PrismaModel>
     _max?: NestedEnumPaymentMethodFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type GymCreateWithoutOwnerInput = {
@@ -16785,6 +16920,7 @@ export namespace Prisma {
     id?: string
     start_date?: Date | string
     end_date?: Date | string | null
+    sessions_left?: number | null
     is_active?: boolean
     is_paid?: boolean
     amount_paid: string
@@ -16801,6 +16937,7 @@ export namespace Prisma {
     plan_id: string
     start_date?: Date | string
     end_date?: Date | string | null
+    sessions_left?: number | null
     is_active?: boolean
     is_paid?: boolean
     amount_paid: string
@@ -16891,6 +17028,7 @@ export namespace Prisma {
     plan_id?: StringFilter<"Membership"> | string
     start_date?: DateTimeFilter<"Membership"> | Date | string
     end_date?: DateTimeNullableFilter<"Membership"> | Date | string | null
+    sessions_left?: IntNullableFilter<"Membership"> | number | null
     is_active?: BoolFilter<"Membership"> | boolean
     is_paid?: BoolFilter<"Membership"> | boolean
     amount_paid?: StringFilter<"Membership"> | string
@@ -17088,6 +17226,7 @@ export namespace Prisma {
     id?: string
     start_date?: Date | string
     end_date?: Date | string | null
+    sessions_left?: number | null
     is_active?: boolean
     is_paid?: boolean
     amount_paid: string
@@ -17104,6 +17243,7 @@ export namespace Prisma {
     plan_id: string
     start_date?: Date | string
     end_date?: Date | string | null
+    sessions_left?: number | null
     is_active?: boolean
     is_paid?: boolean
     amount_paid: string
@@ -17375,8 +17515,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     price: string
-    num_of_days: number
-    num_of_sessions: number
+    num_of_days?: number | null
+    num_of_sessions?: number | null
     is_active?: boolean
     is_default?: boolean
     created_at?: Date | string
@@ -17388,8 +17528,8 @@ export namespace Prisma {
     name: string
     description?: string | null
     price: string
-    num_of_days: number
-    num_of_sessions: number
+    num_of_days?: number | null
+    num_of_sessions?: number | null
     is_active?: boolean
     is_default?: boolean
     created_at?: Date | string
@@ -17515,8 +17655,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: StringFieldUpdateOperationsInput | string
-    num_of_days?: IntFieldUpdateOperationsInput | number
-    num_of_sessions?: IntFieldUpdateOperationsInput | number
+    num_of_days?: NullableIntFieldUpdateOperationsInput | number | null
+    num_of_sessions?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_default?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17528,8 +17668,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     price?: StringFieldUpdateOperationsInput | string
-    num_of_days?: IntFieldUpdateOperationsInput | number
-    num_of_sessions?: IntFieldUpdateOperationsInput | number
+    num_of_days?: NullableIntFieldUpdateOperationsInput | number | null
+    num_of_sessions?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_default?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17569,6 +17709,7 @@ export namespace Prisma {
     id?: string
     start_date?: Date | string
     end_date?: Date | string | null
+    sessions_left?: number | null
     is_active?: boolean
     is_paid?: boolean
     amount_paid: string
@@ -17585,6 +17726,7 @@ export namespace Prisma {
     gym_id: string
     start_date?: Date | string
     end_date?: Date | string | null
+    sessions_left?: number | null
     is_active?: boolean
     is_paid?: boolean
     amount_paid: string
@@ -17623,6 +17765,7 @@ export namespace Prisma {
     id?: string
     start_date?: Date | string
     end_date?: Date | string | null
+    sessions_left?: number | null
     is_active?: boolean
     is_paid?: boolean
     amount_paid: string
@@ -17640,6 +17783,7 @@ export namespace Prisma {
     plan_id: string
     start_date?: Date | string
     end_date?: Date | string | null
+    sessions_left?: number | null
     is_active?: boolean
     is_paid?: boolean
     amount_paid: string
@@ -17667,6 +17811,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessions_left?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     amount_paid?: StringFieldUpdateOperationsInput | string
@@ -17684,6 +17829,7 @@ export namespace Prisma {
     plan_id?: StringFieldUpdateOperationsInput | string
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessions_left?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     amount_paid?: StringFieldUpdateOperationsInput | string
@@ -18144,6 +18290,7 @@ export namespace Prisma {
     plan_id: string
     start_date?: Date | string
     end_date?: Date | string | null
+    sessions_left?: number | null
     is_active?: boolean
     is_paid?: boolean
     amount_paid: string
@@ -18169,6 +18316,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessions_left?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     amount_paid?: StringFieldUpdateOperationsInput | string
@@ -18185,6 +18333,7 @@ export namespace Prisma {
     plan_id?: StringFieldUpdateOperationsInput | string
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessions_left?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     amount_paid?: StringFieldUpdateOperationsInput | string
@@ -18199,6 +18348,7 @@ export namespace Prisma {
     plan_id?: StringFieldUpdateOperationsInput | string
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessions_left?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     amount_paid?: StringFieldUpdateOperationsInput | string
@@ -18279,6 +18429,7 @@ export namespace Prisma {
     plan_id: string
     start_date?: Date | string
     end_date?: Date | string | null
+    sessions_left?: number | null
     is_active?: boolean
     is_paid?: boolean
     amount_paid: string
@@ -18314,6 +18465,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessions_left?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     amount_paid?: StringFieldUpdateOperationsInput | string
@@ -18330,6 +18482,7 @@ export namespace Prisma {
     plan_id?: StringFieldUpdateOperationsInput | string
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessions_left?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     amount_paid?: StringFieldUpdateOperationsInput | string
@@ -18344,6 +18497,7 @@ export namespace Prisma {
     plan_id?: StringFieldUpdateOperationsInput | string
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessions_left?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     amount_paid?: StringFieldUpdateOperationsInput | string
@@ -18465,6 +18619,7 @@ export namespace Prisma {
     gym_id: string
     start_date?: Date | string
     end_date?: Date | string | null
+    sessions_left?: number | null
     is_active?: boolean
     is_paid?: boolean
     amount_paid: string
@@ -18476,6 +18631,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessions_left?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     amount_paid?: StringFieldUpdateOperationsInput | string
@@ -18492,6 +18648,7 @@ export namespace Prisma {
     gym_id?: StringFieldUpdateOperationsInput | string
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessions_left?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     amount_paid?: StringFieldUpdateOperationsInput | string
@@ -18506,6 +18663,7 @@ export namespace Prisma {
     gym_id?: StringFieldUpdateOperationsInput | string
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessions_left?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
     is_paid?: BoolFieldUpdateOperationsInput | boolean
     amount_paid?: StringFieldUpdateOperationsInput | string

@@ -111,31 +111,12 @@ import PlanListModal from '~/components/GymOwner/PlanListModal.vue'
 import AttendanceModal from '~/components/GymOwner/AttendanceModal.vue'
 import type { Member } from '~/functions/member/member.types'
 import * as memberApi from '~/functions/member/member.api'
+import { usePlanStore } from '~/functions/plan/plan.store'
 
-const members = ref<Member[]>([
-    {
-        id: '1',
-        firstname: 'Jane',
-        middlename: null,
-        lastname: 'Doe',
-        contact_number: null,
-        created_at: '2024-05-01T10:00:00Z',
-        created_by: 'system',
-        is_active: true,
-        memberships: [],
-    },
-    {
-        id: '2',
-        firstname: 'John',
-        middlename: null,
-        lastname: 'Smith',
-        contact_number: null,
-        created_at: '2024-04-15T14:30:00Z',
-        created_by: 'system',
-        is_active: true,
-        memberships: [],
-    },
-])
+const planStore = usePlanStore()
+
+const members = ref<Member[]>()
+const gymId = '412ec826-bd16-4ed3-bc11-6d77e1b32ce3' //temp
 
 const search = ref('')
 const showAddModal = ref(false)
@@ -146,17 +127,22 @@ const showAttendanceModal = ref(false)
 
 
 onMounted(async() => {
-    const { members } = await memberApi.init()
-    console.log('members', members);
+    const response = await memberApi.init()
+    members.value = response.members
+    planStore.set_plans(response.plans)
 })
 
-const filteredUsers = computed(() =>
-    members.value.filter(member =>
+const filteredUsers = computed(() => {
+
+    if(!members.value) return []
+    
+    return members.value.filter(member =>
         (member.firstname + ' ' + member.lastname)
             .toLowerCase()
             .includes(search.value.trim().toLowerCase())
     )
-)
+
+})
 
 function formatDate(dateStr: string) {
     const date = new Date(dateStr)
@@ -182,8 +168,33 @@ function openAddPlanModal(member: Member) {
     showAddPlanModal.value = true
 }
 
-function handleAddMember(newMember: { firstname: string; lastname: string; planId: string }) {
-    showAddModal.value = false
+async function handleAddMember(newMember: { 
+    firstname: string; 
+    middlename: string;
+    lastname: string; 
+    contact_number: string;
+    planIds: string[];
+}) {
+    try {
+        // Call the API to create the member
+        const response = await memberApi.create_member({
+            firstname: newMember.firstname,
+            middlename: newMember.middlename,
+            lastname: newMember.lastname,
+            contact_number: newMember.contact_number,
+            plan_ids: newMember.planIds,
+            gym_id: gymId,
+        });
+
+        // Optionally, update the local members list
+        if (response.success && response.data) {
+            members.value?.unshift(response.data);
+        }
+
+        showAddModal.value = false;
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 function handleAddPlan({ planId }: { planId: string }) {

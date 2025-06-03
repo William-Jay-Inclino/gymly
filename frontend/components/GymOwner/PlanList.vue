@@ -36,23 +36,18 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+
+import { usePlanStore } from '~/functions/plan/plan.store';
 
 const props = defineProps<{
-    plans: Array<{
-        id: string
-        name: string
-        description: string
-        price: string
-        num_of_days: number
-        num_of_sessions: number
-        is_active: boolean
-        is_default: boolean
-    }>
     modelValue: string[] // Array of selected plan ids
 }>()
 
 const emit = defineEmits(['update:modelValue'])
+
+const planStore = usePlanStore()
+
+const plans = computed(() => planStore.plans)
 
 function isSelected(id: string) {
     return props.modelValue.includes(id)
