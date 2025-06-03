@@ -4,8 +4,8 @@
             <div class="px-8 pt-8 pb-2">
                 <h3 class="font-semibold text-xl mb-6 text-primary">
                     Attendance
-                    <span v-if="user" class="block text-base text-base-content/70 font-normal mt-1">
-                        {{ user.firstname }} {{ user.lastname }}
+                    <span v-if="member" class="block text-base text-base-content/70 font-normal mt-1">
+                        {{ member.firstname }} {{ member.lastname }}
                     </span>
                 </h3>
                 <div class="overflow-x-auto">
@@ -51,13 +51,10 @@
 
 <script setup lang="ts">
 import { ref, onMounted, defineProps, defineEmits } from 'vue'
+import type { Member } from '~/functions/member/member.types';
 
 const props = defineProps<{
-    user?: {
-        id: string
-        firstname: string
-        lastname: string
-    }
+    member?: Member
 }>()
 
 // Example static attendance data. Replace with real data as needed.

@@ -3,7 +3,7 @@
         <form method="dialog" class="modal-box bg-base-100 max-w-md p-0 overflow-hidden" @submit.prevent="submit">
             <div class="px-8 pt-8 pb-2">
                 <h3 class="font-semibold text-xl mb-6 text-primary">
-                    Add Plan<span v-if="user"> for {{ user.firstname }} {{ user.lastname }}</span>
+                    Add Plan<span v-if="member"> for {{ member.firstname }} {{ member.lastname }}</span>
                 </h3>
                 <div class="space-y-4">
                     <div>
@@ -30,13 +30,10 @@
 <script setup lang="ts">
 import { ref, computed, defineEmits, onMounted } from 'vue'
 import PlanList from './PlanList.vue'
+import type { Member } from '~/functions/member/member.types';
 
 const props = defineProps<{
-    user?: {
-        id: string
-        firstname: string
-        lastname: string
-    }
+    member?: Member
 }>()
 
 const plans = [

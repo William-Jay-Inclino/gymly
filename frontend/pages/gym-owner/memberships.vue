@@ -28,20 +28,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="user in filteredUsers" :key="user.id">
-                            <td>{{ user.firstname }}</td>
-                            <td>{{ user.lastname }}</td>
+                        <tr v-for="member in filteredUsers" :key="member.id">
+                            <td>{{ member.firstname }}</td>
+                            <td>{{ member.lastname }}</td>
                             <td>
                                 <span
                                     class="badge"
-                                    :class="user.is_active ? 'badge-soft badge-success' : 'badge-soft badge-error'"
+                                    :class="member.is_active ? 'badge-soft badge-success' : 'badge-soft badge-error'"
                                 >
-                                    {{ user.is_active ? 'Active' : 'Inactive' }}
+                                    {{ member.is_active ? 'Active' : 'Inactive' }}
                                 </span>
                             </td>
                             <td>
                                 <span class="text-sm text-base-content/70">
-                                    {{ formatDate(user.created_at) }}
+                                    {{ formatDate(member.created_at) }}
                                 </span>
                             </td>
                             <td>
@@ -49,21 +49,21 @@
                                     <button
                                         class="btn btn-sm btn-circle btn-ghost tooltip z-20"
                                         data-tip="View Plans"
-                                        @click="viewPlans(user)"
+                                        @click="viewPlans(member)"
                                     >
                                         <BookCopy class="w-5 h-5 text-info" />
                                     </button>
                                     <button
                                         class="btn btn-sm btn-circle btn-ghost tooltip z-20"
                                         data-tip="View Attendance"
-                                        @click="openAttendanceModal(user)"
+                                        @click="openAttendanceModal(member)"
                                     >
                                         <CalendarCheck class="w-5 h-5 text-success" />
                                     </button>
                                     <button
                                         class="btn btn-sm btn-circle btn-ghost tooltip z-20"
                                         data-tip="Add Plan"
-                                        @click="openAddPlanModal(user)"
+                                        @click="openAddPlanModal(member)"
                                     >
                                         <PlusSquare class="w-5 h-5 text-primary" />
                                     </button>
@@ -86,73 +86,73 @@
         />
         <AddPlanModal
             v-if="showAddPlanModal"
-            :user="selectedUser"
+            :member="selectedMember"
             @close="showAddPlanModal = false"
             @submit="handleAddPlan"
         />
         <PlanListModal
             v-if="showPlanListModal"
-            :user="selectedUser"
+            :member="selectedMember"
             @close="showPlanListModal = false"
         />
         <AttendanceModal
             v-if="showAttendanceModal"
-            :user="selectedUser"
+            :member="selectedMember"
             @close="showAttendanceModal = false"
         />
     </section>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
 import { BookCopy, CalendarCheck, UserPlus, PlusSquare } from 'lucide-vue-next'
 import AddMemberModal from '~/components/GymOwner/AddMemberModal.vue'
 import AddPlanModal from '~/components/GymOwner/AddPlanModal.vue'
 import PlanListModal from '~/components/GymOwner/PlanListModal.vue'
 import AttendanceModal from '~/components/GymOwner/AttendanceModal.vue'
+import type { Member } from '~/functions/member/member.types'
+import * as memberApi from '~/functions/member/member.api'
 
-interface User {
-    id: string
-    firstname: string
-    middlename?: string
-    lastname: string
-    email: string
-    role: string
-    is_active: boolean
-    created_at: string
-}
-
-const users = ref<User[]>([
+const members = ref<Member[]>([
     {
         id: '1',
         firstname: 'Jane',
+        middlename: null,
         lastname: 'Doe',
-        email: 'jane@example.com',
-        role: 'member',
-        is_active: true,
+        contact_number: null,
         created_at: '2024-05-01T10:00:00Z',
+        created_by: 'system',
+        is_active: true,
+        memberships: [],
     },
     {
         id: '2',
         firstname: 'John',
+        middlename: null,
         lastname: 'Smith',
-        email: 'john@example.com',
-        role: 'member',
-        is_active: false,
+        contact_number: null,
         created_at: '2024-04-15T14:30:00Z',
+        created_by: 'system',
+        is_active: true,
+        memberships: [],
     },
 ])
 
 const search = ref('')
 const showAddModal = ref(false)
 const showAddPlanModal = ref(false)
-const selectedUser = ref<User | null>(null)
+const selectedMember = ref<Member | undefined>(undefined)
 const showPlanListModal = ref(false)
 const showAttendanceModal = ref(false)
 
+
+onMounted(async() => {
+    const { members } = await memberApi.init()
+    console.log('members', members);
+})
+
 const filteredUsers = computed(() =>
-    users.value.filter(user =>
-        (user.firstname + ' ' + user.lastname)
+    members.value.filter(member =>
+        (member.firstname + ' ' + member.lastname)
             .toLowerCase()
             .includes(search.value.trim().toLowerCase())
     )
@@ -167,36 +167,27 @@ function formatDate(dateStr: string) {
     })
 }
 
-function viewPlans(user: User) {
-    selectedUser.value = user
+function viewPlans(member: Member) {
+    selectedMember.value = member
     showPlanListModal.value = true
 }
 
-function openAttendanceModal(user: User) {
-    selectedUser.value = user
+function openAttendanceModal(member: Member) {
+    selectedMember.value = member
     showAttendanceModal.value = true
 }
 
-function openAddPlanModal(user: User) {
-    selectedUser.value = user
+function openAddPlanModal(member: Member) {
+    selectedMember.value = member
     showAddPlanModal.value = true
 }
 
 function handleAddMember(newMember: { firstname: string; lastname: string; planId: string }) {
-    users.value.push({
-        id: String(Date.now()),
-        firstname: newMember.firstname,
-        lastname: newMember.lastname,
-        email: '',
-        role: 'member',
-        is_active: true,
-        created_at: new Date().toISOString(),
-    })
     showAddModal.value = false
 }
 
 function handleAddPlan({ planId }: { planId: string }) {
-    alert(`Plan ${planId} added to ${selectedUser.value?.firstname} ${selectedUser.value?.lastname}`)
+    alert(`Plan ${planId} added to ${selectedMember.value?.firstname} ${selectedMember.value?.lastname}`)
     showAddPlanModal.value = false
 }
 

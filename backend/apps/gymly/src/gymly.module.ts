@@ -8,9 +8,17 @@ import { SeederModule } from './seeder/seeder.module';
 import { MembershipModule } from './membership/membership.module';
 import { UserModule } from './user/user.module';
 import { GymModule } from './gym/gym.module';
+import { MemberModule } from './member/member.module';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 @Module({
 	imports: [
+		GraphQLModule.forRoot<ApolloDriverConfig>({
+			driver: ApolloDriver,
+			autoSchemaFile: true, 
+			playground: true,
+		}),
 		ConfigModule.forRoot({
 			isGlobal: true, 
 		}),
@@ -19,6 +27,7 @@ import { GymModule } from './gym/gym.module';
 		MembershipModule,
 		UserModule,
 		GymModule,
+		MemberModule,
 	],
 	controllers: [GymlyController],
 	providers: [GymlyService, SeederService],
