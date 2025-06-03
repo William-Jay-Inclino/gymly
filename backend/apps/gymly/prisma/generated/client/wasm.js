@@ -122,15 +122,33 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
+  username: 'username',
+  password_hash: 'password_hash',
+  role: 'role',
+  contact_number: 'contact_number',
+  is_active: 'is_active',
+  created_at: 'created_at',
+  created_by: 'created_by'
+};
+
+exports.Prisma.MemberScalarFieldEnum = {
+  id: 'id',
   firstname: 'firstname',
   middlename: 'middlename',
   lastname: 'lastname',
-  email: 'email',
-  password_hash: 'password_hash',
-  role: 'role',
-  is_active: 'is_active',
+  contact_number: 'contact_number',
   created_at: 'created_at',
-  created_by_id: 'created_by_id'
+  created_by: 'created_by'
+};
+
+exports.Prisma.GymInstructorScalarFieldEnum = {
+  id: 'id',
+  gym_id: 'gym_id',
+  firstname: 'firstname',
+  middlename: 'middlename',
+  lastname: 'lastname',
+  created_at: 'created_at',
+  created_by: 'created_by'
 };
 
 exports.Prisma.GymScalarFieldEnum = {
@@ -138,15 +156,8 @@ exports.Prisma.GymScalarFieldEnum = {
   name: 'name',
   location: 'location',
   owner_id: 'owner_id',
-  created_by_id: 'created_by_id',
-  created_at: 'created_at'
-};
-
-exports.Prisma.GymInstructorScalarFieldEnum = {
-  id: 'id',
-  gym_id: 'gym_id',
-  user_id: 'user_id',
-  assigned_at: 'assigned_at'
+  created_at: 'created_at',
+  created_by: 'created_by'
 };
 
 exports.Prisma.MembershipScalarFieldEnum = {
@@ -158,9 +169,9 @@ exports.Prisma.MembershipScalarFieldEnum = {
   end_date: 'end_date',
   is_active: 'is_active',
   is_paid: 'is_paid',
+  amount_paid: 'amount_paid',
   created_at: 'created_at',
-  created_by_id: 'created_by_id',
-  amount_paid: 'amount_paid'
+  created_by: 'created_by'
 };
 
 exports.Prisma.PlanScalarFieldEnum = {
@@ -172,26 +183,35 @@ exports.Prisma.PlanScalarFieldEnum = {
   num_of_sessions: 'num_of_sessions',
   is_active: 'is_active',
   is_default: 'is_default',
-  created_by_id: 'created_by_id',
-  created_at: 'created_at'
+  created_at: 'created_at',
+  created_by: 'created_by'
 };
 
 exports.Prisma.PaymentScalarFieldEnum = {
   id: 'id',
-  member_id: 'member_id',
+  membership_id: 'membership_id',
   amount: 'amount',
   payment_method: 'payment_method',
   paid_at: 'paid_at',
-  created_by_id: 'created_by_id',
-  created_at: 'created_at'
+  created_at: 'created_at',
+  created_by: 'created_by'
 };
 
-exports.Prisma.AttendanceLogScalarFieldEnum = {
+exports.Prisma.MemberTimeLogsScalarFieldEnum = {
   id: 'id',
   member_id: 'member_id',
   gym_id: 'gym_id',
-  created_by_id: 'created_by_id',
-  checked_in_at: 'checked_in_at'
+  checked_in_at: 'checked_in_at',
+  recorded_by: 'recorded_by'
+};
+
+exports.Prisma.UserTimeLogsScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  gym_id: 'gym_id',
+  checked_in_at: 'checked_in_at',
+  checked_out_at: 'checked_out_at',
+  recorded_by: 'recorded_by'
 };
 
 exports.Prisma.InstructorAssignmentScalarFieldEnum = {
@@ -199,29 +219,7 @@ exports.Prisma.InstructorAssignmentScalarFieldEnum = {
   instructor_id: 'instructor_id',
   member_id: 'member_id',
   assigned_at: 'assigned_at',
-  created_by_id: 'created_by_id'
-};
-
-exports.Prisma.WorkoutPlanScalarFieldEnum = {
-  id: 'id',
-  instructor_id: 'instructor_id',
-  member_id: 'member_id',
-  title: 'title',
-  notes: 'notes',
-  created_at: 'created_at',
-  created_by_id: 'created_by_id'
-};
-
-exports.Prisma.WorkoutEntryScalarFieldEnum = {
-  id: 'id',
-  workout_plan_id: 'workout_plan_id',
-  exercise_name: 'exercise_name',
-  sets: 'sets',
-  reps: 'reps',
-  weight: 'weight',
-  day: 'day',
-  notes: 'notes',
-  created_at: 'created_at'
+  assigned_by: 'assigned_by'
 };
 
 exports.Prisma.SortOrder = {
@@ -252,27 +250,17 @@ exports.PaymentMethod = exports.$Enums.PaymentMethod = {
   GCASH: 'GCASH'
 };
 
-exports.Day = exports.$Enums.Day = {
-  Mon: 'Mon',
-  Tue: 'Tue',
-  Wed: 'Wed',
-  Thu: 'Thu',
-  Fri: 'Fri',
-  Sat: 'Sat',
-  Sun: 'Sun'
-};
-
 exports.Prisma.ModelName = {
   User: 'User',
-  Gym: 'Gym',
+  Member: 'Member',
   GymInstructor: 'GymInstructor',
+  Gym: 'Gym',
   Membership: 'Membership',
   Plan: 'Plan',
   Payment: 'Payment',
-  AttendanceLog: 'AttendanceLog',
-  InstructorAssignment: 'InstructorAssignment',
-  WorkoutPlan: 'WorkoutPlan',
-  WorkoutEntry: 'WorkoutEntry'
+  MemberTimeLogs: 'MemberTimeLogs',
+  UserTimeLogs: 'UserTimeLogs',
+  InstructorAssignment: 'InstructorAssignment'
 };
 
 /**

@@ -7,10 +7,10 @@ import { User } from './entities/user.entity';
 export class UserResolver {
     constructor(private readonly userService: UserService) {}
 
-    @Mutation(() => User)
-    async createUser(
-        @Args('data') data: CreateUserInput,
-    ): Promise<User> {
-        return this.userService.createUser(data);
-    }
+    // @Mutation(() => User)
+    // async createUser(
+    //     @Args('data') data: CreateUserInput,
+    // ): Promise<User> {
+    //     return this.userService.createUser(data);
+    // }
 }
