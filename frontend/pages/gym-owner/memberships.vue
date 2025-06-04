@@ -15,7 +15,7 @@
                 <input
                     v-model="search"
                     type="text"
-                    placeholder="Search by first or last name..."
+                    placeholder="Search member..."
                     class="input input-bordered w-full"
                 />
             </div>
@@ -24,8 +24,7 @@
                     <table class="table table-zebra w-full">
                         <thead class="sticky top-0 bg-base-100 z-10">
                             <tr>
-                                <th class="text-base">First Name</th>
-                                <th class="text-base">Last Name</th>
+                                <th class="text-base">Member</th>
                                 <th class="text-base">Status</th>
                                 <th class="text-base">Joined</th>
                                 <th class="text-base text-center">Actions</th>
@@ -33,8 +32,7 @@
                         </thead>
                         <tbody>
                             <tr v-for="member in filteredUsers" :key="member.id">
-                                <td>{{ member.firstname }}</td>
-                                <td>{{ member.lastname }}</td>
+                                <td>{{ member.firstname + ' ' + member.lastname }}</td>
                                 <td>
                                     <span
                                         class="badge"

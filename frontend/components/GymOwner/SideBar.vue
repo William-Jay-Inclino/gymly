@@ -14,29 +14,34 @@
                     <component :is="item.icon" class="w-5 h-5" />
                     <span>{{ item.label }}</span>
                 </NuxtLink>
+                <button
+                    class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all text-sm font-medium hover:bg-red-100 text-red-500 w-full text-left"
+                >
+                    <LogOut class="w-5 h-5 text-red-400" />
+                    <span>Logout</span>
+                </button>
             </nav>
         </div>
     </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 	import { useRoute } from 'vue-router'
 	import {
 		Home,
 		Users,
-		ClipboardList,
-		Settings,
+		Key,
         Clock,
+        LogOut
 	} from 'lucide-vue-next'
 
-	const menuItems = [
-		{ label: 'Dashboard', icon: Home, route: '/gym-owner/dashboard' },
-		{ label: 'Memberships', icon: Users, route: '/gym-owner/memberships' },
-		{ label: 'Member Attendance', icon: Clock, route: '/gym-owner/attendance' },
-		{ label: 'Activity Logs', icon: ClipboardList, route: '/gym-owner/logs' },
-		{ label: 'Settings', icon: Settings, route: '/gym-owner/settings' }
-	]
+    const menuItems = [
+        { label: 'Dashboard', icon: Home, route: '/gym-owner/dashboard' },
+        { label: 'Member Management', icon: Users, route: '/gym-owner/memberships' },
+        { label: 'Log Attendance', icon: Clock, route: '/gym-owner/attendance' },
+        { label: 'Change Password', icon: Key, route: '/gym-owner/change-password' }
+    ]
 
 	const route = useRoute()
-	const isActive = (menuRoute) => route.path === menuRoute
+	const isActive = (menuRoute: string) => route.path === menuRoute
 </script>
