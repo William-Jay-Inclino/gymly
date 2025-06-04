@@ -22,7 +22,7 @@
             <div class="rounded-xl shadow bg-base-100">
                 <div class="overflow-y-auto" style="max-height: 600px;">
                     <table class="table table-zebra w-full">
-                        <thead class="sticky top-0 bg-base-100 z-10">
+                        <thead class="top-0 bg-base-100 z-10">
                             <tr>
                                 <th class="text-base">Member</th>
                                 <th class="text-base">Status</th>
