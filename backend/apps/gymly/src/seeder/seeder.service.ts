@@ -17,6 +17,7 @@ export class SeederService {
 
                 await this.seed_users(prisma as unknown as Prisma.TransactionClient)
                 await this.seed_gyms(prisma as unknown as Prisma.TransactionClient)
+                await this.seed_gym_users(prisma as unknown as Prisma.TransactionClient)
                 await this.seed_plans(prisma as unknown as Prisma.TransactionClient)
 
             });
@@ -54,6 +55,25 @@ export class SeederService {
 
             await prisma.gym.createMany({
                 data: data.gyms
+            })
+
+        } catch (error) {
+            throw error; 
+        }
+
+    }
+
+    async seed_gym_users(prisma: Prisma.TransactionClient) {
+        console.log('inserting gym_users data...'); 
+        try {
+
+            const has_data = await prisma.gymUser.count();
+            if (has_data > 0) {
+                await prisma.gymUser.deleteMany({});
+            }
+
+            await prisma.gymUser.createMany({
+                data: data.gym_users
             })
 
         } catch (error) {

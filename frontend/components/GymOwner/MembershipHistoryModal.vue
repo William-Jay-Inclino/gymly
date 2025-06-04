@@ -18,7 +18,7 @@
                         class="rounded-xl border border-base-200 bg-base-50 p-4 shadow-sm flex flex-col gap-1"
                     >
                         <div class="flex items-center justify-between">
-                            <span class="font-semibold text-base text-base-content">{{ membership.plan.name }}</span>
+                            <span class="font-semibold text-base text-base-content">{{ membership.plan_name }}</span>
                             <span
                                 v-if="membership.is_active"
                                 class="badge badge-soft badge-success text-xs px-2 py-1"
@@ -32,10 +32,10 @@
                                 Expired
                             </span>
                         </div>
-                        <div class="text-sm text-base-content/70">{{ membership.plan.description }}</div>
+                        <div class="text-sm text-base-content/70">{{ membership.plan_description }}</div>
                         <div class="flex items-center gap-2 mt-1">
                             <span class="font-semibold text-lg text-primary">₱{{ membership.amount_paid }}</span>
-                            <span v-if="membership.num_of_days > 0" class="text-xs text-base-content/60">/ {{ membership.num_of_days }} days</span>
+                            <span v-if="membership.num_of_days > 0" class="text-xs text-base-content/60">/ {{ membership.num_of_days }} {{ membership.num_of_days > 1 ? 'days' : 'day' }}</span>
                         </div>
                         <div class="flex flex-col gap-1 text-xs text-base-content/50 mt-2">
                             <span>

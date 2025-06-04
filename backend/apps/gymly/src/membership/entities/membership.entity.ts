@@ -1,5 +1,7 @@
 import { ObjectType, Field, Int, Float } from '@nestjs/graphql';
 import { Plan } from '../../plan/entities/plan.entity';
+import { Member } from '../../member/entities/member.entity';
+import { Gym } from '../../gym/entities/gym.entity';
 
 @ObjectType()
 export class Membership {
@@ -14,9 +16,6 @@ export class Membership {
 	gym_id: string;
 
 	@Field()
-	plan_id: string;
-
-	@Field()
 	start_date: string;
 
 	@Field({ nullable: true })
@@ -28,8 +27,11 @@ export class Membership {
 	@Field(() => Boolean)
 	is_active: boolean;
 
-	@Field(() => Boolean)
-	is_paid: boolean;
+	@Field()
+	plan_name: string;
+
+	@Field({ nullable: true })
+	plan_description: string | null;
 
 	@Field(() => Float)
 	amount_paid: number;
@@ -39,8 +41,10 @@ export class Membership {
 
 	// relations
 
-	@Field(() => Plan)
-	plan: Plan;
+	@Field(() => Member)
+	member: Member;
 	
+	@Field(() => Gym)
+	gym: Gym;
 
 }

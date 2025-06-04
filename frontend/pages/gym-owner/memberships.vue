@@ -129,7 +129,7 @@ definePageMeta({
 const planStore = usePlanStore()
 
 const members = ref<Member[]>()
-const gymId = '412ec826-bd16-4ed3-bc11-6d77e1b32ce3' //temp
+const gymId = 'b4e45c98-6d62-47d9-b24e-4fbca42119ce' //temp
 
 // flags
 const isLoadingPage = ref(true)
@@ -207,7 +207,6 @@ async function handleAddMember(newMember: {
         isAddingMember.value = true;
         const response = await memberApi.create_member({
             firstname: newMember.firstname,
-            middlename: newMember.middlename,
             lastname: newMember.lastname,
             contact_number: newMember.contact_number,
             plan_ids: newMember.planIds,

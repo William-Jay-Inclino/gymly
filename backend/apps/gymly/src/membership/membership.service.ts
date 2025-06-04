@@ -44,15 +44,13 @@ export class MembershipService {
                     data: {
                         member_id: input.member_id,
                         gym_id: input.gym_id,
-                        plan_id: plan.id,
                         start_date: startDate,
                         end_date: endDate,
-                        amount_paid: plan.price,
                         created_by: 'system',
                         ...(sessionsLeft !== null && { sessions_left: sessionsLeft }),
-                    },
-                    include: {
-                        plan: true,
+                        plan_name: plan.name,
+                        plan_description: plan.description,
+                        amount_paid: plan.price,
                     },
                 });
 
@@ -70,9 +68,6 @@ export class MembershipService {
     async get_memberships(payload: { member_id: string }) {
         return await this.prisma.membership.findMany({
             where: { member_id: payload.member_id },
-            include: {
-                plan: true,
-            },
             orderBy: {
                 start_date: 'desc',
             }

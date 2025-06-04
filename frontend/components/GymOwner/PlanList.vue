@@ -9,7 +9,6 @@
                 isSelected(plan.id)
                     ? 'border-primary ring-2 ring-primary bg-primary/5'
                     : 'border-base-200',
-                !plan.is_active && 'opacity-50 pointer-events-none'
             ]"
         >
             <div class="flex items-center justify-between mb-1">
@@ -20,8 +19,8 @@
             <div class="text-sm text-base-content/70 mb-2">{{ plan.description }}</div>
             <div class="flex items-center gap-2 mb-1">
                 <span class="font-semibold text-lg text-primary">₱{{ plan.price }}</span>
-                <span v-if="plan.num_of_days" class="text-xs text-base-content/60">/ {{ plan.num_of_days }} days</span>
-                <span v-else class="text-xs text-base-content/60">/ {{ plan.num_of_sessions }} sessions</span>
+                <span v-if="plan.num_of_days" class="text-xs text-base-content/60">/ {{ plan.num_of_days }} {{ plan.num_of_days > 1 ? 'days' : 'day' }}</span>
+                <span v-else-if="plan.num_of_sessions" class="text-xs text-base-content/60">/ {{ plan.num_of_sessions }} {{ plan.num_of_sessions > 1 ? 'sessions' : 'session' }}</span>
             </div>
             <div v-if="isSelected(plan.id)" class="flex justify-end">
                 <span class="badge badge-primary badge-sm">Selected</span>

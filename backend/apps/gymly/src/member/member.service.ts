@@ -27,7 +27,6 @@ export class MemberService {
             const member = await tx.member.create({
                 data: {
                     firstname: data.firstname,
-                    middlename: data.middlename,
                     lastname: data.lastname,
                     contact_number: data.contact_number,
                     created_by: 'system',
@@ -59,12 +58,13 @@ export class MemberService {
                     data: {
                         member_id: member.id,
                         gym_id: data.plan.gym_id,
-                        plan_id: plan.id,
                         start_date: startDate,
                         end_date: endDate,
-                        amount_paid: plan.price,
                         created_by: 'system',
                         ...(sessionsLeft !== null && { sessions_left: sessionsLeft }),
+                        plan_name: plan.name,
+                        plan_description: plan.description,
+                        amount_paid: plan.price,
                     },
                 });
             }

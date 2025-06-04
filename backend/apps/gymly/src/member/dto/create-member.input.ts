@@ -10,10 +10,6 @@ export class CreateMemberInput {
     @IsNotEmpty()
     firstname: string;
 
-    @Field({ nullable: true })
-    @Optional()
-    middlename: string | null;
-
     @Field()
     @IsNotEmpty()
     lastname: string;

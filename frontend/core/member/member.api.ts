@@ -12,7 +12,6 @@ export async function init(): Promise<{
             members {
                 id
                 firstname
-                middlename
                 lastname
                 contact_number
                 created_at
@@ -26,8 +25,6 @@ export async function init(): Promise<{
                 price
                 num_of_days 
                 num_of_sessions
-                is_active
-                is_default
                 created_at
                 created_by
             }
@@ -49,7 +46,6 @@ export async function init(): Promise<{
 
 export async function create_member(input: {
     firstname: string;
-    middlename?: string;
     lastname: string;
     contact_number?: string | null;
     plan_ids: string[];
@@ -59,8 +55,7 @@ export async function create_member(input: {
     msg: string;
     data?: Member;
 }> {
-    // Ensure middlename and contact_number are not undefined (GraphQL expects null or string)
-    const middlename = input.middlename ? `"${ input.middlename }"` : null;
+    // Ensure contact_number are not undefined (GraphQL expects null or string)
     const contact_number = input.contact_number ? `"${ input.contact_number }"` : null;
 
     const planIdsString = input.plan_ids.map(id => `"${id}"`).join(', ');
@@ -69,7 +64,6 @@ export async function create_member(input: {
             create_member(
                 data: {
                     firstname: "${input.firstname}"
-                    middlename: ${middlename}
                     lastname: "${input.lastname}"
                     contact_number: ${contact_number}
                     plan: {
@@ -83,7 +77,6 @@ export async function create_member(input: {
                 data {
                     id
                     firstname
-                    middlename
                     lastname
                     contact_number
                     is_active
@@ -118,20 +111,11 @@ export async function get_memberships(payload: { member_id: string }): Promise<{
                 end_date
                 sessions_left
                 is_active
-                is_paid
                 created_at
+                plan_name
+                plan_description
                 amount_paid
                 num_of_days
-                plan {
-                    id 
-                    name    
-                    description
-                    price
-                    num_of_days
-                    num_of_sessions
-                    is_active
-                    is_default
-                }
             }
         }
     `;

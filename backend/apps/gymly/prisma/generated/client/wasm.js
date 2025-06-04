@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.8.2
- * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
+ * Prisma Client JS version: 6.9.0
+ * Query Engine version: 81e4af48011447c3cc503a190e86995b66d2a28e
  */
 Prisma.prismaVersion = {
-  client: "6.8.2",
-  engine: "2060c79ba17c6bb9f5823312b6f6b7f4a845738e"
+  client: "6.9.0",
+  engine: "81e4af48011447c3cc503a190e86995b66d2a28e"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -120,6 +120,14 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.GymStatsScalarFieldEnum = {
+  id: 'id',
+  gym_id: 'gym_id',
+  total_revenue: 'total_revenue',
+  total_members: 'total_members',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   username: 'username',
@@ -134,28 +142,22 @@ exports.Prisma.UserScalarFieldEnum = {
 exports.Prisma.MemberScalarFieldEnum = {
   id: 'id',
   firstname: 'firstname',
-  middlename: 'middlename',
   lastname: 'lastname',
   contact_number: 'contact_number',
   created_at: 'created_at',
   created_by: 'created_by'
 };
 
-exports.Prisma.GymInstructorScalarFieldEnum = {
+exports.Prisma.GymUserScalarFieldEnum = {
   id: 'id',
-  gym_id: 'gym_id',
-  firstname: 'firstname',
-  middlename: 'middlename',
-  lastname: 'lastname',
-  created_at: 'created_at',
-  created_by: 'created_by'
+  user_id: 'user_id',
+  gym_id: 'gym_id'
 };
 
 exports.Prisma.GymScalarFieldEnum = {
   id: 'id',
   name: 'name',
   location: 'location',
-  owner_id: 'owner_id',
   created_at: 'created_at',
   created_by: 'created_by'
 };
@@ -164,12 +166,12 @@ exports.Prisma.MembershipScalarFieldEnum = {
   id: 'id',
   member_id: 'member_id',
   gym_id: 'gym_id',
-  plan_id: 'plan_id',
   start_date: 'start_date',
   end_date: 'end_date',
   sessions_left: 'sessions_left',
   is_active: 'is_active',
-  is_paid: 'is_paid',
+  plan_name: 'plan_name',
+  plan_description: 'plan_description',
   amount_paid: 'amount_paid',
   created_at: 'created_at',
   created_by: 'created_by'
@@ -177,23 +179,12 @@ exports.Prisma.MembershipScalarFieldEnum = {
 
 exports.Prisma.PlanScalarFieldEnum = {
   id: 'id',
+  gym_id: 'gym_id',
   name: 'name',
   description: 'description',
   price: 'price',
   num_of_days: 'num_of_days',
   num_of_sessions: 'num_of_sessions',
-  is_active: 'is_active',
-  is_default: 'is_default',
-  created_at: 'created_at',
-  created_by: 'created_by'
-};
-
-exports.Prisma.PaymentScalarFieldEnum = {
-  id: 'id',
-  membership_id: 'membership_id',
-  amount: 'amount',
-  payment_method: 'payment_method',
-  paid_at: 'paid_at',
   created_at: 'created_at',
   created_by: 'created_by'
 };
@@ -204,23 +195,6 @@ exports.Prisma.MemberTimeLogsScalarFieldEnum = {
   gym_id: 'gym_id',
   checked_in_at: 'checked_in_at',
   recorded_by: 'recorded_by'
-};
-
-exports.Prisma.UserTimeLogsScalarFieldEnum = {
-  id: 'id',
-  user_id: 'user_id',
-  gym_id: 'gym_id',
-  checked_in_at: 'checked_in_at',
-  checked_out_at: 'checked_out_at',
-  recorded_by: 'recorded_by'
-};
-
-exports.Prisma.InstructorAssignmentScalarFieldEnum = {
-  id: 'id',
-  instructor_id: 'instructor_id',
-  member_id: 'member_id',
-  assigned_at: 'assigned_at',
-  assigned_by: 'assigned_by'
 };
 
 exports.Prisma.SortOrder = {
@@ -240,28 +214,18 @@ exports.Prisma.NullsOrder = {
 exports.Role = exports.$Enums.Role = {
   ADMIN: 'ADMIN',
   GYM_OWNER: 'GYM_OWNER',
-  GYM_INSTRUCTOR: 'GYM_INSTRUCTOR',
-  GYM_STAFF: 'GYM_STAFF',
-  MEMBER: 'MEMBER'
-};
-
-exports.PaymentMethod = exports.$Enums.PaymentMethod = {
-  CASH: 'CASH',
-  BANK: 'BANK',
-  GCASH: 'GCASH'
+  GYM_STAFF: 'GYM_STAFF'
 };
 
 exports.Prisma.ModelName = {
+  GymStats: 'GymStats',
   User: 'User',
   Member: 'Member',
-  GymInstructor: 'GymInstructor',
+  GymUser: 'GymUser',
   Gym: 'Gym',
   Membership: 'Membership',
   Plan: 'Plan',
-  Payment: 'Payment',
-  MemberTimeLogs: 'MemberTimeLogs',
-  UserTimeLogs: 'UserTimeLogs',
-  InstructorAssignment: 'InstructorAssignment'
+  MemberTimeLogs: 'MemberTimeLogs'
 };
 
 /**

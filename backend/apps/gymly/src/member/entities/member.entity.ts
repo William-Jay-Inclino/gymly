@@ -11,9 +11,6 @@ export class Member {
     @Field()
     firstname: string;
 
-    @Field({ nullable: true })
-    middlename: string | null;
-
     @Field()
     lastname: string;
 
@@ -26,7 +23,7 @@ export class Member {
     @Field()
     created_by: string;
 
-    // relationships
+    // relations
     @Field(() => [Membership])
     memberships: Membership[];
 

@@ -8,6 +8,9 @@ export class Plan {
     id: string;
 
     @Field()
+    gym_id: string;
+
+    @Field()
     name: string;
 
     @Field({ nullable: true })
@@ -21,12 +24,6 @@ export class Plan {
 
     @Field(() => Int, { nullable: true })
     num_of_sessions: number | null;
-
-    @Field(() => Boolean)
-    is_active: boolean;
-
-    @Field(() => Boolean)
-    is_default: boolean;
 
     @Field()
     created_at: string;
