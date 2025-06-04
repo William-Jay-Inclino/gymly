@@ -12,6 +12,8 @@ import { MemberModule } from './member/member.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { PlanModule } from './plan/plan.module';
+import { MemberTimeLogsService } from './member-time-logs/member-time-logs.service';
+import { MemberTimeLogsModule } from './member-time-logs/member-time-logs.module';
 
 @Module({
 	imports: [
@@ -30,8 +32,9 @@ import { PlanModule } from './plan/plan.module';
 		GymModule,
 		MemberModule,
 		PlanModule,
+		MemberTimeLogsModule,
 	],
 	controllers: [GymlyController],
-	providers: [GymlyService, SeederService],
+	providers: [GymlyService, SeederService, MemberTimeLogsService],
 })
 export class GymlyModule {}
