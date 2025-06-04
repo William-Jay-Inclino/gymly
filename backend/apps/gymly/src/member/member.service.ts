@@ -9,7 +9,11 @@ export class MemberService {
     constructor(private readonly prisma: PrismaService) {}
 
     async find_all() {
-        return this.prisma.member.findMany();
+        return this.prisma.member.findMany({
+            orderBy: {
+                created_at: 'desc',
+            }
+        });
     }
 
     async create(data: CreateMemberInput): Promise<MutationMemberResponse> {

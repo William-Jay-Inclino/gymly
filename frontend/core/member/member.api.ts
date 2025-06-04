@@ -1,3 +1,4 @@
+import type { Membership } from "../membership/membership.types";
 import type { Plan } from "../plan/plan.types";
 import type { Member } from "./member.types";
 
@@ -46,7 +47,6 @@ export async function init(): Promise<{
     }
 }
 
-
 export async function create_member(input: {
     firstname: string;
     middlename?: string;
@@ -86,6 +86,7 @@ export async function create_member(input: {
                     middlename
                     lastname
                     contact_number
+                    is_active
                     created_at
                     created_by
                 }
@@ -95,9 +96,56 @@ export async function create_member(input: {
 
     try {
         const response = await sendRequest(mutation);
+        console.log('response', response)
         return response.data.data.create_member;
     } catch (error) {
         console.error(error);
         throw error;
     }
 }
+
+export async function get_memberships(payload: { member_id: string }): Promise<{
+    memberships: Membership[],
+}> {
+
+    const { member_id } = payload;
+
+    const query = `
+        query {
+            memberships(member_id: "${ member_id }") {
+                id
+                start_date
+                end_date
+                sessions_left
+                is_active
+                is_paid
+                created_at
+                amount_paid
+                num_of_days
+                plan {
+                    id 
+                    name    
+                    description
+                    price
+                    num_of_days
+                    num_of_sessions
+                    is_active
+                    is_default
+                }
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+        return {
+            memberships: deepClone(response.data.data.memberships),
+        }
+    } catch (error) {
+        console.error(error);
+        throw error
+    }
+}
+
+

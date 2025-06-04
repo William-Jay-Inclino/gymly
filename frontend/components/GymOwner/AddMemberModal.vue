@@ -53,9 +53,9 @@
                 </div>
             </div>
             <div class="modal-action bg-base-200 px-8 py-4 flex justify-end gap-2">
-                <button class="btn btn-ghost rounded-md" type="button" @click="close">Cancel</button>
-                <button class="btn btn-primary rounded-md" type="submit" :disabled="!canSubmit">
-                    Add Member
+                <button class="btn btn-ghost rounded-md" type="button" @click="close" :disabled="is_adding">Cancel</button>
+                <button class="btn btn-primary rounded-md" type="submit" :disabled="!canSubmit || is_adding">
+                    {{ is_adding ? 'Adding Member...' : 'Add Member' }}
                 </button>
             </div>
         </form>
@@ -65,6 +65,9 @@
 <script setup lang="ts">
 import PlanList from './PlanList.vue'
 
+const props = defineProps<{
+    is_adding?: boolean
+}>()
 
 const emit = defineEmits(['close', 'submit'])
 
@@ -93,7 +96,7 @@ function submit() {
         contact_number: contact_number.value,
         planIds: selectedPlans.value, // <-- send array
     }))
-    close()
+    // close()
 }
 
 onMounted(() => {

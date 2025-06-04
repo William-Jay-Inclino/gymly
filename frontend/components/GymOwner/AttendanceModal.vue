@@ -8,7 +8,10 @@
                         {{ member.firstname }} {{ member.lastname }}
                     </span>
                 </h3>
-                <div class="overflow-x-auto">
+                <div v-if="props.is_loading" class="flex justify-center items-center min-h-[120px]">
+                    <span class="loading loading-spinner loading-lg text-primary"></span>
+                </div>
+                <div v-else class="overflow-x-auto">
                     <table class="table w-full table-zebra">
                         <thead>
                             <tr>
@@ -50,10 +53,11 @@
 </template>
 
 <script setup lang="ts">
-import type { Member } from '~/functions/member/member.types';
+import type { Member } from '~/core/member/member.types';
 
 const props = defineProps<{
-    member?: Member
+    member?: Member,
+    is_loading?: boolean
 }>()
 
 // Example static attendance data. Replace with real data as needed.

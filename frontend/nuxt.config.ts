@@ -16,6 +16,10 @@ export default defineNuxtConfig({
       plugins: [tailwindcss()],
   },
 
+plugins: [
+    { src: '~/plugins/vue-toastification.ts', mode: 'client' },
+],
+
   css: ["~/assets/app.css"],
   modules: ["@pinia/nuxt"],
 })

@@ -1,5 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { IsNotEmpty } from 'class-validator';
+import { ArrayNotEmpty, IsArray, IsNotEmpty } from 'class-validator';
 
 @InputType()
 export class CreateMembershipInput {
@@ -12,8 +12,9 @@ export class CreateMembershipInput {
     @IsNotEmpty()
     gym_id: string;
 
-    @Field()
-    @IsNotEmpty()
-    plan_id: string;
+    @Field(() => [String])
+    @IsArray()
+    @ArrayNotEmpty()
+    plan_ids: string[];
 
 }

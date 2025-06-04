@@ -42,3 +42,18 @@ export const convertDate = (date: any) => {
             return date;  
         }
 };
+
+
+export const computeNumberOfDays = (start_date: Date, end_date?: Date | null): number => {
+    if (!end_date) {
+        return 0;
+    }
+
+    // Calculate the difference in milliseconds
+    const diffInMs = end_date.getTime() - start_date.getTime();
+
+    // Convert milliseconds to days
+    const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
+
+    return diffInDays;
+}

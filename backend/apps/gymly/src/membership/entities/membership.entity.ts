@@ -1,4 +1,5 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int, Float } from '@nestjs/graphql';
+import { Plan } from '../../plan/entities/plan.entity';
 
 @ObjectType()
 export class Membership {
@@ -30,8 +31,16 @@ export class Membership {
 	@Field(() => Boolean)
 	is_paid: boolean;
 
+	@Field(() => Float)
+	amount_paid: number;
+
 	@Field()
 	created_at: string;
+
+	// relations
+
+	@Field(() => Plan)
+	plan: Plan;
 	
 
 }

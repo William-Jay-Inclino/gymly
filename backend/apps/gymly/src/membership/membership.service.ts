@@ -1,55 +1,69 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateMembershipInput } from './dto/create-membership.input';
+import { MutationMembershipResponse } from './entities/membership.response.entity';
 
 @Injectable()
 export class MembershipService {
 
     constructor(private readonly prisma: PrismaService) {}
 
-    async create_membership(payload: { input: CreateMembershipInput }) {
+    async create_membership(payload: { input: CreateMembershipInput }): Promise<MutationMembershipResponse> {
         const { input } = payload;
 
         return await this.prisma.$transaction(async (tx) => {
-            // 1. Get the plan to compute end_date or sessions_left
-            const plan = await tx.plan.findUnique({
-                where: { id: input.plan_id },
-            });
-            if (!plan) {
-                throw new BadRequestException('Plan not found');
+            // 1. Validate plans
+            if (!input.plan_ids || input.plan_ids.length === 0) {
+                throw new BadRequestException('At least one plan_id is required');
             }
 
-            // 2. Compute start_date and end_date (if by days)
-            const startDate = new Date();
-            let endDate: Date | null = null;
-            let sessionsLeft: number | null = null;
+            const createdMemberships = [];
 
-            if (plan.num_of_days != null) {
-                endDate = new Date(startDate);
-                endDate.setDate(endDate.getDate() + plan.num_of_days);
+            // 2. For each plan_id, create a membership
+            for (const plan_id of input.plan_ids) {
+                const plan = await tx.plan.findUnique({
+                    where: { id: plan_id },
+                });
+                if (!plan) {
+                    throw new BadRequestException(`Plan not found: ${plan_id}`);
+                }
+
+                const startDate = new Date();
+                let endDate: Date | null = null;
+                let sessionsLeft: number | null = null;
+
+                if (plan.num_of_days != null) {
+                    endDate = new Date(startDate);
+                    endDate.setDate(endDate.getDate() + plan.num_of_days);
+                }
+                if (plan.num_of_sessions != null) {
+                    sessionsLeft = plan.num_of_sessions;
+                }
+
+                const membership = await tx.membership.create({
+                    data: {
+                        member_id: input.member_id,
+                        gym_id: input.gym_id,
+                        plan_id: plan.id,
+                        start_date: startDate,
+                        end_date: endDate,
+                        amount_paid: plan.price,
+                        created_by: 'system',
+                        ...(sessionsLeft !== null && { sessions_left: sessionsLeft }),
+                    },
+                    include: {
+                        plan: true,
+                    },
+                });
+
+                createdMemberships.push(membership);
             }
-            if (plan.num_of_sessions != null) {
-                sessionsLeft = plan.num_of_sessions;
-            }
 
-            // 3. Create the membership
-            const membership = await tx.membership.create({
-                data: {
-                    member_id: input.member_id,
-                    gym_id: input.gym_id,
-                    plan_id: input.plan_id,
-                    start_date: startDate,
-                    end_date: endDate,
-                    amount_paid: plan.price,
-                    created_by: 'system',
-                    ...(sessionsLeft !== null && { sessions_left: sessionsLeft }),
-                },
-                include: {
-                    plan: true,
-                },
-            });
-
-            return membership;
+            return {
+                success: true,
+                msg: 'Membership(s) created successfully',
+                data: createdMemberships,
+            };
         });
     }
 
@@ -59,6 +73,9 @@ export class MembershipService {
             include: {
                 plan: true,
             },
+            orderBy: {
+                start_date: 'desc',
+            }
         });
     }
 }

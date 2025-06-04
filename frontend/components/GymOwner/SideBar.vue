@@ -24,15 +24,16 @@
 	import {
 		Home,
 		Users,
-		Dumbbell,
 		ClipboardList,
-		Settings
+		Settings,
+        Clock,
 	} from 'lucide-vue-next'
 
 	const menuItems = [
 		{ label: 'Dashboard', icon: Home, route: '/gym-owner/dashboard' },
 		{ label: 'Memberships', icon: Users, route: '/gym-owner/memberships' },
-		{ label: 'Logs', icon: ClipboardList, route: '/gym-owner/logs' },
+		{ label: 'Member Attendance', icon: Clock, route: '/gym-owner/attendance' },
+		{ label: 'Activity Logs', icon: ClipboardList, route: '/gym-owner/logs' },
 		{ label: 'Settings', icon: Settings, route: '/gym-owner/settings' }
 	]
 

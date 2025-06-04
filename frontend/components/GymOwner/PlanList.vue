@@ -16,17 +16,12 @@
                 <span class="font-medium text-base text-base-content">
                     {{ plan.name }}
                 </span>
-                <span
-                    v-if="plan.is_default"
-                    class="badge badge-outline badge-primary text-xs px-2 py-1"
-                >
-                    Default
-                </span>
             </div>
             <div class="text-sm text-base-content/70 mb-2">{{ plan.description }}</div>
             <div class="flex items-center gap-2 mb-1">
                 <span class="font-semibold text-lg text-primary">₱{{ plan.price }}</span>
-                <span class="text-xs text-base-content/60">/ {{ plan.num_of_days }} days</span>
+                <span v-if="plan.num_of_days" class="text-xs text-base-content/60">/ {{ plan.num_of_days }} days</span>
+                <span v-else class="text-xs text-base-content/60">/ {{ plan.num_of_sessions }} sessions</span>
             </div>
             <div v-if="isSelected(plan.id)" class="flex justify-end">
                 <span class="badge badge-primary badge-sm">Selected</span>
@@ -37,7 +32,7 @@
 
 <script setup lang="ts">
 
-import { usePlanStore } from '~/functions/plan/plan.store';
+import { usePlanStore } from '~/core/plan/plan.store';
 
 const props = defineProps<{
     modelValue: string[] // Array of selected plan ids
