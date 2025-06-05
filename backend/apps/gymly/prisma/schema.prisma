@@ -80,11 +80,43 @@ model Gym {
   memberships      Membership[]
   member_time_logs MemberTimeLogs[]
 
-  gym_stats GymStats?
-  gym_users GymUser[]
+  gym_stats        GymStats?
+  gym_users        GymUser[]
+
+  revenues         Revenue[]         
+  membership_counts MembershipCount[]  
 
   @@map("gyms")
 }
+
+model Revenue {
+  id        String   @id @default(uuid())
+  gym_id    String
+  year      Int
+  month     Int      // 1 = Jan, 12 = Dec
+  amount    Float    // Store as number for easy calculations
+  created_at DateTime @default(now()) @db.Timestamptz
+
+  gym Gym @relation(fields: [gym_id], references: [id], onDelete: Cascade)
+
+  @@index([gym_id, year, month])
+  @@map("revenues")
+}
+
+model MembershipCount {
+  id         String   @id @default(uuid())
+  gym_id     String
+  year       Int
+  month      Int      // 1 = Jan, 12 = Dec
+  count      Int      // Number of new memberships for this month
+  created_at DateTime @default(now()) @db.Timestamptz
+
+  gym Gym @relation(fields: [gym_id], references: [id], onDelete: Cascade)
+
+  @@index([gym_id, year, month])
+  @@map("membership_counts")
+}
+
 
 model Membership {
   id          String    @id @default(uuid())

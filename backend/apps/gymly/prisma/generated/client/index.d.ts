@@ -39,6 +39,16 @@ export type GymUser = $Result.DefaultSelection<Prisma.$GymUserPayload>
  */
 export type Gym = $Result.DefaultSelection<Prisma.$GymPayload>
 /**
+ * Model Revenue
+ * 
+ */
+export type Revenue = $Result.DefaultSelection<Prisma.$RevenuePayload>
+/**
+ * Model MembershipCount
+ * 
+ */
+export type MembershipCount = $Result.DefaultSelection<Prisma.$MembershipCountPayload>
+/**
  * Model Membership
  * 
  */
@@ -246,6 +256,26 @@ export class PrismaClient<
     * ```
     */
   get gym(): Prisma.GymDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.revenue`: Exposes CRUD operations for the **Revenue** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Revenues
+    * const revenues = await prisma.revenue.findMany()
+    * ```
+    */
+  get revenue(): Prisma.RevenueDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.membershipCount`: Exposes CRUD operations for the **MembershipCount** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MembershipCounts
+    * const membershipCounts = await prisma.membershipCount.findMany()
+    * ```
+    */
+  get membershipCount(): Prisma.MembershipCountDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.membership`: Exposes CRUD operations for the **Membership** model.
@@ -721,6 +751,8 @@ export namespace Prisma {
     Member: 'Member',
     GymUser: 'GymUser',
     Gym: 'Gym',
+    Revenue: 'Revenue',
+    MembershipCount: 'MembershipCount',
     Membership: 'Membership',
     Plan: 'Plan',
     MemberTimeLogs: 'MemberTimeLogs'
@@ -742,7 +774,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "gymStats" | "user" | "member" | "gymUser" | "gym" | "membership" | "plan" | "memberTimeLogs"
+      modelProps: "gymStats" | "user" | "member" | "gymUser" | "gym" | "revenue" | "membershipCount" | "membership" | "plan" | "memberTimeLogs"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1116,6 +1148,154 @@ export namespace Prisma {
           }
         }
       }
+      Revenue: {
+        payload: Prisma.$RevenuePayload<ExtArgs>
+        fields: Prisma.RevenueFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RevenueFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RevenuePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RevenueFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RevenuePayload>
+          }
+          findFirst: {
+            args: Prisma.RevenueFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RevenuePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RevenueFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RevenuePayload>
+          }
+          findMany: {
+            args: Prisma.RevenueFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RevenuePayload>[]
+          }
+          create: {
+            args: Prisma.RevenueCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RevenuePayload>
+          }
+          createMany: {
+            args: Prisma.RevenueCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RevenueCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RevenuePayload>[]
+          }
+          delete: {
+            args: Prisma.RevenueDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RevenuePayload>
+          }
+          update: {
+            args: Prisma.RevenueUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RevenuePayload>
+          }
+          deleteMany: {
+            args: Prisma.RevenueDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RevenueUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RevenueUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RevenuePayload>[]
+          }
+          upsert: {
+            args: Prisma.RevenueUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RevenuePayload>
+          }
+          aggregate: {
+            args: Prisma.RevenueAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRevenue>
+          }
+          groupBy: {
+            args: Prisma.RevenueGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RevenueGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RevenueCountArgs<ExtArgs>
+            result: $Utils.Optional<RevenueCountAggregateOutputType> | number
+          }
+        }
+      }
+      MembershipCount: {
+        payload: Prisma.$MembershipCountPayload<ExtArgs>
+        fields: Prisma.MembershipCountFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MembershipCountFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipCountPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MembershipCountFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipCountPayload>
+          }
+          findFirst: {
+            args: Prisma.MembershipCountFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipCountPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MembershipCountFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipCountPayload>
+          }
+          findMany: {
+            args: Prisma.MembershipCountFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipCountPayload>[]
+          }
+          create: {
+            args: Prisma.MembershipCountCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipCountPayload>
+          }
+          createMany: {
+            args: Prisma.MembershipCountCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MembershipCountCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipCountPayload>[]
+          }
+          delete: {
+            args: Prisma.MembershipCountDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipCountPayload>
+          }
+          update: {
+            args: Prisma.MembershipCountUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipCountPayload>
+          }
+          deleteMany: {
+            args: Prisma.MembershipCountDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MembershipCountUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MembershipCountUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipCountPayload>[]
+          }
+          upsert: {
+            args: Prisma.MembershipCountUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipCountPayload>
+          }
+          aggregate: {
+            args: Prisma.MembershipCountAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMembershipCount>
+          }
+          groupBy: {
+            args: Prisma.MembershipCountGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MembershipCountGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MembershipCountCountArgs<ExtArgs>
+            result: $Utils.Optional<MembershipCountCountAggregateOutputType> | number
+          }
+        }
+      }
       Membership: {
         payload: Prisma.$MembershipPayload<ExtArgs>
         fields: Prisma.MembershipFieldRefs
@@ -1427,6 +1607,8 @@ export namespace Prisma {
     member?: MemberOmit
     gymUser?: GymUserOmit
     gym?: GymOmit
+    revenue?: RevenueOmit
+    membershipCount?: MembershipCountOmit
     membership?: MembershipOmit
     plan?: PlanOmit
     memberTimeLogs?: MemberTimeLogsOmit
@@ -1598,12 +1780,16 @@ export namespace Prisma {
     memberships: number
     member_time_logs: number
     gym_users: number
+    revenues: number
+    membership_counts: number
   }
 
   export type GymCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     memberships?: boolean | GymCountOutputTypeCountMembershipsArgs
     member_time_logs?: boolean | GymCountOutputTypeCountMember_time_logsArgs
     gym_users?: boolean | GymCountOutputTypeCountGym_usersArgs
+    revenues?: boolean | GymCountOutputTypeCountRevenuesArgs
+    membership_counts?: boolean | GymCountOutputTypeCountMembership_countsArgs
   }
 
   // Custom InputTypes
@@ -1636,6 +1822,20 @@ export namespace Prisma {
    */
   export type GymCountOutputTypeCountGym_usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: GymUserWhereInput
+  }
+
+  /**
+   * GymCountOutputType without action
+   */
+  export type GymCountOutputTypeCountRevenuesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RevenueWhereInput
+  }
+
+  /**
+   * GymCountOutputType without action
+   */
+  export type GymCountOutputTypeCountMembership_countsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MembershipCountWhereInput
   }
 
 
@@ -6167,6 +6367,8 @@ export namespace Prisma {
     member_time_logs?: boolean | Gym$member_time_logsArgs<ExtArgs>
     gym_stats?: boolean | Gym$gym_statsArgs<ExtArgs>
     gym_users?: boolean | Gym$gym_usersArgs<ExtArgs>
+    revenues?: boolean | Gym$revenuesArgs<ExtArgs>
+    membership_counts?: boolean | Gym$membership_countsArgs<ExtArgs>
     _count?: boolean | GymCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["gym"]>
 
@@ -6200,6 +6402,8 @@ export namespace Prisma {
     member_time_logs?: boolean | Gym$member_time_logsArgs<ExtArgs>
     gym_stats?: boolean | Gym$gym_statsArgs<ExtArgs>
     gym_users?: boolean | Gym$gym_usersArgs<ExtArgs>
+    revenues?: boolean | Gym$revenuesArgs<ExtArgs>
+    membership_counts?: boolean | Gym$membership_countsArgs<ExtArgs>
     _count?: boolean | GymCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type GymIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -6212,6 +6416,8 @@ export namespace Prisma {
       member_time_logs: Prisma.$MemberTimeLogsPayload<ExtArgs>[]
       gym_stats: Prisma.$GymStatsPayload<ExtArgs> | null
       gym_users: Prisma.$GymUserPayload<ExtArgs>[]
+      revenues: Prisma.$RevenuePayload<ExtArgs>[]
+      membership_counts: Prisma.$MembershipCountPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6617,6 +6823,8 @@ export namespace Prisma {
     member_time_logs<T extends Gym$member_time_logsArgs<ExtArgs> = {}>(args?: Subset<T, Gym$member_time_logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberTimeLogsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     gym_stats<T extends Gym$gym_statsArgs<ExtArgs> = {}>(args?: Subset<T, Gym$gym_statsArgs<ExtArgs>>): Prisma__GymStatsClient<$Result.GetResult<Prisma.$GymStatsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     gym_users<T extends Gym$gym_usersArgs<ExtArgs> = {}>(args?: Subset<T, Gym$gym_usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GymUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    revenues<T extends Gym$revenuesArgs<ExtArgs> = {}>(args?: Subset<T, Gym$revenuesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RevenuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    membership_counts<T extends Gym$membership_countsArgs<ExtArgs> = {}>(args?: Subset<T, Gym$membership_countsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipCountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7130,6 +7338,54 @@ export namespace Prisma {
   }
 
   /**
+   * Gym.revenues
+   */
+  export type Gym$revenuesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Revenue
+     */
+    select?: RevenueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Revenue
+     */
+    omit?: RevenueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RevenueInclude<ExtArgs> | null
+    where?: RevenueWhereInput
+    orderBy?: RevenueOrderByWithRelationInput | RevenueOrderByWithRelationInput[]
+    cursor?: RevenueWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RevenueScalarFieldEnum | RevenueScalarFieldEnum[]
+  }
+
+  /**
+   * Gym.membership_counts
+   */
+  export type Gym$membership_countsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipCount
+     */
+    select?: MembershipCountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MembershipCount
+     */
+    omit?: MembershipCountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipCountInclude<ExtArgs> | null
+    where?: MembershipCountWhereInput
+    orderBy?: MembershipCountOrderByWithRelationInput | MembershipCountOrderByWithRelationInput[]
+    cursor?: MembershipCountWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MembershipCountScalarFieldEnum | MembershipCountScalarFieldEnum[]
+  }
+
+  /**
    * Gym without action
    */
   export type GymDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7145,6 +7401,2232 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: GymInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Revenue
+   */
+
+  export type AggregateRevenue = {
+    _count: RevenueCountAggregateOutputType | null
+    _avg: RevenueAvgAggregateOutputType | null
+    _sum: RevenueSumAggregateOutputType | null
+    _min: RevenueMinAggregateOutputType | null
+    _max: RevenueMaxAggregateOutputType | null
+  }
+
+  export type RevenueAvgAggregateOutputType = {
+    year: number | null
+    month: number | null
+    amount: number | null
+  }
+
+  export type RevenueSumAggregateOutputType = {
+    year: number | null
+    month: number | null
+    amount: number | null
+  }
+
+  export type RevenueMinAggregateOutputType = {
+    id: string | null
+    gym_id: string | null
+    year: number | null
+    month: number | null
+    amount: number | null
+    created_at: Date | null
+  }
+
+  export type RevenueMaxAggregateOutputType = {
+    id: string | null
+    gym_id: string | null
+    year: number | null
+    month: number | null
+    amount: number | null
+    created_at: Date | null
+  }
+
+  export type RevenueCountAggregateOutputType = {
+    id: number
+    gym_id: number
+    year: number
+    month: number
+    amount: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type RevenueAvgAggregateInputType = {
+    year?: true
+    month?: true
+    amount?: true
+  }
+
+  export type RevenueSumAggregateInputType = {
+    year?: true
+    month?: true
+    amount?: true
+  }
+
+  export type RevenueMinAggregateInputType = {
+    id?: true
+    gym_id?: true
+    year?: true
+    month?: true
+    amount?: true
+    created_at?: true
+  }
+
+  export type RevenueMaxAggregateInputType = {
+    id?: true
+    gym_id?: true
+    year?: true
+    month?: true
+    amount?: true
+    created_at?: true
+  }
+
+  export type RevenueCountAggregateInputType = {
+    id?: true
+    gym_id?: true
+    year?: true
+    month?: true
+    amount?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type RevenueAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Revenue to aggregate.
+     */
+    where?: RevenueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Revenues to fetch.
+     */
+    orderBy?: RevenueOrderByWithRelationInput | RevenueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RevenueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Revenues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Revenues.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Revenues
+    **/
+    _count?: true | RevenueCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RevenueAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RevenueSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RevenueMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RevenueMaxAggregateInputType
+  }
+
+  export type GetRevenueAggregateType<T extends RevenueAggregateArgs> = {
+        [P in keyof T & keyof AggregateRevenue]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRevenue[P]>
+      : GetScalarType<T[P], AggregateRevenue[P]>
+  }
+
+
+
+
+  export type RevenueGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RevenueWhereInput
+    orderBy?: RevenueOrderByWithAggregationInput | RevenueOrderByWithAggregationInput[]
+    by: RevenueScalarFieldEnum[] | RevenueScalarFieldEnum
+    having?: RevenueScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RevenueCountAggregateInputType | true
+    _avg?: RevenueAvgAggregateInputType
+    _sum?: RevenueSumAggregateInputType
+    _min?: RevenueMinAggregateInputType
+    _max?: RevenueMaxAggregateInputType
+  }
+
+  export type RevenueGroupByOutputType = {
+    id: string
+    gym_id: string
+    year: number
+    month: number
+    amount: number
+    created_at: Date
+    _count: RevenueCountAggregateOutputType | null
+    _avg: RevenueAvgAggregateOutputType | null
+    _sum: RevenueSumAggregateOutputType | null
+    _min: RevenueMinAggregateOutputType | null
+    _max: RevenueMaxAggregateOutputType | null
+  }
+
+  type GetRevenueGroupByPayload<T extends RevenueGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RevenueGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RevenueGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RevenueGroupByOutputType[P]>
+            : GetScalarType<T[P], RevenueGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RevenueSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    gym_id?: boolean
+    year?: boolean
+    month?: boolean
+    amount?: boolean
+    created_at?: boolean
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["revenue"]>
+
+  export type RevenueSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    gym_id?: boolean
+    year?: boolean
+    month?: boolean
+    amount?: boolean
+    created_at?: boolean
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["revenue"]>
+
+  export type RevenueSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    gym_id?: boolean
+    year?: boolean
+    month?: boolean
+    amount?: boolean
+    created_at?: boolean
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["revenue"]>
+
+  export type RevenueSelectScalar = {
+    id?: boolean
+    gym_id?: boolean
+    year?: boolean
+    month?: boolean
+    amount?: boolean
+    created_at?: boolean
+  }
+
+  export type RevenueOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "gym_id" | "year" | "month" | "amount" | "created_at", ExtArgs["result"]["revenue"]>
+  export type RevenueInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+  }
+  export type RevenueIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+  }
+  export type RevenueIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+  }
+
+  export type $RevenuePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Revenue"
+    objects: {
+      gym: Prisma.$GymPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      gym_id: string
+      year: number
+      month: number
+      amount: number
+      created_at: Date
+    }, ExtArgs["result"]["revenue"]>
+    composites: {}
+  }
+
+  type RevenueGetPayload<S extends boolean | null | undefined | RevenueDefaultArgs> = $Result.GetResult<Prisma.$RevenuePayload, S>
+
+  type RevenueCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RevenueFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RevenueCountAggregateInputType | true
+    }
+
+  export interface RevenueDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Revenue'], meta: { name: 'Revenue' } }
+    /**
+     * Find zero or one Revenue that matches the filter.
+     * @param {RevenueFindUniqueArgs} args - Arguments to find a Revenue
+     * @example
+     * // Get one Revenue
+     * const revenue = await prisma.revenue.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RevenueFindUniqueArgs>(args: SelectSubset<T, RevenueFindUniqueArgs<ExtArgs>>): Prisma__RevenueClient<$Result.GetResult<Prisma.$RevenuePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Revenue that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RevenueFindUniqueOrThrowArgs} args - Arguments to find a Revenue
+     * @example
+     * // Get one Revenue
+     * const revenue = await prisma.revenue.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RevenueFindUniqueOrThrowArgs>(args: SelectSubset<T, RevenueFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RevenueClient<$Result.GetResult<Prisma.$RevenuePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Revenue that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RevenueFindFirstArgs} args - Arguments to find a Revenue
+     * @example
+     * // Get one Revenue
+     * const revenue = await prisma.revenue.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RevenueFindFirstArgs>(args?: SelectSubset<T, RevenueFindFirstArgs<ExtArgs>>): Prisma__RevenueClient<$Result.GetResult<Prisma.$RevenuePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Revenue that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RevenueFindFirstOrThrowArgs} args - Arguments to find a Revenue
+     * @example
+     * // Get one Revenue
+     * const revenue = await prisma.revenue.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RevenueFindFirstOrThrowArgs>(args?: SelectSubset<T, RevenueFindFirstOrThrowArgs<ExtArgs>>): Prisma__RevenueClient<$Result.GetResult<Prisma.$RevenuePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Revenues that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RevenueFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Revenues
+     * const revenues = await prisma.revenue.findMany()
+     * 
+     * // Get first 10 Revenues
+     * const revenues = await prisma.revenue.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const revenueWithIdOnly = await prisma.revenue.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RevenueFindManyArgs>(args?: SelectSubset<T, RevenueFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RevenuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Revenue.
+     * @param {RevenueCreateArgs} args - Arguments to create a Revenue.
+     * @example
+     * // Create one Revenue
+     * const Revenue = await prisma.revenue.create({
+     *   data: {
+     *     // ... data to create a Revenue
+     *   }
+     * })
+     * 
+     */
+    create<T extends RevenueCreateArgs>(args: SelectSubset<T, RevenueCreateArgs<ExtArgs>>): Prisma__RevenueClient<$Result.GetResult<Prisma.$RevenuePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Revenues.
+     * @param {RevenueCreateManyArgs} args - Arguments to create many Revenues.
+     * @example
+     * // Create many Revenues
+     * const revenue = await prisma.revenue.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RevenueCreateManyArgs>(args?: SelectSubset<T, RevenueCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Revenues and returns the data saved in the database.
+     * @param {RevenueCreateManyAndReturnArgs} args - Arguments to create many Revenues.
+     * @example
+     * // Create many Revenues
+     * const revenue = await prisma.revenue.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Revenues and only return the `id`
+     * const revenueWithIdOnly = await prisma.revenue.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RevenueCreateManyAndReturnArgs>(args?: SelectSubset<T, RevenueCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RevenuePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Revenue.
+     * @param {RevenueDeleteArgs} args - Arguments to delete one Revenue.
+     * @example
+     * // Delete one Revenue
+     * const Revenue = await prisma.revenue.delete({
+     *   where: {
+     *     // ... filter to delete one Revenue
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RevenueDeleteArgs>(args: SelectSubset<T, RevenueDeleteArgs<ExtArgs>>): Prisma__RevenueClient<$Result.GetResult<Prisma.$RevenuePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Revenue.
+     * @param {RevenueUpdateArgs} args - Arguments to update one Revenue.
+     * @example
+     * // Update one Revenue
+     * const revenue = await prisma.revenue.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RevenueUpdateArgs>(args: SelectSubset<T, RevenueUpdateArgs<ExtArgs>>): Prisma__RevenueClient<$Result.GetResult<Prisma.$RevenuePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Revenues.
+     * @param {RevenueDeleteManyArgs} args - Arguments to filter Revenues to delete.
+     * @example
+     * // Delete a few Revenues
+     * const { count } = await prisma.revenue.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RevenueDeleteManyArgs>(args?: SelectSubset<T, RevenueDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Revenues.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RevenueUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Revenues
+     * const revenue = await prisma.revenue.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RevenueUpdateManyArgs>(args: SelectSubset<T, RevenueUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Revenues and returns the data updated in the database.
+     * @param {RevenueUpdateManyAndReturnArgs} args - Arguments to update many Revenues.
+     * @example
+     * // Update many Revenues
+     * const revenue = await prisma.revenue.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Revenues and only return the `id`
+     * const revenueWithIdOnly = await prisma.revenue.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RevenueUpdateManyAndReturnArgs>(args: SelectSubset<T, RevenueUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RevenuePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Revenue.
+     * @param {RevenueUpsertArgs} args - Arguments to update or create a Revenue.
+     * @example
+     * // Update or create a Revenue
+     * const revenue = await prisma.revenue.upsert({
+     *   create: {
+     *     // ... data to create a Revenue
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Revenue we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RevenueUpsertArgs>(args: SelectSubset<T, RevenueUpsertArgs<ExtArgs>>): Prisma__RevenueClient<$Result.GetResult<Prisma.$RevenuePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Revenues.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RevenueCountArgs} args - Arguments to filter Revenues to count.
+     * @example
+     * // Count the number of Revenues
+     * const count = await prisma.revenue.count({
+     *   where: {
+     *     // ... the filter for the Revenues we want to count
+     *   }
+     * })
+    **/
+    count<T extends RevenueCountArgs>(
+      args?: Subset<T, RevenueCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RevenueCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Revenue.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RevenueAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RevenueAggregateArgs>(args: Subset<T, RevenueAggregateArgs>): Prisma.PrismaPromise<GetRevenueAggregateType<T>>
+
+    /**
+     * Group by Revenue.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RevenueGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RevenueGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RevenueGroupByArgs['orderBy'] }
+        : { orderBy?: RevenueGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RevenueGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRevenueGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Revenue model
+   */
+  readonly fields: RevenueFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Revenue.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RevenueClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    gym<T extends GymDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GymDefaultArgs<ExtArgs>>): Prisma__GymClient<$Result.GetResult<Prisma.$GymPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Revenue model
+   */
+  interface RevenueFieldRefs {
+    readonly id: FieldRef<"Revenue", 'String'>
+    readonly gym_id: FieldRef<"Revenue", 'String'>
+    readonly year: FieldRef<"Revenue", 'Int'>
+    readonly month: FieldRef<"Revenue", 'Int'>
+    readonly amount: FieldRef<"Revenue", 'Float'>
+    readonly created_at: FieldRef<"Revenue", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Revenue findUnique
+   */
+  export type RevenueFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Revenue
+     */
+    select?: RevenueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Revenue
+     */
+    omit?: RevenueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RevenueInclude<ExtArgs> | null
+    /**
+     * Filter, which Revenue to fetch.
+     */
+    where: RevenueWhereUniqueInput
+  }
+
+  /**
+   * Revenue findUniqueOrThrow
+   */
+  export type RevenueFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Revenue
+     */
+    select?: RevenueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Revenue
+     */
+    omit?: RevenueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RevenueInclude<ExtArgs> | null
+    /**
+     * Filter, which Revenue to fetch.
+     */
+    where: RevenueWhereUniqueInput
+  }
+
+  /**
+   * Revenue findFirst
+   */
+  export type RevenueFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Revenue
+     */
+    select?: RevenueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Revenue
+     */
+    omit?: RevenueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RevenueInclude<ExtArgs> | null
+    /**
+     * Filter, which Revenue to fetch.
+     */
+    where?: RevenueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Revenues to fetch.
+     */
+    orderBy?: RevenueOrderByWithRelationInput | RevenueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Revenues.
+     */
+    cursor?: RevenueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Revenues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Revenues.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Revenues.
+     */
+    distinct?: RevenueScalarFieldEnum | RevenueScalarFieldEnum[]
+  }
+
+  /**
+   * Revenue findFirstOrThrow
+   */
+  export type RevenueFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Revenue
+     */
+    select?: RevenueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Revenue
+     */
+    omit?: RevenueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RevenueInclude<ExtArgs> | null
+    /**
+     * Filter, which Revenue to fetch.
+     */
+    where?: RevenueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Revenues to fetch.
+     */
+    orderBy?: RevenueOrderByWithRelationInput | RevenueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Revenues.
+     */
+    cursor?: RevenueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Revenues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Revenues.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Revenues.
+     */
+    distinct?: RevenueScalarFieldEnum | RevenueScalarFieldEnum[]
+  }
+
+  /**
+   * Revenue findMany
+   */
+  export type RevenueFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Revenue
+     */
+    select?: RevenueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Revenue
+     */
+    omit?: RevenueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RevenueInclude<ExtArgs> | null
+    /**
+     * Filter, which Revenues to fetch.
+     */
+    where?: RevenueWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Revenues to fetch.
+     */
+    orderBy?: RevenueOrderByWithRelationInput | RevenueOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Revenues.
+     */
+    cursor?: RevenueWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Revenues from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Revenues.
+     */
+    skip?: number
+    distinct?: RevenueScalarFieldEnum | RevenueScalarFieldEnum[]
+  }
+
+  /**
+   * Revenue create
+   */
+  export type RevenueCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Revenue
+     */
+    select?: RevenueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Revenue
+     */
+    omit?: RevenueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RevenueInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Revenue.
+     */
+    data: XOR<RevenueCreateInput, RevenueUncheckedCreateInput>
+  }
+
+  /**
+   * Revenue createMany
+   */
+  export type RevenueCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Revenues.
+     */
+    data: RevenueCreateManyInput | RevenueCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Revenue createManyAndReturn
+   */
+  export type RevenueCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Revenue
+     */
+    select?: RevenueSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Revenue
+     */
+    omit?: RevenueOmit<ExtArgs> | null
+    /**
+     * The data used to create many Revenues.
+     */
+    data: RevenueCreateManyInput | RevenueCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RevenueIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Revenue update
+   */
+  export type RevenueUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Revenue
+     */
+    select?: RevenueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Revenue
+     */
+    omit?: RevenueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RevenueInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Revenue.
+     */
+    data: XOR<RevenueUpdateInput, RevenueUncheckedUpdateInput>
+    /**
+     * Choose, which Revenue to update.
+     */
+    where: RevenueWhereUniqueInput
+  }
+
+  /**
+   * Revenue updateMany
+   */
+  export type RevenueUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Revenues.
+     */
+    data: XOR<RevenueUpdateManyMutationInput, RevenueUncheckedUpdateManyInput>
+    /**
+     * Filter which Revenues to update
+     */
+    where?: RevenueWhereInput
+    /**
+     * Limit how many Revenues to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Revenue updateManyAndReturn
+   */
+  export type RevenueUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Revenue
+     */
+    select?: RevenueSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Revenue
+     */
+    omit?: RevenueOmit<ExtArgs> | null
+    /**
+     * The data used to update Revenues.
+     */
+    data: XOR<RevenueUpdateManyMutationInput, RevenueUncheckedUpdateManyInput>
+    /**
+     * Filter which Revenues to update
+     */
+    where?: RevenueWhereInput
+    /**
+     * Limit how many Revenues to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RevenueIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Revenue upsert
+   */
+  export type RevenueUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Revenue
+     */
+    select?: RevenueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Revenue
+     */
+    omit?: RevenueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RevenueInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Revenue to update in case it exists.
+     */
+    where: RevenueWhereUniqueInput
+    /**
+     * In case the Revenue found by the `where` argument doesn't exist, create a new Revenue with this data.
+     */
+    create: XOR<RevenueCreateInput, RevenueUncheckedCreateInput>
+    /**
+     * In case the Revenue was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RevenueUpdateInput, RevenueUncheckedUpdateInput>
+  }
+
+  /**
+   * Revenue delete
+   */
+  export type RevenueDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Revenue
+     */
+    select?: RevenueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Revenue
+     */
+    omit?: RevenueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RevenueInclude<ExtArgs> | null
+    /**
+     * Filter which Revenue to delete.
+     */
+    where: RevenueWhereUniqueInput
+  }
+
+  /**
+   * Revenue deleteMany
+   */
+  export type RevenueDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Revenues to delete
+     */
+    where?: RevenueWhereInput
+    /**
+     * Limit how many Revenues to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Revenue without action
+   */
+  export type RevenueDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Revenue
+     */
+    select?: RevenueSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Revenue
+     */
+    omit?: RevenueOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RevenueInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MembershipCount
+   */
+
+  export type AggregateMembershipCount = {
+    _count: MembershipCountCountAggregateOutputType | null
+    _avg: MembershipCountAvgAggregateOutputType | null
+    _sum: MembershipCountSumAggregateOutputType | null
+    _min: MembershipCountMinAggregateOutputType | null
+    _max: MembershipCountMaxAggregateOutputType | null
+  }
+
+  export type MembershipCountAvgAggregateOutputType = {
+    year: number | null
+    month: number | null
+    count: number | null
+  }
+
+  export type MembershipCountSumAggregateOutputType = {
+    year: number | null
+    month: number | null
+    count: number | null
+  }
+
+  export type MembershipCountMinAggregateOutputType = {
+    id: string | null
+    gym_id: string | null
+    year: number | null
+    month: number | null
+    count: number | null
+    created_at: Date | null
+  }
+
+  export type MembershipCountMaxAggregateOutputType = {
+    id: string | null
+    gym_id: string | null
+    year: number | null
+    month: number | null
+    count: number | null
+    created_at: Date | null
+  }
+
+  export type MembershipCountCountAggregateOutputType = {
+    id: number
+    gym_id: number
+    year: number
+    month: number
+    count: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type MembershipCountAvgAggregateInputType = {
+    year?: true
+    month?: true
+    count?: true
+  }
+
+  export type MembershipCountSumAggregateInputType = {
+    year?: true
+    month?: true
+    count?: true
+  }
+
+  export type MembershipCountMinAggregateInputType = {
+    id?: true
+    gym_id?: true
+    year?: true
+    month?: true
+    count?: true
+    created_at?: true
+  }
+
+  export type MembershipCountMaxAggregateInputType = {
+    id?: true
+    gym_id?: true
+    year?: true
+    month?: true
+    count?: true
+    created_at?: true
+  }
+
+  export type MembershipCountCountAggregateInputType = {
+    id?: true
+    gym_id?: true
+    year?: true
+    month?: true
+    count?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type MembershipCountAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MembershipCount to aggregate.
+     */
+    where?: MembershipCountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MembershipCounts to fetch.
+     */
+    orderBy?: MembershipCountOrderByWithRelationInput | MembershipCountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MembershipCountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MembershipCounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MembershipCounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MembershipCounts
+    **/
+    _count?: true | MembershipCountCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MembershipCountAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MembershipCountSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MembershipCountMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MembershipCountMaxAggregateInputType
+  }
+
+  export type GetMembershipCountAggregateType<T extends MembershipCountAggregateArgs> = {
+        [P in keyof T & keyof AggregateMembershipCount]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMembershipCount[P]>
+      : GetScalarType<T[P], AggregateMembershipCount[P]>
+  }
+
+
+
+
+  export type MembershipCountGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MembershipCountWhereInput
+    orderBy?: MembershipCountOrderByWithAggregationInput | MembershipCountOrderByWithAggregationInput[]
+    by: MembershipCountScalarFieldEnum[] | MembershipCountScalarFieldEnum
+    having?: MembershipCountScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MembershipCountCountAggregateInputType | true
+    _avg?: MembershipCountAvgAggregateInputType
+    _sum?: MembershipCountSumAggregateInputType
+    _min?: MembershipCountMinAggregateInputType
+    _max?: MembershipCountMaxAggregateInputType
+  }
+
+  export type MembershipCountGroupByOutputType = {
+    id: string
+    gym_id: string
+    year: number
+    month: number
+    count: number
+    created_at: Date
+    _count: MembershipCountCountAggregateOutputType | null
+    _avg: MembershipCountAvgAggregateOutputType | null
+    _sum: MembershipCountSumAggregateOutputType | null
+    _min: MembershipCountMinAggregateOutputType | null
+    _max: MembershipCountMaxAggregateOutputType | null
+  }
+
+  type GetMembershipCountGroupByPayload<T extends MembershipCountGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MembershipCountGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MembershipCountGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MembershipCountGroupByOutputType[P]>
+            : GetScalarType<T[P], MembershipCountGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MembershipCountSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    gym_id?: boolean
+    year?: boolean
+    month?: boolean
+    count?: boolean
+    created_at?: boolean
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["membershipCount"]>
+
+  export type MembershipCountSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    gym_id?: boolean
+    year?: boolean
+    month?: boolean
+    count?: boolean
+    created_at?: boolean
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["membershipCount"]>
+
+  export type MembershipCountSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    gym_id?: boolean
+    year?: boolean
+    month?: boolean
+    count?: boolean
+    created_at?: boolean
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["membershipCount"]>
+
+  export type MembershipCountSelectScalar = {
+    id?: boolean
+    gym_id?: boolean
+    year?: boolean
+    month?: boolean
+    count?: boolean
+    created_at?: boolean
+  }
+
+  export type MembershipCountOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "gym_id" | "year" | "month" | "count" | "created_at", ExtArgs["result"]["membershipCount"]>
+  export type MembershipCountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+  }
+  export type MembershipCountIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+  }
+  export type MembershipCountIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+  }
+
+  export type $MembershipCountPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MembershipCount"
+    objects: {
+      gym: Prisma.$GymPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      gym_id: string
+      year: number
+      month: number
+      count: number
+      created_at: Date
+    }, ExtArgs["result"]["membershipCount"]>
+    composites: {}
+  }
+
+  type MembershipCountGetPayload<S extends boolean | null | undefined | MembershipCountDefaultArgs> = $Result.GetResult<Prisma.$MembershipCountPayload, S>
+
+  type MembershipCountCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MembershipCountFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MembershipCountCountAggregateInputType | true
+    }
+
+  export interface MembershipCountDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MembershipCount'], meta: { name: 'MembershipCount' } }
+    /**
+     * Find zero or one MembershipCount that matches the filter.
+     * @param {MembershipCountFindUniqueArgs} args - Arguments to find a MembershipCount
+     * @example
+     * // Get one MembershipCount
+     * const membershipCount = await prisma.membershipCount.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MembershipCountFindUniqueArgs>(args: SelectSubset<T, MembershipCountFindUniqueArgs<ExtArgs>>): Prisma__MembershipCountClient<$Result.GetResult<Prisma.$MembershipCountPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MembershipCount that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MembershipCountFindUniqueOrThrowArgs} args - Arguments to find a MembershipCount
+     * @example
+     * // Get one MembershipCount
+     * const membershipCount = await prisma.membershipCount.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MembershipCountFindUniqueOrThrowArgs>(args: SelectSubset<T, MembershipCountFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MembershipCountClient<$Result.GetResult<Prisma.$MembershipCountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MembershipCount that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MembershipCountFindFirstArgs} args - Arguments to find a MembershipCount
+     * @example
+     * // Get one MembershipCount
+     * const membershipCount = await prisma.membershipCount.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MembershipCountFindFirstArgs>(args?: SelectSubset<T, MembershipCountFindFirstArgs<ExtArgs>>): Prisma__MembershipCountClient<$Result.GetResult<Prisma.$MembershipCountPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MembershipCount that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MembershipCountFindFirstOrThrowArgs} args - Arguments to find a MembershipCount
+     * @example
+     * // Get one MembershipCount
+     * const membershipCount = await prisma.membershipCount.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MembershipCountFindFirstOrThrowArgs>(args?: SelectSubset<T, MembershipCountFindFirstOrThrowArgs<ExtArgs>>): Prisma__MembershipCountClient<$Result.GetResult<Prisma.$MembershipCountPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MembershipCounts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MembershipCountFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MembershipCounts
+     * const membershipCounts = await prisma.membershipCount.findMany()
+     * 
+     * // Get first 10 MembershipCounts
+     * const membershipCounts = await prisma.membershipCount.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const membershipCountWithIdOnly = await prisma.membershipCount.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MembershipCountFindManyArgs>(args?: SelectSubset<T, MembershipCountFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipCountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MembershipCount.
+     * @param {MembershipCountCreateArgs} args - Arguments to create a MembershipCount.
+     * @example
+     * // Create one MembershipCount
+     * const MembershipCount = await prisma.membershipCount.create({
+     *   data: {
+     *     // ... data to create a MembershipCount
+     *   }
+     * })
+     * 
+     */
+    create<T extends MembershipCountCreateArgs>(args: SelectSubset<T, MembershipCountCreateArgs<ExtArgs>>): Prisma__MembershipCountClient<$Result.GetResult<Prisma.$MembershipCountPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MembershipCounts.
+     * @param {MembershipCountCreateManyArgs} args - Arguments to create many MembershipCounts.
+     * @example
+     * // Create many MembershipCounts
+     * const membershipCount = await prisma.membershipCount.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MembershipCountCreateManyArgs>(args?: SelectSubset<T, MembershipCountCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MembershipCounts and returns the data saved in the database.
+     * @param {MembershipCountCreateManyAndReturnArgs} args - Arguments to create many MembershipCounts.
+     * @example
+     * // Create many MembershipCounts
+     * const membershipCount = await prisma.membershipCount.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MembershipCounts and only return the `id`
+     * const membershipCountWithIdOnly = await prisma.membershipCount.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MembershipCountCreateManyAndReturnArgs>(args?: SelectSubset<T, MembershipCountCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipCountPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MembershipCount.
+     * @param {MembershipCountDeleteArgs} args - Arguments to delete one MembershipCount.
+     * @example
+     * // Delete one MembershipCount
+     * const MembershipCount = await prisma.membershipCount.delete({
+     *   where: {
+     *     // ... filter to delete one MembershipCount
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MembershipCountDeleteArgs>(args: SelectSubset<T, MembershipCountDeleteArgs<ExtArgs>>): Prisma__MembershipCountClient<$Result.GetResult<Prisma.$MembershipCountPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MembershipCount.
+     * @param {MembershipCountUpdateArgs} args - Arguments to update one MembershipCount.
+     * @example
+     * // Update one MembershipCount
+     * const membershipCount = await prisma.membershipCount.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MembershipCountUpdateArgs>(args: SelectSubset<T, MembershipCountUpdateArgs<ExtArgs>>): Prisma__MembershipCountClient<$Result.GetResult<Prisma.$MembershipCountPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MembershipCounts.
+     * @param {MembershipCountDeleteManyArgs} args - Arguments to filter MembershipCounts to delete.
+     * @example
+     * // Delete a few MembershipCounts
+     * const { count } = await prisma.membershipCount.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MembershipCountDeleteManyArgs>(args?: SelectSubset<T, MembershipCountDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MembershipCounts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MembershipCountUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MembershipCounts
+     * const membershipCount = await prisma.membershipCount.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MembershipCountUpdateManyArgs>(args: SelectSubset<T, MembershipCountUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MembershipCounts and returns the data updated in the database.
+     * @param {MembershipCountUpdateManyAndReturnArgs} args - Arguments to update many MembershipCounts.
+     * @example
+     * // Update many MembershipCounts
+     * const membershipCount = await prisma.membershipCount.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MembershipCounts and only return the `id`
+     * const membershipCountWithIdOnly = await prisma.membershipCount.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MembershipCountUpdateManyAndReturnArgs>(args: SelectSubset<T, MembershipCountUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipCountPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MembershipCount.
+     * @param {MembershipCountUpsertArgs} args - Arguments to update or create a MembershipCount.
+     * @example
+     * // Update or create a MembershipCount
+     * const membershipCount = await prisma.membershipCount.upsert({
+     *   create: {
+     *     // ... data to create a MembershipCount
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MembershipCount we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MembershipCountUpsertArgs>(args: SelectSubset<T, MembershipCountUpsertArgs<ExtArgs>>): Prisma__MembershipCountClient<$Result.GetResult<Prisma.$MembershipCountPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MembershipCounts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MembershipCountCountArgs} args - Arguments to filter MembershipCounts to count.
+     * @example
+     * // Count the number of MembershipCounts
+     * const count = await prisma.membershipCount.count({
+     *   where: {
+     *     // ... the filter for the MembershipCounts we want to count
+     *   }
+     * })
+    **/
+    count<T extends MembershipCountCountArgs>(
+      args?: Subset<T, MembershipCountCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MembershipCountCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MembershipCount.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MembershipCountAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MembershipCountAggregateArgs>(args: Subset<T, MembershipCountAggregateArgs>): Prisma.PrismaPromise<GetMembershipCountAggregateType<T>>
+
+    /**
+     * Group by MembershipCount.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MembershipCountGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MembershipCountGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MembershipCountGroupByArgs['orderBy'] }
+        : { orderBy?: MembershipCountGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MembershipCountGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMembershipCountGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MembershipCount model
+   */
+  readonly fields: MembershipCountFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MembershipCount.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MembershipCountClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    gym<T extends GymDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GymDefaultArgs<ExtArgs>>): Prisma__GymClient<$Result.GetResult<Prisma.$GymPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MembershipCount model
+   */
+  interface MembershipCountFieldRefs {
+    readonly id: FieldRef<"MembershipCount", 'String'>
+    readonly gym_id: FieldRef<"MembershipCount", 'String'>
+    readonly year: FieldRef<"MembershipCount", 'Int'>
+    readonly month: FieldRef<"MembershipCount", 'Int'>
+    readonly count: FieldRef<"MembershipCount", 'Int'>
+    readonly created_at: FieldRef<"MembershipCount", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MembershipCount findUnique
+   */
+  export type MembershipCountFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipCount
+     */
+    select?: MembershipCountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MembershipCount
+     */
+    omit?: MembershipCountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipCountInclude<ExtArgs> | null
+    /**
+     * Filter, which MembershipCount to fetch.
+     */
+    where: MembershipCountWhereUniqueInput
+  }
+
+  /**
+   * MembershipCount findUniqueOrThrow
+   */
+  export type MembershipCountFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipCount
+     */
+    select?: MembershipCountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MembershipCount
+     */
+    omit?: MembershipCountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipCountInclude<ExtArgs> | null
+    /**
+     * Filter, which MembershipCount to fetch.
+     */
+    where: MembershipCountWhereUniqueInput
+  }
+
+  /**
+   * MembershipCount findFirst
+   */
+  export type MembershipCountFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipCount
+     */
+    select?: MembershipCountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MembershipCount
+     */
+    omit?: MembershipCountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipCountInclude<ExtArgs> | null
+    /**
+     * Filter, which MembershipCount to fetch.
+     */
+    where?: MembershipCountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MembershipCounts to fetch.
+     */
+    orderBy?: MembershipCountOrderByWithRelationInput | MembershipCountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MembershipCounts.
+     */
+    cursor?: MembershipCountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MembershipCounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MembershipCounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MembershipCounts.
+     */
+    distinct?: MembershipCountScalarFieldEnum | MembershipCountScalarFieldEnum[]
+  }
+
+  /**
+   * MembershipCount findFirstOrThrow
+   */
+  export type MembershipCountFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipCount
+     */
+    select?: MembershipCountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MembershipCount
+     */
+    omit?: MembershipCountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipCountInclude<ExtArgs> | null
+    /**
+     * Filter, which MembershipCount to fetch.
+     */
+    where?: MembershipCountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MembershipCounts to fetch.
+     */
+    orderBy?: MembershipCountOrderByWithRelationInput | MembershipCountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MembershipCounts.
+     */
+    cursor?: MembershipCountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MembershipCounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MembershipCounts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MembershipCounts.
+     */
+    distinct?: MembershipCountScalarFieldEnum | MembershipCountScalarFieldEnum[]
+  }
+
+  /**
+   * MembershipCount findMany
+   */
+  export type MembershipCountFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipCount
+     */
+    select?: MembershipCountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MembershipCount
+     */
+    omit?: MembershipCountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipCountInclude<ExtArgs> | null
+    /**
+     * Filter, which MembershipCounts to fetch.
+     */
+    where?: MembershipCountWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MembershipCounts to fetch.
+     */
+    orderBy?: MembershipCountOrderByWithRelationInput | MembershipCountOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MembershipCounts.
+     */
+    cursor?: MembershipCountWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MembershipCounts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MembershipCounts.
+     */
+    skip?: number
+    distinct?: MembershipCountScalarFieldEnum | MembershipCountScalarFieldEnum[]
+  }
+
+  /**
+   * MembershipCount create
+   */
+  export type MembershipCountCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipCount
+     */
+    select?: MembershipCountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MembershipCount
+     */
+    omit?: MembershipCountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipCountInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MembershipCount.
+     */
+    data: XOR<MembershipCountCreateInput, MembershipCountUncheckedCreateInput>
+  }
+
+  /**
+   * MembershipCount createMany
+   */
+  export type MembershipCountCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MembershipCounts.
+     */
+    data: MembershipCountCreateManyInput | MembershipCountCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MembershipCount createManyAndReturn
+   */
+  export type MembershipCountCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipCount
+     */
+    select?: MembershipCountSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MembershipCount
+     */
+    omit?: MembershipCountOmit<ExtArgs> | null
+    /**
+     * The data used to create many MembershipCounts.
+     */
+    data: MembershipCountCreateManyInput | MembershipCountCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipCountIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MembershipCount update
+   */
+  export type MembershipCountUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipCount
+     */
+    select?: MembershipCountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MembershipCount
+     */
+    omit?: MembershipCountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipCountInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MembershipCount.
+     */
+    data: XOR<MembershipCountUpdateInput, MembershipCountUncheckedUpdateInput>
+    /**
+     * Choose, which MembershipCount to update.
+     */
+    where: MembershipCountWhereUniqueInput
+  }
+
+  /**
+   * MembershipCount updateMany
+   */
+  export type MembershipCountUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MembershipCounts.
+     */
+    data: XOR<MembershipCountUpdateManyMutationInput, MembershipCountUncheckedUpdateManyInput>
+    /**
+     * Filter which MembershipCounts to update
+     */
+    where?: MembershipCountWhereInput
+    /**
+     * Limit how many MembershipCounts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MembershipCount updateManyAndReturn
+   */
+  export type MembershipCountUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipCount
+     */
+    select?: MembershipCountSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MembershipCount
+     */
+    omit?: MembershipCountOmit<ExtArgs> | null
+    /**
+     * The data used to update MembershipCounts.
+     */
+    data: XOR<MembershipCountUpdateManyMutationInput, MembershipCountUncheckedUpdateManyInput>
+    /**
+     * Filter which MembershipCounts to update
+     */
+    where?: MembershipCountWhereInput
+    /**
+     * Limit how many MembershipCounts to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipCountIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MembershipCount upsert
+   */
+  export type MembershipCountUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipCount
+     */
+    select?: MembershipCountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MembershipCount
+     */
+    omit?: MembershipCountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipCountInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MembershipCount to update in case it exists.
+     */
+    where: MembershipCountWhereUniqueInput
+    /**
+     * In case the MembershipCount found by the `where` argument doesn't exist, create a new MembershipCount with this data.
+     */
+    create: XOR<MembershipCountCreateInput, MembershipCountUncheckedCreateInput>
+    /**
+     * In case the MembershipCount was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MembershipCountUpdateInput, MembershipCountUncheckedUpdateInput>
+  }
+
+  /**
+   * MembershipCount delete
+   */
+  export type MembershipCountDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipCount
+     */
+    select?: MembershipCountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MembershipCount
+     */
+    omit?: MembershipCountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipCountInclude<ExtArgs> | null
+    /**
+     * Filter which MembershipCount to delete.
+     */
+    where: MembershipCountWhereUniqueInput
+  }
+
+  /**
+   * MembershipCount deleteMany
+   */
+  export type MembershipCountDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MembershipCounts to delete
+     */
+    where?: MembershipCountWhereInput
+    /**
+     * Limit how many MembershipCounts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MembershipCount without action
+   */
+  export type MembershipCountDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipCount
+     */
+    select?: MembershipCountSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MembershipCount
+     */
+    omit?: MembershipCountOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MembershipCountInclude<ExtArgs> | null
   }
 
 
@@ -10595,6 +13077,30 @@ export namespace Prisma {
   export type GymScalarFieldEnum = (typeof GymScalarFieldEnum)[keyof typeof GymScalarFieldEnum]
 
 
+  export const RevenueScalarFieldEnum: {
+    id: 'id',
+    gym_id: 'gym_id',
+    year: 'year',
+    month: 'month',
+    amount: 'amount',
+    created_at: 'created_at'
+  };
+
+  export type RevenueScalarFieldEnum = (typeof RevenueScalarFieldEnum)[keyof typeof RevenueScalarFieldEnum]
+
+
+  export const MembershipCountScalarFieldEnum: {
+    id: 'id',
+    gym_id: 'gym_id',
+    year: 'year',
+    month: 'month',
+    count: 'count',
+    created_at: 'created_at'
+  };
+
+  export type MembershipCountScalarFieldEnum = (typeof MembershipCountScalarFieldEnum)[keyof typeof MembershipCountScalarFieldEnum]
+
+
   export const MembershipScalarFieldEnum: {
     id: 'id',
     member_id: 'member_id',
@@ -10999,6 +13505,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsListRelationFilter
     gym_stats?: XOR<GymStatsNullableScalarRelationFilter, GymStatsWhereInput> | null
     gym_users?: GymUserListRelationFilter
+    revenues?: RevenueListRelationFilter
+    membership_counts?: MembershipCountListRelationFilter
   }
 
   export type GymOrderByWithRelationInput = {
@@ -11011,6 +13519,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsOrderByRelationAggregateInput
     gym_stats?: GymStatsOrderByWithRelationInput
     gym_users?: GymUserOrderByRelationAggregateInput
+    revenues?: RevenueOrderByRelationAggregateInput
+    membership_counts?: MembershipCountOrderByRelationAggregateInput
   }
 
   export type GymWhereUniqueInput = Prisma.AtLeast<{
@@ -11026,6 +13536,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsListRelationFilter
     gym_stats?: XOR<GymStatsNullableScalarRelationFilter, GymStatsWhereInput> | null
     gym_users?: GymUserListRelationFilter
+    revenues?: RevenueListRelationFilter
+    membership_counts?: MembershipCountListRelationFilter
   }, "id">
 
   export type GymOrderByWithAggregationInput = {
@@ -11048,6 +13560,130 @@ export namespace Prisma {
     location?: StringWithAggregatesFilter<"Gym"> | string
     created_at?: DateTimeWithAggregatesFilter<"Gym"> | Date | string
     created_by?: StringWithAggregatesFilter<"Gym"> | string
+  }
+
+  export type RevenueWhereInput = {
+    AND?: RevenueWhereInput | RevenueWhereInput[]
+    OR?: RevenueWhereInput[]
+    NOT?: RevenueWhereInput | RevenueWhereInput[]
+    id?: StringFilter<"Revenue"> | string
+    gym_id?: StringFilter<"Revenue"> | string
+    year?: IntFilter<"Revenue"> | number
+    month?: IntFilter<"Revenue"> | number
+    amount?: FloatFilter<"Revenue"> | number
+    created_at?: DateTimeFilter<"Revenue"> | Date | string
+    gym?: XOR<GymScalarRelationFilter, GymWhereInput>
+  }
+
+  export type RevenueOrderByWithRelationInput = {
+    id?: SortOrder
+    gym_id?: SortOrder
+    year?: SortOrder
+    month?: SortOrder
+    amount?: SortOrder
+    created_at?: SortOrder
+    gym?: GymOrderByWithRelationInput
+  }
+
+  export type RevenueWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: RevenueWhereInput | RevenueWhereInput[]
+    OR?: RevenueWhereInput[]
+    NOT?: RevenueWhereInput | RevenueWhereInput[]
+    gym_id?: StringFilter<"Revenue"> | string
+    year?: IntFilter<"Revenue"> | number
+    month?: IntFilter<"Revenue"> | number
+    amount?: FloatFilter<"Revenue"> | number
+    created_at?: DateTimeFilter<"Revenue"> | Date | string
+    gym?: XOR<GymScalarRelationFilter, GymWhereInput>
+  }, "id">
+
+  export type RevenueOrderByWithAggregationInput = {
+    id?: SortOrder
+    gym_id?: SortOrder
+    year?: SortOrder
+    month?: SortOrder
+    amount?: SortOrder
+    created_at?: SortOrder
+    _count?: RevenueCountOrderByAggregateInput
+    _avg?: RevenueAvgOrderByAggregateInput
+    _max?: RevenueMaxOrderByAggregateInput
+    _min?: RevenueMinOrderByAggregateInput
+    _sum?: RevenueSumOrderByAggregateInput
+  }
+
+  export type RevenueScalarWhereWithAggregatesInput = {
+    AND?: RevenueScalarWhereWithAggregatesInput | RevenueScalarWhereWithAggregatesInput[]
+    OR?: RevenueScalarWhereWithAggregatesInput[]
+    NOT?: RevenueScalarWhereWithAggregatesInput | RevenueScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Revenue"> | string
+    gym_id?: StringWithAggregatesFilter<"Revenue"> | string
+    year?: IntWithAggregatesFilter<"Revenue"> | number
+    month?: IntWithAggregatesFilter<"Revenue"> | number
+    amount?: FloatWithAggregatesFilter<"Revenue"> | number
+    created_at?: DateTimeWithAggregatesFilter<"Revenue"> | Date | string
+  }
+
+  export type MembershipCountWhereInput = {
+    AND?: MembershipCountWhereInput | MembershipCountWhereInput[]
+    OR?: MembershipCountWhereInput[]
+    NOT?: MembershipCountWhereInput | MembershipCountWhereInput[]
+    id?: StringFilter<"MembershipCount"> | string
+    gym_id?: StringFilter<"MembershipCount"> | string
+    year?: IntFilter<"MembershipCount"> | number
+    month?: IntFilter<"MembershipCount"> | number
+    count?: IntFilter<"MembershipCount"> | number
+    created_at?: DateTimeFilter<"MembershipCount"> | Date | string
+    gym?: XOR<GymScalarRelationFilter, GymWhereInput>
+  }
+
+  export type MembershipCountOrderByWithRelationInput = {
+    id?: SortOrder
+    gym_id?: SortOrder
+    year?: SortOrder
+    month?: SortOrder
+    count?: SortOrder
+    created_at?: SortOrder
+    gym?: GymOrderByWithRelationInput
+  }
+
+  export type MembershipCountWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MembershipCountWhereInput | MembershipCountWhereInput[]
+    OR?: MembershipCountWhereInput[]
+    NOT?: MembershipCountWhereInput | MembershipCountWhereInput[]
+    gym_id?: StringFilter<"MembershipCount"> | string
+    year?: IntFilter<"MembershipCount"> | number
+    month?: IntFilter<"MembershipCount"> | number
+    count?: IntFilter<"MembershipCount"> | number
+    created_at?: DateTimeFilter<"MembershipCount"> | Date | string
+    gym?: XOR<GymScalarRelationFilter, GymWhereInput>
+  }, "id">
+
+  export type MembershipCountOrderByWithAggregationInput = {
+    id?: SortOrder
+    gym_id?: SortOrder
+    year?: SortOrder
+    month?: SortOrder
+    count?: SortOrder
+    created_at?: SortOrder
+    _count?: MembershipCountCountOrderByAggregateInput
+    _avg?: MembershipCountAvgOrderByAggregateInput
+    _max?: MembershipCountMaxOrderByAggregateInput
+    _min?: MembershipCountMinOrderByAggregateInput
+    _sum?: MembershipCountSumOrderByAggregateInput
+  }
+
+  export type MembershipCountScalarWhereWithAggregatesInput = {
+    AND?: MembershipCountScalarWhereWithAggregatesInput | MembershipCountScalarWhereWithAggregatesInput[]
+    OR?: MembershipCountScalarWhereWithAggregatesInput[]
+    NOT?: MembershipCountScalarWhereWithAggregatesInput | MembershipCountScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MembershipCount"> | string
+    gym_id?: StringWithAggregatesFilter<"MembershipCount"> | string
+    year?: IntWithAggregatesFilter<"MembershipCount"> | number
+    month?: IntWithAggregatesFilter<"MembershipCount"> | number
+    count?: IntWithAggregatesFilter<"MembershipCount"> | number
+    created_at?: DateTimeWithAggregatesFilter<"MembershipCount"> | Date | string
   }
 
   export type MembershipWhereInput = {
@@ -11536,6 +14172,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsCreateNestedOneWithoutGymInput
     gym_users?: GymUserCreateNestedManyWithoutGymInput
+    revenues?: RevenueCreateNestedManyWithoutGymInput
+    membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
   }
 
   export type GymUncheckedCreateInput = {
@@ -11548,6 +14186,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsUncheckedCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsUncheckedCreateNestedOneWithoutGymInput
     gym_users?: GymUserUncheckedCreateNestedManyWithoutGymInput
+    revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
+    membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
   }
 
   export type GymUpdateInput = {
@@ -11560,6 +14200,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUpdateOneWithoutGymNestedInput
     gym_users?: GymUserUpdateManyWithoutGymNestedInput
+    revenues?: RevenueUpdateManyWithoutGymNestedInput
+    membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
   }
 
   export type GymUncheckedUpdateInput = {
@@ -11572,6 +14214,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsUncheckedUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUncheckedUpdateOneWithoutGymNestedInput
     gym_users?: GymUserUncheckedUpdateManyWithoutGymNestedInput
+    revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
+    membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
   }
 
   export type GymCreateManyInput = {
@@ -11596,6 +14240,130 @@ export namespace Prisma {
     location?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type RevenueCreateInput = {
+    id?: string
+    year: number
+    month: number
+    amount: number
+    created_at?: Date | string
+    gym: GymCreateNestedOneWithoutRevenuesInput
+  }
+
+  export type RevenueUncheckedCreateInput = {
+    id?: string
+    gym_id: string
+    year: number
+    month: number
+    amount: number
+    created_at?: Date | string
+  }
+
+  export type RevenueUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    month?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    gym?: GymUpdateOneRequiredWithoutRevenuesNestedInput
+  }
+
+  export type RevenueUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gym_id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    month?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RevenueCreateManyInput = {
+    id?: string
+    gym_id: string
+    year: number
+    month: number
+    amount: number
+    created_at?: Date | string
+  }
+
+  export type RevenueUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    month?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RevenueUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gym_id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    month?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MembershipCountCreateInput = {
+    id?: string
+    year: number
+    month: number
+    count: number
+    created_at?: Date | string
+    gym: GymCreateNestedOneWithoutMembership_countsInput
+  }
+
+  export type MembershipCountUncheckedCreateInput = {
+    id?: string
+    gym_id: string
+    year: number
+    month: number
+    count: number
+    created_at?: Date | string
+  }
+
+  export type MembershipCountUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    month?: IntFieldUpdateOperationsInput | number
+    count?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    gym?: GymUpdateOneRequiredWithoutMembership_countsNestedInput
+  }
+
+  export type MembershipCountUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gym_id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    month?: IntFieldUpdateOperationsInput | number
+    count?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MembershipCountCreateManyInput = {
+    id?: string
+    gym_id: string
+    year: number
+    month: number
+    count: number
+    created_at?: Date | string
+  }
+
+  export type MembershipCountUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    month?: IntFieldUpdateOperationsInput | number
+    count?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MembershipCountUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gym_id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    month?: IntFieldUpdateOperationsInput | number
+    count?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MembershipCreateInput = {
@@ -12173,6 +14941,26 @@ export namespace Prisma {
     isNot?: GymStatsWhereInput | null
   }
 
+  export type RevenueListRelationFilter = {
+    every?: RevenueWhereInput
+    some?: RevenueWhereInput
+    none?: RevenueWhereInput
+  }
+
+  export type MembershipCountListRelationFilter = {
+    every?: MembershipCountWhereInput
+    some?: MembershipCountWhereInput
+    none?: MembershipCountWhereInput
+  }
+
+  export type RevenueOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MembershipCountOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type GymCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -12195,6 +14983,84 @@ export namespace Prisma {
     location?: SortOrder
     created_at?: SortOrder
     created_by?: SortOrder
+  }
+
+  export type RevenueCountOrderByAggregateInput = {
+    id?: SortOrder
+    gym_id?: SortOrder
+    year?: SortOrder
+    month?: SortOrder
+    amount?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type RevenueAvgOrderByAggregateInput = {
+    year?: SortOrder
+    month?: SortOrder
+    amount?: SortOrder
+  }
+
+  export type RevenueMaxOrderByAggregateInput = {
+    id?: SortOrder
+    gym_id?: SortOrder
+    year?: SortOrder
+    month?: SortOrder
+    amount?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type RevenueMinOrderByAggregateInput = {
+    id?: SortOrder
+    gym_id?: SortOrder
+    year?: SortOrder
+    month?: SortOrder
+    amount?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type RevenueSumOrderByAggregateInput = {
+    year?: SortOrder
+    month?: SortOrder
+    amount?: SortOrder
+  }
+
+  export type MembershipCountCountOrderByAggregateInput = {
+    id?: SortOrder
+    gym_id?: SortOrder
+    year?: SortOrder
+    month?: SortOrder
+    count?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type MembershipCountAvgOrderByAggregateInput = {
+    year?: SortOrder
+    month?: SortOrder
+    count?: SortOrder
+  }
+
+  export type MembershipCountMaxOrderByAggregateInput = {
+    id?: SortOrder
+    gym_id?: SortOrder
+    year?: SortOrder
+    month?: SortOrder
+    count?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type MembershipCountMinOrderByAggregateInput = {
+    id?: SortOrder
+    gym_id?: SortOrder
+    year?: SortOrder
+    month?: SortOrder
+    count?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type MembershipCountSumOrderByAggregateInput = {
+    year?: SortOrder
+    month?: SortOrder
+    count?: SortOrder
   }
 
   export type DateTimeNullableFilter<$PrismaModel = never> = {
@@ -12616,6 +15482,20 @@ export namespace Prisma {
     connect?: GymUserWhereUniqueInput | GymUserWhereUniqueInput[]
   }
 
+  export type RevenueCreateNestedManyWithoutGymInput = {
+    create?: XOR<RevenueCreateWithoutGymInput, RevenueUncheckedCreateWithoutGymInput> | RevenueCreateWithoutGymInput[] | RevenueUncheckedCreateWithoutGymInput[]
+    connectOrCreate?: RevenueCreateOrConnectWithoutGymInput | RevenueCreateOrConnectWithoutGymInput[]
+    createMany?: RevenueCreateManyGymInputEnvelope
+    connect?: RevenueWhereUniqueInput | RevenueWhereUniqueInput[]
+  }
+
+  export type MembershipCountCreateNestedManyWithoutGymInput = {
+    create?: XOR<MembershipCountCreateWithoutGymInput, MembershipCountUncheckedCreateWithoutGymInput> | MembershipCountCreateWithoutGymInput[] | MembershipCountUncheckedCreateWithoutGymInput[]
+    connectOrCreate?: MembershipCountCreateOrConnectWithoutGymInput | MembershipCountCreateOrConnectWithoutGymInput[]
+    createMany?: MembershipCountCreateManyGymInputEnvelope
+    connect?: MembershipCountWhereUniqueInput | MembershipCountWhereUniqueInput[]
+  }
+
   export type MembershipUncheckedCreateNestedManyWithoutGymInput = {
     create?: XOR<MembershipCreateWithoutGymInput, MembershipUncheckedCreateWithoutGymInput> | MembershipCreateWithoutGymInput[] | MembershipUncheckedCreateWithoutGymInput[]
     connectOrCreate?: MembershipCreateOrConnectWithoutGymInput | MembershipCreateOrConnectWithoutGymInput[]
@@ -12641,6 +15521,20 @@ export namespace Prisma {
     connectOrCreate?: GymUserCreateOrConnectWithoutGymInput | GymUserCreateOrConnectWithoutGymInput[]
     createMany?: GymUserCreateManyGymInputEnvelope
     connect?: GymUserWhereUniqueInput | GymUserWhereUniqueInput[]
+  }
+
+  export type RevenueUncheckedCreateNestedManyWithoutGymInput = {
+    create?: XOR<RevenueCreateWithoutGymInput, RevenueUncheckedCreateWithoutGymInput> | RevenueCreateWithoutGymInput[] | RevenueUncheckedCreateWithoutGymInput[]
+    connectOrCreate?: RevenueCreateOrConnectWithoutGymInput | RevenueCreateOrConnectWithoutGymInput[]
+    createMany?: RevenueCreateManyGymInputEnvelope
+    connect?: RevenueWhereUniqueInput | RevenueWhereUniqueInput[]
+  }
+
+  export type MembershipCountUncheckedCreateNestedManyWithoutGymInput = {
+    create?: XOR<MembershipCountCreateWithoutGymInput, MembershipCountUncheckedCreateWithoutGymInput> | MembershipCountCreateWithoutGymInput[] | MembershipCountUncheckedCreateWithoutGymInput[]
+    connectOrCreate?: MembershipCountCreateOrConnectWithoutGymInput | MembershipCountCreateOrConnectWithoutGymInput[]
+    createMany?: MembershipCountCreateManyGymInputEnvelope
+    connect?: MembershipCountWhereUniqueInput | MembershipCountWhereUniqueInput[]
   }
 
   export type MembershipUpdateManyWithoutGymNestedInput = {
@@ -12695,6 +15589,34 @@ export namespace Prisma {
     deleteMany?: GymUserScalarWhereInput | GymUserScalarWhereInput[]
   }
 
+  export type RevenueUpdateManyWithoutGymNestedInput = {
+    create?: XOR<RevenueCreateWithoutGymInput, RevenueUncheckedCreateWithoutGymInput> | RevenueCreateWithoutGymInput[] | RevenueUncheckedCreateWithoutGymInput[]
+    connectOrCreate?: RevenueCreateOrConnectWithoutGymInput | RevenueCreateOrConnectWithoutGymInput[]
+    upsert?: RevenueUpsertWithWhereUniqueWithoutGymInput | RevenueUpsertWithWhereUniqueWithoutGymInput[]
+    createMany?: RevenueCreateManyGymInputEnvelope
+    set?: RevenueWhereUniqueInput | RevenueWhereUniqueInput[]
+    disconnect?: RevenueWhereUniqueInput | RevenueWhereUniqueInput[]
+    delete?: RevenueWhereUniqueInput | RevenueWhereUniqueInput[]
+    connect?: RevenueWhereUniqueInput | RevenueWhereUniqueInput[]
+    update?: RevenueUpdateWithWhereUniqueWithoutGymInput | RevenueUpdateWithWhereUniqueWithoutGymInput[]
+    updateMany?: RevenueUpdateManyWithWhereWithoutGymInput | RevenueUpdateManyWithWhereWithoutGymInput[]
+    deleteMany?: RevenueScalarWhereInput | RevenueScalarWhereInput[]
+  }
+
+  export type MembershipCountUpdateManyWithoutGymNestedInput = {
+    create?: XOR<MembershipCountCreateWithoutGymInput, MembershipCountUncheckedCreateWithoutGymInput> | MembershipCountCreateWithoutGymInput[] | MembershipCountUncheckedCreateWithoutGymInput[]
+    connectOrCreate?: MembershipCountCreateOrConnectWithoutGymInput | MembershipCountCreateOrConnectWithoutGymInput[]
+    upsert?: MembershipCountUpsertWithWhereUniqueWithoutGymInput | MembershipCountUpsertWithWhereUniqueWithoutGymInput[]
+    createMany?: MembershipCountCreateManyGymInputEnvelope
+    set?: MembershipCountWhereUniqueInput | MembershipCountWhereUniqueInput[]
+    disconnect?: MembershipCountWhereUniqueInput | MembershipCountWhereUniqueInput[]
+    delete?: MembershipCountWhereUniqueInput | MembershipCountWhereUniqueInput[]
+    connect?: MembershipCountWhereUniqueInput | MembershipCountWhereUniqueInput[]
+    update?: MembershipCountUpdateWithWhereUniqueWithoutGymInput | MembershipCountUpdateWithWhereUniqueWithoutGymInput[]
+    updateMany?: MembershipCountUpdateManyWithWhereWithoutGymInput | MembershipCountUpdateManyWithWhereWithoutGymInput[]
+    deleteMany?: MembershipCountScalarWhereInput | MembershipCountScalarWhereInput[]
+  }
+
   export type MembershipUncheckedUpdateManyWithoutGymNestedInput = {
     create?: XOR<MembershipCreateWithoutGymInput, MembershipUncheckedCreateWithoutGymInput> | MembershipCreateWithoutGymInput[] | MembershipUncheckedCreateWithoutGymInput[]
     connectOrCreate?: MembershipCreateOrConnectWithoutGymInput | MembershipCreateOrConnectWithoutGymInput[]
@@ -12745,6 +15667,62 @@ export namespace Prisma {
     update?: GymUserUpdateWithWhereUniqueWithoutGymInput | GymUserUpdateWithWhereUniqueWithoutGymInput[]
     updateMany?: GymUserUpdateManyWithWhereWithoutGymInput | GymUserUpdateManyWithWhereWithoutGymInput[]
     deleteMany?: GymUserScalarWhereInput | GymUserScalarWhereInput[]
+  }
+
+  export type RevenueUncheckedUpdateManyWithoutGymNestedInput = {
+    create?: XOR<RevenueCreateWithoutGymInput, RevenueUncheckedCreateWithoutGymInput> | RevenueCreateWithoutGymInput[] | RevenueUncheckedCreateWithoutGymInput[]
+    connectOrCreate?: RevenueCreateOrConnectWithoutGymInput | RevenueCreateOrConnectWithoutGymInput[]
+    upsert?: RevenueUpsertWithWhereUniqueWithoutGymInput | RevenueUpsertWithWhereUniqueWithoutGymInput[]
+    createMany?: RevenueCreateManyGymInputEnvelope
+    set?: RevenueWhereUniqueInput | RevenueWhereUniqueInput[]
+    disconnect?: RevenueWhereUniqueInput | RevenueWhereUniqueInput[]
+    delete?: RevenueWhereUniqueInput | RevenueWhereUniqueInput[]
+    connect?: RevenueWhereUniqueInput | RevenueWhereUniqueInput[]
+    update?: RevenueUpdateWithWhereUniqueWithoutGymInput | RevenueUpdateWithWhereUniqueWithoutGymInput[]
+    updateMany?: RevenueUpdateManyWithWhereWithoutGymInput | RevenueUpdateManyWithWhereWithoutGymInput[]
+    deleteMany?: RevenueScalarWhereInput | RevenueScalarWhereInput[]
+  }
+
+  export type MembershipCountUncheckedUpdateManyWithoutGymNestedInput = {
+    create?: XOR<MembershipCountCreateWithoutGymInput, MembershipCountUncheckedCreateWithoutGymInput> | MembershipCountCreateWithoutGymInput[] | MembershipCountUncheckedCreateWithoutGymInput[]
+    connectOrCreate?: MembershipCountCreateOrConnectWithoutGymInput | MembershipCountCreateOrConnectWithoutGymInput[]
+    upsert?: MembershipCountUpsertWithWhereUniqueWithoutGymInput | MembershipCountUpsertWithWhereUniqueWithoutGymInput[]
+    createMany?: MembershipCountCreateManyGymInputEnvelope
+    set?: MembershipCountWhereUniqueInput | MembershipCountWhereUniqueInput[]
+    disconnect?: MembershipCountWhereUniqueInput | MembershipCountWhereUniqueInput[]
+    delete?: MembershipCountWhereUniqueInput | MembershipCountWhereUniqueInput[]
+    connect?: MembershipCountWhereUniqueInput | MembershipCountWhereUniqueInput[]
+    update?: MembershipCountUpdateWithWhereUniqueWithoutGymInput | MembershipCountUpdateWithWhereUniqueWithoutGymInput[]
+    updateMany?: MembershipCountUpdateManyWithWhereWithoutGymInput | MembershipCountUpdateManyWithWhereWithoutGymInput[]
+    deleteMany?: MembershipCountScalarWhereInput | MembershipCountScalarWhereInput[]
+  }
+
+  export type GymCreateNestedOneWithoutRevenuesInput = {
+    create?: XOR<GymCreateWithoutRevenuesInput, GymUncheckedCreateWithoutRevenuesInput>
+    connectOrCreate?: GymCreateOrConnectWithoutRevenuesInput
+    connect?: GymWhereUniqueInput
+  }
+
+  export type GymUpdateOneRequiredWithoutRevenuesNestedInput = {
+    create?: XOR<GymCreateWithoutRevenuesInput, GymUncheckedCreateWithoutRevenuesInput>
+    connectOrCreate?: GymCreateOrConnectWithoutRevenuesInput
+    upsert?: GymUpsertWithoutRevenuesInput
+    connect?: GymWhereUniqueInput
+    update?: XOR<XOR<GymUpdateToOneWithWhereWithoutRevenuesInput, GymUpdateWithoutRevenuesInput>, GymUncheckedUpdateWithoutRevenuesInput>
+  }
+
+  export type GymCreateNestedOneWithoutMembership_countsInput = {
+    create?: XOR<GymCreateWithoutMembership_countsInput, GymUncheckedCreateWithoutMembership_countsInput>
+    connectOrCreate?: GymCreateOrConnectWithoutMembership_countsInput
+    connect?: GymWhereUniqueInput
+  }
+
+  export type GymUpdateOneRequiredWithoutMembership_countsNestedInput = {
+    create?: XOR<GymCreateWithoutMembership_countsInput, GymUncheckedCreateWithoutMembership_countsInput>
+    connectOrCreate?: GymCreateOrConnectWithoutMembership_countsInput
+    upsert?: GymUpsertWithoutMembership_countsInput
+    connect?: GymWhereUniqueInput
+    update?: XOR<XOR<GymUpdateToOneWithWhereWithoutMembership_countsInput, GymUpdateWithoutMembership_countsInput>, GymUncheckedUpdateWithoutMembership_countsInput>
   }
 
   export type MemberCreateNestedOneWithoutMembershipsInput = {
@@ -13058,6 +16036,8 @@ export namespace Prisma {
     memberships?: MembershipCreateNestedManyWithoutGymInput
     member_time_logs?: MemberTimeLogsCreateNestedManyWithoutGymInput
     gym_users?: GymUserCreateNestedManyWithoutGymInput
+    revenues?: RevenueCreateNestedManyWithoutGymInput
+    membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
   }
 
   export type GymUncheckedCreateWithoutGym_statsInput = {
@@ -13069,6 +16049,8 @@ export namespace Prisma {
     memberships?: MembershipUncheckedCreateNestedManyWithoutGymInput
     member_time_logs?: MemberTimeLogsUncheckedCreateNestedManyWithoutGymInput
     gym_users?: GymUserUncheckedCreateNestedManyWithoutGymInput
+    revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
+    membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
   }
 
   export type GymCreateOrConnectWithoutGym_statsInput = {
@@ -13096,6 +16078,8 @@ export namespace Prisma {
     memberships?: MembershipUpdateManyWithoutGymNestedInput
     member_time_logs?: MemberTimeLogsUpdateManyWithoutGymNestedInput
     gym_users?: GymUserUpdateManyWithoutGymNestedInput
+    revenues?: RevenueUpdateManyWithoutGymNestedInput
+    membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
   }
 
   export type GymUncheckedUpdateWithoutGym_statsInput = {
@@ -13107,6 +16091,8 @@ export namespace Prisma {
     memberships?: MembershipUncheckedUpdateManyWithoutGymNestedInput
     member_time_logs?: MemberTimeLogsUncheckedUpdateManyWithoutGymNestedInput
     gym_users?: GymUserUncheckedUpdateManyWithoutGymNestedInput
+    revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
+    membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
   }
 
   export type GymUserCreateWithoutUserInput = {
@@ -13285,6 +16271,8 @@ export namespace Prisma {
     memberships?: MembershipCreateNestedManyWithoutGymInput
     member_time_logs?: MemberTimeLogsCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsCreateNestedOneWithoutGymInput
+    revenues?: RevenueCreateNestedManyWithoutGymInput
+    membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
   }
 
   export type GymUncheckedCreateWithoutGym_usersInput = {
@@ -13296,6 +16284,8 @@ export namespace Prisma {
     memberships?: MembershipUncheckedCreateNestedManyWithoutGymInput
     member_time_logs?: MemberTimeLogsUncheckedCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsUncheckedCreateNestedOneWithoutGymInput
+    revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
+    membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
   }
 
   export type GymCreateOrConnectWithoutGym_usersInput = {
@@ -13350,6 +16340,8 @@ export namespace Prisma {
     memberships?: MembershipUpdateManyWithoutGymNestedInput
     member_time_logs?: MemberTimeLogsUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUpdateOneWithoutGymNestedInput
+    revenues?: RevenueUpdateManyWithoutGymNestedInput
+    membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
   }
 
   export type GymUncheckedUpdateWithoutGym_usersInput = {
@@ -13361,6 +16353,8 @@ export namespace Prisma {
     memberships?: MembershipUncheckedUpdateManyWithoutGymNestedInput
     member_time_logs?: MemberTimeLogsUncheckedUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUncheckedUpdateOneWithoutGymNestedInput
+    revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
+    membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
   }
 
   export type UserUpsertWithoutGym_usersInput = {
@@ -13496,6 +16490,58 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type RevenueCreateWithoutGymInput = {
+    id?: string
+    year: number
+    month: number
+    amount: number
+    created_at?: Date | string
+  }
+
+  export type RevenueUncheckedCreateWithoutGymInput = {
+    id?: string
+    year: number
+    month: number
+    amount: number
+    created_at?: Date | string
+  }
+
+  export type RevenueCreateOrConnectWithoutGymInput = {
+    where: RevenueWhereUniqueInput
+    create: XOR<RevenueCreateWithoutGymInput, RevenueUncheckedCreateWithoutGymInput>
+  }
+
+  export type RevenueCreateManyGymInputEnvelope = {
+    data: RevenueCreateManyGymInput | RevenueCreateManyGymInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MembershipCountCreateWithoutGymInput = {
+    id?: string
+    year: number
+    month: number
+    count: number
+    created_at?: Date | string
+  }
+
+  export type MembershipCountUncheckedCreateWithoutGymInput = {
+    id?: string
+    year: number
+    month: number
+    count: number
+    created_at?: Date | string
+  }
+
+  export type MembershipCountCreateOrConnectWithoutGymInput = {
+    where: MembershipCountWhereUniqueInput
+    create: XOR<MembershipCountCreateWithoutGymInput, MembershipCountUncheckedCreateWithoutGymInput>
+  }
+
+  export type MembershipCountCreateManyGymInputEnvelope = {
+    data: MembershipCountCreateManyGymInput | MembershipCountCreateManyGymInput[]
+    skipDuplicates?: boolean
+  }
+
   export type MembershipUpsertWithWhereUniqueWithoutGymInput = {
     where: MembershipWhereUniqueInput
     update: XOR<MembershipUpdateWithoutGymInput, MembershipUncheckedUpdateWithoutGymInput>
@@ -13569,6 +16615,198 @@ export namespace Prisma {
     data: XOR<GymUserUpdateManyMutationInput, GymUserUncheckedUpdateManyWithoutGymInput>
   }
 
+  export type RevenueUpsertWithWhereUniqueWithoutGymInput = {
+    where: RevenueWhereUniqueInput
+    update: XOR<RevenueUpdateWithoutGymInput, RevenueUncheckedUpdateWithoutGymInput>
+    create: XOR<RevenueCreateWithoutGymInput, RevenueUncheckedCreateWithoutGymInput>
+  }
+
+  export type RevenueUpdateWithWhereUniqueWithoutGymInput = {
+    where: RevenueWhereUniqueInput
+    data: XOR<RevenueUpdateWithoutGymInput, RevenueUncheckedUpdateWithoutGymInput>
+  }
+
+  export type RevenueUpdateManyWithWhereWithoutGymInput = {
+    where: RevenueScalarWhereInput
+    data: XOR<RevenueUpdateManyMutationInput, RevenueUncheckedUpdateManyWithoutGymInput>
+  }
+
+  export type RevenueScalarWhereInput = {
+    AND?: RevenueScalarWhereInput | RevenueScalarWhereInput[]
+    OR?: RevenueScalarWhereInput[]
+    NOT?: RevenueScalarWhereInput | RevenueScalarWhereInput[]
+    id?: StringFilter<"Revenue"> | string
+    gym_id?: StringFilter<"Revenue"> | string
+    year?: IntFilter<"Revenue"> | number
+    month?: IntFilter<"Revenue"> | number
+    amount?: FloatFilter<"Revenue"> | number
+    created_at?: DateTimeFilter<"Revenue"> | Date | string
+  }
+
+  export type MembershipCountUpsertWithWhereUniqueWithoutGymInput = {
+    where: MembershipCountWhereUniqueInput
+    update: XOR<MembershipCountUpdateWithoutGymInput, MembershipCountUncheckedUpdateWithoutGymInput>
+    create: XOR<MembershipCountCreateWithoutGymInput, MembershipCountUncheckedCreateWithoutGymInput>
+  }
+
+  export type MembershipCountUpdateWithWhereUniqueWithoutGymInput = {
+    where: MembershipCountWhereUniqueInput
+    data: XOR<MembershipCountUpdateWithoutGymInput, MembershipCountUncheckedUpdateWithoutGymInput>
+  }
+
+  export type MembershipCountUpdateManyWithWhereWithoutGymInput = {
+    where: MembershipCountScalarWhereInput
+    data: XOR<MembershipCountUpdateManyMutationInput, MembershipCountUncheckedUpdateManyWithoutGymInput>
+  }
+
+  export type MembershipCountScalarWhereInput = {
+    AND?: MembershipCountScalarWhereInput | MembershipCountScalarWhereInput[]
+    OR?: MembershipCountScalarWhereInput[]
+    NOT?: MembershipCountScalarWhereInput | MembershipCountScalarWhereInput[]
+    id?: StringFilter<"MembershipCount"> | string
+    gym_id?: StringFilter<"MembershipCount"> | string
+    year?: IntFilter<"MembershipCount"> | number
+    month?: IntFilter<"MembershipCount"> | number
+    count?: IntFilter<"MembershipCount"> | number
+    created_at?: DateTimeFilter<"MembershipCount"> | Date | string
+  }
+
+  export type GymCreateWithoutRevenuesInput = {
+    id?: string
+    name: string
+    location: string
+    created_at?: Date | string
+    created_by: string
+    memberships?: MembershipCreateNestedManyWithoutGymInput
+    member_time_logs?: MemberTimeLogsCreateNestedManyWithoutGymInput
+    gym_stats?: GymStatsCreateNestedOneWithoutGymInput
+    gym_users?: GymUserCreateNestedManyWithoutGymInput
+    membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
+  }
+
+  export type GymUncheckedCreateWithoutRevenuesInput = {
+    id?: string
+    name: string
+    location: string
+    created_at?: Date | string
+    created_by: string
+    memberships?: MembershipUncheckedCreateNestedManyWithoutGymInput
+    member_time_logs?: MemberTimeLogsUncheckedCreateNestedManyWithoutGymInput
+    gym_stats?: GymStatsUncheckedCreateNestedOneWithoutGymInput
+    gym_users?: GymUserUncheckedCreateNestedManyWithoutGymInput
+    membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
+  }
+
+  export type GymCreateOrConnectWithoutRevenuesInput = {
+    where: GymWhereUniqueInput
+    create: XOR<GymCreateWithoutRevenuesInput, GymUncheckedCreateWithoutRevenuesInput>
+  }
+
+  export type GymUpsertWithoutRevenuesInput = {
+    update: XOR<GymUpdateWithoutRevenuesInput, GymUncheckedUpdateWithoutRevenuesInput>
+    create: XOR<GymCreateWithoutRevenuesInput, GymUncheckedCreateWithoutRevenuesInput>
+    where?: GymWhereInput
+  }
+
+  export type GymUpdateToOneWithWhereWithoutRevenuesInput = {
+    where?: GymWhereInput
+    data: XOR<GymUpdateWithoutRevenuesInput, GymUncheckedUpdateWithoutRevenuesInput>
+  }
+
+  export type GymUpdateWithoutRevenuesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    memberships?: MembershipUpdateManyWithoutGymNestedInput
+    member_time_logs?: MemberTimeLogsUpdateManyWithoutGymNestedInput
+    gym_stats?: GymStatsUpdateOneWithoutGymNestedInput
+    gym_users?: GymUserUpdateManyWithoutGymNestedInput
+    membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
+  }
+
+  export type GymUncheckedUpdateWithoutRevenuesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    memberships?: MembershipUncheckedUpdateManyWithoutGymNestedInput
+    member_time_logs?: MemberTimeLogsUncheckedUpdateManyWithoutGymNestedInput
+    gym_stats?: GymStatsUncheckedUpdateOneWithoutGymNestedInput
+    gym_users?: GymUserUncheckedUpdateManyWithoutGymNestedInput
+    membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
+  }
+
+  export type GymCreateWithoutMembership_countsInput = {
+    id?: string
+    name: string
+    location: string
+    created_at?: Date | string
+    created_by: string
+    memberships?: MembershipCreateNestedManyWithoutGymInput
+    member_time_logs?: MemberTimeLogsCreateNestedManyWithoutGymInput
+    gym_stats?: GymStatsCreateNestedOneWithoutGymInput
+    gym_users?: GymUserCreateNestedManyWithoutGymInput
+    revenues?: RevenueCreateNestedManyWithoutGymInput
+  }
+
+  export type GymUncheckedCreateWithoutMembership_countsInput = {
+    id?: string
+    name: string
+    location: string
+    created_at?: Date | string
+    created_by: string
+    memberships?: MembershipUncheckedCreateNestedManyWithoutGymInput
+    member_time_logs?: MemberTimeLogsUncheckedCreateNestedManyWithoutGymInput
+    gym_stats?: GymStatsUncheckedCreateNestedOneWithoutGymInput
+    gym_users?: GymUserUncheckedCreateNestedManyWithoutGymInput
+    revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
+  }
+
+  export type GymCreateOrConnectWithoutMembership_countsInput = {
+    where: GymWhereUniqueInput
+    create: XOR<GymCreateWithoutMembership_countsInput, GymUncheckedCreateWithoutMembership_countsInput>
+  }
+
+  export type GymUpsertWithoutMembership_countsInput = {
+    update: XOR<GymUpdateWithoutMembership_countsInput, GymUncheckedUpdateWithoutMembership_countsInput>
+    create: XOR<GymCreateWithoutMembership_countsInput, GymUncheckedCreateWithoutMembership_countsInput>
+    where?: GymWhereInput
+  }
+
+  export type GymUpdateToOneWithWhereWithoutMembership_countsInput = {
+    where?: GymWhereInput
+    data: XOR<GymUpdateWithoutMembership_countsInput, GymUncheckedUpdateWithoutMembership_countsInput>
+  }
+
+  export type GymUpdateWithoutMembership_countsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    memberships?: MembershipUpdateManyWithoutGymNestedInput
+    member_time_logs?: MemberTimeLogsUpdateManyWithoutGymNestedInput
+    gym_stats?: GymStatsUpdateOneWithoutGymNestedInput
+    gym_users?: GymUserUpdateManyWithoutGymNestedInput
+    revenues?: RevenueUpdateManyWithoutGymNestedInput
+  }
+
+  export type GymUncheckedUpdateWithoutMembership_countsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    memberships?: MembershipUncheckedUpdateManyWithoutGymNestedInput
+    member_time_logs?: MemberTimeLogsUncheckedUpdateManyWithoutGymNestedInput
+    gym_stats?: GymStatsUncheckedUpdateOneWithoutGymNestedInput
+    gym_users?: GymUserUncheckedUpdateManyWithoutGymNestedInput
+    revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
+  }
+
   export type MemberCreateWithoutMembershipsInput = {
     id?: string
     firstname: string
@@ -13603,6 +16841,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsCreateNestedOneWithoutGymInput
     gym_users?: GymUserCreateNestedManyWithoutGymInput
+    revenues?: RevenueCreateNestedManyWithoutGymInput
+    membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
   }
 
   export type GymUncheckedCreateWithoutMembershipsInput = {
@@ -13614,6 +16854,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsUncheckedCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsUncheckedCreateNestedOneWithoutGymInput
     gym_users?: GymUserUncheckedCreateNestedManyWithoutGymInput
+    revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
+    membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
   }
 
   export type GymCreateOrConnectWithoutMembershipsInput = {
@@ -13672,6 +16914,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUpdateOneWithoutGymNestedInput
     gym_users?: GymUserUpdateManyWithoutGymNestedInput
+    revenues?: RevenueUpdateManyWithoutGymNestedInput
+    membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
   }
 
   export type GymUncheckedUpdateWithoutMembershipsInput = {
@@ -13683,6 +16927,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsUncheckedUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUncheckedUpdateOneWithoutGymNestedInput
     gym_users?: GymUserUncheckedUpdateManyWithoutGymNestedInput
+    revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
+    membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
   }
 
   export type MemberCreateWithoutAttendance_logsInput = {
@@ -13719,6 +16965,8 @@ export namespace Prisma {
     memberships?: MembershipCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsCreateNestedOneWithoutGymInput
     gym_users?: GymUserCreateNestedManyWithoutGymInput
+    revenues?: RevenueCreateNestedManyWithoutGymInput
+    membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
   }
 
   export type GymUncheckedCreateWithoutMember_time_logsInput = {
@@ -13730,6 +16978,8 @@ export namespace Prisma {
     memberships?: MembershipUncheckedCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsUncheckedCreateNestedOneWithoutGymInput
     gym_users?: GymUserUncheckedCreateNestedManyWithoutGymInput
+    revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
+    membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
   }
 
   export type GymCreateOrConnectWithoutMember_time_logsInput = {
@@ -13788,6 +17038,8 @@ export namespace Prisma {
     memberships?: MembershipUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUpdateOneWithoutGymNestedInput
     gym_users?: GymUserUpdateManyWithoutGymNestedInput
+    revenues?: RevenueUpdateManyWithoutGymNestedInput
+    membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
   }
 
   export type GymUncheckedUpdateWithoutMember_time_logsInput = {
@@ -13799,6 +17051,8 @@ export namespace Prisma {
     memberships?: MembershipUncheckedUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUncheckedUpdateOneWithoutGymNestedInput
     gym_users?: GymUserUncheckedUpdateManyWithoutGymNestedInput
+    revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
+    membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
   }
 
   export type GymUserCreateManyUserInput = {
@@ -13930,6 +17184,22 @@ export namespace Prisma {
     user_id: string
   }
 
+  export type RevenueCreateManyGymInput = {
+    id?: string
+    year: number
+    month: number
+    amount: number
+    created_at?: Date | string
+  }
+
+  export type MembershipCountCreateManyGymInput = {
+    id?: string
+    year: number
+    month: number
+    count: number
+    created_at?: Date | string
+  }
+
   export type MembershipUpdateWithoutGymInput = {
     id?: StringFieldUpdateOperationsInput | string
     start_date?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14005,6 +17275,54 @@ export namespace Prisma {
   export type GymUserUncheckedUpdateManyWithoutGymInput = {
     id?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type RevenueUpdateWithoutGymInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    month?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RevenueUncheckedUpdateWithoutGymInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    month?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RevenueUncheckedUpdateManyWithoutGymInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    month?: IntFieldUpdateOperationsInput | number
+    amount?: FloatFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MembershipCountUpdateWithoutGymInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    month?: IntFieldUpdateOperationsInput | number
+    count?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MembershipCountUncheckedUpdateWithoutGymInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    month?: IntFieldUpdateOperationsInput | number
+    count?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MembershipCountUncheckedUpdateManyWithoutGymInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    year?: IntFieldUpdateOperationsInput | number
+    month?: IntFieldUpdateOperationsInput | number
+    count?: IntFieldUpdateOperationsInput | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
