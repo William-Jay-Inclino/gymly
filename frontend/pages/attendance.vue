@@ -13,12 +13,12 @@
                     <form class="flex flex-col gap-6">
                         <label class="block">
                             <span class="text-base-content/80 font-medium">
-                                What does the member want to do today?
+                                Select Member
                             </span>
                             <Select
                                 v-model="selectedMemberId"
                                 :options="memberOptions"
-                                placeholder="Search or select a member..."
+                                placeholder="Enter name..."
                             />
                         </label>
                         <div v-if="!!selectedMemberId" class="mt-3">

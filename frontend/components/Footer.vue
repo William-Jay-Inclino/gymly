@@ -12,10 +12,5 @@
                 William Jay Inclino
             </a>
         </span>
-        <span>
-            <a href="mailto:wjay.inclino@gmail.com" class="hover:underline">wjay.inclino@gmail.com</a>
-            <span class="mx-1">|</span>
-            <a href="#">09106024370</a>
-        </span>
     </footer>
 </template>
