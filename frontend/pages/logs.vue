@@ -1,13 +1,13 @@
 <template>
     <div>
-        Settings 
+        Logs 
     </div>
 </template>
 
 <script setup lang="ts">
 
     definePageMeta({
-        layout: "layout-gym-owner",
+        layout: "base-layout",
     })
 
 </script>

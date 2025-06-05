@@ -1,5 +1,42 @@
 import type { Membership } from "./membership.types";
 
+export async function get_memberships(payload: { member_id: string; only_active?: boolean }): Promise<{
+    memberships: Membership[],
+}> {
+
+    const { member_id, only_active } = payload;
+
+    const query = `
+        query {
+            memberships(
+                member_id: "${member_id}"
+                ${only_active !== undefined ? `only_active: ${only_active}` : ""}
+            ) {
+                id
+                start_date
+                end_date
+                sessions_left
+                is_active
+                created_at
+                plan_name
+                plan_description
+                amount_paid
+                num_of_days
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+        return {
+            memberships: deepClone(response.data.data.memberships),
+        }
+    } catch (error) {
+        console.error(error);
+        throw error
+    }
+}
 
 export async function add_membership(input: {
     member_id: string;

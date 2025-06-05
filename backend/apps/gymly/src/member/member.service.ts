@@ -2,14 +2,23 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateMemberInput } from './dto/create-member.input';
 import { MutationMemberResponse } from './entities/member.response.entity';
+import { Member } from 'apps/gymly/prisma/generated/client';
 
 @Injectable()
 export class MemberService {
 
     constructor(private readonly prisma: PrismaService) {}
 
-    async find_all() {
+    async find_all(payload: { gym_id: string }): Promise<Member[]> {
         return this.prisma.member.findMany({
+            where: {
+                memberships: {
+                    some: {
+                        gym_id: payload.gym_id,
+                        is_active: true, 
+                    },
+                },
+            },
             orderBy: {
                 created_at: 'desc',
             }

@@ -27,7 +27,6 @@
 </template>
 
 <script setup lang="ts">
-import PlanList from './PlanList.vue'
 import type { Member } from '~/core/member/member.types';
 
 const props = defineProps<{

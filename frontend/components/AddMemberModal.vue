@@ -63,7 +63,6 @@
 </template>
 
 <script setup lang="ts">
-import PlanList from './PlanList.vue'
 
 const props = defineProps<{
     is_adding?: boolean

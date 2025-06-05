@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { startOfDay, endOfDay } from 'date-fns';
+import { MutationMemberTimeLogResponse } from './entities/member-time-log.response.entity';
 
 @Injectable()
 export class MemberTimeLogsService {
@@ -25,19 +26,73 @@ export class MemberTimeLogsService {
                     }
                 }),
             },
+            include: {
+                member: true
+            },
             orderBy: { checked_in_at: 'desc' }
         });
     }
 
-    async logCheckIn(input: { member_id: string; gym_id: string; recorded_by?: string }) {
-        return this.prisma.memberTimeLogs.create({
-            data: {
-                member_id: input.member_id,
-                gym_id: input.gym_id,
-                checked_in_at: new Date(),
-                recorded_by: input.recorded_by ?? 'system',
-            },
-        });
+    async logCheckIn(input: { 
+        member_id: string; 
+        gym_id: string;
+        membership_ids: string[]; 
+        recorded_by?: string 
+    }): Promise<MutationMemberTimeLogResponse> {
+
+        const { member_id, gym_id, membership_ids, recorded_by } = input
+
+        return await this.prisma.$transaction(async(tx) => {
+            try {
+                const has_active_membership = await tx.membership.findFirst({
+                    where: {
+                        is_active: true,
+                        member_id,
+                    }
+                })
+
+                if(!has_active_membership) {
+                    return {
+                        success: false,
+                        msg: 'Member has no active membership'
+                    }
+                }
+
+                // Decrement sessions_left for each membership_id if sessions_left is not null and > 0
+                for (const membership_id of membership_ids ?? []) {
+                    const membership = await tx.membership.findUnique({
+                        where: { id: membership_id }
+                    });
+                    if (membership && membership.sessions_left !== null && membership.sessions_left > 0) {
+                        await tx.membership.update({
+                            where: { id: membership_id },
+                            data: { sessions_left: { decrement: 1 } }
+                        });
+                    }
+                }
+
+                const created = await tx.memberTimeLogs.create({
+                    data: {
+                        member_id,
+                        gym_id,
+                        checked_in_at: new Date(),
+                        recorded_by: recorded_by ?? 'system',
+                    },
+                    include: {
+                        member: true
+                    }
+                });
+        
+                return {
+                    success: true,
+                    msg: 'Successfully logged time',
+                    data: created
+                }
+
+            } catch (error) {
+                throw error
+            }
+        })
     }
 
 }

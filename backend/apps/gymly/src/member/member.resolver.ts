@@ -9,8 +9,10 @@ export class MemberResolver {
     constructor(private readonly memberService: MemberService) {}
 
     @Query(() => [Member])
-    async members() {
-        return this.memberService.find_all();
+    async members(
+        @Args('gym_id', { type: () => String }) gym_id: string,
+    ) {
+        return this.memberService.find_all({ gym_id });
     }
 
     @Mutation(() => MutationMemberResponse)

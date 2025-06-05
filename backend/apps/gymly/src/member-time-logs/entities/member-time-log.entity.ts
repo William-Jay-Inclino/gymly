@@ -22,6 +22,8 @@ export class MemberTimeLog {
     @Field()
     recorder_by: string;
 
+    // relations 
+    
     @Field(() => Member)
     member: Member;
 

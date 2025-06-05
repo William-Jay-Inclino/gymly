@@ -1,5 +1,4 @@
 import type { Member } from "../member/member.types"
-import type { Plan } from "../plan/plan.types"
 
 export interface Membership {
     id: string

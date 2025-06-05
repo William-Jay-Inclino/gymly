@@ -65,9 +65,12 @@ export class MembershipService {
         });
     }
 
-    async get_memberships(payload: { member_id: string }) {
+    async get_memberships(payload: { member_id: string, only_active?: boolean }) {
         return await this.prisma.membership.findMany({
-            where: { member_id: payload.member_id },
+            where: {
+                member_id: payload.member_id,
+                ...(payload.only_active ? { is_active: true } : {}),
+            },
             orderBy: {
                 start_date: 'desc',
             }

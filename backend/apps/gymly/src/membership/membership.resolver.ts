@@ -18,9 +18,10 @@ export class MembershipResolver {
 
     @Query(() => [Membership])
     async memberships(
-        @Args('member_id') member_id: string
+        @Args('member_id') member_id: string,
+        @Args('only_active', { type: () => Boolean, nullable: true }) only_active?: boolean
     ) {
-        return this.membershipService.get_memberships({ member_id });
+        return this.membershipService.get_memberships({ member_id, only_active });
     }
 
 

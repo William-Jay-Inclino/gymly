@@ -2,14 +2,16 @@ import type { Membership } from "../membership/membership.types";
 import type { Plan } from "../plan/plan.types";
 import type { Member } from "./member.types";
 
-export async function init(): Promise<{
+export async function init(payload: { gym_id: string }): Promise<{
     members: Member[],
     plans: Plan[],
 }> {
 
+    const { gym_id } = payload;
+
     const query = `
         query {
-            members {
+            members(gym_id: "${ gym_id }") {
                 id
                 firstname
                 lastname
@@ -97,25 +99,16 @@ export async function create_member(input: {
     }
 }
 
-export async function get_memberships(payload: { member_id: string }): Promise<{
-    memberships: Membership[],
-}> {
+export async function get_members(payload: { gym_id: string }): Promise<Member[]> {
 
-    const { member_id } = payload;
+    const { gym_id } = payload;
 
     const query = `
         query {
-            memberships(member_id: "${ member_id }") {
+            members(gym_id: "${ gym_id }") {
                 id
-                start_date
-                end_date
-                sessions_left
-                is_active
-                created_at
-                plan_name
-                plan_description
-                amount_paid
-                num_of_days
+                firstname
+                lastname
             }
         }
     `;
@@ -123,13 +116,9 @@ export async function get_memberships(payload: { member_id: string }): Promise<{
     try {
         const response = await sendRequest(query);
         console.log('response', response)
-        return {
-            memberships: deepClone(response.data.data.memberships),
-        }
+        return deepClone(response.data.data.members)
     } catch (error) {
         console.error(error);
         throw error
     }
 }
-
-

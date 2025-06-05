@@ -1,3 +1,4 @@
+import type { MemberTimeLog } from "../member-time-logs/member-time-logs.types"
 import type { Membership } from "../membership/membership.types"
 
 export interface Member {
@@ -12,4 +13,5 @@ export interface Member {
 
     // relationships
     memberships: Membership[]
+    attendance_logs: MemberTimeLog[]
 }

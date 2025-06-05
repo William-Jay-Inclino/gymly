@@ -32,14 +32,16 @@
 		Users,
 		Key,
         Clock,
-        LogOut
+        LogOut,
+        DollarSign
 	} from 'lucide-vue-next'
 
     const menuItems = [
-        { label: 'Dashboard', icon: Home, route: '/gym-owner/dashboard' },
-        { label: 'Member Management', icon: Users, route: '/gym-owner/memberships' },
-        { label: 'Log Attendance', icon: Clock, route: '/gym-owner/attendance' },
-        { label: 'Change Password', icon: Key, route: '/gym-owner/change-password' }
+        { label: 'Dashboard', icon: Home, route: '/dashboard' },
+        { label: 'Member Management', icon: Users, route: '/memberships' },
+        { label: 'Log Attendance', icon: Clock, route: '/attendance' },
+        { label: 'Subscription Plans', icon: DollarSign, route: '/plans' },
+        { label: 'Change Password', icon: Key, route: '/change-password' }
     ]
 
 	const route = useRoute()
