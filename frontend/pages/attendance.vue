@@ -54,8 +54,8 @@
                                 <div>
                                     <span class="font-medium text-sm text-base-content/70">{{ log.member.firstname }} {{ log.member.lastname }}</span>
                                 </div>
-                                <span class="badge badge-outline badge-success text-xs">
-                                    Checked In at<span class="text-error">{{ formatTime(log.checked_in_at) }}</span>
+                                <span class="badge text-base-content/70 text-xs">
+                                    Checked In at<span class="text-primary">{{ formatTime(log.checked_in_at) }}</span>
                                 </span>
                             </li>
                         </ul>
