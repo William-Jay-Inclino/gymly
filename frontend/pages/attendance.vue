@@ -45,19 +45,18 @@
                         <Users class="w-5 h-5 text-primary" /> Checked-in Today
                     </h2>
                     <div class="max-h-150 overflow-y-auto">
-                        <ul v-if="checkedInToday.length > 0" class="divide-y divide-base-200">
+                        <ul v-if="checkedInToday.length > 0" class="divide-y divide-base-200 text-sm">
                             <li
                                 v-for="log in checkedInToday"
                                 :key="log.id"
-                                class="py-3 flex items-center justify-between"
+                                class="py-2 flex items-center justify-between"
                             >
                                 <div>
-                                    <span class="font-medium">{{ log.member.firstname }} {{ log.member.lastname }}</span>
-                                    <span class="ml-2 text-xs text-base-content/60">
-                                        ({{ formatTime(log.checked_in_at) }})
-                                    </span>
+                                    <span class="font-medium text-sm text-base-content/70">{{ log.member.firstname }} {{ log.member.lastname }}</span>
                                 </div>
-                                <span class="badge badge-success badge-soft">Checked In</span>
+                                <span class="badge badge-outline badge-success text-xs">
+                                    Checked In at<span class="text-error">{{ formatTime(log.checked_in_at) }}</span>
+                                </span>
                             </li>
                         </ul>
                         <div v-else class="text-base-content/60 text-center py-8">
