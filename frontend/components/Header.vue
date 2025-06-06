@@ -7,7 +7,7 @@
             <Dumbbell class="w-10 h-10 text-white drop-shadow-lg" />
         </div>
         <p class="text-base md:text-lg text-white/90 font-medium text-center max-w-xl font-sans flex items-center justify-center" style="font-family: 'Inter', 'Segoe UI', Arial, sans-serif;">
-            A simple app to help gym owners monitor memberships, track revenues, and log attendance.
+            A simple app for gym owners to manage memberships, view analytics, and log attendance with ease.
         </p>
     </header>
 </template>

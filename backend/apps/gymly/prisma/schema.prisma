@@ -83,10 +83,25 @@ model Gym {
   gym_stats        GymStats?
   gym_users        GymUser[]
 
+  attendance_stats AttendanceStats? 
+
   revenues         Revenue[]         
   membership_counts MembershipCount[]  
 
   @@map("gyms")
+}
+
+model AttendanceStats {
+  id                String   @id @default(uuid())
+  gym_id            String
+  average_per_day   Json     @db.JsonB   // { "Mon": 12, "Tue": 15, ... }
+  total_all_time    Int
+  updated_at        DateTime @updatedAt @db.Timestamptz
+
+  gym Gym @relation(fields: [gym_id], references: [id], onDelete: Cascade)
+
+  @@unique([gym_id])
+  @@map("attendance_stats")
 }
 
 model Revenue {

@@ -162,6 +162,14 @@ exports.Prisma.GymScalarFieldEnum = {
   created_by: 'created_by'
 };
 
+exports.Prisma.AttendanceStatsScalarFieldEnum = {
+  id: 'id',
+  gym_id: 'gym_id',
+  average_per_day: 'average_per_day',
+  total_all_time: 'total_all_time',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.RevenueScalarFieldEnum = {
   id: 'id',
   gym_id: 'gym_id',
@@ -220,6 +228,10 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -228,6 +240,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.Role = exports.$Enums.Role = {
   ADMIN: 'ADMIN',
@@ -241,6 +259,7 @@ exports.Prisma.ModelName = {
   Member: 'Member',
   GymUser: 'GymUser',
   Gym: 'Gym',
+  AttendanceStats: 'AttendanceStats',
   Revenue: 'Revenue',
   MembershipCount: 'MembershipCount',
   Membership: 'Membership',
