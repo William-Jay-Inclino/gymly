@@ -17,13 +17,53 @@ enum Role {
 model GymStats {
   id            String   @id @default(uuid())
   gym_id        String   @unique
-  total_revenue Float    @default(0)
+  total_revenue Decimal   @db.Decimal
   total_members Int      @default(0)
   updated_at    DateTime @updatedAt @db.Timestamptz
 
   gym Gym @relation(fields: [gym_id], references: [id], onDelete: Cascade)
 
   @@map("gym_stats")
+}
+
+model AttendanceStats {
+  id                String   @id @default(uuid())
+  gym_id            String @unique
+  average_per_day   Json     @db.JsonB   // { "Mon": 12, "Tue": 15, ... }
+  total_all_time    Int
+  updated_at        DateTime @updatedAt @db.Timestamptz
+
+  gym Gym @relation(fields: [gym_id], references: [id], onDelete: Cascade)
+
+  @@map("attendance_stats")
+}
+
+model Revenue {
+  id        String   @id @default(uuid())
+  gym_id    String
+  year      Int
+  month     Int      // 1 = Jan, 12 = Dec
+  amount    Float    // Store as number for easy calculations
+  created_at DateTime @default(now()) @db.Timestamptz
+
+  gym Gym @relation(fields: [gym_id], references: [id], onDelete: Cascade)
+
+  @@unique([gym_id, year, month])
+  @@map("revenues")
+}
+
+model MembershipCount {
+  id         String   @id @default(uuid())
+  gym_id     String
+  year       Int
+  month      Int      // 1 = Jan, 12 = Dec
+  count      Int      // Number of new memberships for this month
+  created_at DateTime @default(now()) @db.Timestamptz
+
+  gym Gym @relation(fields: [gym_id], references: [id], onDelete: Cascade)
+
+  @@unique([gym_id, year, month])
+  @@map("membership_counts")
 }
 
 model User {
@@ -91,47 +131,6 @@ model Gym {
   @@map("gyms")
 }
 
-model AttendanceStats {
-  id                String   @id @default(uuid())
-  gym_id            String
-  average_per_day   Json     @db.JsonB   // { "Mon": 12, "Tue": 15, ... }
-  total_all_time    Int
-  updated_at        DateTime @updatedAt @db.Timestamptz
-
-  gym Gym @relation(fields: [gym_id], references: [id], onDelete: Cascade)
-
-  @@unique([gym_id])
-  @@map("attendance_stats")
-}
-
-model Revenue {
-  id        String   @id @default(uuid())
-  gym_id    String
-  year      Int
-  month     Int      // 1 = Jan, 12 = Dec
-  amount    Float    // Store as number for easy calculations
-  created_at DateTime @default(now()) @db.Timestamptz
-
-  gym Gym @relation(fields: [gym_id], references: [id], onDelete: Cascade)
-
-  @@index([gym_id, year, month])
-  @@map("revenues")
-}
-
-model MembershipCount {
-  id         String   @id @default(uuid())
-  gym_id     String
-  year       Int
-  month      Int      // 1 = Jan, 12 = Dec
-  count      Int      // Number of new memberships for this month
-  created_at DateTime @default(now()) @db.Timestamptz
-
-  gym Gym @relation(fields: [gym_id], references: [id], onDelete: Cascade)
-
-  @@index([gym_id, year, month])
-  @@map("membership_counts")
-}
-
 
 model Membership {
   id          String    @id @default(uuid())
@@ -145,7 +144,7 @@ model Membership {
   // plan details
   plan_name String
   plan_description String?
-  amount_paid String
+  amount_paid     Decimal   @db.Decimal
 
   created_at  DateTime  @default(now()) @db.Timestamptz
   created_by  String
@@ -163,7 +162,7 @@ model Plan {
   gym_id      String
   name            String
   description     String?
-  price           String
+  price           Decimal  @db.Decimal
   num_of_days     Int?
   num_of_sessions Int?
   created_at      DateTime @default(now()) @db.Timestamptz

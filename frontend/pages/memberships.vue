@@ -131,7 +131,7 @@ definePageMeta({
 const planStore = usePlanStore()
 
 const members = ref<Member[]>()
-const gymId = 'b4e45c98-6d62-47d9-b24e-4fbca42119ce' //temp
+const gymId = '4a496131-1129-45ac-914f-6f734d408365' //temp
 
 // flags
 const isLoadingPage = ref(true)

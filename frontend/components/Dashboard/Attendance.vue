@@ -68,7 +68,6 @@
                 </div>
                 <div class="bg-base-200/60 rounded-xl p-4 flex flex-col gap-2 shadow-sm">
                     <div class="flex items-center gap-2 mb-1">
-                        <BarChart2 class="w-4 h-4 text-primary" />
                         <span class="font-semibold text-base-content/80">Total Attendance (selected period)</span>
                     </div>
                     <div class="text-2xl font-mono font-bold text-base-content/90">
@@ -77,7 +76,6 @@
                 </div>
                 <div class="bg-base-200/60 rounded-xl p-4 flex flex-col gap-2 shadow-sm">
                     <div class="flex items-center gap-2 mb-1">
-                        <BarChart2 class="w-4 h-4 text-primary" />
                         <span class="font-semibold text-base-content/80">Total Attendance (all time)</span>
                     </div>
                     <div class="text-2xl font-mono font-bold text-base-content/90">

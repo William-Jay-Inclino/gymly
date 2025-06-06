@@ -1,7 +1,7 @@
-import { Gym, GymUser, Plan, Role, User } from "apps/gymly/prisma/generated/client";
+import { Gym, GymUser, Plan, Prisma, Role, User } from "apps/gymly/prisma/generated/client";
 import { faker } from "@faker-js/faker";
 
-const owner_id = faker.string.uuid();
+const owner_id = 'df30a8c0-9733-4bba-9b0d-1815bc88a550'
 
 export const users: User[] = [
     {
@@ -36,7 +36,7 @@ export const users: User[] = [
     },
 ]
 
-const gym_id = faker.string.uuid();
+const gym_id = '4a496131-1129-45ac-914f-6f734d408365'
 
 export const gyms: Gym[] = [
     {
@@ -62,7 +62,7 @@ export const plans: Plan[] = [
         gym_id,
         name: "1 Day",
         description: "Access to all gym facilities for a single day.",
-        price: "200",
+        price: new Prisma.Decimal(200),
         num_of_days: 1,
         num_of_sessions: null,
         created_by: 'system',
@@ -73,7 +73,7 @@ export const plans: Plan[] = [
         gym_id,
         name: "1 Session Boxing",
         description: "One boxing class session with a trainer.",
-        price: "250",
+        price: new Prisma.Decimal(250),
         num_of_days: null,
         num_of_sessions: 1,
         created_by: 'system',
@@ -84,7 +84,7 @@ export const plans: Plan[] = [
         gym_id,
         name: "1 Month",
         description: "Monthly plan for consistent training.",
-        price: "1000",
+        price: new Prisma.Decimal(1000),
         num_of_days: 30,
         num_of_sessions: null,
         created_by: 'system',
@@ -95,7 +95,7 @@ export const plans: Plan[] = [
         gym_id,
         name: "10 Sessions Boxing",
         description: "Ten boxing class sessions, use anytime within the validity period.",
-        price: "1200",
+        price: new Prisma.Decimal(1200),
         num_of_days: null,
         num_of_sessions: 10,
         created_by: 'system',
@@ -106,7 +106,7 @@ export const plans: Plan[] = [
         gym_id,
         name: "3 Months",
         description: "Quarterly plan to stay on track.",
-        price: "2700",
+        price: new Prisma.Decimal(2700),
         num_of_days: 90,
         num_of_sessions: null,
         created_by: 'system',

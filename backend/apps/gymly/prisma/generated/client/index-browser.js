@@ -128,6 +128,32 @@ exports.Prisma.GymStatsScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.AttendanceStatsScalarFieldEnum = {
+  id: 'id',
+  gym_id: 'gym_id',
+  average_per_day: 'average_per_day',
+  total_all_time: 'total_all_time',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.RevenueScalarFieldEnum = {
+  id: 'id',
+  gym_id: 'gym_id',
+  year: 'year',
+  month: 'month',
+  amount: 'amount',
+  created_at: 'created_at'
+};
+
+exports.Prisma.MembershipCountScalarFieldEnum = {
+  id: 'id',
+  gym_id: 'gym_id',
+  year: 'year',
+  month: 'month',
+  count: 'count',
+  created_at: 'created_at'
+};
+
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   username: 'username',
@@ -160,32 +186,6 @@ exports.Prisma.GymScalarFieldEnum = {
   location: 'location',
   created_at: 'created_at',
   created_by: 'created_by'
-};
-
-exports.Prisma.AttendanceStatsScalarFieldEnum = {
-  id: 'id',
-  gym_id: 'gym_id',
-  average_per_day: 'average_per_day',
-  total_all_time: 'total_all_time',
-  updated_at: 'updated_at'
-};
-
-exports.Prisma.RevenueScalarFieldEnum = {
-  id: 'id',
-  gym_id: 'gym_id',
-  year: 'year',
-  month: 'month',
-  amount: 'amount',
-  created_at: 'created_at'
-};
-
-exports.Prisma.MembershipCountScalarFieldEnum = {
-  id: 'id',
-  gym_id: 'gym_id',
-  year: 'year',
-  month: 'month',
-  count: 'count',
-  created_at: 'created_at'
 };
 
 exports.Prisma.MembershipScalarFieldEnum = {
@@ -237,15 +237,15 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
-exports.Prisma.NullsOrder = {
-  first: 'first',
-  last: 'last'
-};
-
 exports.Prisma.JsonNullValueFilter = {
   DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 exports.Role = exports.$Enums.Role = {
   ADMIN: 'ADMIN',
@@ -255,13 +255,13 @@ exports.Role = exports.$Enums.Role = {
 
 exports.Prisma.ModelName = {
   GymStats: 'GymStats',
+  AttendanceStats: 'AttendanceStats',
+  Revenue: 'Revenue',
+  MembershipCount: 'MembershipCount',
   User: 'User',
   Member: 'Member',
   GymUser: 'GymUser',
   Gym: 'Gym',
-  AttendanceStats: 'AttendanceStats',
-  Revenue: 'Revenue',
-  MembershipCount: 'MembershipCount',
   Membership: 'Membership',
   Plan: 'Plan',
   MemberTimeLogs: 'MemberTimeLogs'
