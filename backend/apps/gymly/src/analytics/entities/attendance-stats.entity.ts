@@ -17,7 +17,7 @@ export class AttendanceStats {
     total_all_time: number;
 
     @Field()
-    updated_at: Date;
+    updated_at: string;
 
     @Field(() => Gym, { nullable: true })
     gym?: Gym;

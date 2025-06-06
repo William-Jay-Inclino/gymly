@@ -19,7 +19,7 @@ export class Revenue {
     amount: number;
 
     @Field()
-    created_at: Date;
+    created_at: string;
 
     @Field(() => Gym, { nullable: true })
     gym?: Gym;

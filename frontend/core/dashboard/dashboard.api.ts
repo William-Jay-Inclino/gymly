@@ -76,7 +76,7 @@ export async function get_attendance_stats(payload: { gym_id: string }) {
     }
 }
 
-export async function get_revenues(payload: { gym_id: string, year?: number, month?: number }) {
+export async function get_revenues(payload: { gym_id: string, year?: number, month?: number }): Promise<{ year: number; month: number; amount: number }[]> {
     const { gym_id, year, month } = payload;
     const yearPart = year !== undefined ? `, year: ${year}` : '';
     const monthPart = month !== undefined ? `, month: ${month}` : '';
@@ -94,6 +94,7 @@ export async function get_revenues(payload: { gym_id: string, year?: number, mon
     `;
     try {
         const response = await sendRequest(query);
+        console.log('get_revenues', response);
         return deepClone(response.data.data.revenues);
     } catch (error) {
         console.error(error);
