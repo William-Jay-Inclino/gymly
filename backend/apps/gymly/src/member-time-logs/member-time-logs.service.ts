@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { startOfDay, endOfDay, format } from 'date-fns';
+import { startOfDay, endOfDay } from 'date-fns';
 import { MutationMemberTimeLogResponse } from './entities/member-time-log.response.entity';
-import { Prisma } from 'apps/gymly/prisma/generated/client';
 
 @Injectable()
 export class MemberTimeLogsService {
@@ -84,9 +83,6 @@ export class MemberTimeLogsService {
                     }
                 });
 
-                // Call updateAttendanceStats here
-                await this.updateAttendanceStats(gym_id, tx as Prisma.TransactionClient);
-
                 return {
                     success: true,
                     msg: 'Successfully logged time',
@@ -97,35 +93,6 @@ export class MemberTimeLogsService {
                 throw error
             }
         })
-    }
-
-    async updateAttendanceStats(gym_id: string, tx: Prisma.TransactionClient) {
-        // Get current day of week (e.g., 'Mon', 'Tue', ...)
-        const dayOfWeek = format(new Date(), 'EEE'); // 'Mon', 'Tue', etc.
-
-        // Fetch current stats or create if not exists
-        const stats = await tx.attendanceStats.upsert({
-            where: { gym_id },
-            update: {},
-            create: {
-                gym_id,
-                average_per_day: {},
-                total_all_time: 0,
-            },
-        });
-
-        // Prepare new average_per_day object
-        const avgPerDay = { ...(stats.average_per_day as Record<string, number> ?? {}) };
-        avgPerDay[dayOfWeek] = (avgPerDay[dayOfWeek] ?? 0) + 1;
-
-        // Update stats
-        await tx.attendanceStats.update({
-            where: { gym_id },
-            data: {
-                total_all_time: { increment: 1 },
-                average_per_day: avgPerDay,
-            },
-        });
     }
 
     async getTotalCheckedInToday(gym_id: string): Promise<number> {

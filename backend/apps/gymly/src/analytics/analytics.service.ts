@@ -11,12 +11,6 @@ export class AnalyticsService {
         });
     }
 
-    async getAttendanceStats(payload: { gym_id: string }) {
-        return this.prisma.attendanceStats.findUnique({
-            where: { gym_id: payload.gym_id },
-        });
-    }
-
     async getRevenue(payload: { gym_id: string, year?: number, month?: number }) {
         // If year and month are provided, fetch for that period; otherwise, fetch all for the gym
         if (payload.year && payload.month) {

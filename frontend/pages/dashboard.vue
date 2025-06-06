@@ -4,7 +4,7 @@
             <BarChart2 class="w-6 h-6 text-primary" />
             <h1 class="text-xl font-semibold text-base-content/80">Dashboard</h1>
         </div>
-        <StatsCards :stats="stats" :upcomingExpirations="upcomingExpirations" />
+        <StatsCards />
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
             <Revenue class="col-span-2" />
@@ -46,7 +46,7 @@ onMounted(async() => {
         total_memberships_today
     } = await api.init({ gym_id })
 
-    store.set_gym_stat({
+    store.set_gym_stats({
         total_active_memberships,
         total_checked_in_today,
         total_memberships_today

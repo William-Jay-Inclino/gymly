@@ -81,12 +81,14 @@ import type { MemberTimeLog } from "~/core/member-time-logs/member-time-logs.typ
 import type { Membership } from "~/core/membership/membership.types"
 import { get_memberships } from "~/core/membership/membership.api"
 import { useGlobalStore } from '~/core/global.store'
+import { useDashboardStore } from "~/core/dashboard/dashboard.store"
 
 definePageMeta({
     layout: "base-layout",
 })
 
 const { gym_id } = useGlobalStore()
+const store = useDashboardStore()
 
 const isLoadingPage = ref(true)
 const isLoggingAttendance = ref(false)

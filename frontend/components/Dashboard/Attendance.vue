@@ -50,10 +50,12 @@
                 </table>
             </div>
             <!-- Summary -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-base-content/70 mt-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-base-content/70 mt-6">
+                <!-- Average Attendance Card -->
                 <div class="bg-base-200/60 rounded-xl p-4 flex flex-col gap-2 shadow-sm">
-                    <div class="flex items-center gap-2 mb-1">
-                        <span class="font-semibold text-base-content/80">Average Attendance (all time)</span>
+                    <div class="flex flex-col gap-0.5 mb-1">
+                        <span class="font-semibold text-base-content/80">Average Attendance</span>
+                        <span class="text-xs text-base-content/40">Selected period</span>
                     </div>
                     <div class="flex flex-wrap gap-2">
                         <span
@@ -66,20 +68,15 @@
                         </span>
                     </div>
                 </div>
+
+                <!-- Total Attendance Card -->
                 <div class="bg-base-200/60 rounded-xl p-4 flex flex-col gap-2 shadow-sm">
-                    <div class="flex items-center gap-2 mb-1">
-                        <span class="font-semibold text-base-content/80">Total Attendance (selected period)</span>
+                    <div class="flex flex-col gap-0.5 mb-1">
+                        <span class="font-semibold text-base-content/80">Total Attendance</span>
+                        <span class="text-xs text-base-content/40">Selected period</span>
                     </div>
                     <div class="text-2xl font-mono font-bold text-base-content/90">
                         {{ totalAttendance }}
-                    </div>
-                </div>
-                <div class="bg-base-200/60 rounded-xl p-4 flex flex-col gap-2 shadow-sm">
-                    <div class="flex items-center gap-2 mb-1">
-                        <span class="font-semibold text-base-content/80">Total Attendance (all time)</span>
-                    </div>
-                    <div class="text-2xl font-mono font-bold text-base-content/90">
-                        {{ totalAttendanceAllTime }}
                     </div>
                 </div>
             </div>

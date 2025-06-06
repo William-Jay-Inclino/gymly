@@ -17,7 +17,7 @@ export async function init(payload: { gym_id: string }): Promise<{
 
     try {
         const response = await sendRequest(query);
-        console.log('response', response)
+        console.log('init', response)
         return {
             total_memberships_today: response.data.data.total_memberships_today,
             total_active_memberships: response.data.data.total_active_memberships,
@@ -47,6 +47,7 @@ export async function get_gym_stats(payload: { gym_id: string }): Promise<{
     `;
     try {
         const response = await sendRequest(query);
+        console.log('get_gym_stats', response);
         return deepClone(response.data.data.gymStats);
     } catch (error) {
         console.error(error);
@@ -54,21 +55,22 @@ export async function get_gym_stats(payload: { gym_id: string }): Promise<{
     }
 }
 
-export async function get_attendance_stats(payload: { gym_id: string }) {
+export async function get_attendance_stats(payload: { gym_id: string }): Promise<{ 
+    average_per_day: { Mon?: number; Tue?: number; Wed?: number; Thu?: number; Fri?: number; Sat?: number; Sun?: number }, 
+    total_all_time: number 
+}> {
     const { gym_id } = payload;
     const query = `
         query {
             attendanceStats(gym_id: "${gym_id}") {
-                id
-                gym_id
                 average_per_day
                 total_all_time
-                updated_at
             }
         }
     `;
     try {
         const response = await sendRequest(query);
+        console.log('get_attendance_stats', response);
         return deepClone(response.data.data.attendanceStats);
     } catch (error) {
         console.error(error);

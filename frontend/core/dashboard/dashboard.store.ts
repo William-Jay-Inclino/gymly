@@ -8,29 +8,16 @@ export const useDashboardStore = defineStore('dashboard', {
             total_active_memberships: 0,
             total_checked_in_today: 0,
         },
-        _attendance_stat: {
-            average_per_day: {
-                'Mon': 0,
-                'Tue': 0,
-                'Wed': 0,
-                'Thu': 0,
-                'Fri': 0,
-                'Sat': 0,
-                'Sun': 0,
-            },
-            total_all_time: 0,
-        },
         _revenues: [] as { year: number; month: number; amount: number }[],
         _membership_counts: [] as { year: number; month: number; count: number }[],
     }),
     getters: {
         gym_stat: (state) => state._gym_stat,
-        attendance_stat: (state) => state._attendance_stat,
         revenues: (state) => state._revenues,
         membership_counts: (state) => state._membership_counts,
     },
     actions: {
-        set_gym_stat(payload: { 
+        set_gym_stats(payload: { 
             total_revenue?: number, 
             total_members?: number,
             total_memberships_today?: number,
@@ -59,18 +46,6 @@ export const useDashboardStore = defineStore('dashboard', {
             }
 
             
-        },
-        set_attendance_stat(payload: { 
-            average_per_day: { Mon: number; Tue: number; Wed: number; Thu: number; Fri: number; Sat: number; Sun: number }, 
-            total_all_time: number 
-        }) {
-
-            const { average_per_day, total_all_time } = payload;
-
-            this._attendance_stat = {
-                average_per_day: average_per_day,
-                total_all_time: total_all_time,
-            }
         },
         set_revenues(payload: { year: number, month: number, amount: number }[]) {
             this._revenues = payload.map(i => ({

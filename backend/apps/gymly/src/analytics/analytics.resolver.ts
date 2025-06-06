@@ -1,7 +1,6 @@
 import { Resolver, Query, Args, Int } from '@nestjs/graphql';
 import { AnalyticsService } from './analytics.service';
 import { GymStats } from './entities/gym-stats.entity';
-import { AttendanceStats } from './entities/attendance-stats.entity';
 import { Revenue } from './entities/revenue.entity';
 import { MembershipCount } from './entities/membership-count.entity';
 
@@ -12,11 +11,6 @@ export class AnalyticsResolver {
     @Query(() => GymStats, { nullable: true })
     async gymStats(@Args('gym_id') gym_id: string) {
         return this.analyticsService.getGymStats({ gym_id });
-    }
-
-    @Query(() => AttendanceStats, { nullable: true })
-    async attendanceStats(@Args('gym_id') gym_id: string) {
-        return this.analyticsService.getAttendanceStats({ gym_id });
     }
 
     @Query(() => [Revenue])

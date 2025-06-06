@@ -35,10 +35,12 @@ const { gym_id } = useGlobalStore()
 
 onMounted( async() => {
     const stats = await get_gym_stats({ gym_id })
-    store.set_gym_stat({
-        total_revenue: stats.total_revenue,
-        total_members: stats.total_members,
-    })
+    if(stats) {
+        store.set_gym_stats({
+            total_revenue: stats.total_revenue,
+            total_members: stats.total_members,
+        })
+    }
 })
 
 </script>
