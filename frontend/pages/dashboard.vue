@@ -7,30 +7,29 @@
         <StatsCards :stats="stats" :upcomingExpirations="upcomingExpirations" />
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
-            <Revenue />
-            <MembershipCount
-                :dailyMemberships="stats.dailyMemberships"
-                :monthlyMemberships="stats.monthlyMemberships"
-            />
+            <Revenue class="col-span-2" />
+            <MembershipCount />
         </div>
 
-        <UpcomingExpirations :upcomingExpirations="upcomingExpirations" />
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 items-stretch">
+            <UpcomingExpirations :upcomingExpirations="upcomingExpirations" />
+            <Attendance />
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import {
-    BarChart2
-} from "lucide-vue-next"
+import { BarChart2 } from "lucide-vue-next"
 import { useDashboardStore } from "~/core/dashboard/dashboard.store"
 import StatsCards from "~/components/Dashboard/StatsCards.vue"
 import Revenue from "~/components/Dashboard/Revenue.vue"
 import MembershipCount from "~/components/Dashboard/MembershipCount.vue"
 import UpcomingExpirations from "~/components/Dashboard/UpcomingExpirations.vue"
+import Attendance from "~/components/Dashboard/Attendance.vue"
+
+const { stats, upcomingExpirations } = useDashboardStore()
 
 definePageMeta({
     layout: "base-layout",
 })
-
-const { stats, upcomingExpirations } = useDashboardStore()
 </script>

@@ -9,6 +9,7 @@ interface UpcomingExpiration {
     sessionsLeft: number | null
     status: ExpirationStatus
     planName?: string
+    is_reminded: boolean 
 }
 
 export const useDashboardStore = () => {
@@ -21,7 +22,6 @@ export const useDashboardStore = () => {
         monthlyMemberships: 38,
     })
 
-    // Upcoming expirations (typed)
     const upcomingExpirations = ref<UpcomingExpiration[]>([
         {
             id: 1,
@@ -30,7 +30,8 @@ export const useDashboardStore = () => {
             endDate: "2025-06-10",
             sessionsLeft: 3,
             status: "Expiring Soon",
-            planName: "Gold"
+            is_reminded: true,
+            planName: "Gold",
         },
         {
             id: 2,
@@ -39,6 +40,7 @@ export const useDashboardStore = () => {
             endDate: "2025-06-12",
             sessionsLeft: 0,
             status: "Expired Today",
+            is_reminded: false,
             planName: "Silver"
         },
         {
@@ -48,6 +50,7 @@ export const useDashboardStore = () => {
             endDate: "2025-06-13",
             sessionsLeft: 1,
             status: "Expiring Soon",
+            is_reminded: false,
             planName: "Bronze"
         },
         {
@@ -57,6 +60,37 @@ export const useDashboardStore = () => {
             endDate: "2025-06-15",
             sessionsLeft: null,
             status: "Expiring Soon",
+            is_reminded: false,
+            planName: "Gold"
+        },
+        {
+            id: 4,
+            memberName: "Jay Inclino",
+            contactNumber: "09179998888",
+            endDate: "2025-06-15",
+            sessionsLeft: null,
+            status: "Expiring Soon",
+            is_reminded: false,
+            planName: "Gold"
+        },
+        {
+            id: 4,
+            memberName: "Jay Inclino",
+            contactNumber: "09179998888",
+            endDate: "2025-06-15",
+            sessionsLeft: null,
+            status: "Expiring Soon",
+            is_reminded: false,
+            planName: "Gold"
+        },
+        {
+            id: 4,
+            memberName: "Jay Inclino",
+            contactNumber: "09179998888",
+            endDate: "2025-06-15",
+            sessionsLeft: null,
+            status: "Expiring Soon",
+            is_reminded: false,
             planName: "Gold"
         },
     ])

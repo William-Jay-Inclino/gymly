@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-base-100 rounded-xl shadow border border-base-200 p-5 flex flex-col gap-6">
+    <div class="bg-base-100 rounded-xl shadow border border-base-200 p-5 flex flex-col gap-">
         <!-- Today's Memberships -->
         <div>
             <span class="text-base-content/60 text-xs flex items-center gap-1">
