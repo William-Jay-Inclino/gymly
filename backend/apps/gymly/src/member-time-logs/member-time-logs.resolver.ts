@@ -1,4 +1,4 @@
-import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
+import { Resolver, Query, Args, Mutation, Int } from '@nestjs/graphql';
 import { MemberTimeLogsService } from './member-time-logs.service';
 import { CreateMemberTimeLogsInput } from './dto/create-member-time-logs.input';
 import { MemberTimeLog } from './entities/member-time-log.entity';
@@ -23,4 +23,12 @@ export class MemberTimeLogsResolver {
     ) {
         return this.memberTimeLogsService.logCheckIn(input);
     }
+
+    @Query(() => Int)
+    async total_checked_in_today(
+        @Args('gym_id', { type: () => String }) gym_id: string
+    ): Promise<number> {
+        return this.memberTimeLogsService.getTotalCheckedInToday(gym_id);
+    }
+    
 }

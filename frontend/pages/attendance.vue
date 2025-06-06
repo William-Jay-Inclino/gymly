@@ -80,12 +80,13 @@ import type { Member } from "~/core/member/member.types"
 import type { MemberTimeLog } from "~/core/member-time-logs/member-time-logs.types"
 import type { Membership } from "~/core/membership/membership.types"
 import { get_memberships } from "~/core/membership/membership.api"
+import { useGlobalStore } from '~/core/global.store'
 
 definePageMeta({
     layout: "base-layout",
 })
 
-const gymId = 'b4e45c98-6d62-47d9-b24e-4fbca42119ce' //temp
+const { gym_id } = useGlobalStore()
 
 const isLoadingPage = ref(true)
 const isLoggingAttendance = ref(false)
@@ -99,7 +100,7 @@ const selectedMembershipIds = ref<string[]>([])
 onMounted(async () => {
     isLoadingPage.value = false
     const today = new Date().toISOString().slice(0, 10)
-    const response = await api.init({ gym_id: gymId, date: today })
+    const response = await api.init({ gym_id, date: today })
     members.value = response.members
     checkedInToday.value = response.check_ins
 })
@@ -134,7 +135,7 @@ async function handleCheckIn() {
     isLoggingAttendance.value = true
     try {
         const response = await api.log_time({
-            gym_id: gymId,
+            gym_id,
             member_id: selectedMemberId.value,
             membership_ids: selectedMembershipIds.value
         })

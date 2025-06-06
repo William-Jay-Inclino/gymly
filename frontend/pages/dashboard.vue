@@ -21,15 +21,37 @@
 <script setup lang="ts">
 import { BarChart2 } from "lucide-vue-next"
 import { useDashboardStore } from "~/core/dashboard/dashboard.store"
+import { useDashboardStore2 } from "~/core/dashboard/dashboard.store2"
 import StatsCards from "~/components/Dashboard/StatsCards.vue"
 import Revenue from "~/components/Dashboard/Revenue.vue"
 import MembershipCount from "~/components/Dashboard/MembershipCount.vue"
 import UpcomingExpirations from "~/components/Dashboard/UpcomingExpirations.vue"
 import Attendance from "~/components/Dashboard/Attendance.vue"
+import * as api from "~/core/dashboard/dashboard.api"
+import { useGlobalStore } from '~/core/global.store'
 
-const { stats, upcomingExpirations } = useDashboardStore()
+const { gym_id } = useGlobalStore()
+const store = useDashboardStore()
+
+const { stats, upcomingExpirations } = useDashboardStore2()
 
 definePageMeta({
     layout: "base-layout",
 })
+
+onMounted(async() => {
+    const {
+        total_active_memberships,
+        total_checked_in_today,
+        total_memberships_today
+    } = await api.init({ gym_id })
+
+    store.set_gym_stat({
+        total_active_memberships,
+        total_checked_in_today,
+        total_memberships_today
+    })
+
+})
+
 </script>

@@ -27,9 +27,9 @@
 <script setup lang="ts">
 import { ref, onMounted, watch, computed } from "vue"
 import { LineChart } from "lucide-vue-next"
-import { useDashboardStore } from "~/core/dashboard/dashboard.store"
+import { useDashboardStore2 } from "~/core/dashboard/dashboard.store2"
 
-const { revenueData } = useDashboardStore()
+const { revenueData } = useDashboardStore2()
 const years = Array.from(new Set(revenueData.value.map(d => d.year))).sort((a, b) => b - a)
 const startYear = ref(years[years.length - 1])
 const endYear = ref(years[0])

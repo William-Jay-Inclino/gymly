@@ -123,15 +123,16 @@ import type { Member } from '~/core/member/member.types'
 import * as memberApi from '~/core/member/member.api'
 import { add_membership, get_memberships } from '~/core/membership/membership.api'
 import { usePlanStore } from '~/core/plan/plan.store'
+import { useGlobalStore } from '~/core/global.store'
 
 definePageMeta({
     layout: "base-layout",
 })
 
 const planStore = usePlanStore()
+const { gym_id } = useGlobalStore()
 
 const members = ref<Member[]>()
-const gymId = '4a496131-1129-45ac-914f-6f734d408365' //temp
 
 // flags
 const isLoadingPage = ref(true)
@@ -150,7 +151,7 @@ const showAttendanceModal = ref(false)
 
 
 onMounted(async() => {
-    const response = await memberApi.init({ gym_id: gymId })
+    const response = await memberApi.init({ gym_id })
     members.value = response.members
     planStore.set_plans(response.plans)
     isLoadingPage.value = false
@@ -212,7 +213,7 @@ async function handleAddMember(newMember: {
             lastname: newMember.lastname,
             contact_number: newMember.contact_number,
             plan_ids: newMember.planIds,
-            gym_id: gymId,
+            gym_id,
         });
         isAddingMember.value = false;
 
@@ -238,7 +239,7 @@ async function handleAddMembershipPlan(payload: { plan_ids: string[], member_id:
     const response = await add_membership({
         plan_ids,
         member_id,
-        gym_id: gymId,
+        gym_id,
     });
     isAddingPlan.value = false;
 

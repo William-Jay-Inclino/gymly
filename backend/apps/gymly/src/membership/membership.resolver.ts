@@ -24,9 +24,23 @@ export class MembershipResolver {
         return this.membershipService.get_memberships({ member_id, only_active });
     }
 
+    @Query(() => Int)
+    async total_memberships_today(
+        @Args('gym_id') gym_id: string
+    ): Promise<number> {
+        return this.membershipService.get_total_memberships_today(gym_id);
+    }
 
     @ResolveField(() => Int)
     async num_of_days(@Parent() membership: Membership): Promise<number> {
         return computeNumberOfDays(new Date(membership.start_date), new Date(membership.end_date));
     }
+
+    @Query(() => Int)
+    async total_active_memberships(
+        @Args('gym_id') gym_id: string
+    ): Promise<number> {
+        return this.membershipService.get_total_active_memberships(gym_id);
+    }
+
 }

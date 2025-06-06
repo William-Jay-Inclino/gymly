@@ -1,4 +1,3 @@
-import type { Membership } from "../membership/membership.types";
 import type { Plan } from "../plan/plan.types";
 import type { Member } from "./member.types";
 

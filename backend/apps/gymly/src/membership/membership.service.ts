@@ -2,6 +2,7 @@ import { Injectable, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateMembershipInput } from './dto/create-membership.input';
 import { MutationMembershipResponse } from './entities/membership.response.entity';
+import { endOfDay, startOfDay } from 'date-fns';
 
 @Injectable()
 export class MembershipService {
@@ -76,4 +77,29 @@ export class MembershipService {
             }
         });
     }
+
+    async get_total_memberships_today(gym_id: string): Promise<number> {
+        const today = new Date();
+        const count = await this.prisma.membership.count({
+            where: {
+                gym_id,
+                created_at: {
+                    gte: startOfDay(today),
+                    lte: endOfDay(today),
+                },
+            },
+        });
+        return count;
+    }
+
+    async get_total_active_memberships(gym_id: string): Promise<number> {
+        const count = await this.prisma.membership.count({
+            where: {
+                gym_id,
+                is_active: true,
+            },
+        });
+        return count;
+    }
+
 }
