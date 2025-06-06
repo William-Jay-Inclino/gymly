@@ -3,6 +3,7 @@ import { AnalyticsService } from './analytics.service';
 import { GymStats } from './entities/gym-stats.entity';
 import { Revenue } from './entities/revenue.entity';
 import { MembershipCount } from './entities/membership-count.entity';
+import { MonthlyAttendance } from './entities/monthly-attendance.entity';
 
 @Resolver()
 export class AnalyticsResolver {
@@ -32,4 +33,14 @@ export class AnalyticsResolver {
         const result = await this.analyticsService.getMembershipCount({ gym_id, year, month });
         return Array.isArray(result) ? result : result ? [result] : [];
     }
+
+    @Query(() => [MonthlyAttendance])
+    async monthly_attendance_calendar(
+        @Args('gym_id', { type: () => String }) gym_id: string,
+        @Args('year', { type: () => Int }) year: number,
+        @Args('month', { type: () => Int }) month: number
+    ) {
+        return this.analyticsService.getMonthlyAttendanceCalendar({ gym_id, year, month });
+    }
+
 }

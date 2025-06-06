@@ -122,10 +122,31 @@ export async function get_membership_counts(payload: { gym_id: string, year?: nu
     `;
     try {
         const response = await sendRequest(query);
-        console.log('response', response);
+        console.log('get_membership_counts', response);
         return deepClone(response.data.data.membershipCounts);
     } catch (error) {
         console.error(error);
         return []
+    }
+}
+
+
+export async function get_monthly_attendance_calendar(payload: { gym_id: string, year: number, month: number }): Promise<{ date: string; count: number }[]> {
+    const { gym_id, year, month } = payload;
+    const query = `
+        query {
+            monthly_attendance_calendar(gym_id: "${gym_id}", year: ${year}, month: ${month}) {
+                date
+                count
+            }
+        }
+    `;
+    try {
+        const response = await sendRequest(query);
+        console.log('get_monthly_attendance_calendar', response);
+        return deepClone(response.data.data.monthly_attendance_calendar);
+    } catch (error) {
+        console.error(error);
+        throw error;
     }
 }

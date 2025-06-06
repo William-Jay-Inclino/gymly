@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { startOfDay, endOfDay } from 'date-fns';
+import { startOfDay, endOfDay, endOfMonth, eachDayOfInterval } from 'date-fns';
 import { MutationMemberTimeLogResponse } from './entities/member-time-log.response.entity';
 
 @Injectable()
@@ -107,6 +107,33 @@ export class MemberTimeLogsService {
             },
         });
         return count;
+    }
+
+    async getCalendarData(year: number, month: number) {
+        const firstDayOfMonth = new Date(year, month - 1, 1);
+        const lastDayOfMonth = new Date(year, month, 0);
+
+        const daysInMonth = lastDayOfMonth.getDate();
+        const calendarData = Array(daysInMonth).fill(0);
+
+        const attendanceCounts = await this.prisma.memberTimeLogs.findMany({
+            where: {
+                checked_in_at: {
+                    gte: firstDayOfMonth,
+                    lte: lastDayOfMonth,
+                },
+            },
+            select: {
+                checked_in_at: true,
+            },
+        });
+
+        attendanceCounts.forEach((attendance) => {
+            const day = attendance.checked_in_at.getDate();
+            calendarData[day - 1]++;
+        });
+
+        return calendarData;
     }
 
 }

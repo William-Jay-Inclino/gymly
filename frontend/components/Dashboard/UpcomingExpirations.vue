@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-base-100 rounded-2xl shadow-sm border border-base-200 p-0 overflow-hidden flex flex-col h-full max-h-[650px]">
+    <div class="bg-base-100 rounded-2xl shadow-sm border border-base-200 p-0 overflow-hidden flex flex-col h-full max-h-[690px]">
         <!-- Header -->
         <div class="flex items-center gap-2 px-6 py-5 bg-base-100/90 border-b border-base-200">
             <AlertTriangle class="w-5 h-5 text-rose-500/80" />
