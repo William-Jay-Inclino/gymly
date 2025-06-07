@@ -1,9 +1,9 @@
 <template>
     <div class="max-w-6xl mx-auto px-4">
-        <div class="flex items-center gap-3 mb-8">
+        <!-- <div class="flex items-center gap-3 mb-8">
             <BarChart2 class="w-6 h-6 text-primary" />
             <h1 class="text-xl font-semibold text-base-content/80">Dashboard</h1>
-        </div>
+        </div> -->
         <StatsCards />
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
