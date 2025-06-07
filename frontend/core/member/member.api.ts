@@ -49,17 +49,23 @@ export async function create_member(input: {
     firstname: string;
     lastname: string;
     contact_number?: string | null;
-    plan_ids: string[];
+    plans: { plan_id: string; start_date: string; sessions_left?: number }[];
     gym_id: string;
 }): Promise<{
     success: boolean;
     msg: string;
     data?: Member;
 }> {
-    // Ensure contact_number are not undefined (GraphQL expects null or string)
-    const contact_number = input.contact_number ? `"${ input.contact_number }"` : null;
+    const contact_number = input.contact_number ? `"${input.contact_number}"` : null;
 
-    const planIdsString = input.plan_ids.map(id => `"${id}"`).join(', ');
+    // Build plans array for GraphQL, including sessions_left if present
+    const plansString = input.plans
+        .map(
+            (p) =>
+                `{ plan_id: "${p.plan_id}", start_date: "${p.start_date}"${p.sessions_left !== undefined ? `, sessions_left: ${p.sessions_left}` : ''} }`
+        )
+        .join(", ");
+
     const mutation = `
         mutation {
             create_member(
@@ -69,7 +75,7 @@ export async function create_member(input: {
                     contact_number: ${contact_number}
                     plan: {
                         gym_id: "${input.gym_id}"
-                        plan_ids: [${planIdsString}]
+                        plans: [${plansString}]
                     }
                 }
             ) {

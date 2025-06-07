@@ -45,9 +45,7 @@
                             <label class="label pb-1">
                                 <span class="label-text text-base-content/80">Select Plan</span>
                             </label>
-                            <PlanList
-                                v-model="selectedPlans"
-                            />
+                            <PlanList v-model="selectedPlans" />
                         </div>
                     </div>
                 </div>
@@ -63,10 +61,12 @@
 </template>
 
 <script setup lang="ts">
+import { ref, computed, watch } from 'vue'
+import PlanList from '~/components/PlanList.vue'
 
 const props = defineProps<{
-    is_adding?: boolean
     show: boolean
+    is_adding?: boolean
 }>()
 
 const emit = defineEmits(['close', 'submit'])
@@ -74,29 +74,47 @@ const emit = defineEmits(['close', 'submit'])
 const firstname = ref('')
 const lastname = ref('')
 const contact_number = ref('')
-const selectedPlans = ref<string[]>([])
+const selectedPlans = ref<{ plan_id: string, start_date: string, sessions_left?: number }[]>([])
 
 const canSubmit = computed(() =>
     firstname.value.trim() !== '' &&
     lastname.value.trim() !== '' &&
-    selectedPlans.value.length > 0
+    selectedPlans.value.length > 0 &&
+    selectedPlans.value.every(
+        p => !!p.start_date && (p.sessions_left === undefined || p.sessions_left > 0)
+    )
 )
 
+function resetForm() {
+    firstname.value = ''
+    lastname.value = ''
+    contact_number.value = ''
+    selectedPlans.value = []
+}
+
 function close() {
+    resetForm()
     emit('close')
 }
 
 function submit() {
     if (!canSubmit.value) return
-    
-    emit('submit', deepClone({
+
+    emit('submit', {
         firstname: firstname.value,
         lastname: lastname.value,
         contact_number: contact_number.value,
-        planIds: selectedPlans.value,
-    }))
+        plans: selectedPlans.value, 
+    })
+    resetForm()
 }
+
+// Also reset when modal is hidden by parent (e.g. pressing ESC or clicking outside)
+watch(() => props.show, (val) => {
+    if (!val) resetForm()
+})
 </script>
+
 
 <style scoped>
 .modal-enter-active, .modal-leave-active {

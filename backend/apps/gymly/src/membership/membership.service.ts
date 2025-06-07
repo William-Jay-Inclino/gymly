@@ -13,34 +13,41 @@ export class MembershipService {
     async create_membership(payload: { input: CreateMembershipInput }): Promise<MutationMembershipResponse> {
         const { input } = payload;
 
+        console.log('Creating membership with input:', input);
+
         return await this.prisma.$transaction(async (tx) => {
             // 1. Validate plans
-            if (!input.plan_ids || input.plan_ids.length === 0) {
-                throw new BadRequestException('At least one plan_id is required');
+            if (!input.plans || input.plans.length === 0) {
+                throw new BadRequestException('At least one plan is required');
             }
 
             const createdMemberships = [];
 
-            // 2. For each plan_id, create a membership
-            for (const plan_id of input.plan_ids) {
+            // 2. For each plan, create a membership
+            for (const planObj of input.plans) {
                 const plan = await tx.plan.findUnique({
-                    where: { id: plan_id },
+                    where: { id: planObj.plan_id },
                 });
                 if (!plan) {
-                    throw new BadRequestException(`Plan not found: ${plan_id}`);
+                    throw new BadRequestException(`Plan not found: ${planObj.plan_id}`);
                 }
 
-                const startDate = new Date();
+                const startDate = new Date(planObj.start_date);
                 let endDate: Date | null = null;
                 let sessionsLeft: number | null = null;
 
                 if (plan.num_of_days != null) {
-                    endDate = new Date(startDate);
-                    endDate.setDate(endDate.getDate() + plan.num_of_days);
+                    endDate = addDays(startDate, plan.num_of_days);
                 }
-                if (plan.num_of_sessions != null) {
+
+                // Use sessions_left from input if it is defined (even if 0), otherwise use plan default
+                if (Object.prototype.hasOwnProperty.call(planObj, 'sessions_left')) {
+                    sessionsLeft = planObj.sessions_left;
+                } else if (plan.num_of_sessions != null) {
                     sessionsLeft = plan.num_of_sessions;
                 }
+
+                console.log('sessionsLeft', sessionsLeft);
 
                 const membership = await tx.membership.create({
                     data: {

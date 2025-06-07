@@ -26,14 +26,16 @@
                             <thead class="top-0 bg-base-100 z-10">
                                 <tr>
                                     <th class="text-base">Member</th>
+                                    <th class="text-base">Contact</th>
                                     <th class="text-base">Status</th>
-                                    <th class="text-base">Joined</th>
+                                    <th class="text-base">Created</th>
                                     <th class="text-base text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="member in filteredUsers" :key="member.id">
                                     <td>{{ member.firstname + ' ' + member.lastname }}</td>
+                                    <td>{{ member.contact_number }}</td>
                                     <td>
                                         <span
                                             class="badge"
@@ -82,10 +84,13 @@
                         </table>
                     </div>
                 </div>
+                <div class="mt-2">
+                    <span class="text-xs text-error">
+                        Maximum of 100 members. Contact system admin if you want to increase your limit.
+                    </span>
+                </div>
                 <AddMemberModal
                     :show="showAddModal"
-                    v-if="showAddModal"
-                    :set_default_plan="true"
                     @close="showAddModal = false"
                     @submit="handleAddMember"
                     :is_adding="isAddingMember"
@@ -95,7 +100,7 @@
                     v-if="showAddPlanModal"
                     :member="selectedMember"
                     @close="showAddPlanModal = false"
-                    @submit="handleAddMembershipPlan"
+                    @submit="add_membership"
                     :is_adding="isAddingPlan"
                 />
                 <MembershipHistoryModal
@@ -125,7 +130,7 @@ import MembershipHistoryModal from '~/components/MembershipHistoryModal.vue'
 import AttendanceModal from '~/components/AttendanceModal.vue'
 import type { Member } from '~/core/member/member.types'
 import * as memberApi from '~/core/member/member.api'
-import { add_membership, get_memberships } from '~/core/membership/membership.api'
+import * as membershipApi from '~/core/membership/membership.api'
 import { usePlanStore } from '~/core/plan/plan.store'
 import { useGlobalStore } from '~/core/global.store'
 
@@ -152,8 +157,6 @@ const selectedMember = ref<Member | undefined>(undefined)
 const showPlanListModal = ref(false)
 const showAttendanceModal = ref(false)
 
-
-
 onMounted(async() => {
     const response = await memberApi.init({ gym_id })
     members.value = response.members
@@ -162,15 +165,12 @@ onMounted(async() => {
 })
 
 const filteredUsers = computed(() => {
-
     if(!members.value) return []
-    
     return members.value.filter(member =>
         (member.firstname + ' ' + member.lastname)
             .toLowerCase()
             .includes(search.value.trim().toLowerCase())
     )
-
 })
 
 function formatDate(dateStr: string) {
@@ -184,13 +184,11 @@ function formatDate(dateStr: string) {
 
 async function viewPlans(member: Member) {
     showPlanListModal.value = true
-
     isLoadingMemberships.value = true
-    const response = await get_memberships({ member_id: member.id })
+    const response = await membershipApi.get_memberships({ member_id: member.id })
     isLoadingMemberships.value = false
     member.memberships = response.memberships
     selectedMember.value = member
-
 }
 
 function openAttendanceModal(member: Member) {
@@ -205,10 +203,9 @@ function openAddPlanModal(member: Member) {
 
 async function handleAddMember(newMember: { 
     firstname: string; 
-    middlename: string;
     lastname: string; 
     contact_number: string;
-    planIds: string[];
+    plans: { plan_id: string; start_date: string; sessions_left?: number }[];
 }) {
     try {
         isAddingMember.value = true;
@@ -216,7 +213,7 @@ async function handleAddMember(newMember: {
             firstname: newMember.firstname,
             lastname: newMember.lastname,
             contact_number: newMember.contact_number,
-            plan_ids: newMember.planIds,
+            plans: newMember.plans, 
             gym_id,
         });
         isAddingMember.value = false;
@@ -228,21 +225,20 @@ async function handleAddMember(newMember: {
         } else {
             showToastError('Failed to add member. Please try again.')
         }
-
     } catch (error) {
         console.error(error);
     }
 }
 
-async function handleAddMembershipPlan(payload: { plan_ids: string[], member_id: string }) {
-    console.log('handleAddPlan', payload);
-
-    const {  plan_ids, member_id } = payload;
-
+async function add_membership(input: {
+    member_id: string;
+    gym_id: string;
+    plans: { plan_id: string; start_date: string; sessions_left?: number }[];
+}) {
     isAddingPlan.value = true;
-    const response = await add_membership({
-        plan_ids,
-        member_id,
+    const response = await membershipApi.add_membership({
+        plans: input.plans,
+        member_id: input.member_id,
         gym_id,
     });
     isAddingPlan.value = false;
@@ -253,8 +249,5 @@ async function handleAddMembershipPlan(payload: { plan_ids: string[], member_id:
     } else {
         showToastError('Failed to add membership plan. Please try again.')
     }
-
 }
-
-
 </script>

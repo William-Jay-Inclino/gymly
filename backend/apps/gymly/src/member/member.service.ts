@@ -16,7 +16,6 @@ export class MemberService {
                 memberships: {
                     some: {
                         gym_id: payload.gym_id,
-                        is_active: true, 
                     },
                 },
             },
@@ -30,8 +29,8 @@ export class MemberService {
         return await this.prisma.$transaction(async (tx) => {
 
             // Validate plans
-            if (!data.plan.plan_ids || data.plan.plan_ids.length === 0) {
-                throw new BadRequestException('At least one plan_id is required');
+            if (!data.plan.plans || data.plan.plans.length === 0) {
+                throw new BadRequestException('At least one plan is required');
             }
 
             // Create the member
@@ -50,23 +49,27 @@ export class MemberService {
                 increment_member: true,
             }, tx as Prisma.TransactionClient);
 
-            // For each plan_id, create a membership and update stats for analytics
-            for (const plan_id of data.plan.plan_ids) {
+            // For each plan, create a membership and update stats for analytics
+            for (const planObj of data.plan.plans) {
                 const plan = await tx.plan.findUnique({
-                    where: { id: plan_id },
+                    where: { id: planObj.plan_id },
                 });
                 if (!plan) {
-                    throw new BadRequestException(`Plan not found: ${plan_id}`);
+                    throw new BadRequestException(`Plan not found: ${planObj.plan_id}`);
                 }
 
-                const startDate = new Date();
+                const startDate = new Date(planObj.start_date);
                 let endDate: Date | null = null;
                 let sessionsLeft: number | null = null;
 
                 if (plan.num_of_days != null) {
                     endDate = addDays(startDate, plan.num_of_days); 
                 }
-                if (plan.num_of_sessions != null) {
+
+                // Priority: use sessions_left from input if present (even if 0), else use plan default
+                if (Object.prototype.hasOwnProperty.call(planObj, 'sessions_left')) {
+                    sessionsLeft = planObj.sessions_left;
+                } else if (plan.num_of_sessions != null) {
                     sessionsLeft = plan.num_of_sessions;
                 }
 

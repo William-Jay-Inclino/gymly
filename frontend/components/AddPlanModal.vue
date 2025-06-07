@@ -14,9 +14,7 @@
                             <label class="label pb-1">
                                 <span class="label-text text-base-content/80">Select Plan</span>
                             </label>
-                            <PlanList
-                                v-model="selectedPlans"
-                            />
+                            <PlanList v-model="selectedPlans" />
                         </div>
                     </div>
                 </div>
@@ -32,7 +30,9 @@
 </template>
 
 <script setup lang="ts">
-import type { Member } from '~/core/member/member.types';
+import { ref, computed } from 'vue'
+import type { Member } from '~/core/member/member.types'
+import PlanList from '~/components/PlanList.vue'
 
 const props = defineProps<{
     member?: Member,
@@ -42,9 +42,13 @@ const props = defineProps<{
 
 const emit = defineEmits(['close', 'submit'])
 
-const selectedPlans = ref<string[]>([])
+// Now includes sessions_left as optional
+const selectedPlans = ref<{ plan_id: string, start_date: string, sessions_left?: number }[]>([])
 
-const canSubmit = computed(() => selectedPlans.value.length > 0)
+const canSubmit = computed(() =>
+    selectedPlans.value.length > 0 &&
+    selectedPlans.value.every(p => !!p.start_date && (p.sessions_left === undefined || p.sessions_left > 0))
+)
 
 function close() {
     emit('close')
@@ -53,7 +57,7 @@ function close() {
 function submit() {
     if (!canSubmit.value) return
     emit('submit', {
-        plan_ids: deepClone(selectedPlans.value),
+        plans: JSON.parse(JSON.stringify(selectedPlans.value)),
         member_id: props.member?.id,
     })
 }

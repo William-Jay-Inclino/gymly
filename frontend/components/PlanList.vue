@@ -22,38 +22,101 @@
                 <span v-if="plan.num_of_days" class="text-xs text-base-content/60">/ {{ plan.num_of_days }} {{ plan.num_of_days > 1 ? 'days' : 'day' }}</span>
                 <span v-else-if="plan.num_of_sessions" class="text-xs text-base-content/60">/ {{ plan.num_of_sessions }} {{ plan.num_of_sessions > 1 ? 'sessions' : 'session' }}</span>
             </div>
-            <div v-if="isSelected(plan.id)" class="flex justify-end">
-                <span class="badge badge-primary badge-sm">Selected</span>
+            <div v-if="isSelected(plan.id)" class="flex flex-col gap-2 mt-2">
+                <span class="badge badge-primary badge-sm self-end">Selected</span>
+                <label class="text-xs text-base-content/70 font-medium mt-1">
+                    Start Date:
+                    <input
+                        type="date"
+                        class="input input-bordered input-xs ml-2"
+                        :value="getStartDate(plan.id)"
+                        @click.stop
+                        @change.stop="updateStartDate(plan.id, ($event.target as HTMLInputElement).value)"
+                        @mousedown.stop
+                        @mouseup.stop
+                        @keydown.stop
+                        @input.stop
+                        style="width: 140px;"
+                    />
+                </label>
+                <label
+                    v-if="plan.num_of_sessions"
+                    class="text-xs text-base-content/70 font-medium mt-1"
+                >
+                    Sessions Left:
+                    <input
+                        type="number"
+                        min="1"
+                        class="input input-bordered input-xs ml-2"
+                        :value="getSessionsLeft(plan.id)"
+                        @click.stop
+                        @change.stop="updateSessionsLeft(plan.id, ($event.target as HTMLInputElement).valueAsNumber)"
+                        @mousedown.stop
+                        @mouseup.stop
+                        @keydown.stop
+                        @input.stop
+                        style="width: 100px;"
+                    />
+                </label>
             </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-
 import { usePlanStore } from '~/core/plan/plan.store';
 
 const props = defineProps<{
-    modelValue: string[] // Array of selected plan ids
+    modelValue: { plan_id: string, start_date: string, sessions_left?: number }[]
 }>()
 
 const emit = defineEmits(['update:modelValue'])
 
 const planStore = usePlanStore()
-
 const plans = computed(() => planStore.plans)
 
 function isSelected(id: string) {
-    return props.modelValue.includes(id)
+    return props.modelValue.some(p => p.plan_id === id)
+}
+
+function getStartDate(id: string) {
+    return props.modelValue.find(p => p.plan_id === id)?.start_date || ''
+}
+
+function getSessionsLeft(id: string) {
+    return props.modelValue.find(p => p.plan_id === id)?.sessions_left ?? ''
 }
 
 function toggle(id: string) {
-    let newValue: string[]
+    let newValue
     if (isSelected(id)) {
-        newValue = props.modelValue.filter(pid => pid !== id)
+        newValue = props.modelValue.filter(p => p.plan_id !== id)
     } else {
-        newValue = [...props.modelValue, id]
+        // Default sessions_left if plan is per session
+        const plan = plans.value.find(p => p.id === id)
+        newValue = [
+            ...props.modelValue,
+            {
+                plan_id: id,
+                start_date: new Date().toISOString().slice(0, 10),
+                ...(plan?.num_of_sessions ? { sessions_left: plan.num_of_sessions } : {})
+            }
+        ]
     }
+    emit('update:modelValue', newValue)
+}
+
+function updateStartDate(id: string, date: string) {
+    const newValue = props.modelValue.map(p =>
+        p.plan_id === id ? { ...p, start_date: date } : p
+    )
+    emit('update:modelValue', newValue)
+}
+
+function updateSessionsLeft(id: string, sessions: number) {
+    const newValue = props.modelValue.map(p =>
+        p.plan_id === id ? { ...p, sessions_left: sessions } : p
+    )
     emit('update:modelValue', newValue)
 }
 </script>

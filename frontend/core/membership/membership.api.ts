@@ -41,14 +41,20 @@ export async function get_memberships(payload: { member_id: string; only_active?
 export async function add_membership(input: {
     member_id: string;
     gym_id: string;
-    plan_ids: string[];
+    plans: { plan_id: string; start_date: string; sessions_left?: number }[];
 }): Promise<{
     success: boolean;
     msg: string;
     data?: Membership[];
 }> {
 
-    const planIdsString = input.plan_ids.map(id => `"${id}"`).join(', ');
+    // Build plans array for GraphQL, including sessions_left if present
+    const plansString = input.plans
+        .map(
+            (p) =>
+                `{ plan_id: "${p.plan_id}", start_date: "${p.start_date}"${p.sessions_left !== undefined ? `, sessions_left: ${p.sessions_left}` : ''} }`
+        )
+        .join(", ");
 
     const mutation = `
         mutation {
@@ -56,7 +62,7 @@ export async function add_membership(input: {
                 input: {
                     member_id: "${input.member_id}"
                     gym_id: "${input.gym_id}"
-                    plan_ids: [${planIdsString}]
+                    plans: [${plansString}]
                 }
             ) {
                 success
@@ -77,6 +83,7 @@ export async function add_membership(input: {
         throw error;
     }
 }
+
 
 
 export async function set_is_reminded(payload: { membership_id: string, is_reminded: boolean }): Promise<{

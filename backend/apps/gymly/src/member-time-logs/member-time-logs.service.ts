@@ -64,10 +64,19 @@ export class MemberTimeLogsService {
                         where: { id: membership_id }
                     });
                     if (membership && membership.sessions_left !== null && membership.sessions_left > 0) {
-                        await tx.membership.update({
+                        // Decrement sessions_left
+                        const updated = await tx.membership.update({
                             where: { id: membership_id },
                             data: { sessions_left: { decrement: 1 } }
                         });
+
+                        // If sessions_left is now 0, set is_active to false
+                        if (updated.sessions_left === 0) {
+                            await tx.membership.update({
+                                where: { id: membership_id },
+                                data: { is_active: false }
+                            });
+                        }
                     }
                 }
 
