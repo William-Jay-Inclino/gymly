@@ -14,7 +14,7 @@
                 </select>
             </div>
         </div>
-        <canvas ref="revenueChart" height="160"></canvas>
+        <canvas ref="revenueChart" height="200"></canvas>
     </div>
 </template>
 

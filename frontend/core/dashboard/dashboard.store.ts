@@ -1,3 +1,4 @@
+import type { Membership } from "../membership/membership.types";
 
 export const useDashboardStore = defineStore('dashboard', {
     state: () => ({
@@ -8,6 +9,7 @@ export const useDashboardStore = defineStore('dashboard', {
             total_active_memberships: 0,
             total_checked_in_today: 0,
         },
+        _upcoming_membership_expirations: [] as Membership[],
         _revenues: [] as { year: number; month: number; amount: number }[],
         _membership_counts: [] as { year: number; month: number; count: number }[],
     }),
@@ -15,6 +17,7 @@ export const useDashboardStore = defineStore('dashboard', {
         gym_stat: (state) => state._gym_stat,
         revenues: (state) => state._revenues,
         membership_counts: (state) => state._membership_counts,
+        upcoming_membership_expirations: (state) => state._upcoming_membership_expirations,
     },
     actions: {
         set_gym_stats(payload: { 
@@ -60,6 +63,9 @@ export const useDashboardStore = defineStore('dashboard', {
                 month: i.month,
                 count: i.count,
             }));
+        },
+        set_upcoming_membership_expirations(payload: { memberships: Membership[] }) {
+            this._upcoming_membership_expirations = payload.memberships
         }
     },
 })

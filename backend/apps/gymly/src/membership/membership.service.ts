@@ -2,7 +2,8 @@ import { Injectable, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateMembershipInput } from './dto/create-membership.input';
 import { MutationMembershipResponse } from './entities/membership.response.entity';
-import { endOfDay, startOfDay } from 'date-fns';
+import { addDays, endOfDay, startOfDay } from 'date-fns';
+import { Membership } from './entities/membership.entity';
 
 @Injectable()
 export class MembershipService {
@@ -100,6 +101,64 @@ export class MembershipService {
             },
         });
         return count;
+    }
+
+    async get_upcoming_membership_expirations(gym_id: string) {
+        const now = new Date();
+        const threeDaysFromNow = addDays(startOfDay(now), 3);
+
+        return this.prisma.membership.findMany({
+            where: {
+                gym_id,
+                OR: [
+                    {
+                        // Expiring within 3 days (end_date logic)
+                        end_date: {
+                            not: null,
+                            gt: now,
+                            lte: threeDaysFromNow,
+                        },
+                        // Only exclude sessions_left if end_date is defined
+                        sessions_left: null,
+                    },
+                    {
+                        // Sessions left <= 3 and > 0 (sessions_left logic)
+                        sessions_left: {
+                            not: null,
+                            lte: 3,
+                            gt: 0,
+                        },
+                        // Only exclude end_date if sessions_left is defined
+                        end_date: null,
+                    },
+                ],
+            },
+            include: {
+                member: true,
+            },
+            orderBy: [
+                { end_date: "asc" },
+                { sessions_left: "asc" }
+            ]
+        });
+    }
+
+    async set_is_reminded(membership_id: string, is_reminded: boolean): Promise<MutationMembershipResponse> {
+        try {
+            await this.prisma.membership.update({
+                where: { id: membership_id },
+                data: { is_reminded },
+            });
+            return {
+                success: true,
+                msg: 'Membership reminder status updated successfully',
+            };
+        } catch (error) {
+            return {
+                success: false,
+                msg: 'Failed to update membership reminder status',
+            };
+        }
     }
 
 }

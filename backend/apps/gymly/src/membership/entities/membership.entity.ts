@@ -27,6 +27,9 @@ export class Membership {
 	@Field(() => Boolean)
 	is_active: boolean;
 
+	@Field(() => Boolean)
+	is_reminded: boolean;
+
 	@Field()
 	plan_name: string;
 
@@ -44,7 +47,7 @@ export class Membership {
 	@Field(() => Member)
 	member: Member;
 	
-	@Field(() => Gym)
-	gym: Gym;
+	@Field(() => Gym, { nullable: true })
+	gym: Gym | null;
 
 }

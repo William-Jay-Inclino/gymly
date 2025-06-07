@@ -126,7 +126,6 @@ export class MemberService {
         });
     }
 
-
     private async update_gym_stats(payload: {
         gym_id: string, 
         amount?: number,

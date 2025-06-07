@@ -1,3 +1,4 @@
+import type { Membership } from "../membership/membership.types";
 
 export async function init(payload: { gym_id: string }): Promise<{
     total_memberships_today: number,
@@ -148,5 +149,90 @@ export async function get_monthly_attendance_calendar(payload: { gym_id: string,
     } catch (error) {
         console.error(error);
         throw error;
+    }
+}
+
+export async function get_all_memberships(payload: { gym_id: string, year?: number, month?: number }) {
+    const { gym_id, year, month } = payload;
+    const yearPart = year !== undefined ? `, year: ${year}` : '';
+    const monthPart = month !== undefined ? `, month: ${month}` : '';
+    const query = `
+        query {
+            all_memberships(gym_id: "${gym_id}"${yearPart}${monthPart}) {
+                start_date
+                amount_paid
+                plan_name
+                member {
+                    firstname
+                    lastname
+                }
+                created_at
+            }
+        }
+    `;
+    try {
+        const response = await sendRequest(query);
+        console.log('get_all_memberships', response);
+        return deepClone(response.data.data.all_memberships);
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
+export async function get_memberships_by_day(payload: { gym_id: string, date: string }) {
+    const { gym_id, date } = payload;
+    const query = `
+        query {
+            memberships_by_day(gym_id: "${gym_id}", date: "${date}") {
+                start_date
+                amount_paid
+                plan_name
+                member {
+                    firstname
+                    lastname
+                }
+                created_at
+            }
+        }
+    `;
+    try {
+        const response = await sendRequest(query);
+        console.log('get_memberships_by_day', response);
+        return deepClone(response.data.data.memberships_by_day);
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
+
+
+export async function get_upcoming_membership_expirations(payload: { gym_id: string }): Promise<Membership[]> {
+    const { gym_id } = payload;
+    const query = `
+        query {
+            get_upcoming_membership_expirations(gym_id: "${gym_id}") {
+                id
+                plan_name
+                days_left
+                sessions_left
+                is_reminded
+                member {
+                    contact_number
+                    id
+                    firstname
+                    lastname
+                }
+            }
+        }
+    `;
+    try {
+        const response = await sendRequest(query);
+        console.log('get_upcoming_membership_expirations', response);
+        return deepClone(response.data.data.get_upcoming_membership_expirations);
+    } catch (error) {
+        console.error(error);
+        return []
     }
 }

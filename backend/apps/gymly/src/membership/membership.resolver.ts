@@ -2,7 +2,7 @@ import { Resolver, Mutation, Args, Query, ResolveField, Int, Parent } from '@nes
 import { MembershipService } from './membership.service';
 import { Membership } from './entities/membership.entity';
 import { CreateMembershipInput } from './dto/create-membership.input';
-import { computeNumberOfDays } from '../libs/dates';
+import { computeNumberOfDays, computeNumberOfDaysLeft } from '../libs/dates';
 import { MutationMembershipResponse } from './entities/membership.response.entity';
 
 @Resolver(() => Membership)
@@ -36,11 +36,31 @@ export class MembershipResolver {
         return computeNumberOfDays(new Date(membership.start_date), new Date(membership.end_date));
     }
 
+    @ResolveField(() => Int)
+    async days_left(@Parent() membership: Membership): Promise<number> {
+        return computeNumberOfDaysLeft(new Date(membership.start_date), new Date(membership.end_date));
+    }
+
     @Query(() => Int)
     async total_active_memberships(
         @Args('gym_id') gym_id: string
     ): Promise<number> {
         return this.membershipService.get_total_active_memberships(gym_id);
+    }
+
+    @Query(() => [Membership])
+    async get_upcoming_membership_expirations(
+        @Args('gym_id') gym_id: string
+    ) {
+        return this.membershipService.get_upcoming_membership_expirations(gym_id);
+    }
+
+    @Mutation(() => MutationMembershipResponse)
+    async set_is_reminded(
+        @Args('membership_id') membership_id: string,
+        @Args('is_reminded', { type: () => Boolean }) is_reminded: boolean
+    ) {
+        return this.membershipService.set_is_reminded(membership_id, is_reminded);
     }
 
 }

@@ -8,7 +8,9 @@ export interface Membership {
     end_date: string | null
     num_of_days: number
     sessions_left: number | null
+    days_left: number | null
     is_active: boolean
+    is_reminded: boolean
     plan_name: string
     plan_description: string
     amount_paid: number

@@ -77,3 +77,32 @@ export async function add_membership(input: {
         throw error;
     }
 }
+
+
+export async function set_is_reminded(payload: { membership_id: string, is_reminded: boolean }): Promise<{
+    success: boolean;
+    msg: string;
+    data?: Membership[];
+}> {
+    
+    const { membership_id, is_reminded } = payload;
+
+    const mutation = `
+        mutation {
+            set_is_reminded(
+                membership_id: "${membership_id}",
+                is_reminded: ${is_reminded}
+            ) {
+                success
+                msg
+            }
+        }
+    `;
+    try {
+        const response = await sendRequest(mutation);
+        return deepClone(response.data.data.set_is_reminded);
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}

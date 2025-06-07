@@ -9,30 +9,36 @@
         <div class="flex-1 p-4 overflow-y-auto min-h-0">
             <ul class="flex flex-col gap-4">
                 <li
-                    v-for="exp in upcomingExpirations"
+                    v-for="exp in store.upcoming_membership_expirations"
                     :key="exp.id"
                     class="group flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-4 py-4 rounded-xl bg-base-200/70 hover:bg-primary/10 transition-all shadow-sm min-w-0"
                 >
                     <!-- Info Block -->
                     <div class="flex flex-col gap-2 flex-1 min-w-0">
                         <span class="font-semibold text-base-content/90 text-base break-words leading-tight">
-                            {{ exp.memberName }}
+                            {{ exp.member.firstname }} {{ exp.member.lastname }}
                         </span>
                         <div class="flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-x-6">
+                            <span v-if="exp.plan_name" class="inline-block rounded bg-primary/10 text-primary px-2 py-0.5 text-xs font-medium whitespace-nowrap">
+                                {{ exp.plan_name }}
+                            </span>
                             <span class="flex items-center gap-1 text-xs text-base-content/60 min-w-0">
-                                <svg class="w-3 h-3 text-base-content/40" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92V19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2.08a2 2 0 0 1 .84-1.63l8-6.13a2 2 0 0 1 2.32 0l8 6.13a2 2 0 0 1 .84-1.63z"/><circle cx="12" cy="7" r="4"/></svg>
-                                <span class="truncate max-w-[140px] sm:max-w-[180px] md:max-w-[220px]">{{ exp.contactNumber }}</span>
+                                <Phone class="w-3 h-3 text-base-content/40" />
+                                <span class="truncate max-w-[140px] sm:max-w-[180px] md:max-w-[220px]">{{ exp.member.contact_number }}</span>
                             </span>
-                            <span class="inline-block rounded bg-base-300 px-2 py-0.5 font-mono text-xs text-base-content/70 whitespace-nowrap">
-                                {{ exp.endDate }}
+                            <span
+                                v-if="(exp.days_left !== undefined && exp.days_left !== null && exp.days_left > 0)"
+                                class="inline-block rounded bg-base-100 px-2 py-0.5 text-xs text-base-content/70 whitespace-nowrap"
+                            >
+                                Days Left:
+                                <span>{{ exp.days_left }}</span>
                             </span>
-                            <span class="inline-block rounded bg-base-100 px-2 py-0.5 text-xs text-base-content/70 whitespace-nowrap">
+                            <span
+                                v-if="(exp.sessions_left !== undefined && exp.sessions_left !== null && exp.sessions_left > 0)"
+                                class="inline-block rounded bg-base-100 px-2 py-0.5 text-xs text-base-content/70 whitespace-nowrap"
+                            >
                                 Sessions Left:
-                                <span v-if="exp.sessionsLeft !== null">{{ exp.sessionsLeft }}</span>
-                                <span v-else class="text-base-content/40 italic">N/A</span>
-                            </span>
-                            <span v-if="exp.planName" class="inline-block rounded bg-primary/10 text-primary px-2 py-0.5 text-xs font-medium whitespace-nowrap">
-                                {{ exp.planName }}
+                                <span>{{ exp.sessions_left }}</span>
                             </span>
                         </div>
                     </div>
@@ -42,15 +48,15 @@
                             <input
                                 type="checkbox"
                                 class="checkbox checkbox-primary"
-                                v-model="exp.is_reminded"
-                                @change="$emit('reminded-change', exp)"
+                                :checked="exp.is_reminded"
+                                @change="set_reminded(exp, $event)"
                             />
                             <span class="text-xs text-base-content/70">Reminded</span>
                         </label>
                     </div>
                 </li>
             </ul>
-            <div v-if="upcomingExpirations.length === 0" class="text-base-content/60 text-center py-10 text-sm">
+            <div v-if="store.upcoming_membership_expirations.length === 0" class="text-base-content/60 text-center py-10 text-sm">
                 <span class="italic">No upcoming expirations.</span>
             </div>
         </div>
@@ -58,21 +64,37 @@
 </template>
 
 <script setup lang="ts">
-import { AlertTriangle } from "lucide-vue-next"
+import { AlertTriangle, Phone } from "lucide-vue-next"
+import { useDashboardStore } from "~/core/dashboard/dashboard.store"
+import type { Membership } from "~/core/membership/membership.types";
+import { get_upcoming_membership_expirations } from "~/core/dashboard/dashboard.api";
+import { useGlobalStore } from "~/core/global.store";
+import { set_is_reminded } from "~/core/membership/membership.api";
 
-defineProps<{
-    upcomingExpirations: Array<{
-        id: number
-        memberName: string
-        contactNumber: string
-        endDate: string
-        sessionsLeft: number | null
-        planName?: string
-        is_reminded: boolean
-    }>
-}>()
+const store = useDashboardStore()
+const { gym_id } = useGlobalStore()
 
-defineEmits<{
-    (e: 'reminded-change', exp: any): void
-}>()
+onMounted(async() => {
+    const memberships = await get_upcoming_membership_expirations({ gym_id })
+    store.set_upcoming_membership_expirations({ memberships });
+});
+
+async function set_reminded(membership: Membership, event: Event) {
+    const previous = membership.is_reminded;
+    const target = event.target as HTMLInputElement;
+    const newValue = target.checked;
+    membership.is_reminded = newValue;
+
+    const response = await set_is_reminded({
+        membership_id: membership.id,
+        is_reminded: newValue
+    });
+
+    if(response.success) {
+        showToastSuccess("Reminded status updated successfully.")
+    } else {
+        membership.is_reminded = previous;
+        showToastError("Failed to update reminded status. Please try again or refresh the page.");
+    }
+}
 </script>

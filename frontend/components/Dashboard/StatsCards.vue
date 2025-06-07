@@ -12,7 +12,7 @@
         </div>
         <div class="bg-base-100 rounded-xl shadow border border-base-200 p-5 flex flex-col items-start gap-2">
             <Wallet class="w-5 h-5 text-amber-500/80 mb-1" />
-            <span class="text-base-content/60 text-xs">Total Revenue</span>
+            <span class="text-base-content/60 text-xs">Total Revenue (all time)</span>
             <span class="text-2xl font-bold text-base-content/80">₱{{ store.gym_stat.total_revenue }}</span>
         </div>
         <div class="bg-base-100 rounded-xl shadow border border-base-200 p-5 flex flex-col items-start gap-2">

@@ -9660,6 +9660,7 @@ export namespace Prisma {
     end_date: Date | null
     sessions_left: number | null
     is_active: boolean | null
+    is_reminded: boolean | null
     plan_name: string | null
     plan_description: string | null
     amount_paid: Decimal | null
@@ -9675,6 +9676,7 @@ export namespace Prisma {
     end_date: Date | null
     sessions_left: number | null
     is_active: boolean | null
+    is_reminded: boolean | null
     plan_name: string | null
     plan_description: string | null
     amount_paid: Decimal | null
@@ -9690,6 +9692,7 @@ export namespace Prisma {
     end_date: number
     sessions_left: number
     is_active: number
+    is_reminded: number
     plan_name: number
     plan_description: number
     amount_paid: number
@@ -9717,6 +9720,7 @@ export namespace Prisma {
     end_date?: true
     sessions_left?: true
     is_active?: true
+    is_reminded?: true
     plan_name?: true
     plan_description?: true
     amount_paid?: true
@@ -9732,6 +9736,7 @@ export namespace Prisma {
     end_date?: true
     sessions_left?: true
     is_active?: true
+    is_reminded?: true
     plan_name?: true
     plan_description?: true
     amount_paid?: true
@@ -9747,6 +9752,7 @@ export namespace Prisma {
     end_date?: true
     sessions_left?: true
     is_active?: true
+    is_reminded?: true
     plan_name?: true
     plan_description?: true
     amount_paid?: true
@@ -9849,6 +9855,7 @@ export namespace Prisma {
     end_date: Date | null
     sessions_left: number | null
     is_active: boolean
+    is_reminded: boolean
     plan_name: string
     plan_description: string | null
     amount_paid: Decimal
@@ -9883,6 +9890,7 @@ export namespace Prisma {
     end_date?: boolean
     sessions_left?: boolean
     is_active?: boolean
+    is_reminded?: boolean
     plan_name?: boolean
     plan_description?: boolean
     amount_paid?: boolean
@@ -9900,6 +9908,7 @@ export namespace Prisma {
     end_date?: boolean
     sessions_left?: boolean
     is_active?: boolean
+    is_reminded?: boolean
     plan_name?: boolean
     plan_description?: boolean
     amount_paid?: boolean
@@ -9917,6 +9926,7 @@ export namespace Prisma {
     end_date?: boolean
     sessions_left?: boolean
     is_active?: boolean
+    is_reminded?: boolean
     plan_name?: boolean
     plan_description?: boolean
     amount_paid?: boolean
@@ -9934,6 +9944,7 @@ export namespace Prisma {
     end_date?: boolean
     sessions_left?: boolean
     is_active?: boolean
+    is_reminded?: boolean
     plan_name?: boolean
     plan_description?: boolean
     amount_paid?: boolean
@@ -9941,7 +9952,7 @@ export namespace Prisma {
     created_by?: boolean
   }
 
-  export type MembershipOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "member_id" | "gym_id" | "start_date" | "end_date" | "sessions_left" | "is_active" | "plan_name" | "plan_description" | "amount_paid" | "created_at" | "created_by", ExtArgs["result"]["membership"]>
+  export type MembershipOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "member_id" | "gym_id" | "start_date" | "end_date" | "sessions_left" | "is_active" | "is_reminded" | "plan_name" | "plan_description" | "amount_paid" | "created_at" | "created_by", ExtArgs["result"]["membership"]>
   export type MembershipInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     member?: boolean | MemberDefaultArgs<ExtArgs>
     gym?: boolean | GymDefaultArgs<ExtArgs>
@@ -9969,6 +9980,7 @@ export namespace Prisma {
       end_date: Date | null
       sessions_left: number | null
       is_active: boolean
+      is_reminded: boolean
       plan_name: string
       plan_description: string | null
       amount_paid: Prisma.Decimal
@@ -10406,6 +10418,7 @@ export namespace Prisma {
     readonly end_date: FieldRef<"Membership", 'DateTime'>
     readonly sessions_left: FieldRef<"Membership", 'Int'>
     readonly is_active: FieldRef<"Membership", 'Boolean'>
+    readonly is_reminded: FieldRef<"Membership", 'Boolean'>
     readonly plan_name: FieldRef<"Membership", 'String'>
     readonly plan_description: FieldRef<"Membership", 'String'>
     readonly amount_paid: FieldRef<"Membership", 'Decimal'>
@@ -13117,6 +13130,7 @@ export namespace Prisma {
     end_date: 'end_date',
     sessions_left: 'sessions_left',
     is_active: 'is_active',
+    is_reminded: 'is_reminded',
     plan_name: 'plan_name',
     plan_description: 'plan_description',
     amount_paid: 'amount_paid',
@@ -13721,6 +13735,7 @@ export namespace Prisma {
     end_date?: DateTimeNullableFilter<"Membership"> | Date | string | null
     sessions_left?: IntNullableFilter<"Membership"> | number | null
     is_active?: BoolFilter<"Membership"> | boolean
+    is_reminded?: BoolFilter<"Membership"> | boolean
     plan_name?: StringFilter<"Membership"> | string
     plan_description?: StringNullableFilter<"Membership"> | string | null
     amount_paid?: DecimalFilter<"Membership"> | Decimal | DecimalJsLike | number | string
@@ -13738,6 +13753,7 @@ export namespace Prisma {
     end_date?: SortOrderInput | SortOrder
     sessions_left?: SortOrderInput | SortOrder
     is_active?: SortOrder
+    is_reminded?: SortOrder
     plan_name?: SortOrder
     plan_description?: SortOrderInput | SortOrder
     amount_paid?: SortOrder
@@ -13758,6 +13774,7 @@ export namespace Prisma {
     end_date?: DateTimeNullableFilter<"Membership"> | Date | string | null
     sessions_left?: IntNullableFilter<"Membership"> | number | null
     is_active?: BoolFilter<"Membership"> | boolean
+    is_reminded?: BoolFilter<"Membership"> | boolean
     plan_name?: StringFilter<"Membership"> | string
     plan_description?: StringNullableFilter<"Membership"> | string | null
     amount_paid?: DecimalFilter<"Membership"> | Decimal | DecimalJsLike | number | string
@@ -13775,6 +13792,7 @@ export namespace Prisma {
     end_date?: SortOrderInput | SortOrder
     sessions_left?: SortOrderInput | SortOrder
     is_active?: SortOrder
+    is_reminded?: SortOrder
     plan_name?: SortOrder
     plan_description?: SortOrderInput | SortOrder
     amount_paid?: SortOrder
@@ -13798,6 +13816,7 @@ export namespace Prisma {
     end_date?: DateTimeNullableWithAggregatesFilter<"Membership"> | Date | string | null
     sessions_left?: IntNullableWithAggregatesFilter<"Membership"> | number | null
     is_active?: BoolWithAggregatesFilter<"Membership"> | boolean
+    is_reminded?: BoolWithAggregatesFilter<"Membership"> | boolean
     plan_name?: StringWithAggregatesFilter<"Membership"> | string
     plan_description?: StringNullableWithAggregatesFilter<"Membership"> | string | null
     amount_paid?: DecimalWithAggregatesFilter<"Membership"> | Decimal | DecimalJsLike | number | string
@@ -14396,6 +14415,7 @@ export namespace Prisma {
     end_date?: Date | string | null
     sessions_left?: number | null
     is_active?: boolean
+    is_reminded?: boolean
     plan_name: string
     plan_description?: string | null
     amount_paid: Decimal | DecimalJsLike | number | string
@@ -14413,6 +14433,7 @@ export namespace Prisma {
     end_date?: Date | string | null
     sessions_left?: number | null
     is_active?: boolean
+    is_reminded?: boolean
     plan_name: string
     plan_description?: string | null
     amount_paid: Decimal | DecimalJsLike | number | string
@@ -14426,6 +14447,7 @@ export namespace Prisma {
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessions_left?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
+    is_reminded?: BoolFieldUpdateOperationsInput | boolean
     plan_name?: StringFieldUpdateOperationsInput | string
     plan_description?: NullableStringFieldUpdateOperationsInput | string | null
     amount_paid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -14443,6 +14465,7 @@ export namespace Prisma {
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessions_left?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
+    is_reminded?: BoolFieldUpdateOperationsInput | boolean
     plan_name?: StringFieldUpdateOperationsInput | string
     plan_description?: NullableStringFieldUpdateOperationsInput | string | null
     amount_paid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -14458,6 +14481,7 @@ export namespace Prisma {
     end_date?: Date | string | null
     sessions_left?: number | null
     is_active?: boolean
+    is_reminded?: boolean
     plan_name: string
     plan_description?: string | null
     amount_paid: Decimal | DecimalJsLike | number | string
@@ -14471,6 +14495,7 @@ export namespace Prisma {
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessions_left?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
+    is_reminded?: BoolFieldUpdateOperationsInput | boolean
     plan_name?: StringFieldUpdateOperationsInput | string
     plan_description?: NullableStringFieldUpdateOperationsInput | string | null
     amount_paid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -14486,6 +14511,7 @@ export namespace Prisma {
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessions_left?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
+    is_reminded?: BoolFieldUpdateOperationsInput | boolean
     plan_name?: StringFieldUpdateOperationsInput | string
     plan_description?: NullableStringFieldUpdateOperationsInput | string | null
     amount_paid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -15161,6 +15187,7 @@ export namespace Prisma {
     end_date?: SortOrder
     sessions_left?: SortOrder
     is_active?: SortOrder
+    is_reminded?: SortOrder
     plan_name?: SortOrder
     plan_description?: SortOrder
     amount_paid?: SortOrder
@@ -15181,6 +15208,7 @@ export namespace Prisma {
     end_date?: SortOrder
     sessions_left?: SortOrder
     is_active?: SortOrder
+    is_reminded?: SortOrder
     plan_name?: SortOrder
     plan_description?: SortOrder
     amount_paid?: SortOrder
@@ -15196,6 +15224,7 @@ export namespace Prisma {
     end_date?: SortOrder
     sessions_left?: SortOrder
     is_active?: SortOrder
+    is_reminded?: SortOrder
     plan_name?: SortOrder
     plan_description?: SortOrder
     amount_paid?: SortOrder
@@ -16384,6 +16413,7 @@ export namespace Prisma {
     end_date?: Date | string | null
     sessions_left?: number | null
     is_active?: boolean
+    is_reminded?: boolean
     plan_name: string
     plan_description?: string | null
     amount_paid: Decimal | DecimalJsLike | number | string
@@ -16399,6 +16429,7 @@ export namespace Prisma {
     end_date?: Date | string | null
     sessions_left?: number | null
     is_active?: boolean
+    is_reminded?: boolean
     plan_name: string
     plan_description?: string | null
     amount_paid: Decimal | DecimalJsLike | number | string
@@ -16466,6 +16497,7 @@ export namespace Prisma {
     end_date?: DateTimeNullableFilter<"Membership"> | Date | string | null
     sessions_left?: IntNullableFilter<"Membership"> | number | null
     is_active?: BoolFilter<"Membership"> | boolean
+    is_reminded?: BoolFilter<"Membership"> | boolean
     plan_name?: StringFilter<"Membership"> | string
     plan_description?: StringNullableFilter<"Membership"> | string | null
     amount_paid?: DecimalFilter<"Membership"> | Decimal | DecimalJsLike | number | string
@@ -16634,6 +16666,7 @@ export namespace Prisma {
     end_date?: Date | string | null
     sessions_left?: number | null
     is_active?: boolean
+    is_reminded?: boolean
     plan_name: string
     plan_description?: string | null
     amount_paid: Decimal | DecimalJsLike | number | string
@@ -16649,6 +16682,7 @@ export namespace Prisma {
     end_date?: Date | string | null
     sessions_left?: number | null
     is_active?: boolean
+    is_reminded?: boolean
     plan_name: string
     plan_description?: string | null
     amount_paid: Decimal | DecimalJsLike | number | string
@@ -17184,6 +17218,7 @@ export namespace Prisma {
     end_date?: Date | string | null
     sessions_left?: number | null
     is_active?: boolean
+    is_reminded?: boolean
     plan_name: string
     plan_description?: string | null
     amount_paid: Decimal | DecimalJsLike | number | string
@@ -17204,6 +17239,7 @@ export namespace Prisma {
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessions_left?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
+    is_reminded?: BoolFieldUpdateOperationsInput | boolean
     plan_name?: StringFieldUpdateOperationsInput | string
     plan_description?: NullableStringFieldUpdateOperationsInput | string | null
     amount_paid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -17219,6 +17255,7 @@ export namespace Prisma {
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessions_left?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
+    is_reminded?: BoolFieldUpdateOperationsInput | boolean
     plan_name?: StringFieldUpdateOperationsInput | string
     plan_description?: NullableStringFieldUpdateOperationsInput | string | null
     amount_paid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -17233,6 +17270,7 @@ export namespace Prisma {
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessions_left?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
+    is_reminded?: BoolFieldUpdateOperationsInput | boolean
     plan_name?: StringFieldUpdateOperationsInput | string
     plan_description?: NullableStringFieldUpdateOperationsInput | string | null
     amount_paid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -17267,6 +17305,7 @@ export namespace Prisma {
     end_date?: Date | string | null
     sessions_left?: number | null
     is_active?: boolean
+    is_reminded?: boolean
     plan_name: string
     plan_description?: string | null
     amount_paid: Decimal | DecimalJsLike | number | string
@@ -17308,6 +17347,7 @@ export namespace Prisma {
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessions_left?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
+    is_reminded?: BoolFieldUpdateOperationsInput | boolean
     plan_name?: StringFieldUpdateOperationsInput | string
     plan_description?: NullableStringFieldUpdateOperationsInput | string | null
     amount_paid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -17323,6 +17363,7 @@ export namespace Prisma {
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessions_left?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
+    is_reminded?: BoolFieldUpdateOperationsInput | boolean
     plan_name?: StringFieldUpdateOperationsInput | string
     plan_description?: NullableStringFieldUpdateOperationsInput | string | null
     amount_paid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -17337,6 +17378,7 @@ export namespace Prisma {
     end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     sessions_left?: NullableIntFieldUpdateOperationsInput | number | null
     is_active?: BoolFieldUpdateOperationsInput | boolean
+    is_reminded?: BoolFieldUpdateOperationsInput | boolean
     plan_name?: StringFieldUpdateOperationsInput | string
     plan_description?: NullableStringFieldUpdateOperationsInput | string | null
     amount_paid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string

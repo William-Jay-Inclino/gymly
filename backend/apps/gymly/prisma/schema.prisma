@@ -126,6 +126,7 @@ model Membership {
   end_date    DateTime? @default(now()) @db.Timestamptz
   sessions_left Int? 
   is_active   Boolean   @default(true)
+  is_reminded   Boolean   @default(false)
   
   // plan details
   plan_name String

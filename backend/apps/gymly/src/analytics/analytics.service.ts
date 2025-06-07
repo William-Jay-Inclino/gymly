@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { eachDayOfInterval, endOfMonth } from 'date-fns';
+import { eachDayOfInterval, endOfDay, endOfMonth, startOfDay, startOfMonth } from 'date-fns';
 import { MonthlyAttendance } from './entities/monthly-attendance.entity';
 
 @Injectable()
@@ -90,6 +90,71 @@ export class AnalyticsService {
         });
 
         return days;
+    }
+
+    async getAllMemberships(params: { gym_id: string, year?: number, month?: number }) {
+        const { gym_id, year, month } = params;
+
+        let dateFilter = {};
+        if (year && month) {
+            const start = startOfMonth(new Date(year, month - 1));
+            const end = endOfMonth(start);
+            dateFilter = {
+                start_date: {
+                    gte: start,
+                    lte: end,
+                },
+            };
+        }
+
+        return this.prisma.membership.findMany({
+            where: {
+                gym_id,
+                ...dateFilter,
+            },
+            include: {
+                member: {
+                    select: {
+                        id: true,
+                        firstname: true,
+                        lastname: true,
+                    },
+                },
+            },
+            orderBy: [
+                { start_date: 'desc' }
+            ],
+        });
+    }
+
+    async getMembershipsByDay(params: { gym_id: string, date: string }) {
+        const { gym_id, date } = params;
+        // date should be in 'YYYY-MM-DD' format
+        const day = new Date(date);
+        const start = startOfDay(day);
+        const end = endOfDay(day);
+
+        return this.prisma.membership.findMany({
+            where: {
+                gym_id,
+                start_date: {
+                    gte: start,
+                    lte: end,
+                },
+            },
+            include: {
+                member: {
+                    select: {
+                        id: true,
+                        firstname: true,
+                        lastname: true,
+                    },
+                },
+            },
+            orderBy: [
+                { start_date: 'desc' }
+            ],
+        });
     }
     
 }

@@ -1,3 +1,4 @@
+import { differenceInCalendarDays, isBefore } from "date-fns";
 import { format, toZonedTime } from "date-fns-tz";
 
 export function getDateRange(dateString: string): { startDate: string, endDate: string } {
@@ -49,11 +50,24 @@ export const computeNumberOfDays = (start_date: Date, end_date?: Date | null): n
         return 0;
     }
 
-    // Calculate the difference in milliseconds
-    const diffInMs = end_date.getTime() - start_date.getTime();
+    if (isBefore(end_date, start_date)) {
+        return 0;
+    }
 
-    // Convert milliseconds to days
-    const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
-
-    return diffInDays;
+    return differenceInCalendarDays(end_date, start_date);
 }
+
+
+export const computeNumberOfDaysLeft = (start_date: Date, end_date?: Date | null): number => {
+    if (!end_date) {
+        return 0;
+    }
+
+    // If end_date is before start_date, return 0
+    if (isBefore(end_date, start_date)) {
+        return 0;
+    }
+
+    // Use date-fns to compute the difference in days from start_date to end_date
+    return differenceInCalendarDays(end_date, start_date);
+};
