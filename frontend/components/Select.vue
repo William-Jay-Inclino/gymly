@@ -128,9 +128,12 @@ watch(
     { immediate: true }
 )
 
-watch(search, () => {
-    open.value = true
-    highlighted.value = filteredOptions.value.length > 0 ? 0 : -1
+watch(search, (val, oldVal) => {
+    // Only open dropdown if user is typing (not when cleared programmatically)
+    if (document.activeElement === root.value?.querySelector('input')) {
+        open.value = true
+        highlighted.value = filteredOptions.value.length > 0 ? 0 : -1
+    }
 })
 </script>
 

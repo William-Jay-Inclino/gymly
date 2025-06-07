@@ -30,7 +30,7 @@
 	import {
 		Home,
 		Users,
-		Key,
+		Settings,
         Clock,
         LogOut,
         DollarSign
@@ -41,7 +41,7 @@
         { label: 'Member Management', icon: Users, route: '/memberships' },
         { label: 'Log Attendance', icon: Clock, route: '/attendance' },
         { label: 'Subscription Plans', icon: DollarSign, route: '/plans' },
-        { label: 'Change Password', icon: Key, route: '/change-password' }
+        { label: 'Settings', icon: Settings, route: '/settings' }
     ]
 
 	const route = useRoute()

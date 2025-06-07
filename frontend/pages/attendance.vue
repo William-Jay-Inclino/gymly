@@ -10,7 +10,7 @@
                     <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
                         <Clock class="w-5 h-5 text-primary" /> Log Member Attendance
                     </h2>
-                    <form class="flex flex-col gap-6">
+                    <div class="flex flex-col gap-6">
                         <label class="block">
                             <span class="text-base-content/80 font-medium">
                                 Select Member
@@ -23,8 +23,10 @@
                         </label>
                         <div v-if="!!selectedMemberId" class="mt-3">
                             <SelectMembership
+                                :is_loading="isLoadingMemberships"
                                 v-model="selectedMembershipIds"
                                 :memberships="memberships"
+                                @add-membership="handleAddMembershipClick"
                             />
                         </div>
                         <button
@@ -36,7 +38,7 @@
                             <span v-if="isLoggingAttendance" class="loading loading-spinner loading-xs mr-2"></span>
                             Log Attendance
                         </button>
-                    </form>
+                    </div>
                 </div>
     
                 <!-- Checked-in Members Today -->
@@ -66,11 +68,19 @@
                 </div>
             </div>
         </template>
+
+        <AddPlanModal
+            :show="showAddPlanModal"
+            :member="members.find(m => m.id === selectedMemberId)"
+            :is_adding="isAddingPlan"
+            @close="showAddPlanModal = false"
+            @submit="add_membership"
+        />
+
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue"
 import { Clock, Users } from "lucide-vue-next"
 import Select from "~/components/Select.vue"
 import SelectMembership from "~/components/SelectMembership.vue"
@@ -79,19 +89,24 @@ import { showToastSuccess, showToastError } from "~/utils/toast"
 import type { Member } from "~/core/member/member.types"
 import type { MemberTimeLog } from "~/core/member-time-logs/member-time-logs.types"
 import type { Membership } from "~/core/membership/membership.types"
-import { get_memberships } from "~/core/membership/membership.api"
+import * as membershipApi from "~/core/membership/membership.api"
 import { useGlobalStore } from '~/core/global.store'
-import { useDashboardStore } from "~/core/dashboard/dashboard.store"
+import { usePlanStore } from '~/core/plan/plan.store'
 
 definePageMeta({
     layout: "base-layout",
 })
 
 const { gym_id } = useGlobalStore()
-const store = useDashboardStore()
+const planStore = usePlanStore()
 
 const isLoadingPage = ref(true)
 const isLoggingAttendance = ref(false)
+const isAddingPlan = ref(false)
+const isLoadingMemberships = ref(false)
+
+const showAddPlanModal = ref(false)
+const addPlanMember = ref<Member | undefined>(undefined)
 
 const members = ref<Member[]>([])
 const checkedInToday = ref<MemberTimeLog[]>([])
@@ -104,6 +119,7 @@ onMounted(async () => {
     const today = new Date().toISOString().slice(0, 10)
     const response = await api.init({ gym_id, date: today })
     members.value = response.members
+    planStore.set_plans(response.plans)
     checkedInToday.value = response.check_ins
 })
 
@@ -111,8 +127,7 @@ onMounted(async () => {
 watch(selectedMemberId, async (member_id: string) => {
     selectedMembershipIds.value = []
     if (member_id) {
-        const response = await get_memberships({ member_id, only_active: true })
-        memberships.value = response.memberships
+        await get_memberships(member_id)
     } else {
         memberships.value = []
     }
@@ -156,6 +171,42 @@ async function handleCheckIn() {
     } finally {
         isLoggingAttendance.value = false
     }
+}
+
+
+function handleAddMembershipClick() {
+    // Optionally, you can set addPlanMember to the selected member if needed
+    showAddPlanModal.value = true
+}
+
+async function add_membership(input: {
+    member_id: string;
+    gym_id: string;
+    plans: { plan_id: string; start_date: string; sessions_left?: number }[];
+}) {
+    isAddingPlan.value = true;
+    const response = await membershipApi.add_membership({
+        plans: input.plans,
+        member_id: input.member_id,
+        gym_id,
+    });
+    isAddingPlan.value = false;
+
+    if(response.success) {
+        showAddPlanModal.value = false
+        showToastSuccess('Membership plan added successfully!')
+        await get_memberships(input.member_id)
+    } else {
+        showToastError('Failed to add membership plan. Please try again.')
+    }
+}
+
+
+async function get_memberships(member_id: string) {
+    isLoadingMemberships.value = true
+    const response = await membershipApi.get_memberships({ member_id: member_id, only_active: true })
+    memberships.value = response.memberships
+    isLoadingMemberships.value = false
 }
 
 

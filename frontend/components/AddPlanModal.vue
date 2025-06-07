@@ -30,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import type { Member } from '~/core/member/member.types'
 import PlanList from '~/components/PlanList.vue'
 
@@ -50,7 +50,12 @@ const canSubmit = computed(() =>
     selectedPlans.value.every(p => !!p.start_date && (p.sessions_left === undefined || p.sessions_left > 0))
 )
 
+function resetForm() {
+    selectedPlans.value = []
+}
+
 function close() {
+    resetForm()
     emit('close')
 }
 
@@ -60,7 +65,13 @@ function submit() {
         plans: JSON.parse(JSON.stringify(selectedPlans.value)),
         member_id: props.member?.id,
     })
+    resetForm()
 }
+
+// Also reset when modal is hidden by parent (e.g. pressing ESC or clicking outside)
+watch(() => props.show, (val) => {
+    if (!val) resetForm()
+})
 </script>
 
 <style scoped>

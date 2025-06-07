@@ -1,4 +1,5 @@
 import type { Member } from "../member/member.types";
+import type { Plan } from "../plan/plan.types";
 import type { MemberTimeLog } from "./member-time-logs.types";
 
 export async function log_time(input: {
@@ -48,7 +49,8 @@ export async function log_time(input: {
 
 export async function init(payload: { gym_id?: string, date?: string, member_id?: string }): Promise<{
     check_ins: MemberTimeLog[],
-    members: Member[]
+    members: Member[],
+    plans: Plan[],
 }> {
     const { gym_id, date, member_id } = payload;
 
@@ -72,6 +74,16 @@ export async function init(payload: { gym_id?: string, date?: string, member_id?
                 firstname
                 lastname
             }
+            plans {
+                id
+                name
+                description
+                price
+                num_of_days 
+                num_of_sessions
+                created_at
+                created_by
+            }
         }
     `;
 
@@ -80,6 +92,7 @@ export async function init(payload: { gym_id?: string, date?: string, member_id?
         return {
             check_ins: deepClone(response.data.data.member_time_logs),
             members: deepClone(response.data.data.members),
+            plans: deepClone(response.data.data.plans),
         }
     } catch (error) {
         console.error(error);

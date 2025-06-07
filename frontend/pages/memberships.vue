@@ -84,10 +84,11 @@
                         </table>
                     </div>
                 </div>
-                <div class="mt-2">
-                    <span class="text-xs text-error">
-                        Maximum of 100 members. Contact system admin if you want to increase your limit.
-                    </span>
+                <div class="text-xs text-base-content/60 mt-6 mb-2">
+                         <span class="font-semibold">Total Members:</span> <span class="font-semibold text-error">{{ members?.length || 0 }} </span>
+                </div>
+                <div class="text-xs text-base-content/60">
+                        Maximum of <span class="font-semibold text-error">100 members</span>. Contact system admin if you want to increase your limit.
                 </div>
                 <AddMemberModal
                     :show="showAddModal"
@@ -96,12 +97,12 @@
                     :is_adding="isAddingMember"
                 />
                 <AddPlanModal
-                    :show="showAddPlanModal"
                     v-if="showAddPlanModal"
+                    :show="showAddPlanModal"
                     :member="selectedMember"
+                    :is_adding="isAddingPlan"
                     @close="showAddPlanModal = false"
                     @submit="add_membership"
-                    :is_adding="isAddingPlan"
                 />
                 <MembershipHistoryModal
                     :show="showPlanListModal"
