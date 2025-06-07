@@ -83,6 +83,7 @@
                     </div>
                 </div>
                 <AddMemberModal
+                    :show="showAddModal"
                     v-if="showAddModal"
                     :set_default_plan="true"
                     @close="showAddModal = false"
@@ -90,6 +91,7 @@
                     :is_adding="isAddingMember"
                 />
                 <AddPlanModal
+                    :show="showAddPlanModal"
                     v-if="showAddPlanModal"
                     :member="selectedMember"
                     @close="showAddPlanModal = false"
@@ -97,12 +99,14 @@
                     :is_adding="isAddingPlan"
                 />
                 <MembershipHistoryModal
+                    :show="showPlanListModal"
                     v-if="showPlanListModal"
                     :member="selectedMember"
                     @close="showPlanListModal = false"
                     :is_loading="isLoadingMemberships"
                 />
                 <AttendanceModal
+                    :show="showAttendanceModal"
                     v-if="showAttendanceModal"
                     :member="selectedMember"
                     @close="showAttendanceModal = false"

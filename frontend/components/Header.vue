@@ -1,17 +1,23 @@
 <template>
-    <header class="w-full bg-gradient-to-r from-primary to-secondary shadow-md py-6 px-4 flex flex-col items-center">
-        <div class="flex items-center gap-3 mb-2">
-            <h1 class="text-3xl md:text-4xl font-semibold font-sans text-white tracking-tight drop-shadow-lg" style="font-family: 'Inter', 'Segoe UI', Arial, sans-serif;">
-                Gimple
-            </h1>
-            <Dumbbell class="w-10 h-10 text-white drop-shadow-lg" />
+    <header class="w-full border-b border-blue-400" style="background-color: #3b82f6;">
+        <div class="flex flex-col items-center py-8 px-4 max-w-3xl mx-auto">
+            <div class="flex items-center mb-3">
+                <h1 class="text-4xl md:text-5xl font-bold font-sans tracking-tight text-white"
+                    style="font-family: 'Inter', 'Segoe UI', Arial, sans-serif;">
+                    Luffy
+                </h1>
+                <span class="inline-flex items-center justify-center p-3">
+                    <Activity class="w-8 h-8 text-white" style="stroke-width: 1.5;" />
+                </span>
+            </div>
+            <p class="text-sm sm:text-base md:text-lg font-normal text-white text-center sm:whitespace-nowrap italic"
+               style="font-family: 'Source Sans Pro', 'Segoe UI', system-ui, sans-serif; line-height: 1.6;">
+                "A simple app for gym owners to manage members, track attendance, and view analytics"
+            </p>
         </div>
-        <p class="text-base md:text-lg text-white/90 font-medium text-center max-w-xl font-sans flex items-center justify-center" style="font-family: 'Inter', 'Segoe UI', Arial, sans-serif;">
-            A simple app for gym owners to manage memberships, view analytics, and log attendance with ease.
-        </p>
     </header>
 </template>
 
 <script setup>
-import { Dumbbell } from 'lucide-vue-next'
+import { Activity } from 'lucide-vue-next'
 </script>
