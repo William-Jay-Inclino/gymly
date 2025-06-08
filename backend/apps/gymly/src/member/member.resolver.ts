@@ -3,7 +3,9 @@ import { MemberService } from './member.service';
 import { CreateMemberInput } from './dto/create-member.input';
 import { Member } from './entities/member.entity';
 import { MutationMemberResponse } from './entities/member.response.entity';
-
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
+@UseGuards(GqlAuthGuard)
 @Resolver(() => Member)
 export class MemberResolver {
     constructor(private readonly memberService: MemberService) {}

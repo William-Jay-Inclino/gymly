@@ -26,24 +26,26 @@
 </template>
 
 <script lang="ts" setup>
-	import { useRoute } from 'vue-router'
-	import {
-		Home,
-		Users,
-		Settings,
-        Clock,
-        LogOut,
-        DollarSign
-	} from 'lucide-vue-next'
+import { useRoute } from 'vue-router'
+import {
+    Home,
+    Users,
+    Settings,
+    Clock,
+    LogOut,
+    DollarSign,
+    List 
+} from 'lucide-vue-next'
 
-    const menuItems = [
-        { label: 'Dashboard', icon: Home, route: '/dashboard' },
-        { label: 'Member Management', icon: Users, route: '/memberships' },
-        { label: 'Log Attendance', icon: Clock, route: '/attendance' },
-        { label: 'Subscription Plans', icon: DollarSign, route: '/plans' },
-        { label: 'Settings', icon: Settings, route: '/settings' }
-    ]
+const menuItems = [
+    { label: 'Dashboard', icon: Home, route: '/dashboard' },
+    { label: 'Log Attendance', icon: Clock, route: '/attendance' },
+    { label: 'Member Management', icon: Users, route: '/memberships' },
+    { label: 'Subscription Plans', icon: DollarSign, route: '/plans' },
+    { label: 'System Logs', icon: List, route: '/system-logs' }, // <-- Added
+    { label: 'Settings', icon: Settings, route: '/settings' }
+]
 
-	const route = useRoute()
-	const isActive = (menuRoute: string) => route.path === menuRoute
+const route = useRoute()
+const isActive = (menuRoute: string) => route.path === menuRoute
 </script>

@@ -1,12 +1,22 @@
-import { Controller, Get } from '@nestjs/common';
-import { GymlyService } from './gymly.service';
+import { Controller, Get, Post, UseGuards, Request } from '@nestjs/common';
+import { LocalAuthGuard } from './auth/guards/local-auth.guard';
+import { AuthService } from './auth/auth.service';
 
 @Controller()
 export class GymlyController {
-  constructor(private readonly gymlyService: GymlyService) {}
+  constructor(
+    private readonly authService: AuthService,
+) {}
 
-  @Get()
-  getHello(): string {
-    return this.gymlyService.getHello();
-  }
+    @Get('health-check')
+    getHello(): string {
+      return 'Gymly API is running';
+    }
+
+    @UseGuards(LocalAuthGuard)
+    @Post('auth/login')
+    async login(@Request() req) {
+        return this.authService.login(req.user);
+    }
+
 }

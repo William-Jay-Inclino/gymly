@@ -5,7 +5,10 @@ import { Revenue } from './entities/revenue.entity';
 import { MembershipCount } from './entities/membership-count.entity';
 import { MonthlyAttendance } from './entities/monthly-attendance.entity';
 import { Membership } from '../membership/entities/membership.entity';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 
+@UseGuards(GqlAuthGuard)
 @Resolver()
 export class AnalyticsResolver {
     constructor(private readonly analyticsService: AnalyticsService) {}

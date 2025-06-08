@@ -3,7 +3,10 @@ import { MemberTimeLogsService } from './member-time-logs.service';
 import { CreateMemberTimeLogsInput } from './dto/create-member-time-logs.input';
 import { MemberTimeLog } from './entities/member-time-log.entity';
 import { MutationMemberTimeLogResponse } from './entities/member-time-log.response.entity';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 
+@UseGuards(GqlAuthGuard)
 @Resolver(() => MemberTimeLog)
 export class MemberTimeLogsResolver {
     constructor(private readonly memberTimeLogsService: MemberTimeLogsService) {}

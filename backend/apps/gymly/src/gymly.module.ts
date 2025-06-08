@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { GymlyController } from './gymly.controller';
-import { GymlyService } from './gymly.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { SeederModule } from './seeder/seeder.module';
@@ -13,6 +12,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { PlanModule } from './plan/plan.module';
 import { MemberTimeLogsModule } from './member-time-logs/member-time-logs.module';
 import { AnalyticsModule } from './analytics/analytics.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
 	imports: [
@@ -33,8 +33,8 @@ import { AnalyticsModule } from './analytics/analytics.module';
 		PlanModule,
 		MemberTimeLogsModule,
 		AnalyticsModule,
+		AuthModule,
 	],
 	controllers: [GymlyController],
-	providers: [GymlyService],
 })
 export class GymlyModule {}
