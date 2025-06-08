@@ -6,8 +6,10 @@ const owner_id = 'df30a8c0-9733-4bba-9b0d-1815bc88a550'
 export const users: User[] = [
     {
         id: faker.string.uuid(),
-        username: 'admin',
-        password_hash: 'admin123',
+        username: 'wj.inclino',
+        firstname: 'William Jay',
+        lastname: 'Inclino',
+        password: 'wj.inclino123',
         role: Role.ADMIN,
         contact_number: '09106024370',
         is_active: true,
@@ -16,8 +18,10 @@ export const users: User[] = [
     },
     {
         id: owner_id,
-        username: 'jay',
-        password_hash: 'jay123',
+        username: 'j.tayag',
+        firstname: 'Joshua',
+        lastname: 'Tayag',
+        password: 'j.tayag123',
         role: Role.GYM_OWNER,
         contact_number: '09106024370',
         is_active: true,
@@ -26,8 +30,10 @@ export const users: User[] = [
     },
     {
         id: faker.string.uuid(),
-        username: 'hannah',
-        password_hash: 'hannah123',
+        username: 'hg.tudio',
+        firstname: 'Hannah Grace',
+        lastname: 'Tudio',
+        password: 'hg.tudio',
         role: Role.GYM_STAFF,
         contact_number: '09106024370',
         is_active: true,

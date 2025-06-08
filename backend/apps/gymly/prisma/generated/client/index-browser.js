@@ -162,7 +162,9 @@ exports.Prisma.MembershipCountScalarFieldEnum = {
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   username: 'username',
-  password_hash: 'password_hash',
+  firstname: 'firstname',
+  lastname: 'lastname',
+  password: 'password',
   role: 'role',
   contact_number: 'contact_number',
   is_active: 'is_active',

@@ -1,0 +1,7 @@
+export enum LIMIT {
+    MEMBER_LIMIT = 1,
+    PLAN_LIMIT = 2,
+    STAFF_LIMIT = 3,
+    SYSTEM_LOGS_LIMIT = 4,
+    MEMBERSHIP_PER_MEMBER_LIMIT = 5,
+}

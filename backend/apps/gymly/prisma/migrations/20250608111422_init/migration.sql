@@ -59,7 +59,9 @@ CREATE TABLE "membership_counts" (
 CREATE TABLE "users" (
     "id" TEXT NOT NULL,
     "username" TEXT,
-    "password_hash" TEXT NOT NULL,
+    "firstname" TEXT NOT NULL,
+    "lastname" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
     "role" "Role" NOT NULL DEFAULT 'GYM_OWNER',
     "contact_number" TEXT,
     "is_active" BOOLEAN NOT NULL DEFAULT true,
@@ -95,7 +97,7 @@ CREATE TABLE "gyms" (
 
 -- CreateTable
 CREATE TABLE "gym_staffs" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
     "user_id" TEXT NOT NULL,
     "gym_id" TEXT NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
