@@ -1,9 +1,10 @@
 import type { GymStats } from "../gym-stats/gym-stats.entity"
-import type { GymUser } from "../gym-user/gym-user.entity"
 import type { Membership } from "../membership/membership.types"
+import type { User } from "../user/user.types"
 
 export interface Gym {
     id: string
+    owner_id: string
     name: string
     location: string
     created_at: string
@@ -12,6 +13,6 @@ export interface Gym {
     //relations 
 
     memberships: Membership[]
-    gym_users: GymUser[]
+    owner: User[]
     gym_stats: GymStats
 }

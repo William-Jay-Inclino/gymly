@@ -17,15 +17,11 @@ export class UserService {
             where: { id: user_id },
             select: {
                 username: true,
-                gym_users: {
+                gyms: {
                     select: {
-                        gym: {
-                            select: {
-                                id: true,
-                                name: true,
-                            }
-                        },
-                    },
+                        id: true,
+                        name: true,
+                    }
                 }
             }
         });

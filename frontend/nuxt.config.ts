@@ -7,6 +7,8 @@ export default defineNuxtConfig({
           graphqlApiUrl: process.env.GRAPHQL_API_URL,
           appVersion: process.env.APP_VERSION,
           TZ: process.env.TZ,
+          accessTokenKeyName: process.env.ACCESS_TOKEN_KEY_NAME,
+          accessTokenKey: process.env.SECRET_KEY_ACCESS_TOKEN,
       }
   },
 

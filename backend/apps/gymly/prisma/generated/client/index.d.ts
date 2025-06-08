@@ -39,11 +39,6 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  */
 export type Member = $Result.DefaultSelection<Prisma.$MemberPayload>
 /**
- * Model GymUser
- * 
- */
-export type GymUser = $Result.DefaultSelection<Prisma.$GymUserPayload>
-/**
  * Model Gym
  * 
  */
@@ -256,16 +251,6 @@ export class PrismaClient<
     * ```
     */
   get member(): Prisma.MemberDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.gymUser`: Exposes CRUD operations for the **GymUser** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more GymUsers
-    * const gymUsers = await prisma.gymUser.findMany()
-    * ```
-    */
-  get gymUser(): Prisma.GymUserDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.gym`: Exposes CRUD operations for the **Gym** model.
@@ -751,7 +736,6 @@ export namespace Prisma {
     MembershipCount: 'MembershipCount',
     User: 'User',
     Member: 'Member',
-    GymUser: 'GymUser',
     Gym: 'Gym',
     Membership: 'Membership',
     Plan: 'Plan',
@@ -774,7 +758,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "gymStats" | "revenue" | "membershipCount" | "user" | "member" | "gymUser" | "gym" | "membership" | "plan" | "memberTimeLogs"
+      modelProps: "gymStats" | "revenue" | "membershipCount" | "user" | "member" | "gym" | "membership" | "plan" | "memberTimeLogs"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1145,80 +1129,6 @@ export namespace Prisma {
           count: {
             args: Prisma.MemberCountArgs<ExtArgs>
             result: $Utils.Optional<MemberCountAggregateOutputType> | number
-          }
-        }
-      }
-      GymUser: {
-        payload: Prisma.$GymUserPayload<ExtArgs>
-        fields: Prisma.GymUserFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.GymUserFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$GymUserPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.GymUserFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$GymUserPayload>
-          }
-          findFirst: {
-            args: Prisma.GymUserFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$GymUserPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.GymUserFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$GymUserPayload>
-          }
-          findMany: {
-            args: Prisma.GymUserFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$GymUserPayload>[]
-          }
-          create: {
-            args: Prisma.GymUserCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$GymUserPayload>
-          }
-          createMany: {
-            args: Prisma.GymUserCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.GymUserCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$GymUserPayload>[]
-          }
-          delete: {
-            args: Prisma.GymUserDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$GymUserPayload>
-          }
-          update: {
-            args: Prisma.GymUserUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$GymUserPayload>
-          }
-          deleteMany: {
-            args: Prisma.GymUserDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.GymUserUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.GymUserUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$GymUserPayload>[]
-          }
-          upsert: {
-            args: Prisma.GymUserUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$GymUserPayload>
-          }
-          aggregate: {
-            args: Prisma.GymUserAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateGymUser>
-          }
-          groupBy: {
-            args: Prisma.GymUserGroupByArgs<ExtArgs>
-            result: $Utils.Optional<GymUserGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.GymUserCountArgs<ExtArgs>
-            result: $Utils.Optional<GymUserCountAggregateOutputType> | number
           }
         }
       }
@@ -1607,7 +1517,6 @@ export namespace Prisma {
     membershipCount?: MembershipCountOmit
     user?: UserOmit
     member?: MemberOmit
-    gymUser?: GymUserOmit
     gym?: GymOmit
     membership?: MembershipOmit
     plan?: PlanOmit
@@ -1706,11 +1615,11 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    gym_users: number
+    gyms: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    gym_users?: boolean | UserCountOutputTypeCountGym_usersArgs
+    gyms?: boolean | UserCountOutputTypeCountGymsArgs
   }
 
   // Custom InputTypes
@@ -1727,8 +1636,8 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountGym_usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: GymUserWhereInput
+  export type UserCountOutputTypeCountGymsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GymWhereInput
   }
 
 
@@ -1779,7 +1688,6 @@ export namespace Prisma {
   export type GymCountOutputType = {
     memberships: number
     member_time_logs: number
-    gym_users: number
     revenues: number
     membership_counts: number
   }
@@ -1787,7 +1695,6 @@ export namespace Prisma {
   export type GymCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     memberships?: boolean | GymCountOutputTypeCountMembershipsArgs
     member_time_logs?: boolean | GymCountOutputTypeCountMember_time_logsArgs
-    gym_users?: boolean | GymCountOutputTypeCountGym_usersArgs
     revenues?: boolean | GymCountOutputTypeCountRevenuesArgs
     membership_counts?: boolean | GymCountOutputTypeCountMembership_countsArgs
   }
@@ -1815,13 +1722,6 @@ export namespace Prisma {
    */
   export type GymCountOutputTypeCountMember_time_logsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MemberTimeLogsWhereInput
-  }
-
-  /**
-   * GymCountOutputType without action
-   */
-  export type GymCountOutputTypeCountGym_usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: GymUserWhereInput
   }
 
   /**
@@ -5353,7 +5253,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: boolean
     created_by?: boolean
-    gym_users?: boolean | User$gym_usersArgs<ExtArgs>
+    gyms?: boolean | User$gymsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -5392,7 +5292,7 @@ export namespace Prisma {
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "password_hash" | "role" | "contact_number" | "is_active" | "created_at" | "created_by", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    gym_users?: boolean | User$gym_usersArgs<ExtArgs>
+    gyms?: boolean | User$gymsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -5401,7 +5301,7 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      gym_users: Prisma.$GymUserPayload<ExtArgs>[]
+      gyms: Prisma.$GymPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5806,7 +5706,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    gym_users<T extends User$gym_usersArgs<ExtArgs> = {}>(args?: Subset<T, User$gym_usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GymUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    gyms<T extends User$gymsArgs<ExtArgs> = {}>(args?: Subset<T, User$gymsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GymPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6232,27 +6132,27 @@ export namespace Prisma {
   }
 
   /**
-   * User.gym_users
+   * User.gyms
    */
-  export type User$gym_usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$gymsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the GymUser
+     * Select specific fields to fetch from the Gym
      */
-    select?: GymUserSelect<ExtArgs> | null
+    select?: GymSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the GymUser
+     * Omit specific fields from the Gym
      */
-    omit?: GymUserOmit<ExtArgs> | null
+    omit?: GymOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: GymUserInclude<ExtArgs> | null
-    where?: GymUserWhereInput
-    orderBy?: GymUserOrderByWithRelationInput | GymUserOrderByWithRelationInput[]
-    cursor?: GymUserWhereUniqueInput
+    include?: GymInclude<ExtArgs> | null
+    where?: GymWhereInput
+    orderBy?: GymOrderByWithRelationInput | GymOrderByWithRelationInput[]
+    cursor?: GymWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: GymUserScalarFieldEnum | GymUserScalarFieldEnum[]
+    distinct?: GymScalarFieldEnum | GymScalarFieldEnum[]
   }
 
   /**
@@ -7386,1046 +7286,6 @@ export namespace Prisma {
 
 
   /**
-   * Model GymUser
-   */
-
-  export type AggregateGymUser = {
-    _count: GymUserCountAggregateOutputType | null
-    _min: GymUserMinAggregateOutputType | null
-    _max: GymUserMaxAggregateOutputType | null
-  }
-
-  export type GymUserMinAggregateOutputType = {
-    id: string | null
-    user_id: string | null
-    gym_id: string | null
-  }
-
-  export type GymUserMaxAggregateOutputType = {
-    id: string | null
-    user_id: string | null
-    gym_id: string | null
-  }
-
-  export type GymUserCountAggregateOutputType = {
-    id: number
-    user_id: number
-    gym_id: number
-    _all: number
-  }
-
-
-  export type GymUserMinAggregateInputType = {
-    id?: true
-    user_id?: true
-    gym_id?: true
-  }
-
-  export type GymUserMaxAggregateInputType = {
-    id?: true
-    user_id?: true
-    gym_id?: true
-  }
-
-  export type GymUserCountAggregateInputType = {
-    id?: true
-    user_id?: true
-    gym_id?: true
-    _all?: true
-  }
-
-  export type GymUserAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which GymUser to aggregate.
-     */
-    where?: GymUserWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of GymUsers to fetch.
-     */
-    orderBy?: GymUserOrderByWithRelationInput | GymUserOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: GymUserWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` GymUsers from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` GymUsers.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned GymUsers
-    **/
-    _count?: true | GymUserCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: GymUserMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: GymUserMaxAggregateInputType
-  }
-
-  export type GetGymUserAggregateType<T extends GymUserAggregateArgs> = {
-        [P in keyof T & keyof AggregateGymUser]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateGymUser[P]>
-      : GetScalarType<T[P], AggregateGymUser[P]>
-  }
-
-
-
-
-  export type GymUserGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: GymUserWhereInput
-    orderBy?: GymUserOrderByWithAggregationInput | GymUserOrderByWithAggregationInput[]
-    by: GymUserScalarFieldEnum[] | GymUserScalarFieldEnum
-    having?: GymUserScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: GymUserCountAggregateInputType | true
-    _min?: GymUserMinAggregateInputType
-    _max?: GymUserMaxAggregateInputType
-  }
-
-  export type GymUserGroupByOutputType = {
-    id: string
-    user_id: string
-    gym_id: string
-    _count: GymUserCountAggregateOutputType | null
-    _min: GymUserMinAggregateOutputType | null
-    _max: GymUserMaxAggregateOutputType | null
-  }
-
-  type GetGymUserGroupByPayload<T extends GymUserGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<GymUserGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof GymUserGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], GymUserGroupByOutputType[P]>
-            : GetScalarType<T[P], GymUserGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type GymUserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    user_id?: boolean
-    gym_id?: boolean
-    gym?: boolean | GymDefaultArgs<ExtArgs>
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["gymUser"]>
-
-  export type GymUserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    user_id?: boolean
-    gym_id?: boolean
-    gym?: boolean | GymDefaultArgs<ExtArgs>
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["gymUser"]>
-
-  export type GymUserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    user_id?: boolean
-    gym_id?: boolean
-    gym?: boolean | GymDefaultArgs<ExtArgs>
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["gymUser"]>
-
-  export type GymUserSelectScalar = {
-    id?: boolean
-    user_id?: boolean
-    gym_id?: boolean
-  }
-
-  export type GymUserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "gym_id", ExtArgs["result"]["gymUser"]>
-  export type GymUserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    gym?: boolean | GymDefaultArgs<ExtArgs>
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type GymUserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    gym?: boolean | GymDefaultArgs<ExtArgs>
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type GymUserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    gym?: boolean | GymDefaultArgs<ExtArgs>
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-
-  export type $GymUserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "GymUser"
-    objects: {
-      gym: Prisma.$GymPayload<ExtArgs>
-      user: Prisma.$UserPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      user_id: string
-      gym_id: string
-    }, ExtArgs["result"]["gymUser"]>
-    composites: {}
-  }
-
-  type GymUserGetPayload<S extends boolean | null | undefined | GymUserDefaultArgs> = $Result.GetResult<Prisma.$GymUserPayload, S>
-
-  type GymUserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<GymUserFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: GymUserCountAggregateInputType | true
-    }
-
-  export interface GymUserDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GymUser'], meta: { name: 'GymUser' } }
-    /**
-     * Find zero or one GymUser that matches the filter.
-     * @param {GymUserFindUniqueArgs} args - Arguments to find a GymUser
-     * @example
-     * // Get one GymUser
-     * const gymUser = await prisma.gymUser.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends GymUserFindUniqueArgs>(args: SelectSubset<T, GymUserFindUniqueArgs<ExtArgs>>): Prisma__GymUserClient<$Result.GetResult<Prisma.$GymUserPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one GymUser that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {GymUserFindUniqueOrThrowArgs} args - Arguments to find a GymUser
-     * @example
-     * // Get one GymUser
-     * const gymUser = await prisma.gymUser.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends GymUserFindUniqueOrThrowArgs>(args: SelectSubset<T, GymUserFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GymUserClient<$Result.GetResult<Prisma.$GymUserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first GymUser that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {GymUserFindFirstArgs} args - Arguments to find a GymUser
-     * @example
-     * // Get one GymUser
-     * const gymUser = await prisma.gymUser.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends GymUserFindFirstArgs>(args?: SelectSubset<T, GymUserFindFirstArgs<ExtArgs>>): Prisma__GymUserClient<$Result.GetResult<Prisma.$GymUserPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first GymUser that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {GymUserFindFirstOrThrowArgs} args - Arguments to find a GymUser
-     * @example
-     * // Get one GymUser
-     * const gymUser = await prisma.gymUser.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends GymUserFindFirstOrThrowArgs>(args?: SelectSubset<T, GymUserFindFirstOrThrowArgs<ExtArgs>>): Prisma__GymUserClient<$Result.GetResult<Prisma.$GymUserPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more GymUsers that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {GymUserFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all GymUsers
-     * const gymUsers = await prisma.gymUser.findMany()
-     * 
-     * // Get first 10 GymUsers
-     * const gymUsers = await prisma.gymUser.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const gymUserWithIdOnly = await prisma.gymUser.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends GymUserFindManyArgs>(args?: SelectSubset<T, GymUserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GymUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a GymUser.
-     * @param {GymUserCreateArgs} args - Arguments to create a GymUser.
-     * @example
-     * // Create one GymUser
-     * const GymUser = await prisma.gymUser.create({
-     *   data: {
-     *     // ... data to create a GymUser
-     *   }
-     * })
-     * 
-     */
-    create<T extends GymUserCreateArgs>(args: SelectSubset<T, GymUserCreateArgs<ExtArgs>>): Prisma__GymUserClient<$Result.GetResult<Prisma.$GymUserPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many GymUsers.
-     * @param {GymUserCreateManyArgs} args - Arguments to create many GymUsers.
-     * @example
-     * // Create many GymUsers
-     * const gymUser = await prisma.gymUser.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends GymUserCreateManyArgs>(args?: SelectSubset<T, GymUserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many GymUsers and returns the data saved in the database.
-     * @param {GymUserCreateManyAndReturnArgs} args - Arguments to create many GymUsers.
-     * @example
-     * // Create many GymUsers
-     * const gymUser = await prisma.gymUser.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many GymUsers and only return the `id`
-     * const gymUserWithIdOnly = await prisma.gymUser.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends GymUserCreateManyAndReturnArgs>(args?: SelectSubset<T, GymUserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GymUserPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a GymUser.
-     * @param {GymUserDeleteArgs} args - Arguments to delete one GymUser.
-     * @example
-     * // Delete one GymUser
-     * const GymUser = await prisma.gymUser.delete({
-     *   where: {
-     *     // ... filter to delete one GymUser
-     *   }
-     * })
-     * 
-     */
-    delete<T extends GymUserDeleteArgs>(args: SelectSubset<T, GymUserDeleteArgs<ExtArgs>>): Prisma__GymUserClient<$Result.GetResult<Prisma.$GymUserPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one GymUser.
-     * @param {GymUserUpdateArgs} args - Arguments to update one GymUser.
-     * @example
-     * // Update one GymUser
-     * const gymUser = await prisma.gymUser.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends GymUserUpdateArgs>(args: SelectSubset<T, GymUserUpdateArgs<ExtArgs>>): Prisma__GymUserClient<$Result.GetResult<Prisma.$GymUserPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more GymUsers.
-     * @param {GymUserDeleteManyArgs} args - Arguments to filter GymUsers to delete.
-     * @example
-     * // Delete a few GymUsers
-     * const { count } = await prisma.gymUser.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends GymUserDeleteManyArgs>(args?: SelectSubset<T, GymUserDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more GymUsers.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {GymUserUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many GymUsers
-     * const gymUser = await prisma.gymUser.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends GymUserUpdateManyArgs>(args: SelectSubset<T, GymUserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more GymUsers and returns the data updated in the database.
-     * @param {GymUserUpdateManyAndReturnArgs} args - Arguments to update many GymUsers.
-     * @example
-     * // Update many GymUsers
-     * const gymUser = await prisma.gymUser.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more GymUsers and only return the `id`
-     * const gymUserWithIdOnly = await prisma.gymUser.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends GymUserUpdateManyAndReturnArgs>(args: SelectSubset<T, GymUserUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GymUserPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one GymUser.
-     * @param {GymUserUpsertArgs} args - Arguments to update or create a GymUser.
-     * @example
-     * // Update or create a GymUser
-     * const gymUser = await prisma.gymUser.upsert({
-     *   create: {
-     *     // ... data to create a GymUser
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the GymUser we want to update
-     *   }
-     * })
-     */
-    upsert<T extends GymUserUpsertArgs>(args: SelectSubset<T, GymUserUpsertArgs<ExtArgs>>): Prisma__GymUserClient<$Result.GetResult<Prisma.$GymUserPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of GymUsers.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {GymUserCountArgs} args - Arguments to filter GymUsers to count.
-     * @example
-     * // Count the number of GymUsers
-     * const count = await prisma.gymUser.count({
-     *   where: {
-     *     // ... the filter for the GymUsers we want to count
-     *   }
-     * })
-    **/
-    count<T extends GymUserCountArgs>(
-      args?: Subset<T, GymUserCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], GymUserCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a GymUser.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {GymUserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends GymUserAggregateArgs>(args: Subset<T, GymUserAggregateArgs>): Prisma.PrismaPromise<GetGymUserAggregateType<T>>
-
-    /**
-     * Group by GymUser.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {GymUserGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends GymUserGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: GymUserGroupByArgs['orderBy'] }
-        : { orderBy?: GymUserGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, GymUserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGymUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the GymUser model
-   */
-  readonly fields: GymUserFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for GymUser.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__GymUserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    gym<T extends GymDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GymDefaultArgs<ExtArgs>>): Prisma__GymClient<$Result.GetResult<Prisma.$GymPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the GymUser model
-   */
-  interface GymUserFieldRefs {
-    readonly id: FieldRef<"GymUser", 'String'>
-    readonly user_id: FieldRef<"GymUser", 'String'>
-    readonly gym_id: FieldRef<"GymUser", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * GymUser findUnique
-   */
-  export type GymUserFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the GymUser
-     */
-    select?: GymUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the GymUser
-     */
-    omit?: GymUserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: GymUserInclude<ExtArgs> | null
-    /**
-     * Filter, which GymUser to fetch.
-     */
-    where: GymUserWhereUniqueInput
-  }
-
-  /**
-   * GymUser findUniqueOrThrow
-   */
-  export type GymUserFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the GymUser
-     */
-    select?: GymUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the GymUser
-     */
-    omit?: GymUserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: GymUserInclude<ExtArgs> | null
-    /**
-     * Filter, which GymUser to fetch.
-     */
-    where: GymUserWhereUniqueInput
-  }
-
-  /**
-   * GymUser findFirst
-   */
-  export type GymUserFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the GymUser
-     */
-    select?: GymUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the GymUser
-     */
-    omit?: GymUserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: GymUserInclude<ExtArgs> | null
-    /**
-     * Filter, which GymUser to fetch.
-     */
-    where?: GymUserWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of GymUsers to fetch.
-     */
-    orderBy?: GymUserOrderByWithRelationInput | GymUserOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for GymUsers.
-     */
-    cursor?: GymUserWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` GymUsers from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` GymUsers.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of GymUsers.
-     */
-    distinct?: GymUserScalarFieldEnum | GymUserScalarFieldEnum[]
-  }
-
-  /**
-   * GymUser findFirstOrThrow
-   */
-  export type GymUserFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the GymUser
-     */
-    select?: GymUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the GymUser
-     */
-    omit?: GymUserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: GymUserInclude<ExtArgs> | null
-    /**
-     * Filter, which GymUser to fetch.
-     */
-    where?: GymUserWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of GymUsers to fetch.
-     */
-    orderBy?: GymUserOrderByWithRelationInput | GymUserOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for GymUsers.
-     */
-    cursor?: GymUserWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` GymUsers from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` GymUsers.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of GymUsers.
-     */
-    distinct?: GymUserScalarFieldEnum | GymUserScalarFieldEnum[]
-  }
-
-  /**
-   * GymUser findMany
-   */
-  export type GymUserFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the GymUser
-     */
-    select?: GymUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the GymUser
-     */
-    omit?: GymUserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: GymUserInclude<ExtArgs> | null
-    /**
-     * Filter, which GymUsers to fetch.
-     */
-    where?: GymUserWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of GymUsers to fetch.
-     */
-    orderBy?: GymUserOrderByWithRelationInput | GymUserOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing GymUsers.
-     */
-    cursor?: GymUserWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` GymUsers from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` GymUsers.
-     */
-    skip?: number
-    distinct?: GymUserScalarFieldEnum | GymUserScalarFieldEnum[]
-  }
-
-  /**
-   * GymUser create
-   */
-  export type GymUserCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the GymUser
-     */
-    select?: GymUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the GymUser
-     */
-    omit?: GymUserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: GymUserInclude<ExtArgs> | null
-    /**
-     * The data needed to create a GymUser.
-     */
-    data: XOR<GymUserCreateInput, GymUserUncheckedCreateInput>
-  }
-
-  /**
-   * GymUser createMany
-   */
-  export type GymUserCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many GymUsers.
-     */
-    data: GymUserCreateManyInput | GymUserCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * GymUser createManyAndReturn
-   */
-  export type GymUserCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the GymUser
-     */
-    select?: GymUserSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the GymUser
-     */
-    omit?: GymUserOmit<ExtArgs> | null
-    /**
-     * The data used to create many GymUsers.
-     */
-    data: GymUserCreateManyInput | GymUserCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: GymUserIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * GymUser update
-   */
-  export type GymUserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the GymUser
-     */
-    select?: GymUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the GymUser
-     */
-    omit?: GymUserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: GymUserInclude<ExtArgs> | null
-    /**
-     * The data needed to update a GymUser.
-     */
-    data: XOR<GymUserUpdateInput, GymUserUncheckedUpdateInput>
-    /**
-     * Choose, which GymUser to update.
-     */
-    where: GymUserWhereUniqueInput
-  }
-
-  /**
-   * GymUser updateMany
-   */
-  export type GymUserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update GymUsers.
-     */
-    data: XOR<GymUserUpdateManyMutationInput, GymUserUncheckedUpdateManyInput>
-    /**
-     * Filter which GymUsers to update
-     */
-    where?: GymUserWhereInput
-    /**
-     * Limit how many GymUsers to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * GymUser updateManyAndReturn
-   */
-  export type GymUserUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the GymUser
-     */
-    select?: GymUserSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the GymUser
-     */
-    omit?: GymUserOmit<ExtArgs> | null
-    /**
-     * The data used to update GymUsers.
-     */
-    data: XOR<GymUserUpdateManyMutationInput, GymUserUncheckedUpdateManyInput>
-    /**
-     * Filter which GymUsers to update
-     */
-    where?: GymUserWhereInput
-    /**
-     * Limit how many GymUsers to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: GymUserIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * GymUser upsert
-   */
-  export type GymUserUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the GymUser
-     */
-    select?: GymUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the GymUser
-     */
-    omit?: GymUserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: GymUserInclude<ExtArgs> | null
-    /**
-     * The filter to search for the GymUser to update in case it exists.
-     */
-    where: GymUserWhereUniqueInput
-    /**
-     * In case the GymUser found by the `where` argument doesn't exist, create a new GymUser with this data.
-     */
-    create: XOR<GymUserCreateInput, GymUserUncheckedCreateInput>
-    /**
-     * In case the GymUser was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<GymUserUpdateInput, GymUserUncheckedUpdateInput>
-  }
-
-  /**
-   * GymUser delete
-   */
-  export type GymUserDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the GymUser
-     */
-    select?: GymUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the GymUser
-     */
-    omit?: GymUserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: GymUserInclude<ExtArgs> | null
-    /**
-     * Filter which GymUser to delete.
-     */
-    where: GymUserWhereUniqueInput
-  }
-
-  /**
-   * GymUser deleteMany
-   */
-  export type GymUserDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which GymUsers to delete
-     */
-    where?: GymUserWhereInput
-    /**
-     * Limit how many GymUsers to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * GymUser without action
-   */
-  export type GymUserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the GymUser
-     */
-    select?: GymUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the GymUser
-     */
-    omit?: GymUserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: GymUserInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Model Gym
    */
 
@@ -8437,6 +7297,7 @@ export namespace Prisma {
 
   export type GymMinAggregateOutputType = {
     id: string | null
+    owner_id: string | null
     name: string | null
     location: string | null
     created_at: Date | null
@@ -8445,6 +7306,7 @@ export namespace Prisma {
 
   export type GymMaxAggregateOutputType = {
     id: string | null
+    owner_id: string | null
     name: string | null
     location: string | null
     created_at: Date | null
@@ -8453,6 +7315,7 @@ export namespace Prisma {
 
   export type GymCountAggregateOutputType = {
     id: number
+    owner_id: number
     name: number
     location: number
     created_at: number
@@ -8463,6 +7326,7 @@ export namespace Prisma {
 
   export type GymMinAggregateInputType = {
     id?: true
+    owner_id?: true
     name?: true
     location?: true
     created_at?: true
@@ -8471,6 +7335,7 @@ export namespace Prisma {
 
   export type GymMaxAggregateInputType = {
     id?: true
+    owner_id?: true
     name?: true
     location?: true
     created_at?: true
@@ -8479,6 +7344,7 @@ export namespace Prisma {
 
   export type GymCountAggregateInputType = {
     id?: true
+    owner_id?: true
     name?: true
     location?: true
     created_at?: true
@@ -8560,6 +7426,7 @@ export namespace Prisma {
 
   export type GymGroupByOutputType = {
     id: string
+    owner_id: string
     name: string
     location: string
     created_at: Date
@@ -8585,6 +7452,7 @@ export namespace Prisma {
 
   export type GymSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    owner_id?: boolean
     name?: boolean
     location?: boolean
     created_at?: boolean
@@ -8592,48 +7460,57 @@ export namespace Prisma {
     memberships?: boolean | Gym$membershipsArgs<ExtArgs>
     member_time_logs?: boolean | Gym$member_time_logsArgs<ExtArgs>
     gym_stats?: boolean | Gym$gym_statsArgs<ExtArgs>
-    gym_users?: boolean | Gym$gym_usersArgs<ExtArgs>
     revenues?: boolean | Gym$revenuesArgs<ExtArgs>
     membership_counts?: boolean | Gym$membership_countsArgs<ExtArgs>
+    owner?: boolean | UserDefaultArgs<ExtArgs>
     _count?: boolean | GymCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["gym"]>
 
   export type GymSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    owner_id?: boolean
     name?: boolean
     location?: boolean
     created_at?: boolean
     created_by?: boolean
+    owner?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["gym"]>
 
   export type GymSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    owner_id?: boolean
     name?: boolean
     location?: boolean
     created_at?: boolean
     created_by?: boolean
+    owner?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["gym"]>
 
   export type GymSelectScalar = {
     id?: boolean
+    owner_id?: boolean
     name?: boolean
     location?: boolean
     created_at?: boolean
     created_by?: boolean
   }
 
-  export type GymOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "location" | "created_at" | "created_by", ExtArgs["result"]["gym"]>
+  export type GymOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "owner_id" | "name" | "location" | "created_at" | "created_by", ExtArgs["result"]["gym"]>
   export type GymInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     memberships?: boolean | Gym$membershipsArgs<ExtArgs>
     member_time_logs?: boolean | Gym$member_time_logsArgs<ExtArgs>
     gym_stats?: boolean | Gym$gym_statsArgs<ExtArgs>
-    gym_users?: boolean | Gym$gym_usersArgs<ExtArgs>
     revenues?: boolean | Gym$revenuesArgs<ExtArgs>
     membership_counts?: boolean | Gym$membership_countsArgs<ExtArgs>
+    owner?: boolean | UserDefaultArgs<ExtArgs>
     _count?: boolean | GymCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type GymIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type GymIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type GymIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type GymIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    owner?: boolean | UserDefaultArgs<ExtArgs>
+  }
 
   export type $GymPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Gym"
@@ -8641,12 +7518,13 @@ export namespace Prisma {
       memberships: Prisma.$MembershipPayload<ExtArgs>[]
       member_time_logs: Prisma.$MemberTimeLogsPayload<ExtArgs>[]
       gym_stats: Prisma.$GymStatsPayload<ExtArgs> | null
-      gym_users: Prisma.$GymUserPayload<ExtArgs>[]
       revenues: Prisma.$RevenuePayload<ExtArgs>[]
       membership_counts: Prisma.$MembershipCountPayload<ExtArgs>[]
+      owner: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      owner_id: string
       name: string
       location: string
       created_at: Date
@@ -9048,9 +7926,9 @@ export namespace Prisma {
     memberships<T extends Gym$membershipsArgs<ExtArgs> = {}>(args?: Subset<T, Gym$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     member_time_logs<T extends Gym$member_time_logsArgs<ExtArgs> = {}>(args?: Subset<T, Gym$member_time_logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberTimeLogsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     gym_stats<T extends Gym$gym_statsArgs<ExtArgs> = {}>(args?: Subset<T, Gym$gym_statsArgs<ExtArgs>>): Prisma__GymStatsClient<$Result.GetResult<Prisma.$GymStatsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    gym_users<T extends Gym$gym_usersArgs<ExtArgs> = {}>(args?: Subset<T, Gym$gym_usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GymUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     revenues<T extends Gym$revenuesArgs<ExtArgs> = {}>(args?: Subset<T, Gym$revenuesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RevenuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     membership_counts<T extends Gym$membership_countsArgs<ExtArgs> = {}>(args?: Subset<T, Gym$membership_countsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipCountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    owner<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9081,6 +7959,7 @@ export namespace Prisma {
    */
   interface GymFieldRefs {
     readonly id: FieldRef<"Gym", 'String'>
+    readonly owner_id: FieldRef<"Gym", 'String'>
     readonly name: FieldRef<"Gym", 'String'>
     readonly location: FieldRef<"Gym", 'String'>
     readonly created_at: FieldRef<"Gym", 'DateTime'>
@@ -9334,6 +8213,10 @@ export namespace Prisma {
      */
     data: GymCreateManyInput | GymCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -9404,6 +8287,10 @@ export namespace Prisma {
      * Limit how many Gyms to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -9537,30 +8424,6 @@ export namespace Prisma {
      */
     include?: GymStatsInclude<ExtArgs> | null
     where?: GymStatsWhereInput
-  }
-
-  /**
-   * Gym.gym_users
-   */
-  export type Gym$gym_usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the GymUser
-     */
-    select?: GymUserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the GymUser
-     */
-    omit?: GymUserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: GymUserInclude<ExtArgs> | null
-    where?: GymUserWhereInput
-    orderBy?: GymUserOrderByWithRelationInput | GymUserOrderByWithRelationInput[]
-    cursor?: GymUserWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: GymUserScalarFieldEnum | GymUserScalarFieldEnum[]
   }
 
   /**
@@ -13102,17 +11965,9 @@ export namespace Prisma {
   export type MemberScalarFieldEnum = (typeof MemberScalarFieldEnum)[keyof typeof MemberScalarFieldEnum]
 
 
-  export const GymUserScalarFieldEnum: {
-    id: 'id',
-    user_id: 'user_id',
-    gym_id: 'gym_id'
-  };
-
-  export type GymUserScalarFieldEnum = (typeof GymUserScalarFieldEnum)[keyof typeof GymUserScalarFieldEnum]
-
-
   export const GymScalarFieldEnum: {
     id: 'id',
+    owner_id: 'owner_id',
     name: 'name',
     location: 'location',
     created_at: 'created_at',
@@ -13485,7 +12340,7 @@ export namespace Prisma {
     is_active?: BoolFilter<"User"> | boolean
     created_at?: DateTimeFilter<"User"> | Date | string
     created_by?: StringFilter<"User"> | string
-    gym_users?: GymUserListRelationFilter
+    gyms?: GymListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -13497,7 +12352,7 @@ export namespace Prisma {
     is_active?: SortOrder
     created_at?: SortOrder
     created_by?: SortOrder
-    gym_users?: GymUserOrderByRelationAggregateInput
+    gyms?: GymOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -13512,7 +12367,7 @@ export namespace Prisma {
     is_active?: BoolFilter<"User"> | boolean
     created_at?: DateTimeFilter<"User"> | Date | string
     created_by?: StringFilter<"User"> | string
-    gym_users?: GymUserListRelationFilter
+    gyms?: GymListRelationFilter
   }, "id" | "username">
 
   export type UserOrderByWithAggregationInput = {
@@ -13606,59 +12461,12 @@ export namespace Prisma {
     created_by?: StringWithAggregatesFilter<"Member"> | string
   }
 
-  export type GymUserWhereInput = {
-    AND?: GymUserWhereInput | GymUserWhereInput[]
-    OR?: GymUserWhereInput[]
-    NOT?: GymUserWhereInput | GymUserWhereInput[]
-    id?: StringFilter<"GymUser"> | string
-    user_id?: StringFilter<"GymUser"> | string
-    gym_id?: StringFilter<"GymUser"> | string
-    gym?: XOR<GymScalarRelationFilter, GymWhereInput>
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }
-
-  export type GymUserOrderByWithRelationInput = {
-    id?: SortOrder
-    user_id?: SortOrder
-    gym_id?: SortOrder
-    gym?: GymOrderByWithRelationInput
-    user?: UserOrderByWithRelationInput
-  }
-
-  export type GymUserWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: GymUserWhereInput | GymUserWhereInput[]
-    OR?: GymUserWhereInput[]
-    NOT?: GymUserWhereInput | GymUserWhereInput[]
-    user_id?: StringFilter<"GymUser"> | string
-    gym_id?: StringFilter<"GymUser"> | string
-    gym?: XOR<GymScalarRelationFilter, GymWhereInput>
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id">
-
-  export type GymUserOrderByWithAggregationInput = {
-    id?: SortOrder
-    user_id?: SortOrder
-    gym_id?: SortOrder
-    _count?: GymUserCountOrderByAggregateInput
-    _max?: GymUserMaxOrderByAggregateInput
-    _min?: GymUserMinOrderByAggregateInput
-  }
-
-  export type GymUserScalarWhereWithAggregatesInput = {
-    AND?: GymUserScalarWhereWithAggregatesInput | GymUserScalarWhereWithAggregatesInput[]
-    OR?: GymUserScalarWhereWithAggregatesInput[]
-    NOT?: GymUserScalarWhereWithAggregatesInput | GymUserScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"GymUser"> | string
-    user_id?: StringWithAggregatesFilter<"GymUser"> | string
-    gym_id?: StringWithAggregatesFilter<"GymUser"> | string
-  }
-
   export type GymWhereInput = {
     AND?: GymWhereInput | GymWhereInput[]
     OR?: GymWhereInput[]
     NOT?: GymWhereInput | GymWhereInput[]
     id?: StringFilter<"Gym"> | string
+    owner_id?: StringFilter<"Gym"> | string
     name?: StringFilter<"Gym"> | string
     location?: StringFilter<"Gym"> | string
     created_at?: DateTimeFilter<"Gym"> | Date | string
@@ -13666,13 +12474,14 @@ export namespace Prisma {
     memberships?: MembershipListRelationFilter
     member_time_logs?: MemberTimeLogsListRelationFilter
     gym_stats?: XOR<GymStatsNullableScalarRelationFilter, GymStatsWhereInput> | null
-    gym_users?: GymUserListRelationFilter
     revenues?: RevenueListRelationFilter
     membership_counts?: MembershipCountListRelationFilter
+    owner?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type GymOrderByWithRelationInput = {
     id?: SortOrder
+    owner_id?: SortOrder
     name?: SortOrder
     location?: SortOrder
     created_at?: SortOrder
@@ -13680,9 +12489,9 @@ export namespace Prisma {
     memberships?: MembershipOrderByRelationAggregateInput
     member_time_logs?: MemberTimeLogsOrderByRelationAggregateInput
     gym_stats?: GymStatsOrderByWithRelationInput
-    gym_users?: GymUserOrderByRelationAggregateInput
     revenues?: RevenueOrderByRelationAggregateInput
     membership_counts?: MembershipCountOrderByRelationAggregateInput
+    owner?: UserOrderByWithRelationInput
   }
 
   export type GymWhereUniqueInput = Prisma.AtLeast<{
@@ -13690,6 +12499,7 @@ export namespace Prisma {
     AND?: GymWhereInput | GymWhereInput[]
     OR?: GymWhereInput[]
     NOT?: GymWhereInput | GymWhereInput[]
+    owner_id?: StringFilter<"Gym"> | string
     name?: StringFilter<"Gym"> | string
     location?: StringFilter<"Gym"> | string
     created_at?: DateTimeFilter<"Gym"> | Date | string
@@ -13697,13 +12507,14 @@ export namespace Prisma {
     memberships?: MembershipListRelationFilter
     member_time_logs?: MemberTimeLogsListRelationFilter
     gym_stats?: XOR<GymStatsNullableScalarRelationFilter, GymStatsWhereInput> | null
-    gym_users?: GymUserListRelationFilter
     revenues?: RevenueListRelationFilter
     membership_counts?: MembershipCountListRelationFilter
+    owner?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type GymOrderByWithAggregationInput = {
     id?: SortOrder
+    owner_id?: SortOrder
     name?: SortOrder
     location?: SortOrder
     created_at?: SortOrder
@@ -13718,6 +12529,7 @@ export namespace Prisma {
     OR?: GymScalarWhereWithAggregatesInput[]
     NOT?: GymScalarWhereWithAggregatesInput | GymScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Gym"> | string
+    owner_id?: StringWithAggregatesFilter<"Gym"> | string
     name?: StringWithAggregatesFilter<"Gym"> | string
     location?: StringWithAggregatesFilter<"Gym"> | string
     created_at?: DateTimeWithAggregatesFilter<"Gym"> | Date | string
@@ -14146,7 +12958,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     created_by: string
-    gym_users?: GymUserCreateNestedManyWithoutUserInput
+    gyms?: GymCreateNestedManyWithoutOwnerInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -14158,7 +12970,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     created_by: string
-    gym_users?: GymUserUncheckedCreateNestedManyWithoutUserInput
+    gyms?: GymUncheckedCreateNestedManyWithoutOwnerInput
   }
 
   export type UserUpdateInput = {
@@ -14170,7 +12982,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
-    gym_users?: GymUserUpdateManyWithoutUserNestedInput
+    gyms?: GymUpdateManyWithoutOwnerNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -14182,7 +12994,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
-    gym_users?: GymUserUncheckedUpdateManyWithoutUserNestedInput
+    gyms?: GymUncheckedUpdateManyWithoutOwnerNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -14289,46 +13101,6 @@ export namespace Prisma {
     created_by?: StringFieldUpdateOperationsInput | string
   }
 
-  export type GymUserCreateInput = {
-    id?: string
-    gym: GymCreateNestedOneWithoutGym_usersInput
-    user: UserCreateNestedOneWithoutGym_usersInput
-  }
-
-  export type GymUserUncheckedCreateInput = {
-    id?: string
-    user_id: string
-    gym_id: string
-  }
-
-  export type GymUserUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    gym?: GymUpdateOneRequiredWithoutGym_usersNestedInput
-    user?: UserUpdateOneRequiredWithoutGym_usersNestedInput
-  }
-
-  export type GymUserUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    user_id?: StringFieldUpdateOperationsInput | string
-    gym_id?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type GymUserCreateManyInput = {
-    id?: string
-    user_id: string
-    gym_id: string
-  }
-
-  export type GymUserUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type GymUserUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    user_id?: StringFieldUpdateOperationsInput | string
-    gym_id?: StringFieldUpdateOperationsInput | string
-  }
-
   export type GymCreateInput = {
     id?: string
     name: string
@@ -14338,13 +13110,14 @@ export namespace Prisma {
     memberships?: MembershipCreateNestedManyWithoutGymInput
     member_time_logs?: MemberTimeLogsCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsCreateNestedOneWithoutGymInput
-    gym_users?: GymUserCreateNestedManyWithoutGymInput
     revenues?: RevenueCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
+    owner: UserCreateNestedOneWithoutGymsInput
   }
 
   export type GymUncheckedCreateInput = {
     id?: string
+    owner_id: string
     name: string
     location: string
     created_at?: Date | string
@@ -14352,7 +13125,6 @@ export namespace Prisma {
     memberships?: MembershipUncheckedCreateNestedManyWithoutGymInput
     member_time_logs?: MemberTimeLogsUncheckedCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsUncheckedCreateNestedOneWithoutGymInput
-    gym_users?: GymUserUncheckedCreateNestedManyWithoutGymInput
     revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
   }
@@ -14366,13 +13138,14 @@ export namespace Prisma {
     memberships?: MembershipUpdateManyWithoutGymNestedInput
     member_time_logs?: MemberTimeLogsUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUpdateOneWithoutGymNestedInput
-    gym_users?: GymUserUpdateManyWithoutGymNestedInput
     revenues?: RevenueUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
+    owner?: UserUpdateOneRequiredWithoutGymsNestedInput
   }
 
   export type GymUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    owner_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14380,13 +13153,13 @@ export namespace Prisma {
     memberships?: MembershipUncheckedUpdateManyWithoutGymNestedInput
     member_time_logs?: MemberTimeLogsUncheckedUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUncheckedUpdateOneWithoutGymNestedInput
-    gym_users?: GymUserUncheckedUpdateManyWithoutGymNestedInput
     revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
   }
 
   export type GymCreateManyInput = {
     id?: string
+    owner_id: string
     name: string
     location: string
     created_at?: Date | string
@@ -14403,6 +13176,7 @@ export namespace Prisma {
 
   export type GymUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    owner_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14949,10 +13723,10 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
-  export type GymUserListRelationFilter = {
-    every?: GymUserWhereInput
-    some?: GymUserWhereInput
-    none?: GymUserWhereInput
+  export type GymListRelationFilter = {
+    every?: GymWhereInput
+    some?: GymWhereInput
+    none?: GymWhereInput
   }
 
   export type SortOrderInput = {
@@ -14960,7 +13734,7 @@ export namespace Prisma {
     nulls?: NullsOrder
   }
 
-  export type GymUserOrderByRelationAggregateInput = {
+  export type GymOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -15080,29 +13854,6 @@ export namespace Prisma {
     created_by?: SortOrder
   }
 
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
-  }
-
-  export type GymUserCountOrderByAggregateInput = {
-    id?: SortOrder
-    user_id?: SortOrder
-    gym_id?: SortOrder
-  }
-
-  export type GymUserMaxOrderByAggregateInput = {
-    id?: SortOrder
-    user_id?: SortOrder
-    gym_id?: SortOrder
-  }
-
-  export type GymUserMinOrderByAggregateInput = {
-    id?: SortOrder
-    user_id?: SortOrder
-    gym_id?: SortOrder
-  }
-
   export type GymStatsNullableScalarRelationFilter = {
     is?: GymStatsWhereInput | null
     isNot?: GymStatsWhereInput | null
@@ -15120,6 +13871,11 @@ export namespace Prisma {
     none?: MembershipCountWhereInput
   }
 
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
   export type RevenueOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -15130,6 +13886,7 @@ export namespace Prisma {
 
   export type GymCountOrderByAggregateInput = {
     id?: SortOrder
+    owner_id?: SortOrder
     name?: SortOrder
     location?: SortOrder
     created_at?: SortOrder
@@ -15138,6 +13895,7 @@ export namespace Prisma {
 
   export type GymMaxOrderByAggregateInput = {
     id?: SortOrder
+    owner_id?: SortOrder
     name?: SortOrder
     location?: SortOrder
     created_at?: SortOrder
@@ -15146,6 +13904,7 @@ export namespace Prisma {
 
   export type GymMinOrderByAggregateInput = {
     id?: SortOrder
+    owner_id?: SortOrder
     name?: SortOrder
     location?: SortOrder
     created_at?: SortOrder
@@ -15421,18 +14180,18 @@ export namespace Prisma {
     update?: XOR<XOR<GymUpdateToOneWithWhereWithoutMembership_countsInput, GymUpdateWithoutMembership_countsInput>, GymUncheckedUpdateWithoutMembership_countsInput>
   }
 
-  export type GymUserCreateNestedManyWithoutUserInput = {
-    create?: XOR<GymUserCreateWithoutUserInput, GymUserUncheckedCreateWithoutUserInput> | GymUserCreateWithoutUserInput[] | GymUserUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: GymUserCreateOrConnectWithoutUserInput | GymUserCreateOrConnectWithoutUserInput[]
-    createMany?: GymUserCreateManyUserInputEnvelope
-    connect?: GymUserWhereUniqueInput | GymUserWhereUniqueInput[]
+  export type GymCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<GymCreateWithoutOwnerInput, GymUncheckedCreateWithoutOwnerInput> | GymCreateWithoutOwnerInput[] | GymUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: GymCreateOrConnectWithoutOwnerInput | GymCreateOrConnectWithoutOwnerInput[]
+    createMany?: GymCreateManyOwnerInputEnvelope
+    connect?: GymWhereUniqueInput | GymWhereUniqueInput[]
   }
 
-  export type GymUserUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<GymUserCreateWithoutUserInput, GymUserUncheckedCreateWithoutUserInput> | GymUserCreateWithoutUserInput[] | GymUserUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: GymUserCreateOrConnectWithoutUserInput | GymUserCreateOrConnectWithoutUserInput[]
-    createMany?: GymUserCreateManyUserInputEnvelope
-    connect?: GymUserWhereUniqueInput | GymUserWhereUniqueInput[]
+  export type GymUncheckedCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<GymCreateWithoutOwnerInput, GymUncheckedCreateWithoutOwnerInput> | GymCreateWithoutOwnerInput[] | GymUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: GymCreateOrConnectWithoutOwnerInput | GymCreateOrConnectWithoutOwnerInput[]
+    createMany?: GymCreateManyOwnerInputEnvelope
+    connect?: GymWhereUniqueInput | GymWhereUniqueInput[]
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -15447,32 +14206,32 @@ export namespace Prisma {
     set?: boolean
   }
 
-  export type GymUserUpdateManyWithoutUserNestedInput = {
-    create?: XOR<GymUserCreateWithoutUserInput, GymUserUncheckedCreateWithoutUserInput> | GymUserCreateWithoutUserInput[] | GymUserUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: GymUserCreateOrConnectWithoutUserInput | GymUserCreateOrConnectWithoutUserInput[]
-    upsert?: GymUserUpsertWithWhereUniqueWithoutUserInput | GymUserUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: GymUserCreateManyUserInputEnvelope
-    set?: GymUserWhereUniqueInput | GymUserWhereUniqueInput[]
-    disconnect?: GymUserWhereUniqueInput | GymUserWhereUniqueInput[]
-    delete?: GymUserWhereUniqueInput | GymUserWhereUniqueInput[]
-    connect?: GymUserWhereUniqueInput | GymUserWhereUniqueInput[]
-    update?: GymUserUpdateWithWhereUniqueWithoutUserInput | GymUserUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: GymUserUpdateManyWithWhereWithoutUserInput | GymUserUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: GymUserScalarWhereInput | GymUserScalarWhereInput[]
+  export type GymUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<GymCreateWithoutOwnerInput, GymUncheckedCreateWithoutOwnerInput> | GymCreateWithoutOwnerInput[] | GymUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: GymCreateOrConnectWithoutOwnerInput | GymCreateOrConnectWithoutOwnerInput[]
+    upsert?: GymUpsertWithWhereUniqueWithoutOwnerInput | GymUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: GymCreateManyOwnerInputEnvelope
+    set?: GymWhereUniqueInput | GymWhereUniqueInput[]
+    disconnect?: GymWhereUniqueInput | GymWhereUniqueInput[]
+    delete?: GymWhereUniqueInput | GymWhereUniqueInput[]
+    connect?: GymWhereUniqueInput | GymWhereUniqueInput[]
+    update?: GymUpdateWithWhereUniqueWithoutOwnerInput | GymUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: GymUpdateManyWithWhereWithoutOwnerInput | GymUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: GymScalarWhereInput | GymScalarWhereInput[]
   }
 
-  export type GymUserUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<GymUserCreateWithoutUserInput, GymUserUncheckedCreateWithoutUserInput> | GymUserCreateWithoutUserInput[] | GymUserUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: GymUserCreateOrConnectWithoutUserInput | GymUserCreateOrConnectWithoutUserInput[]
-    upsert?: GymUserUpsertWithWhereUniqueWithoutUserInput | GymUserUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: GymUserCreateManyUserInputEnvelope
-    set?: GymUserWhereUniqueInput | GymUserWhereUniqueInput[]
-    disconnect?: GymUserWhereUniqueInput | GymUserWhereUniqueInput[]
-    delete?: GymUserWhereUniqueInput | GymUserWhereUniqueInput[]
-    connect?: GymUserWhereUniqueInput | GymUserWhereUniqueInput[]
-    update?: GymUserUpdateWithWhereUniqueWithoutUserInput | GymUserUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: GymUserUpdateManyWithWhereWithoutUserInput | GymUserUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: GymUserScalarWhereInput | GymUserScalarWhereInput[]
+  export type GymUncheckedUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<GymCreateWithoutOwnerInput, GymUncheckedCreateWithoutOwnerInput> | GymCreateWithoutOwnerInput[] | GymUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: GymCreateOrConnectWithoutOwnerInput | GymCreateOrConnectWithoutOwnerInput[]
+    upsert?: GymUpsertWithWhereUniqueWithoutOwnerInput | GymUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: GymCreateManyOwnerInputEnvelope
+    set?: GymWhereUniqueInput | GymWhereUniqueInput[]
+    disconnect?: GymWhereUniqueInput | GymWhereUniqueInput[]
+    delete?: GymWhereUniqueInput | GymWhereUniqueInput[]
+    connect?: GymWhereUniqueInput | GymWhereUniqueInput[]
+    update?: GymUpdateWithWhereUniqueWithoutOwnerInput | GymUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: GymUpdateManyWithWhereWithoutOwnerInput | GymUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: GymScalarWhereInput | GymScalarWhereInput[]
   }
 
   export type MembershipCreateNestedManyWithoutMemberInput = {
@@ -15559,34 +14318,6 @@ export namespace Prisma {
     deleteMany?: MemberTimeLogsScalarWhereInput | MemberTimeLogsScalarWhereInput[]
   }
 
-  export type GymCreateNestedOneWithoutGym_usersInput = {
-    create?: XOR<GymCreateWithoutGym_usersInput, GymUncheckedCreateWithoutGym_usersInput>
-    connectOrCreate?: GymCreateOrConnectWithoutGym_usersInput
-    connect?: GymWhereUniqueInput
-  }
-
-  export type UserCreateNestedOneWithoutGym_usersInput = {
-    create?: XOR<UserCreateWithoutGym_usersInput, UserUncheckedCreateWithoutGym_usersInput>
-    connectOrCreate?: UserCreateOrConnectWithoutGym_usersInput
-    connect?: UserWhereUniqueInput
-  }
-
-  export type GymUpdateOneRequiredWithoutGym_usersNestedInput = {
-    create?: XOR<GymCreateWithoutGym_usersInput, GymUncheckedCreateWithoutGym_usersInput>
-    connectOrCreate?: GymCreateOrConnectWithoutGym_usersInput
-    upsert?: GymUpsertWithoutGym_usersInput
-    connect?: GymWhereUniqueInput
-    update?: XOR<XOR<GymUpdateToOneWithWhereWithoutGym_usersInput, GymUpdateWithoutGym_usersInput>, GymUncheckedUpdateWithoutGym_usersInput>
-  }
-
-  export type UserUpdateOneRequiredWithoutGym_usersNestedInput = {
-    create?: XOR<UserCreateWithoutGym_usersInput, UserUncheckedCreateWithoutGym_usersInput>
-    connectOrCreate?: UserCreateOrConnectWithoutGym_usersInput
-    upsert?: UserUpsertWithoutGym_usersInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutGym_usersInput, UserUpdateWithoutGym_usersInput>, UserUncheckedUpdateWithoutGym_usersInput>
-  }
-
   export type MembershipCreateNestedManyWithoutGymInput = {
     create?: XOR<MembershipCreateWithoutGymInput, MembershipUncheckedCreateWithoutGymInput> | MembershipCreateWithoutGymInput[] | MembershipUncheckedCreateWithoutGymInput[]
     connectOrCreate?: MembershipCreateOrConnectWithoutGymInput | MembershipCreateOrConnectWithoutGymInput[]
@@ -15607,13 +14338,6 @@ export namespace Prisma {
     connect?: GymStatsWhereUniqueInput
   }
 
-  export type GymUserCreateNestedManyWithoutGymInput = {
-    create?: XOR<GymUserCreateWithoutGymInput, GymUserUncheckedCreateWithoutGymInput> | GymUserCreateWithoutGymInput[] | GymUserUncheckedCreateWithoutGymInput[]
-    connectOrCreate?: GymUserCreateOrConnectWithoutGymInput | GymUserCreateOrConnectWithoutGymInput[]
-    createMany?: GymUserCreateManyGymInputEnvelope
-    connect?: GymUserWhereUniqueInput | GymUserWhereUniqueInput[]
-  }
-
   export type RevenueCreateNestedManyWithoutGymInput = {
     create?: XOR<RevenueCreateWithoutGymInput, RevenueUncheckedCreateWithoutGymInput> | RevenueCreateWithoutGymInput[] | RevenueUncheckedCreateWithoutGymInput[]
     connectOrCreate?: RevenueCreateOrConnectWithoutGymInput | RevenueCreateOrConnectWithoutGymInput[]
@@ -15626,6 +14350,12 @@ export namespace Prisma {
     connectOrCreate?: MembershipCountCreateOrConnectWithoutGymInput | MembershipCountCreateOrConnectWithoutGymInput[]
     createMany?: MembershipCountCreateManyGymInputEnvelope
     connect?: MembershipCountWhereUniqueInput | MembershipCountWhereUniqueInput[]
+  }
+
+  export type UserCreateNestedOneWithoutGymsInput = {
+    create?: XOR<UserCreateWithoutGymsInput, UserUncheckedCreateWithoutGymsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGymsInput
+    connect?: UserWhereUniqueInput
   }
 
   export type MembershipUncheckedCreateNestedManyWithoutGymInput = {
@@ -15646,13 +14376,6 @@ export namespace Prisma {
     create?: XOR<GymStatsCreateWithoutGymInput, GymStatsUncheckedCreateWithoutGymInput>
     connectOrCreate?: GymStatsCreateOrConnectWithoutGymInput
     connect?: GymStatsWhereUniqueInput
-  }
-
-  export type GymUserUncheckedCreateNestedManyWithoutGymInput = {
-    create?: XOR<GymUserCreateWithoutGymInput, GymUserUncheckedCreateWithoutGymInput> | GymUserCreateWithoutGymInput[] | GymUserUncheckedCreateWithoutGymInput[]
-    connectOrCreate?: GymUserCreateOrConnectWithoutGymInput | GymUserCreateOrConnectWithoutGymInput[]
-    createMany?: GymUserCreateManyGymInputEnvelope
-    connect?: GymUserWhereUniqueInput | GymUserWhereUniqueInput[]
   }
 
   export type RevenueUncheckedCreateNestedManyWithoutGymInput = {
@@ -15707,20 +14430,6 @@ export namespace Prisma {
     update?: XOR<XOR<GymStatsUpdateToOneWithWhereWithoutGymInput, GymStatsUpdateWithoutGymInput>, GymStatsUncheckedUpdateWithoutGymInput>
   }
 
-  export type GymUserUpdateManyWithoutGymNestedInput = {
-    create?: XOR<GymUserCreateWithoutGymInput, GymUserUncheckedCreateWithoutGymInput> | GymUserCreateWithoutGymInput[] | GymUserUncheckedCreateWithoutGymInput[]
-    connectOrCreate?: GymUserCreateOrConnectWithoutGymInput | GymUserCreateOrConnectWithoutGymInput[]
-    upsert?: GymUserUpsertWithWhereUniqueWithoutGymInput | GymUserUpsertWithWhereUniqueWithoutGymInput[]
-    createMany?: GymUserCreateManyGymInputEnvelope
-    set?: GymUserWhereUniqueInput | GymUserWhereUniqueInput[]
-    disconnect?: GymUserWhereUniqueInput | GymUserWhereUniqueInput[]
-    delete?: GymUserWhereUniqueInput | GymUserWhereUniqueInput[]
-    connect?: GymUserWhereUniqueInput | GymUserWhereUniqueInput[]
-    update?: GymUserUpdateWithWhereUniqueWithoutGymInput | GymUserUpdateWithWhereUniqueWithoutGymInput[]
-    updateMany?: GymUserUpdateManyWithWhereWithoutGymInput | GymUserUpdateManyWithWhereWithoutGymInput[]
-    deleteMany?: GymUserScalarWhereInput | GymUserScalarWhereInput[]
-  }
-
   export type RevenueUpdateManyWithoutGymNestedInput = {
     create?: XOR<RevenueCreateWithoutGymInput, RevenueUncheckedCreateWithoutGymInput> | RevenueCreateWithoutGymInput[] | RevenueUncheckedCreateWithoutGymInput[]
     connectOrCreate?: RevenueCreateOrConnectWithoutGymInput | RevenueCreateOrConnectWithoutGymInput[]
@@ -15747,6 +14456,14 @@ export namespace Prisma {
     update?: MembershipCountUpdateWithWhereUniqueWithoutGymInput | MembershipCountUpdateWithWhereUniqueWithoutGymInput[]
     updateMany?: MembershipCountUpdateManyWithWhereWithoutGymInput | MembershipCountUpdateManyWithWhereWithoutGymInput[]
     deleteMany?: MembershipCountScalarWhereInput | MembershipCountScalarWhereInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutGymsNestedInput = {
+    create?: XOR<UserCreateWithoutGymsInput, UserUncheckedCreateWithoutGymsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGymsInput
+    upsert?: UserUpsertWithoutGymsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutGymsInput, UserUpdateWithoutGymsInput>, UserUncheckedUpdateWithoutGymsInput>
   }
 
   export type MembershipUncheckedUpdateManyWithoutGymNestedInput = {
@@ -15785,20 +14502,6 @@ export namespace Prisma {
     delete?: GymStatsWhereInput | boolean
     connect?: GymStatsWhereUniqueInput
     update?: XOR<XOR<GymStatsUpdateToOneWithWhereWithoutGymInput, GymStatsUpdateWithoutGymInput>, GymStatsUncheckedUpdateWithoutGymInput>
-  }
-
-  export type GymUserUncheckedUpdateManyWithoutGymNestedInput = {
-    create?: XOR<GymUserCreateWithoutGymInput, GymUserUncheckedCreateWithoutGymInput> | GymUserCreateWithoutGymInput[] | GymUserUncheckedCreateWithoutGymInput[]
-    connectOrCreate?: GymUserCreateOrConnectWithoutGymInput | GymUserCreateOrConnectWithoutGymInput[]
-    upsert?: GymUserUpsertWithWhereUniqueWithoutGymInput | GymUserUpsertWithWhereUniqueWithoutGymInput[]
-    createMany?: GymUserCreateManyGymInputEnvelope
-    set?: GymUserWhereUniqueInput | GymUserWhereUniqueInput[]
-    disconnect?: GymUserWhereUniqueInput | GymUserWhereUniqueInput[]
-    delete?: GymUserWhereUniqueInput | GymUserWhereUniqueInput[]
-    connect?: GymUserWhereUniqueInput | GymUserWhereUniqueInput[]
-    update?: GymUserUpdateWithWhereUniqueWithoutGymInput | GymUserUpdateWithWhereUniqueWithoutGymInput[]
-    updateMany?: GymUserUpdateManyWithWhereWithoutGymInput | GymUserUpdateManyWithWhereWithoutGymInput[]
-    deleteMany?: GymUserScalarWhereInput | GymUserScalarWhereInput[]
   }
 
   export type RevenueUncheckedUpdateManyWithoutGymNestedInput = {
@@ -16166,20 +14869,20 @@ export namespace Prisma {
     created_by: string
     memberships?: MembershipCreateNestedManyWithoutGymInput
     member_time_logs?: MemberTimeLogsCreateNestedManyWithoutGymInput
-    gym_users?: GymUserCreateNestedManyWithoutGymInput
     revenues?: RevenueCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
+    owner: UserCreateNestedOneWithoutGymsInput
   }
 
   export type GymUncheckedCreateWithoutGym_statsInput = {
     id?: string
+    owner_id: string
     name: string
     location: string
     created_at?: Date | string
     created_by: string
     memberships?: MembershipUncheckedCreateNestedManyWithoutGymInput
     member_time_logs?: MemberTimeLogsUncheckedCreateNestedManyWithoutGymInput
-    gym_users?: GymUserUncheckedCreateNestedManyWithoutGymInput
     revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
   }
@@ -16208,20 +14911,20 @@ export namespace Prisma {
     created_by?: StringFieldUpdateOperationsInput | string
     memberships?: MembershipUpdateManyWithoutGymNestedInput
     member_time_logs?: MemberTimeLogsUpdateManyWithoutGymNestedInput
-    gym_users?: GymUserUpdateManyWithoutGymNestedInput
     revenues?: RevenueUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
+    owner?: UserUpdateOneRequiredWithoutGymsNestedInput
   }
 
   export type GymUncheckedUpdateWithoutGym_statsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    owner_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
     memberships?: MembershipUncheckedUpdateManyWithoutGymNestedInput
     member_time_logs?: MemberTimeLogsUncheckedUpdateManyWithoutGymNestedInput
-    gym_users?: GymUserUncheckedUpdateManyWithoutGymNestedInput
     revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
   }
@@ -16235,12 +14938,13 @@ export namespace Prisma {
     memberships?: MembershipCreateNestedManyWithoutGymInput
     member_time_logs?: MemberTimeLogsCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsCreateNestedOneWithoutGymInput
-    gym_users?: GymUserCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
+    owner: UserCreateNestedOneWithoutGymsInput
   }
 
   export type GymUncheckedCreateWithoutRevenuesInput = {
     id?: string
+    owner_id: string
     name: string
     location: string
     created_at?: Date | string
@@ -16248,7 +14952,6 @@ export namespace Prisma {
     memberships?: MembershipUncheckedCreateNestedManyWithoutGymInput
     member_time_logs?: MemberTimeLogsUncheckedCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsUncheckedCreateNestedOneWithoutGymInput
-    gym_users?: GymUserUncheckedCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
   }
 
@@ -16277,12 +14980,13 @@ export namespace Prisma {
     memberships?: MembershipUpdateManyWithoutGymNestedInput
     member_time_logs?: MemberTimeLogsUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUpdateOneWithoutGymNestedInput
-    gym_users?: GymUserUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
+    owner?: UserUpdateOneRequiredWithoutGymsNestedInput
   }
 
   export type GymUncheckedUpdateWithoutRevenuesInput = {
     id?: StringFieldUpdateOperationsInput | string
+    owner_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16290,7 +14994,6 @@ export namespace Prisma {
     memberships?: MembershipUncheckedUpdateManyWithoutGymNestedInput
     member_time_logs?: MemberTimeLogsUncheckedUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUncheckedUpdateOneWithoutGymNestedInput
-    gym_users?: GymUserUncheckedUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
   }
 
@@ -16303,12 +15006,13 @@ export namespace Prisma {
     memberships?: MembershipCreateNestedManyWithoutGymInput
     member_time_logs?: MemberTimeLogsCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsCreateNestedOneWithoutGymInput
-    gym_users?: GymUserCreateNestedManyWithoutGymInput
     revenues?: RevenueCreateNestedManyWithoutGymInput
+    owner: UserCreateNestedOneWithoutGymsInput
   }
 
   export type GymUncheckedCreateWithoutMembership_countsInput = {
     id?: string
+    owner_id: string
     name: string
     location: string
     created_at?: Date | string
@@ -16316,7 +15020,6 @@ export namespace Prisma {
     memberships?: MembershipUncheckedCreateNestedManyWithoutGymInput
     member_time_logs?: MemberTimeLogsUncheckedCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsUncheckedCreateNestedOneWithoutGymInput
-    gym_users?: GymUserUncheckedCreateNestedManyWithoutGymInput
     revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
   }
 
@@ -16345,12 +15048,13 @@ export namespace Prisma {
     memberships?: MembershipUpdateManyWithoutGymNestedInput
     member_time_logs?: MemberTimeLogsUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUpdateOneWithoutGymNestedInput
-    gym_users?: GymUserUpdateManyWithoutGymNestedInput
     revenues?: RevenueUpdateManyWithoutGymNestedInput
+    owner?: UserUpdateOneRequiredWithoutGymsNestedInput
   }
 
   export type GymUncheckedUpdateWithoutMembership_countsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    owner_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16358,53 +15062,71 @@ export namespace Prisma {
     memberships?: MembershipUncheckedUpdateManyWithoutGymNestedInput
     member_time_logs?: MemberTimeLogsUncheckedUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUncheckedUpdateOneWithoutGymNestedInput
-    gym_users?: GymUserUncheckedUpdateManyWithoutGymNestedInput
     revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
   }
 
-  export type GymUserCreateWithoutUserInput = {
+  export type GymCreateWithoutOwnerInput = {
     id?: string
-    gym: GymCreateNestedOneWithoutGym_usersInput
+    name: string
+    location: string
+    created_at?: Date | string
+    created_by: string
+    memberships?: MembershipCreateNestedManyWithoutGymInput
+    member_time_logs?: MemberTimeLogsCreateNestedManyWithoutGymInput
+    gym_stats?: GymStatsCreateNestedOneWithoutGymInput
+    revenues?: RevenueCreateNestedManyWithoutGymInput
+    membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
   }
 
-  export type GymUserUncheckedCreateWithoutUserInput = {
+  export type GymUncheckedCreateWithoutOwnerInput = {
     id?: string
-    gym_id: string
+    name: string
+    location: string
+    created_at?: Date | string
+    created_by: string
+    memberships?: MembershipUncheckedCreateNestedManyWithoutGymInput
+    member_time_logs?: MemberTimeLogsUncheckedCreateNestedManyWithoutGymInput
+    gym_stats?: GymStatsUncheckedCreateNestedOneWithoutGymInput
+    revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
+    membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
   }
 
-  export type GymUserCreateOrConnectWithoutUserInput = {
-    where: GymUserWhereUniqueInput
-    create: XOR<GymUserCreateWithoutUserInput, GymUserUncheckedCreateWithoutUserInput>
+  export type GymCreateOrConnectWithoutOwnerInput = {
+    where: GymWhereUniqueInput
+    create: XOR<GymCreateWithoutOwnerInput, GymUncheckedCreateWithoutOwnerInput>
   }
 
-  export type GymUserCreateManyUserInputEnvelope = {
-    data: GymUserCreateManyUserInput | GymUserCreateManyUserInput[]
+  export type GymCreateManyOwnerInputEnvelope = {
+    data: GymCreateManyOwnerInput | GymCreateManyOwnerInput[]
     skipDuplicates?: boolean
   }
 
-  export type GymUserUpsertWithWhereUniqueWithoutUserInput = {
-    where: GymUserWhereUniqueInput
-    update: XOR<GymUserUpdateWithoutUserInput, GymUserUncheckedUpdateWithoutUserInput>
-    create: XOR<GymUserCreateWithoutUserInput, GymUserUncheckedCreateWithoutUserInput>
+  export type GymUpsertWithWhereUniqueWithoutOwnerInput = {
+    where: GymWhereUniqueInput
+    update: XOR<GymUpdateWithoutOwnerInput, GymUncheckedUpdateWithoutOwnerInput>
+    create: XOR<GymCreateWithoutOwnerInput, GymUncheckedCreateWithoutOwnerInput>
   }
 
-  export type GymUserUpdateWithWhereUniqueWithoutUserInput = {
-    where: GymUserWhereUniqueInput
-    data: XOR<GymUserUpdateWithoutUserInput, GymUserUncheckedUpdateWithoutUserInput>
+  export type GymUpdateWithWhereUniqueWithoutOwnerInput = {
+    where: GymWhereUniqueInput
+    data: XOR<GymUpdateWithoutOwnerInput, GymUncheckedUpdateWithoutOwnerInput>
   }
 
-  export type GymUserUpdateManyWithWhereWithoutUserInput = {
-    where: GymUserScalarWhereInput
-    data: XOR<GymUserUpdateManyMutationInput, GymUserUncheckedUpdateManyWithoutUserInput>
+  export type GymUpdateManyWithWhereWithoutOwnerInput = {
+    where: GymScalarWhereInput
+    data: XOR<GymUpdateManyMutationInput, GymUncheckedUpdateManyWithoutOwnerInput>
   }
 
-  export type GymUserScalarWhereInput = {
-    AND?: GymUserScalarWhereInput | GymUserScalarWhereInput[]
-    OR?: GymUserScalarWhereInput[]
-    NOT?: GymUserScalarWhereInput | GymUserScalarWhereInput[]
-    id?: StringFilter<"GymUser"> | string
-    user_id?: StringFilter<"GymUser"> | string
-    gym_id?: StringFilter<"GymUser"> | string
+  export type GymScalarWhereInput = {
+    AND?: GymScalarWhereInput | GymScalarWhereInput[]
+    OR?: GymScalarWhereInput[]
+    NOT?: GymScalarWhereInput | GymScalarWhereInput[]
+    id?: StringFilter<"Gym"> | string
+    owner_id?: StringFilter<"Gym"> | string
+    name?: StringFilter<"Gym"> | string
+    location?: StringFilter<"Gym"> | string
+    created_at?: DateTimeFilter<"Gym"> | Date | string
+    created_by?: StringFilter<"Gym"> | string
   }
 
   export type MembershipCreateWithoutMemberInput = {
@@ -16532,134 +15254,6 @@ export namespace Prisma {
     recorded_by?: StringFilter<"MemberTimeLogs"> | string
   }
 
-  export type GymCreateWithoutGym_usersInput = {
-    id?: string
-    name: string
-    location: string
-    created_at?: Date | string
-    created_by: string
-    memberships?: MembershipCreateNestedManyWithoutGymInput
-    member_time_logs?: MemberTimeLogsCreateNestedManyWithoutGymInput
-    gym_stats?: GymStatsCreateNestedOneWithoutGymInput
-    revenues?: RevenueCreateNestedManyWithoutGymInput
-    membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
-  }
-
-  export type GymUncheckedCreateWithoutGym_usersInput = {
-    id?: string
-    name: string
-    location: string
-    created_at?: Date | string
-    created_by: string
-    memberships?: MembershipUncheckedCreateNestedManyWithoutGymInput
-    member_time_logs?: MemberTimeLogsUncheckedCreateNestedManyWithoutGymInput
-    gym_stats?: GymStatsUncheckedCreateNestedOneWithoutGymInput
-    revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
-    membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
-  }
-
-  export type GymCreateOrConnectWithoutGym_usersInput = {
-    where: GymWhereUniqueInput
-    create: XOR<GymCreateWithoutGym_usersInput, GymUncheckedCreateWithoutGym_usersInput>
-  }
-
-  export type UserCreateWithoutGym_usersInput = {
-    id?: string
-    username?: string | null
-    password_hash: string
-    role?: $Enums.Role
-    contact_number?: string | null
-    is_active?: boolean
-    created_at?: Date | string
-    created_by: string
-  }
-
-  export type UserUncheckedCreateWithoutGym_usersInput = {
-    id?: string
-    username?: string | null
-    password_hash: string
-    role?: $Enums.Role
-    contact_number?: string | null
-    is_active?: boolean
-    created_at?: Date | string
-    created_by: string
-  }
-
-  export type UserCreateOrConnectWithoutGym_usersInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutGym_usersInput, UserUncheckedCreateWithoutGym_usersInput>
-  }
-
-  export type GymUpsertWithoutGym_usersInput = {
-    update: XOR<GymUpdateWithoutGym_usersInput, GymUncheckedUpdateWithoutGym_usersInput>
-    create: XOR<GymCreateWithoutGym_usersInput, GymUncheckedCreateWithoutGym_usersInput>
-    where?: GymWhereInput
-  }
-
-  export type GymUpdateToOneWithWhereWithoutGym_usersInput = {
-    where?: GymWhereInput
-    data: XOR<GymUpdateWithoutGym_usersInput, GymUncheckedUpdateWithoutGym_usersInput>
-  }
-
-  export type GymUpdateWithoutGym_usersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    memberships?: MembershipUpdateManyWithoutGymNestedInput
-    member_time_logs?: MemberTimeLogsUpdateManyWithoutGymNestedInput
-    gym_stats?: GymStatsUpdateOneWithoutGymNestedInput
-    revenues?: RevenueUpdateManyWithoutGymNestedInput
-    membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
-  }
-
-  export type GymUncheckedUpdateWithoutGym_usersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    memberships?: MembershipUncheckedUpdateManyWithoutGymNestedInput
-    member_time_logs?: MemberTimeLogsUncheckedUpdateManyWithoutGymNestedInput
-    gym_stats?: GymStatsUncheckedUpdateOneWithoutGymNestedInput
-    revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
-    membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
-  }
-
-  export type UserUpsertWithoutGym_usersInput = {
-    update: XOR<UserUpdateWithoutGym_usersInput, UserUncheckedUpdateWithoutGym_usersInput>
-    create: XOR<UserCreateWithoutGym_usersInput, UserUncheckedCreateWithoutGym_usersInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutGym_usersInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutGym_usersInput, UserUncheckedUpdateWithoutGym_usersInput>
-  }
-
-  export type UserUpdateWithoutGym_usersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    password_hash?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    contact_number?: NullableStringFieldUpdateOperationsInput | string | null
-    is_active?: BoolFieldUpdateOperationsInput | boolean
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    created_by?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type UserUncheckedUpdateWithoutGym_usersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    password_hash?: StringFieldUpdateOperationsInput | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    contact_number?: NullableStringFieldUpdateOperationsInput | string | null
-    is_active?: BoolFieldUpdateOperationsInput | boolean
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    created_by?: StringFieldUpdateOperationsInput | string
-  }
-
   export type MembershipCreateWithoutGymInput = {
     id?: string
     start_date?: Date | string
@@ -16742,26 +15336,6 @@ export namespace Prisma {
     create: XOR<GymStatsCreateWithoutGymInput, GymStatsUncheckedCreateWithoutGymInput>
   }
 
-  export type GymUserCreateWithoutGymInput = {
-    id?: string
-    user: UserCreateNestedOneWithoutGym_usersInput
-  }
-
-  export type GymUserUncheckedCreateWithoutGymInput = {
-    id?: string
-    user_id: string
-  }
-
-  export type GymUserCreateOrConnectWithoutGymInput = {
-    where: GymUserWhereUniqueInput
-    create: XOR<GymUserCreateWithoutGymInput, GymUserUncheckedCreateWithoutGymInput>
-  }
-
-  export type GymUserCreateManyGymInputEnvelope = {
-    data: GymUserCreateManyGymInput | GymUserCreateManyGymInput[]
-    skipDuplicates?: boolean
-  }
-
   export type RevenueCreateWithoutGymInput = {
     id?: string
     year: number
@@ -16812,6 +15386,33 @@ export namespace Prisma {
   export type MembershipCountCreateManyGymInputEnvelope = {
     data: MembershipCountCreateManyGymInput | MembershipCountCreateManyGymInput[]
     skipDuplicates?: boolean
+  }
+
+  export type UserCreateWithoutGymsInput = {
+    id?: string
+    username?: string | null
+    password_hash: string
+    role?: $Enums.Role
+    contact_number?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    created_by: string
+  }
+
+  export type UserUncheckedCreateWithoutGymsInput = {
+    id?: string
+    username?: string | null
+    password_hash: string
+    role?: $Enums.Role
+    contact_number?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    created_by: string
+  }
+
+  export type UserCreateOrConnectWithoutGymsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutGymsInput, UserUncheckedCreateWithoutGymsInput>
   }
 
   export type MembershipUpsertWithWhereUniqueWithoutGymInput = {
@@ -16871,22 +15472,6 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type GymUserUpsertWithWhereUniqueWithoutGymInput = {
-    where: GymUserWhereUniqueInput
-    update: XOR<GymUserUpdateWithoutGymInput, GymUserUncheckedUpdateWithoutGymInput>
-    create: XOR<GymUserCreateWithoutGymInput, GymUserUncheckedCreateWithoutGymInput>
-  }
-
-  export type GymUserUpdateWithWhereUniqueWithoutGymInput = {
-    where: GymUserWhereUniqueInput
-    data: XOR<GymUserUpdateWithoutGymInput, GymUserUncheckedUpdateWithoutGymInput>
-  }
-
-  export type GymUserUpdateManyWithWhereWithoutGymInput = {
-    where: GymUserScalarWhereInput
-    data: XOR<GymUserUpdateManyMutationInput, GymUserUncheckedUpdateManyWithoutGymInput>
-  }
-
   export type RevenueUpsertWithWhereUniqueWithoutGymInput = {
     where: RevenueWhereUniqueInput
     update: XOR<RevenueUpdateWithoutGymInput, RevenueUncheckedUpdateWithoutGymInput>
@@ -16943,6 +15528,39 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"MembershipCount"> | Date | string
   }
 
+  export type UserUpsertWithoutGymsInput = {
+    update: XOR<UserUpdateWithoutGymsInput, UserUncheckedUpdateWithoutGymsInput>
+    create: XOR<UserCreateWithoutGymsInput, UserUncheckedCreateWithoutGymsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutGymsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutGymsInput, UserUncheckedUpdateWithoutGymsInput>
+  }
+
+  export type UserUpdateWithoutGymsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    password_hash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    contact_number?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserUncheckedUpdateWithoutGymsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    password_hash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    contact_number?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+  }
+
   export type MemberCreateWithoutMembershipsInput = {
     id?: string
     firstname: string
@@ -16976,20 +15594,20 @@ export namespace Prisma {
     created_by: string
     member_time_logs?: MemberTimeLogsCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsCreateNestedOneWithoutGymInput
-    gym_users?: GymUserCreateNestedManyWithoutGymInput
     revenues?: RevenueCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
+    owner: UserCreateNestedOneWithoutGymsInput
   }
 
   export type GymUncheckedCreateWithoutMembershipsInput = {
     id?: string
+    owner_id: string
     name: string
     location: string
     created_at?: Date | string
     created_by: string
     member_time_logs?: MemberTimeLogsUncheckedCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsUncheckedCreateNestedOneWithoutGymInput
-    gym_users?: GymUserUncheckedCreateNestedManyWithoutGymInput
     revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
   }
@@ -17049,20 +15667,20 @@ export namespace Prisma {
     created_by?: StringFieldUpdateOperationsInput | string
     member_time_logs?: MemberTimeLogsUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUpdateOneWithoutGymNestedInput
-    gym_users?: GymUserUpdateManyWithoutGymNestedInput
     revenues?: RevenueUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
+    owner?: UserUpdateOneRequiredWithoutGymsNestedInput
   }
 
   export type GymUncheckedUpdateWithoutMembershipsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    owner_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
     member_time_logs?: MemberTimeLogsUncheckedUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUncheckedUpdateOneWithoutGymNestedInput
-    gym_users?: GymUserUncheckedUpdateManyWithoutGymNestedInput
     revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
   }
@@ -17100,20 +15718,20 @@ export namespace Prisma {
     created_by: string
     memberships?: MembershipCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsCreateNestedOneWithoutGymInput
-    gym_users?: GymUserCreateNestedManyWithoutGymInput
     revenues?: RevenueCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
+    owner: UserCreateNestedOneWithoutGymsInput
   }
 
   export type GymUncheckedCreateWithoutMember_time_logsInput = {
     id?: string
+    owner_id: string
     name: string
     location: string
     created_at?: Date | string
     created_by: string
     memberships?: MembershipUncheckedCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsUncheckedCreateNestedOneWithoutGymInput
-    gym_users?: GymUserUncheckedCreateNestedManyWithoutGymInput
     revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
   }
@@ -17173,42 +15791,64 @@ export namespace Prisma {
     created_by?: StringFieldUpdateOperationsInput | string
     memberships?: MembershipUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUpdateOneWithoutGymNestedInput
-    gym_users?: GymUserUpdateManyWithoutGymNestedInput
     revenues?: RevenueUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
+    owner?: UserUpdateOneRequiredWithoutGymsNestedInput
   }
 
   export type GymUncheckedUpdateWithoutMember_time_logsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    owner_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
     memberships?: MembershipUncheckedUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUncheckedUpdateOneWithoutGymNestedInput
-    gym_users?: GymUserUncheckedUpdateManyWithoutGymNestedInput
     revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
   }
 
-  export type GymUserCreateManyUserInput = {
+  export type GymCreateManyOwnerInput = {
     id?: string
-    gym_id: string
+    name: string
+    location: string
+    created_at?: Date | string
+    created_by: string
   }
 
-  export type GymUserUpdateWithoutUserInput = {
+  export type GymUpdateWithoutOwnerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    gym?: GymUpdateOneRequiredWithoutGym_usersNestedInput
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    memberships?: MembershipUpdateManyWithoutGymNestedInput
+    member_time_logs?: MemberTimeLogsUpdateManyWithoutGymNestedInput
+    gym_stats?: GymStatsUpdateOneWithoutGymNestedInput
+    revenues?: RevenueUpdateManyWithoutGymNestedInput
+    membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
   }
 
-  export type GymUserUncheckedUpdateWithoutUserInput = {
+  export type GymUncheckedUpdateWithoutOwnerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    gym_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    memberships?: MembershipUncheckedUpdateManyWithoutGymNestedInput
+    member_time_logs?: MemberTimeLogsUncheckedUpdateManyWithoutGymNestedInput
+    gym_stats?: GymStatsUncheckedUpdateOneWithoutGymNestedInput
+    revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
+    membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
   }
 
-  export type GymUserUncheckedUpdateManyWithoutUserInput = {
+  export type GymUncheckedUpdateManyWithoutOwnerInput = {
     id?: StringFieldUpdateOperationsInput | string
-    gym_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
   }
 
   export type MembershipCreateManyMemberInput = {
@@ -17320,11 +15960,6 @@ export namespace Prisma {
     recorded_by: string
   }
 
-  export type GymUserCreateManyGymInput = {
-    id?: string
-    user_id: string
-  }
-
   export type RevenueCreateManyGymInput = {
     id?: string
     year: number
@@ -17404,21 +16039,6 @@ export namespace Prisma {
     member_id?: StringFieldUpdateOperationsInput | string
     checked_in_at?: DateTimeFieldUpdateOperationsInput | Date | string
     recorded_by?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type GymUserUpdateWithoutGymInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    user?: UserUpdateOneRequiredWithoutGym_usersNestedInput
-  }
-
-  export type GymUserUncheckedUpdateWithoutGymInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    user_id?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type GymUserUncheckedUpdateManyWithoutGymInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    user_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type RevenueUpdateWithoutGymInput = {

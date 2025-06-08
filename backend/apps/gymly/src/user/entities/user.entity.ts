@@ -1,6 +1,6 @@
 import { ObjectType, Field, registerEnumType } from '@nestjs/graphql';
 import { Role } from 'apps/gymly/prisma/generated/client';
-import { GymUser } from '../../gym-user/entities/gym-user.entity';
+import { Gym } from '../../gym/entities/gym.entity';
 
 registerEnumType(Role, {
     name: 'Role',
@@ -36,7 +36,7 @@ export class User {
 
     // relations
     
-    @Field(() => [GymUser])      
-    gym_users: GymUser[];
+    @Field(() => [Gym])      
+    gyms: Gym[];
 
 }

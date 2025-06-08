@@ -166,14 +166,9 @@ exports.Prisma.MemberScalarFieldEnum = {
   created_by: 'created_by'
 };
 
-exports.Prisma.GymUserScalarFieldEnum = {
-  id: 'id',
-  user_id: 'user_id',
-  gym_id: 'gym_id'
-};
-
 exports.Prisma.GymScalarFieldEnum = {
   id: 'id',
+  owner_id: 'owner_id',
   name: 'name',
   location: 'location',
   created_at: 'created_at',
@@ -242,7 +237,6 @@ exports.Prisma.ModelName = {
   MembershipCount: 'MembershipCount',
   User: 'User',
   Member: 'Member',
-  GymUser: 'GymUser',
   Gym: 'Gym',
   Membership: 'Membership',
   Plan: 'Plan',

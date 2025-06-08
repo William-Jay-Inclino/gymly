@@ -24,14 +24,24 @@ export async function login(payload: { username: string; password: string; api_u
 
 
 export function set_access_token(access_token: string) {
-    localStorage.setItem(LOCAL_STORAGE_AUTH_USER_KEY, access_token)
+    const config = useRuntimeConfig()
+    const accessTokenKey = config.public.accessTokenKey
+    const accessTokenKeyName = config.public.accessTokenKeyName
+    const encrypted = encryptToken({ token: access_token, secret: accessTokenKey })
+    localStorage.setItem(accessTokenKeyName, encrypted)
 }
 
-
 export function get_access_token(): string | null {
-    return localStorage.getItem(LOCAL_STORAGE_AUTH_USER_KEY) || null;
+    const config = useRuntimeConfig()
+    const accessTokenKey = config.public.accessTokenKey
+    const accessTokenKeyName = config.public.accessTokenKeyName
+    const encrypted = localStorage.getItem(accessTokenKeyName)
+    if (!encrypted) return null
+    return decryptToken({ ciphertext: encrypted, secret: accessTokenKey })
 }
 
 export function delete_access_token() {
     localStorage.removeItem(LOCAL_STORAGE_AUTH_USER_KEY)
 }
+
+

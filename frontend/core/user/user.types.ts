@@ -1,4 +1,4 @@
-import type { GymUser } from "../gym-user/gym-user.entity";
+import type { Gym } from "../gym/gym.types";
 
 export interface User {
     id: string;
@@ -9,6 +9,6 @@ export interface User {
     created_at: string;
     created_by: string;
 
-    gym_users: GymUser[]
+    gyms: Gym[]
     
 }

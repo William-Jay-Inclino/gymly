@@ -1,7 +1,7 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Membership } from '../../membership/entities/membership.entity';
-import { GymUser } from '../../gym-user/entities/gym-user.entity';
 import { GymStats } from '../../analytics/entities/gym-stats.entity';
+import { User } from '../../user/entities/user.entity';
 
 
 @ObjectType()
@@ -9,6 +9,9 @@ export class Gym {
 
     @Field()
     id: string;
+
+    @Field()
+    owner_id: string;
 
     @Field()
     name: string;
@@ -25,11 +28,11 @@ export class Gym {
 
     // relations
 
+    @Field(() => User)      
+    owner: User;
+
     @Field(() => [Membership])      
     memberships: Membership[];
-
-    @Field(() => [GymUser])      
-    gym_users: GymUser[];
 
     @Field(() => GymStats)      
     gym_stats: GymStats;

@@ -1,4 +1,4 @@
-import { Gym, GymUser, Plan, Prisma, Role, User } from "apps/gymly/prisma/generated/client";
+import { Gym, Plan, Prisma, Role, User } from "apps/gymly/prisma/generated/client";
 import { faker } from "@faker-js/faker";
 
 const owner_id = 'df30a8c0-9733-4bba-9b0d-1815bc88a550'
@@ -41,18 +41,11 @@ const gym_id = '4a496131-1129-45ac-914f-6f734d408365'
 export const gyms: Gym[] = [
     {
         id: gym_id,
+        owner_id,
         name: 'Gym Buddies',
         location: '123 Fitness St, Health City, HC 12345',
         created_by: 'system',
         created_at: new Date(),
-    }
-]
-
-export const gym_users: GymUser[] = [
-    {
-        id: faker.string.uuid(),
-        user_id: owner_id,
-        gym_id,
     }
 ]
 
