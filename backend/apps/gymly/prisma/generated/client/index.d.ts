@@ -14,6 +14,16 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model Limit
+ * 
+ */
+export type Limit = $Result.DefaultSelection<Prisma.$LimitPayload>
+/**
+ * Model GymLimit
+ * 
+ */
+export type GymLimit = $Result.DefaultSelection<Prisma.$GymLimitPayload>
+/**
  * Model GymStats
  * 
  */
@@ -43,6 +53,11 @@ export type Member = $Result.DefaultSelection<Prisma.$MemberPayload>
  * 
  */
 export type Gym = $Result.DefaultSelection<Prisma.$GymPayload>
+/**
+ * Model GymStaff
+ * 
+ */
+export type GymStaff = $Result.DefaultSelection<Prisma.$GymStaffPayload>
 /**
  * Model Membership
  * 
@@ -84,8 +99,8 @@ export const Role: typeof $Enums.Role
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more GymStats
- * const gymStats = await prisma.gymStats.findMany()
+ * // Fetch zero or more Limits
+ * const limits = await prisma.limit.findMany()
  * ```
  *
  *
@@ -105,8 +120,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more GymStats
-   * const gymStats = await prisma.gymStats.findMany()
+   * // Fetch zero or more Limits
+   * const limits = await prisma.limit.findMany()
    * ```
    *
    *
@@ -203,6 +218,26 @@ export class PrismaClient<
   }>>
 
       /**
+   * `prisma.limit`: Exposes CRUD operations for the **Limit** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Limits
+    * const limits = await prisma.limit.findMany()
+    * ```
+    */
+  get limit(): Prisma.LimitDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.gymLimit`: Exposes CRUD operations for the **GymLimit** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GymLimits
+    * const gymLimits = await prisma.gymLimit.findMany()
+    * ```
+    */
+  get gymLimit(): Prisma.GymLimitDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.gymStats`: Exposes CRUD operations for the **GymStats** model.
     * Example usage:
     * ```ts
@@ -261,6 +296,16 @@ export class PrismaClient<
     * ```
     */
   get gym(): Prisma.GymDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.gymStaff`: Exposes CRUD operations for the **GymStaff** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GymStaffs
+    * const gymStaffs = await prisma.gymStaff.findMany()
+    * ```
+    */
+  get gymStaff(): Prisma.GymStaffDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.membership`: Exposes CRUD operations for the **Membership** model.
@@ -731,12 +776,15 @@ export namespace Prisma {
 
 
   export const ModelName: {
+    Limit: 'Limit',
+    GymLimit: 'GymLimit',
     GymStats: 'GymStats',
     Revenue: 'Revenue',
     MembershipCount: 'MembershipCount',
     User: 'User',
     Member: 'Member',
     Gym: 'Gym',
+    GymStaff: 'GymStaff',
     Membership: 'Membership',
     Plan: 'Plan',
     MemberTimeLogs: 'MemberTimeLogs'
@@ -758,10 +806,158 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "gymStats" | "revenue" | "membershipCount" | "user" | "member" | "gym" | "membership" | "plan" | "memberTimeLogs"
+      modelProps: "limit" | "gymLimit" | "gymStats" | "revenue" | "membershipCount" | "user" | "member" | "gym" | "gymStaff" | "membership" | "plan" | "memberTimeLogs"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
+      Limit: {
+        payload: Prisma.$LimitPayload<ExtArgs>
+        fields: Prisma.LimitFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LimitFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LimitPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LimitFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LimitPayload>
+          }
+          findFirst: {
+            args: Prisma.LimitFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LimitPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LimitFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LimitPayload>
+          }
+          findMany: {
+            args: Prisma.LimitFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LimitPayload>[]
+          }
+          create: {
+            args: Prisma.LimitCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LimitPayload>
+          }
+          createMany: {
+            args: Prisma.LimitCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LimitCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LimitPayload>[]
+          }
+          delete: {
+            args: Prisma.LimitDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LimitPayload>
+          }
+          update: {
+            args: Prisma.LimitUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LimitPayload>
+          }
+          deleteMany: {
+            args: Prisma.LimitDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LimitUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LimitUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LimitPayload>[]
+          }
+          upsert: {
+            args: Prisma.LimitUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LimitPayload>
+          }
+          aggregate: {
+            args: Prisma.LimitAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLimit>
+          }
+          groupBy: {
+            args: Prisma.LimitGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LimitGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LimitCountArgs<ExtArgs>
+            result: $Utils.Optional<LimitCountAggregateOutputType> | number
+          }
+        }
+      }
+      GymLimit: {
+        payload: Prisma.$GymLimitPayload<ExtArgs>
+        fields: Prisma.GymLimitFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GymLimitFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymLimitPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GymLimitFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymLimitPayload>
+          }
+          findFirst: {
+            args: Prisma.GymLimitFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymLimitPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GymLimitFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymLimitPayload>
+          }
+          findMany: {
+            args: Prisma.GymLimitFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymLimitPayload>[]
+          }
+          create: {
+            args: Prisma.GymLimitCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymLimitPayload>
+          }
+          createMany: {
+            args: Prisma.GymLimitCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GymLimitCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymLimitPayload>[]
+          }
+          delete: {
+            args: Prisma.GymLimitDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymLimitPayload>
+          }
+          update: {
+            args: Prisma.GymLimitUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymLimitPayload>
+          }
+          deleteMany: {
+            args: Prisma.GymLimitDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GymLimitUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GymLimitUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymLimitPayload>[]
+          }
+          upsert: {
+            args: Prisma.GymLimitUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymLimitPayload>
+          }
+          aggregate: {
+            args: Prisma.GymLimitAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGymLimit>
+          }
+          groupBy: {
+            args: Prisma.GymLimitGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GymLimitGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GymLimitCountArgs<ExtArgs>
+            result: $Utils.Optional<GymLimitCountAggregateOutputType> | number
+          }
+        }
+      }
       GymStats: {
         payload: Prisma.$GymStatsPayload<ExtArgs>
         fields: Prisma.GymStatsFieldRefs
@@ -1206,6 +1402,80 @@ export namespace Prisma {
           }
         }
       }
+      GymStaff: {
+        payload: Prisma.$GymStaffPayload<ExtArgs>
+        fields: Prisma.GymStaffFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GymStaffFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymStaffPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GymStaffFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymStaffPayload>
+          }
+          findFirst: {
+            args: Prisma.GymStaffFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymStaffPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GymStaffFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymStaffPayload>
+          }
+          findMany: {
+            args: Prisma.GymStaffFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymStaffPayload>[]
+          }
+          create: {
+            args: Prisma.GymStaffCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymStaffPayload>
+          }
+          createMany: {
+            args: Prisma.GymStaffCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GymStaffCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymStaffPayload>[]
+          }
+          delete: {
+            args: Prisma.GymStaffDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymStaffPayload>
+          }
+          update: {
+            args: Prisma.GymStaffUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymStaffPayload>
+          }
+          deleteMany: {
+            args: Prisma.GymStaffDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GymStaffUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GymStaffUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymStaffPayload>[]
+          }
+          upsert: {
+            args: Prisma.GymStaffUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GymStaffPayload>
+          }
+          aggregate: {
+            args: Prisma.GymStaffAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGymStaff>
+          }
+          groupBy: {
+            args: Prisma.GymStaffGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GymStaffGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GymStaffCountArgs<ExtArgs>
+            result: $Utils.Optional<GymStaffCountAggregateOutputType> | number
+          }
+        }
+      }
       Membership: {
         payload: Prisma.$MembershipPayload<ExtArgs>
         fields: Prisma.MembershipFieldRefs
@@ -1512,12 +1782,15 @@ export namespace Prisma {
     omit?: Prisma.GlobalOmitConfig
   }
   export type GlobalOmitConfig = {
+    limit?: LimitOmit
+    gymLimit?: GymLimitOmit
     gymStats?: GymStatsOmit
     revenue?: RevenueOmit
     membershipCount?: MembershipCountOmit
     user?: UserOmit
     member?: MemberOmit
     gym?: GymOmit
+    gymStaff?: GymStaffOmit
     membership?: MembershipOmit
     plan?: PlanOmit
     memberTimeLogs?: MemberTimeLogsOmit
@@ -1611,6 +1884,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type LimitCountOutputType
+   */
+
+  export type LimitCountOutputType = {
+    settings: number
+  }
+
+  export type LimitCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    settings?: boolean | LimitCountOutputTypeCountSettingsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * LimitCountOutputType without action
+   */
+  export type LimitCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LimitCountOutputType
+     */
+    select?: LimitCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * LimitCountOutputType without action
+   */
+  export type LimitCountOutputTypeCountSettingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GymLimitWhereInput
+  }
+
+
+  /**
    * Count Type UserCountOutputType
    */
 
@@ -1689,6 +1993,8 @@ export namespace Prisma {
     memberships: number
     member_time_logs: number
     revenues: number
+    staffs: number
+    limits: number
     membership_counts: number
   }
 
@@ -1696,6 +2002,8 @@ export namespace Prisma {
     memberships?: boolean | GymCountOutputTypeCountMembershipsArgs
     member_time_logs?: boolean | GymCountOutputTypeCountMember_time_logsArgs
     revenues?: boolean | GymCountOutputTypeCountRevenuesArgs
+    staffs?: boolean | GymCountOutputTypeCountStaffsArgs
+    limits?: boolean | GymCountOutputTypeCountLimitsArgs
     membership_counts?: boolean | GymCountOutputTypeCountMembership_countsArgs
   }
 
@@ -1734,6 +2042,20 @@ export namespace Prisma {
   /**
    * GymCountOutputType without action
    */
+  export type GymCountOutputTypeCountStaffsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GymStaffWhereInput
+  }
+
+  /**
+   * GymCountOutputType without action
+   */
+  export type GymCountOutputTypeCountLimitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GymLimitWhereInput
+  }
+
+  /**
+   * GymCountOutputType without action
+   */
   export type GymCountOutputTypeCountMembership_countsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MembershipCountWhereInput
   }
@@ -1742,6 +2064,2183 @@ export namespace Prisma {
   /**
    * Models
    */
+
+  /**
+   * Model Limit
+   */
+
+  export type AggregateLimit = {
+    _count: LimitCountAggregateOutputType | null
+    _avg: LimitAvgAggregateOutputType | null
+    _sum: LimitSumAggregateOutputType | null
+    _min: LimitMinAggregateOutputType | null
+    _max: LimitMaxAggregateOutputType | null
+  }
+
+  export type LimitAvgAggregateOutputType = {
+    id: number | null
+    value: number | null
+  }
+
+  export type LimitSumAggregateOutputType = {
+    id: number | null
+    value: number | null
+  }
+
+  export type LimitMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+    value: number | null
+  }
+
+  export type LimitMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+    value: number | null
+  }
+
+  export type LimitCountAggregateOutputType = {
+    id: number
+    name: number
+    value: number
+    _all: number
+  }
+
+
+  export type LimitAvgAggregateInputType = {
+    id?: true
+    value?: true
+  }
+
+  export type LimitSumAggregateInputType = {
+    id?: true
+    value?: true
+  }
+
+  export type LimitMinAggregateInputType = {
+    id?: true
+    name?: true
+    value?: true
+  }
+
+  export type LimitMaxAggregateInputType = {
+    id?: true
+    name?: true
+    value?: true
+  }
+
+  export type LimitCountAggregateInputType = {
+    id?: true
+    name?: true
+    value?: true
+    _all?: true
+  }
+
+  export type LimitAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Limit to aggregate.
+     */
+    where?: LimitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Limits to fetch.
+     */
+    orderBy?: LimitOrderByWithRelationInput | LimitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LimitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Limits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Limits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Limits
+    **/
+    _count?: true | LimitCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LimitAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LimitSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LimitMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LimitMaxAggregateInputType
+  }
+
+  export type GetLimitAggregateType<T extends LimitAggregateArgs> = {
+        [P in keyof T & keyof AggregateLimit]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLimit[P]>
+      : GetScalarType<T[P], AggregateLimit[P]>
+  }
+
+
+
+
+  export type LimitGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LimitWhereInput
+    orderBy?: LimitOrderByWithAggregationInput | LimitOrderByWithAggregationInput[]
+    by: LimitScalarFieldEnum[] | LimitScalarFieldEnum
+    having?: LimitScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LimitCountAggregateInputType | true
+    _avg?: LimitAvgAggregateInputType
+    _sum?: LimitSumAggregateInputType
+    _min?: LimitMinAggregateInputType
+    _max?: LimitMaxAggregateInputType
+  }
+
+  export type LimitGroupByOutputType = {
+    id: number
+    name: string
+    value: number
+    _count: LimitCountAggregateOutputType | null
+    _avg: LimitAvgAggregateOutputType | null
+    _sum: LimitSumAggregateOutputType | null
+    _min: LimitMinAggregateOutputType | null
+    _max: LimitMaxAggregateOutputType | null
+  }
+
+  type GetLimitGroupByPayload<T extends LimitGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LimitGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LimitGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LimitGroupByOutputType[P]>
+            : GetScalarType<T[P], LimitGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LimitSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    value?: boolean
+    settings?: boolean | Limit$settingsArgs<ExtArgs>
+    _count?: boolean | LimitCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["limit"]>
+
+  export type LimitSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    value?: boolean
+  }, ExtArgs["result"]["limit"]>
+
+  export type LimitSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    value?: boolean
+  }, ExtArgs["result"]["limit"]>
+
+  export type LimitSelectScalar = {
+    id?: boolean
+    name?: boolean
+    value?: boolean
+  }
+
+  export type LimitOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "value", ExtArgs["result"]["limit"]>
+  export type LimitInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    settings?: boolean | Limit$settingsArgs<ExtArgs>
+    _count?: boolean | LimitCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type LimitIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type LimitIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $LimitPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Limit"
+    objects: {
+      settings: Prisma.$GymLimitPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      name: string
+      value: number
+    }, ExtArgs["result"]["limit"]>
+    composites: {}
+  }
+
+  type LimitGetPayload<S extends boolean | null | undefined | LimitDefaultArgs> = $Result.GetResult<Prisma.$LimitPayload, S>
+
+  type LimitCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LimitFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LimitCountAggregateInputType | true
+    }
+
+  export interface LimitDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Limit'], meta: { name: 'Limit' } }
+    /**
+     * Find zero or one Limit that matches the filter.
+     * @param {LimitFindUniqueArgs} args - Arguments to find a Limit
+     * @example
+     * // Get one Limit
+     * const limit = await prisma.limit.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LimitFindUniqueArgs>(args: SelectSubset<T, LimitFindUniqueArgs<ExtArgs>>): Prisma__LimitClient<$Result.GetResult<Prisma.$LimitPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Limit that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LimitFindUniqueOrThrowArgs} args - Arguments to find a Limit
+     * @example
+     * // Get one Limit
+     * const limit = await prisma.limit.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LimitFindUniqueOrThrowArgs>(args: SelectSubset<T, LimitFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LimitClient<$Result.GetResult<Prisma.$LimitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Limit that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LimitFindFirstArgs} args - Arguments to find a Limit
+     * @example
+     * // Get one Limit
+     * const limit = await prisma.limit.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LimitFindFirstArgs>(args?: SelectSubset<T, LimitFindFirstArgs<ExtArgs>>): Prisma__LimitClient<$Result.GetResult<Prisma.$LimitPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Limit that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LimitFindFirstOrThrowArgs} args - Arguments to find a Limit
+     * @example
+     * // Get one Limit
+     * const limit = await prisma.limit.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LimitFindFirstOrThrowArgs>(args?: SelectSubset<T, LimitFindFirstOrThrowArgs<ExtArgs>>): Prisma__LimitClient<$Result.GetResult<Prisma.$LimitPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Limits that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LimitFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Limits
+     * const limits = await prisma.limit.findMany()
+     * 
+     * // Get first 10 Limits
+     * const limits = await prisma.limit.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const limitWithIdOnly = await prisma.limit.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LimitFindManyArgs>(args?: SelectSubset<T, LimitFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LimitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Limit.
+     * @param {LimitCreateArgs} args - Arguments to create a Limit.
+     * @example
+     * // Create one Limit
+     * const Limit = await prisma.limit.create({
+     *   data: {
+     *     // ... data to create a Limit
+     *   }
+     * })
+     * 
+     */
+    create<T extends LimitCreateArgs>(args: SelectSubset<T, LimitCreateArgs<ExtArgs>>): Prisma__LimitClient<$Result.GetResult<Prisma.$LimitPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Limits.
+     * @param {LimitCreateManyArgs} args - Arguments to create many Limits.
+     * @example
+     * // Create many Limits
+     * const limit = await prisma.limit.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LimitCreateManyArgs>(args?: SelectSubset<T, LimitCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Limits and returns the data saved in the database.
+     * @param {LimitCreateManyAndReturnArgs} args - Arguments to create many Limits.
+     * @example
+     * // Create many Limits
+     * const limit = await prisma.limit.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Limits and only return the `id`
+     * const limitWithIdOnly = await prisma.limit.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LimitCreateManyAndReturnArgs>(args?: SelectSubset<T, LimitCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LimitPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Limit.
+     * @param {LimitDeleteArgs} args - Arguments to delete one Limit.
+     * @example
+     * // Delete one Limit
+     * const Limit = await prisma.limit.delete({
+     *   where: {
+     *     // ... filter to delete one Limit
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LimitDeleteArgs>(args: SelectSubset<T, LimitDeleteArgs<ExtArgs>>): Prisma__LimitClient<$Result.GetResult<Prisma.$LimitPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Limit.
+     * @param {LimitUpdateArgs} args - Arguments to update one Limit.
+     * @example
+     * // Update one Limit
+     * const limit = await prisma.limit.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LimitUpdateArgs>(args: SelectSubset<T, LimitUpdateArgs<ExtArgs>>): Prisma__LimitClient<$Result.GetResult<Prisma.$LimitPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Limits.
+     * @param {LimitDeleteManyArgs} args - Arguments to filter Limits to delete.
+     * @example
+     * // Delete a few Limits
+     * const { count } = await prisma.limit.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LimitDeleteManyArgs>(args?: SelectSubset<T, LimitDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Limits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LimitUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Limits
+     * const limit = await prisma.limit.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LimitUpdateManyArgs>(args: SelectSubset<T, LimitUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Limits and returns the data updated in the database.
+     * @param {LimitUpdateManyAndReturnArgs} args - Arguments to update many Limits.
+     * @example
+     * // Update many Limits
+     * const limit = await prisma.limit.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Limits and only return the `id`
+     * const limitWithIdOnly = await prisma.limit.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LimitUpdateManyAndReturnArgs>(args: SelectSubset<T, LimitUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LimitPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Limit.
+     * @param {LimitUpsertArgs} args - Arguments to update or create a Limit.
+     * @example
+     * // Update or create a Limit
+     * const limit = await prisma.limit.upsert({
+     *   create: {
+     *     // ... data to create a Limit
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Limit we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LimitUpsertArgs>(args: SelectSubset<T, LimitUpsertArgs<ExtArgs>>): Prisma__LimitClient<$Result.GetResult<Prisma.$LimitPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Limits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LimitCountArgs} args - Arguments to filter Limits to count.
+     * @example
+     * // Count the number of Limits
+     * const count = await prisma.limit.count({
+     *   where: {
+     *     // ... the filter for the Limits we want to count
+     *   }
+     * })
+    **/
+    count<T extends LimitCountArgs>(
+      args?: Subset<T, LimitCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LimitCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Limit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LimitAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LimitAggregateArgs>(args: Subset<T, LimitAggregateArgs>): Prisma.PrismaPromise<GetLimitAggregateType<T>>
+
+    /**
+     * Group by Limit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LimitGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LimitGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LimitGroupByArgs['orderBy'] }
+        : { orderBy?: LimitGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LimitGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLimitGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Limit model
+   */
+  readonly fields: LimitFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Limit.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LimitClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    settings<T extends Limit$settingsArgs<ExtArgs> = {}>(args?: Subset<T, Limit$settingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GymLimitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Limit model
+   */
+  interface LimitFieldRefs {
+    readonly id: FieldRef<"Limit", 'Int'>
+    readonly name: FieldRef<"Limit", 'String'>
+    readonly value: FieldRef<"Limit", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Limit findUnique
+   */
+  export type LimitFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Limit
+     */
+    select?: LimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Limit
+     */
+    omit?: LimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LimitInclude<ExtArgs> | null
+    /**
+     * Filter, which Limit to fetch.
+     */
+    where: LimitWhereUniqueInput
+  }
+
+  /**
+   * Limit findUniqueOrThrow
+   */
+  export type LimitFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Limit
+     */
+    select?: LimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Limit
+     */
+    omit?: LimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LimitInclude<ExtArgs> | null
+    /**
+     * Filter, which Limit to fetch.
+     */
+    where: LimitWhereUniqueInput
+  }
+
+  /**
+   * Limit findFirst
+   */
+  export type LimitFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Limit
+     */
+    select?: LimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Limit
+     */
+    omit?: LimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LimitInclude<ExtArgs> | null
+    /**
+     * Filter, which Limit to fetch.
+     */
+    where?: LimitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Limits to fetch.
+     */
+    orderBy?: LimitOrderByWithRelationInput | LimitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Limits.
+     */
+    cursor?: LimitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Limits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Limits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Limits.
+     */
+    distinct?: LimitScalarFieldEnum | LimitScalarFieldEnum[]
+  }
+
+  /**
+   * Limit findFirstOrThrow
+   */
+  export type LimitFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Limit
+     */
+    select?: LimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Limit
+     */
+    omit?: LimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LimitInclude<ExtArgs> | null
+    /**
+     * Filter, which Limit to fetch.
+     */
+    where?: LimitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Limits to fetch.
+     */
+    orderBy?: LimitOrderByWithRelationInput | LimitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Limits.
+     */
+    cursor?: LimitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Limits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Limits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Limits.
+     */
+    distinct?: LimitScalarFieldEnum | LimitScalarFieldEnum[]
+  }
+
+  /**
+   * Limit findMany
+   */
+  export type LimitFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Limit
+     */
+    select?: LimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Limit
+     */
+    omit?: LimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LimitInclude<ExtArgs> | null
+    /**
+     * Filter, which Limits to fetch.
+     */
+    where?: LimitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Limits to fetch.
+     */
+    orderBy?: LimitOrderByWithRelationInput | LimitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Limits.
+     */
+    cursor?: LimitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Limits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Limits.
+     */
+    skip?: number
+    distinct?: LimitScalarFieldEnum | LimitScalarFieldEnum[]
+  }
+
+  /**
+   * Limit create
+   */
+  export type LimitCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Limit
+     */
+    select?: LimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Limit
+     */
+    omit?: LimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LimitInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Limit.
+     */
+    data: XOR<LimitCreateInput, LimitUncheckedCreateInput>
+  }
+
+  /**
+   * Limit createMany
+   */
+  export type LimitCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Limits.
+     */
+    data: LimitCreateManyInput | LimitCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Limit createManyAndReturn
+   */
+  export type LimitCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Limit
+     */
+    select?: LimitSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Limit
+     */
+    omit?: LimitOmit<ExtArgs> | null
+    /**
+     * The data used to create many Limits.
+     */
+    data: LimitCreateManyInput | LimitCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Limit update
+   */
+  export type LimitUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Limit
+     */
+    select?: LimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Limit
+     */
+    omit?: LimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LimitInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Limit.
+     */
+    data: XOR<LimitUpdateInput, LimitUncheckedUpdateInput>
+    /**
+     * Choose, which Limit to update.
+     */
+    where: LimitWhereUniqueInput
+  }
+
+  /**
+   * Limit updateMany
+   */
+  export type LimitUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Limits.
+     */
+    data: XOR<LimitUpdateManyMutationInput, LimitUncheckedUpdateManyInput>
+    /**
+     * Filter which Limits to update
+     */
+    where?: LimitWhereInput
+    /**
+     * Limit how many Limits to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Limit updateManyAndReturn
+   */
+  export type LimitUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Limit
+     */
+    select?: LimitSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Limit
+     */
+    omit?: LimitOmit<ExtArgs> | null
+    /**
+     * The data used to update Limits.
+     */
+    data: XOR<LimitUpdateManyMutationInput, LimitUncheckedUpdateManyInput>
+    /**
+     * Filter which Limits to update
+     */
+    where?: LimitWhereInput
+    /**
+     * Limit how many Limits to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Limit upsert
+   */
+  export type LimitUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Limit
+     */
+    select?: LimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Limit
+     */
+    omit?: LimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LimitInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Limit to update in case it exists.
+     */
+    where: LimitWhereUniqueInput
+    /**
+     * In case the Limit found by the `where` argument doesn't exist, create a new Limit with this data.
+     */
+    create: XOR<LimitCreateInput, LimitUncheckedCreateInput>
+    /**
+     * In case the Limit was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LimitUpdateInput, LimitUncheckedUpdateInput>
+  }
+
+  /**
+   * Limit delete
+   */
+  export type LimitDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Limit
+     */
+    select?: LimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Limit
+     */
+    omit?: LimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LimitInclude<ExtArgs> | null
+    /**
+     * Filter which Limit to delete.
+     */
+    where: LimitWhereUniqueInput
+  }
+
+  /**
+   * Limit deleteMany
+   */
+  export type LimitDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Limits to delete
+     */
+    where?: LimitWhereInput
+    /**
+     * Limit how many Limits to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Limit.settings
+   */
+  export type Limit$settingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymLimit
+     */
+    select?: GymLimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymLimit
+     */
+    omit?: GymLimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymLimitInclude<ExtArgs> | null
+    where?: GymLimitWhereInput
+    orderBy?: GymLimitOrderByWithRelationInput | GymLimitOrderByWithRelationInput[]
+    cursor?: GymLimitWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GymLimitScalarFieldEnum | GymLimitScalarFieldEnum[]
+  }
+
+  /**
+   * Limit without action
+   */
+  export type LimitDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Limit
+     */
+    select?: LimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Limit
+     */
+    omit?: LimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LimitInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model GymLimit
+   */
+
+  export type AggregateGymLimit = {
+    _count: GymLimitCountAggregateOutputType | null
+    _avg: GymLimitAvgAggregateOutputType | null
+    _sum: GymLimitSumAggregateOutputType | null
+    _min: GymLimitMinAggregateOutputType | null
+    _max: GymLimitMaxAggregateOutputType | null
+  }
+
+  export type GymLimitAvgAggregateOutputType = {
+    id: number | null
+    limit_id: number | null
+    value: number | null
+  }
+
+  export type GymLimitSumAggregateOutputType = {
+    id: number | null
+    limit_id: number | null
+    value: number | null
+  }
+
+  export type GymLimitMinAggregateOutputType = {
+    id: number | null
+    gym_id: string | null
+    limit_id: number | null
+    value: number | null
+  }
+
+  export type GymLimitMaxAggregateOutputType = {
+    id: number | null
+    gym_id: string | null
+    limit_id: number | null
+    value: number | null
+  }
+
+  export type GymLimitCountAggregateOutputType = {
+    id: number
+    gym_id: number
+    limit_id: number
+    value: number
+    _all: number
+  }
+
+
+  export type GymLimitAvgAggregateInputType = {
+    id?: true
+    limit_id?: true
+    value?: true
+  }
+
+  export type GymLimitSumAggregateInputType = {
+    id?: true
+    limit_id?: true
+    value?: true
+  }
+
+  export type GymLimitMinAggregateInputType = {
+    id?: true
+    gym_id?: true
+    limit_id?: true
+    value?: true
+  }
+
+  export type GymLimitMaxAggregateInputType = {
+    id?: true
+    gym_id?: true
+    limit_id?: true
+    value?: true
+  }
+
+  export type GymLimitCountAggregateInputType = {
+    id?: true
+    gym_id?: true
+    limit_id?: true
+    value?: true
+    _all?: true
+  }
+
+  export type GymLimitAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GymLimit to aggregate.
+     */
+    where?: GymLimitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GymLimits to fetch.
+     */
+    orderBy?: GymLimitOrderByWithRelationInput | GymLimitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GymLimitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GymLimits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GymLimits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GymLimits
+    **/
+    _count?: true | GymLimitCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GymLimitAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GymLimitSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GymLimitMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GymLimitMaxAggregateInputType
+  }
+
+  export type GetGymLimitAggregateType<T extends GymLimitAggregateArgs> = {
+        [P in keyof T & keyof AggregateGymLimit]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGymLimit[P]>
+      : GetScalarType<T[P], AggregateGymLimit[P]>
+  }
+
+
+
+
+  export type GymLimitGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GymLimitWhereInput
+    orderBy?: GymLimitOrderByWithAggregationInput | GymLimitOrderByWithAggregationInput[]
+    by: GymLimitScalarFieldEnum[] | GymLimitScalarFieldEnum
+    having?: GymLimitScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GymLimitCountAggregateInputType | true
+    _avg?: GymLimitAvgAggregateInputType
+    _sum?: GymLimitSumAggregateInputType
+    _min?: GymLimitMinAggregateInputType
+    _max?: GymLimitMaxAggregateInputType
+  }
+
+  export type GymLimitGroupByOutputType = {
+    id: number
+    gym_id: string
+    limit_id: number
+    value: number
+    _count: GymLimitCountAggregateOutputType | null
+    _avg: GymLimitAvgAggregateOutputType | null
+    _sum: GymLimitSumAggregateOutputType | null
+    _min: GymLimitMinAggregateOutputType | null
+    _max: GymLimitMaxAggregateOutputType | null
+  }
+
+  type GetGymLimitGroupByPayload<T extends GymLimitGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GymLimitGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GymLimitGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GymLimitGroupByOutputType[P]>
+            : GetScalarType<T[P], GymLimitGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GymLimitSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    gym_id?: boolean
+    limit_id?: boolean
+    value?: boolean
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+    limit?: boolean | LimitDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gymLimit"]>
+
+  export type GymLimitSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    gym_id?: boolean
+    limit_id?: boolean
+    value?: boolean
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+    limit?: boolean | LimitDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gymLimit"]>
+
+  export type GymLimitSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    gym_id?: boolean
+    limit_id?: boolean
+    value?: boolean
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+    limit?: boolean | LimitDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gymLimit"]>
+
+  export type GymLimitSelectScalar = {
+    id?: boolean
+    gym_id?: boolean
+    limit_id?: boolean
+    value?: boolean
+  }
+
+  export type GymLimitOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "gym_id" | "limit_id" | "value", ExtArgs["result"]["gymLimit"]>
+  export type GymLimitInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+    limit?: boolean | LimitDefaultArgs<ExtArgs>
+  }
+  export type GymLimitIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+    limit?: boolean | LimitDefaultArgs<ExtArgs>
+  }
+  export type GymLimitIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+    limit?: boolean | LimitDefaultArgs<ExtArgs>
+  }
+
+  export type $GymLimitPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GymLimit"
+    objects: {
+      gym: Prisma.$GymPayload<ExtArgs>
+      limit: Prisma.$LimitPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      gym_id: string
+      limit_id: number
+      value: number
+    }, ExtArgs["result"]["gymLimit"]>
+    composites: {}
+  }
+
+  type GymLimitGetPayload<S extends boolean | null | undefined | GymLimitDefaultArgs> = $Result.GetResult<Prisma.$GymLimitPayload, S>
+
+  type GymLimitCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GymLimitFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GymLimitCountAggregateInputType | true
+    }
+
+  export interface GymLimitDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GymLimit'], meta: { name: 'GymLimit' } }
+    /**
+     * Find zero or one GymLimit that matches the filter.
+     * @param {GymLimitFindUniqueArgs} args - Arguments to find a GymLimit
+     * @example
+     * // Get one GymLimit
+     * const gymLimit = await prisma.gymLimit.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GymLimitFindUniqueArgs>(args: SelectSubset<T, GymLimitFindUniqueArgs<ExtArgs>>): Prisma__GymLimitClient<$Result.GetResult<Prisma.$GymLimitPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one GymLimit that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GymLimitFindUniqueOrThrowArgs} args - Arguments to find a GymLimit
+     * @example
+     * // Get one GymLimit
+     * const gymLimit = await prisma.gymLimit.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GymLimitFindUniqueOrThrowArgs>(args: SelectSubset<T, GymLimitFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GymLimitClient<$Result.GetResult<Prisma.$GymLimitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GymLimit that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GymLimitFindFirstArgs} args - Arguments to find a GymLimit
+     * @example
+     * // Get one GymLimit
+     * const gymLimit = await prisma.gymLimit.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GymLimitFindFirstArgs>(args?: SelectSubset<T, GymLimitFindFirstArgs<ExtArgs>>): Prisma__GymLimitClient<$Result.GetResult<Prisma.$GymLimitPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GymLimit that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GymLimitFindFirstOrThrowArgs} args - Arguments to find a GymLimit
+     * @example
+     * // Get one GymLimit
+     * const gymLimit = await prisma.gymLimit.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GymLimitFindFirstOrThrowArgs>(args?: SelectSubset<T, GymLimitFindFirstOrThrowArgs<ExtArgs>>): Prisma__GymLimitClient<$Result.GetResult<Prisma.$GymLimitPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more GymLimits that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GymLimitFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GymLimits
+     * const gymLimits = await prisma.gymLimit.findMany()
+     * 
+     * // Get first 10 GymLimits
+     * const gymLimits = await prisma.gymLimit.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const gymLimitWithIdOnly = await prisma.gymLimit.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GymLimitFindManyArgs>(args?: SelectSubset<T, GymLimitFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GymLimitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a GymLimit.
+     * @param {GymLimitCreateArgs} args - Arguments to create a GymLimit.
+     * @example
+     * // Create one GymLimit
+     * const GymLimit = await prisma.gymLimit.create({
+     *   data: {
+     *     // ... data to create a GymLimit
+     *   }
+     * })
+     * 
+     */
+    create<T extends GymLimitCreateArgs>(args: SelectSubset<T, GymLimitCreateArgs<ExtArgs>>): Prisma__GymLimitClient<$Result.GetResult<Prisma.$GymLimitPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many GymLimits.
+     * @param {GymLimitCreateManyArgs} args - Arguments to create many GymLimits.
+     * @example
+     * // Create many GymLimits
+     * const gymLimit = await prisma.gymLimit.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GymLimitCreateManyArgs>(args?: SelectSubset<T, GymLimitCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GymLimits and returns the data saved in the database.
+     * @param {GymLimitCreateManyAndReturnArgs} args - Arguments to create many GymLimits.
+     * @example
+     * // Create many GymLimits
+     * const gymLimit = await prisma.gymLimit.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GymLimits and only return the `id`
+     * const gymLimitWithIdOnly = await prisma.gymLimit.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GymLimitCreateManyAndReturnArgs>(args?: SelectSubset<T, GymLimitCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GymLimitPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a GymLimit.
+     * @param {GymLimitDeleteArgs} args - Arguments to delete one GymLimit.
+     * @example
+     * // Delete one GymLimit
+     * const GymLimit = await prisma.gymLimit.delete({
+     *   where: {
+     *     // ... filter to delete one GymLimit
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GymLimitDeleteArgs>(args: SelectSubset<T, GymLimitDeleteArgs<ExtArgs>>): Prisma__GymLimitClient<$Result.GetResult<Prisma.$GymLimitPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one GymLimit.
+     * @param {GymLimitUpdateArgs} args - Arguments to update one GymLimit.
+     * @example
+     * // Update one GymLimit
+     * const gymLimit = await prisma.gymLimit.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GymLimitUpdateArgs>(args: SelectSubset<T, GymLimitUpdateArgs<ExtArgs>>): Prisma__GymLimitClient<$Result.GetResult<Prisma.$GymLimitPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more GymLimits.
+     * @param {GymLimitDeleteManyArgs} args - Arguments to filter GymLimits to delete.
+     * @example
+     * // Delete a few GymLimits
+     * const { count } = await prisma.gymLimit.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GymLimitDeleteManyArgs>(args?: SelectSubset<T, GymLimitDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GymLimits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GymLimitUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GymLimits
+     * const gymLimit = await prisma.gymLimit.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GymLimitUpdateManyArgs>(args: SelectSubset<T, GymLimitUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GymLimits and returns the data updated in the database.
+     * @param {GymLimitUpdateManyAndReturnArgs} args - Arguments to update many GymLimits.
+     * @example
+     * // Update many GymLimits
+     * const gymLimit = await prisma.gymLimit.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GymLimits and only return the `id`
+     * const gymLimitWithIdOnly = await prisma.gymLimit.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GymLimitUpdateManyAndReturnArgs>(args: SelectSubset<T, GymLimitUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GymLimitPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one GymLimit.
+     * @param {GymLimitUpsertArgs} args - Arguments to update or create a GymLimit.
+     * @example
+     * // Update or create a GymLimit
+     * const gymLimit = await prisma.gymLimit.upsert({
+     *   create: {
+     *     // ... data to create a GymLimit
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GymLimit we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GymLimitUpsertArgs>(args: SelectSubset<T, GymLimitUpsertArgs<ExtArgs>>): Prisma__GymLimitClient<$Result.GetResult<Prisma.$GymLimitPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of GymLimits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GymLimitCountArgs} args - Arguments to filter GymLimits to count.
+     * @example
+     * // Count the number of GymLimits
+     * const count = await prisma.gymLimit.count({
+     *   where: {
+     *     // ... the filter for the GymLimits we want to count
+     *   }
+     * })
+    **/
+    count<T extends GymLimitCountArgs>(
+      args?: Subset<T, GymLimitCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GymLimitCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GymLimit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GymLimitAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GymLimitAggregateArgs>(args: Subset<T, GymLimitAggregateArgs>): Prisma.PrismaPromise<GetGymLimitAggregateType<T>>
+
+    /**
+     * Group by GymLimit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GymLimitGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GymLimitGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GymLimitGroupByArgs['orderBy'] }
+        : { orderBy?: GymLimitGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GymLimitGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGymLimitGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GymLimit model
+   */
+  readonly fields: GymLimitFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GymLimit.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GymLimitClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    gym<T extends GymDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GymDefaultArgs<ExtArgs>>): Prisma__GymClient<$Result.GetResult<Prisma.$GymPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    limit<T extends LimitDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LimitDefaultArgs<ExtArgs>>): Prisma__LimitClient<$Result.GetResult<Prisma.$LimitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GymLimit model
+   */
+  interface GymLimitFieldRefs {
+    readonly id: FieldRef<"GymLimit", 'Int'>
+    readonly gym_id: FieldRef<"GymLimit", 'String'>
+    readonly limit_id: FieldRef<"GymLimit", 'Int'>
+    readonly value: FieldRef<"GymLimit", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GymLimit findUnique
+   */
+  export type GymLimitFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymLimit
+     */
+    select?: GymLimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymLimit
+     */
+    omit?: GymLimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymLimitInclude<ExtArgs> | null
+    /**
+     * Filter, which GymLimit to fetch.
+     */
+    where: GymLimitWhereUniqueInput
+  }
+
+  /**
+   * GymLimit findUniqueOrThrow
+   */
+  export type GymLimitFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymLimit
+     */
+    select?: GymLimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymLimit
+     */
+    omit?: GymLimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymLimitInclude<ExtArgs> | null
+    /**
+     * Filter, which GymLimit to fetch.
+     */
+    where: GymLimitWhereUniqueInput
+  }
+
+  /**
+   * GymLimit findFirst
+   */
+  export type GymLimitFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymLimit
+     */
+    select?: GymLimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymLimit
+     */
+    omit?: GymLimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymLimitInclude<ExtArgs> | null
+    /**
+     * Filter, which GymLimit to fetch.
+     */
+    where?: GymLimitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GymLimits to fetch.
+     */
+    orderBy?: GymLimitOrderByWithRelationInput | GymLimitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GymLimits.
+     */
+    cursor?: GymLimitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GymLimits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GymLimits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GymLimits.
+     */
+    distinct?: GymLimitScalarFieldEnum | GymLimitScalarFieldEnum[]
+  }
+
+  /**
+   * GymLimit findFirstOrThrow
+   */
+  export type GymLimitFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymLimit
+     */
+    select?: GymLimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymLimit
+     */
+    omit?: GymLimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymLimitInclude<ExtArgs> | null
+    /**
+     * Filter, which GymLimit to fetch.
+     */
+    where?: GymLimitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GymLimits to fetch.
+     */
+    orderBy?: GymLimitOrderByWithRelationInput | GymLimitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GymLimits.
+     */
+    cursor?: GymLimitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GymLimits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GymLimits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GymLimits.
+     */
+    distinct?: GymLimitScalarFieldEnum | GymLimitScalarFieldEnum[]
+  }
+
+  /**
+   * GymLimit findMany
+   */
+  export type GymLimitFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymLimit
+     */
+    select?: GymLimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymLimit
+     */
+    omit?: GymLimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymLimitInclude<ExtArgs> | null
+    /**
+     * Filter, which GymLimits to fetch.
+     */
+    where?: GymLimitWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GymLimits to fetch.
+     */
+    orderBy?: GymLimitOrderByWithRelationInput | GymLimitOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GymLimits.
+     */
+    cursor?: GymLimitWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GymLimits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GymLimits.
+     */
+    skip?: number
+    distinct?: GymLimitScalarFieldEnum | GymLimitScalarFieldEnum[]
+  }
+
+  /**
+   * GymLimit create
+   */
+  export type GymLimitCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymLimit
+     */
+    select?: GymLimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymLimit
+     */
+    omit?: GymLimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymLimitInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GymLimit.
+     */
+    data: XOR<GymLimitCreateInput, GymLimitUncheckedCreateInput>
+  }
+
+  /**
+   * GymLimit createMany
+   */
+  export type GymLimitCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GymLimits.
+     */
+    data: GymLimitCreateManyInput | GymLimitCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GymLimit createManyAndReturn
+   */
+  export type GymLimitCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymLimit
+     */
+    select?: GymLimitSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymLimit
+     */
+    omit?: GymLimitOmit<ExtArgs> | null
+    /**
+     * The data used to create many GymLimits.
+     */
+    data: GymLimitCreateManyInput | GymLimitCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymLimitIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GymLimit update
+   */
+  export type GymLimitUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymLimit
+     */
+    select?: GymLimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymLimit
+     */
+    omit?: GymLimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymLimitInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GymLimit.
+     */
+    data: XOR<GymLimitUpdateInput, GymLimitUncheckedUpdateInput>
+    /**
+     * Choose, which GymLimit to update.
+     */
+    where: GymLimitWhereUniqueInput
+  }
+
+  /**
+   * GymLimit updateMany
+   */
+  export type GymLimitUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GymLimits.
+     */
+    data: XOR<GymLimitUpdateManyMutationInput, GymLimitUncheckedUpdateManyInput>
+    /**
+     * Filter which GymLimits to update
+     */
+    where?: GymLimitWhereInput
+    /**
+     * Limit how many GymLimits to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GymLimit updateManyAndReturn
+   */
+  export type GymLimitUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymLimit
+     */
+    select?: GymLimitSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymLimit
+     */
+    omit?: GymLimitOmit<ExtArgs> | null
+    /**
+     * The data used to update GymLimits.
+     */
+    data: XOR<GymLimitUpdateManyMutationInput, GymLimitUncheckedUpdateManyInput>
+    /**
+     * Filter which GymLimits to update
+     */
+    where?: GymLimitWhereInput
+    /**
+     * Limit how many GymLimits to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymLimitIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GymLimit upsert
+   */
+  export type GymLimitUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymLimit
+     */
+    select?: GymLimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymLimit
+     */
+    omit?: GymLimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymLimitInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GymLimit to update in case it exists.
+     */
+    where: GymLimitWhereUniqueInput
+    /**
+     * In case the GymLimit found by the `where` argument doesn't exist, create a new GymLimit with this data.
+     */
+    create: XOR<GymLimitCreateInput, GymLimitUncheckedCreateInput>
+    /**
+     * In case the GymLimit was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GymLimitUpdateInput, GymLimitUncheckedUpdateInput>
+  }
+
+  /**
+   * GymLimit delete
+   */
+  export type GymLimitDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymLimit
+     */
+    select?: GymLimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymLimit
+     */
+    omit?: GymLimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymLimitInclude<ExtArgs> | null
+    /**
+     * Filter which GymLimit to delete.
+     */
+    where: GymLimitWhereUniqueInput
+  }
+
+  /**
+   * GymLimit deleteMany
+   */
+  export type GymLimitDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GymLimits to delete
+     */
+    where?: GymLimitWhereInput
+    /**
+     * Limit how many GymLimits to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GymLimit without action
+   */
+  export type GymLimitDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymLimit
+     */
+    select?: GymLimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymLimit
+     */
+    omit?: GymLimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymLimitInclude<ExtArgs> | null
+  }
+
 
   /**
    * Model GymStats
@@ -5254,6 +7753,7 @@ export namespace Prisma {
     created_at?: boolean
     created_by?: boolean
     gyms?: boolean | User$gymsArgs<ExtArgs>
+    gym_staff?: boolean | User$gym_staffArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -5293,6 +7793,7 @@ export namespace Prisma {
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "password_hash" | "role" | "contact_number" | "is_active" | "created_at" | "created_by", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     gyms?: boolean | User$gymsArgs<ExtArgs>
+    gym_staff?: boolean | User$gym_staffArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -5302,6 +7803,7 @@ export namespace Prisma {
     name: "User"
     objects: {
       gyms: Prisma.$GymPayload<ExtArgs>[]
+      gym_staff: Prisma.$GymStaffPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5707,6 +8209,7 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     gyms<T extends User$gymsArgs<ExtArgs> = {}>(args?: Subset<T, User$gymsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GymPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    gym_staff<T extends User$gym_staffArgs<ExtArgs> = {}>(args?: Subset<T, User$gym_staffArgs<ExtArgs>>): Prisma__GymStaffClient<$Result.GetResult<Prisma.$GymStaffPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6153,6 +8656,25 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: GymScalarFieldEnum | GymScalarFieldEnum[]
+  }
+
+  /**
+   * User.gym_staff
+   */
+  export type User$gym_staffArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymStaff
+     */
+    select?: GymStaffSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymStaff
+     */
+    omit?: GymStaffOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymStaffInclude<ExtArgs> | null
+    where?: GymStaffWhereInput
   }
 
   /**
@@ -7461,6 +9983,8 @@ export namespace Prisma {
     member_time_logs?: boolean | Gym$member_time_logsArgs<ExtArgs>
     gym_stats?: boolean | Gym$gym_statsArgs<ExtArgs>
     revenues?: boolean | Gym$revenuesArgs<ExtArgs>
+    staffs?: boolean | Gym$staffsArgs<ExtArgs>
+    limits?: boolean | Gym$limitsArgs<ExtArgs>
     membership_counts?: boolean | Gym$membership_countsArgs<ExtArgs>
     owner?: boolean | UserDefaultArgs<ExtArgs>
     _count?: boolean | GymCountOutputTypeDefaultArgs<ExtArgs>
@@ -7501,6 +10025,8 @@ export namespace Prisma {
     member_time_logs?: boolean | Gym$member_time_logsArgs<ExtArgs>
     gym_stats?: boolean | Gym$gym_statsArgs<ExtArgs>
     revenues?: boolean | Gym$revenuesArgs<ExtArgs>
+    staffs?: boolean | Gym$staffsArgs<ExtArgs>
+    limits?: boolean | Gym$limitsArgs<ExtArgs>
     membership_counts?: boolean | Gym$membership_countsArgs<ExtArgs>
     owner?: boolean | UserDefaultArgs<ExtArgs>
     _count?: boolean | GymCountOutputTypeDefaultArgs<ExtArgs>
@@ -7519,6 +10045,8 @@ export namespace Prisma {
       member_time_logs: Prisma.$MemberTimeLogsPayload<ExtArgs>[]
       gym_stats: Prisma.$GymStatsPayload<ExtArgs> | null
       revenues: Prisma.$RevenuePayload<ExtArgs>[]
+      staffs: Prisma.$GymStaffPayload<ExtArgs>[]
+      limits: Prisma.$GymLimitPayload<ExtArgs>[]
       membership_counts: Prisma.$MembershipCountPayload<ExtArgs>[]
       owner: Prisma.$UserPayload<ExtArgs>
     }
@@ -7927,6 +10455,8 @@ export namespace Prisma {
     member_time_logs<T extends Gym$member_time_logsArgs<ExtArgs> = {}>(args?: Subset<T, Gym$member_time_logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberTimeLogsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     gym_stats<T extends Gym$gym_statsArgs<ExtArgs> = {}>(args?: Subset<T, Gym$gym_statsArgs<ExtArgs>>): Prisma__GymStatsClient<$Result.GetResult<Prisma.$GymStatsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     revenues<T extends Gym$revenuesArgs<ExtArgs> = {}>(args?: Subset<T, Gym$revenuesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RevenuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    staffs<T extends Gym$staffsArgs<ExtArgs> = {}>(args?: Subset<T, Gym$staffsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GymStaffPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    limits<T extends Gym$limitsArgs<ExtArgs> = {}>(args?: Subset<T, Gym$limitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GymLimitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     membership_counts<T extends Gym$membership_countsArgs<ExtArgs> = {}>(args?: Subset<T, Gym$membership_countsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipCountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     owner<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -8451,6 +10981,54 @@ export namespace Prisma {
   }
 
   /**
+   * Gym.staffs
+   */
+  export type Gym$staffsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymStaff
+     */
+    select?: GymStaffSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymStaff
+     */
+    omit?: GymStaffOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymStaffInclude<ExtArgs> | null
+    where?: GymStaffWhereInput
+    orderBy?: GymStaffOrderByWithRelationInput | GymStaffOrderByWithRelationInput[]
+    cursor?: GymStaffWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GymStaffScalarFieldEnum | GymStaffScalarFieldEnum[]
+  }
+
+  /**
+   * Gym.limits
+   */
+  export type Gym$limitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymLimit
+     */
+    select?: GymLimitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymLimit
+     */
+    omit?: GymLimitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymLimitInclude<ExtArgs> | null
+    where?: GymLimitWhereInput
+    orderBy?: GymLimitOrderByWithRelationInput | GymLimitOrderByWithRelationInput[]
+    cursor?: GymLimitWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: GymLimitScalarFieldEnum | GymLimitScalarFieldEnum[]
+  }
+
+  /**
    * Gym.membership_counts
    */
   export type Gym$membership_countsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8490,6 +11068,1106 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: GymInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model GymStaff
+   */
+
+  export type AggregateGymStaff = {
+    _count: GymStaffCountAggregateOutputType | null
+    _avg: GymStaffAvgAggregateOutputType | null
+    _sum: GymStaffSumAggregateOutputType | null
+    _min: GymStaffMinAggregateOutputType | null
+    _max: GymStaffMaxAggregateOutputType | null
+  }
+
+  export type GymStaffAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type GymStaffSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type GymStaffMinAggregateOutputType = {
+    id: number | null
+    user_id: string | null
+    gym_id: string | null
+    created_at: Date | null
+    created_by: string | null
+  }
+
+  export type GymStaffMaxAggregateOutputType = {
+    id: number | null
+    user_id: string | null
+    gym_id: string | null
+    created_at: Date | null
+    created_by: string | null
+  }
+
+  export type GymStaffCountAggregateOutputType = {
+    id: number
+    user_id: number
+    gym_id: number
+    created_at: number
+    created_by: number
+    _all: number
+  }
+
+
+  export type GymStaffAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type GymStaffSumAggregateInputType = {
+    id?: true
+  }
+
+  export type GymStaffMinAggregateInputType = {
+    id?: true
+    user_id?: true
+    gym_id?: true
+    created_at?: true
+    created_by?: true
+  }
+
+  export type GymStaffMaxAggregateInputType = {
+    id?: true
+    user_id?: true
+    gym_id?: true
+    created_at?: true
+    created_by?: true
+  }
+
+  export type GymStaffCountAggregateInputType = {
+    id?: true
+    user_id?: true
+    gym_id?: true
+    created_at?: true
+    created_by?: true
+    _all?: true
+  }
+
+  export type GymStaffAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GymStaff to aggregate.
+     */
+    where?: GymStaffWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GymStaffs to fetch.
+     */
+    orderBy?: GymStaffOrderByWithRelationInput | GymStaffOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GymStaffWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GymStaffs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GymStaffs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GymStaffs
+    **/
+    _count?: true | GymStaffCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GymStaffAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GymStaffSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GymStaffMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GymStaffMaxAggregateInputType
+  }
+
+  export type GetGymStaffAggregateType<T extends GymStaffAggregateArgs> = {
+        [P in keyof T & keyof AggregateGymStaff]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGymStaff[P]>
+      : GetScalarType<T[P], AggregateGymStaff[P]>
+  }
+
+
+
+
+  export type GymStaffGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GymStaffWhereInput
+    orderBy?: GymStaffOrderByWithAggregationInput | GymStaffOrderByWithAggregationInput[]
+    by: GymStaffScalarFieldEnum[] | GymStaffScalarFieldEnum
+    having?: GymStaffScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GymStaffCountAggregateInputType | true
+    _avg?: GymStaffAvgAggregateInputType
+    _sum?: GymStaffSumAggregateInputType
+    _min?: GymStaffMinAggregateInputType
+    _max?: GymStaffMaxAggregateInputType
+  }
+
+  export type GymStaffGroupByOutputType = {
+    id: number
+    user_id: string
+    gym_id: string
+    created_at: Date
+    created_by: string
+    _count: GymStaffCountAggregateOutputType | null
+    _avg: GymStaffAvgAggregateOutputType | null
+    _sum: GymStaffSumAggregateOutputType | null
+    _min: GymStaffMinAggregateOutputType | null
+    _max: GymStaffMaxAggregateOutputType | null
+  }
+
+  type GetGymStaffGroupByPayload<T extends GymStaffGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GymStaffGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GymStaffGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GymStaffGroupByOutputType[P]>
+            : GetScalarType<T[P], GymStaffGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GymStaffSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    gym_id?: boolean
+    created_at?: boolean
+    created_by?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gymStaff"]>
+
+  export type GymStaffSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    gym_id?: boolean
+    created_at?: boolean
+    created_by?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gymStaff"]>
+
+  export type GymStaffSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    gym_id?: boolean
+    created_at?: boolean
+    created_by?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["gymStaff"]>
+
+  export type GymStaffSelectScalar = {
+    id?: boolean
+    user_id?: boolean
+    gym_id?: boolean
+    created_at?: boolean
+    created_by?: boolean
+  }
+
+  export type GymStaffOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "gym_id" | "created_at" | "created_by", ExtArgs["result"]["gymStaff"]>
+  export type GymStaffInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+  }
+  export type GymStaffIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+  }
+  export type GymStaffIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    gym?: boolean | GymDefaultArgs<ExtArgs>
+  }
+
+  export type $GymStaffPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GymStaff"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      gym: Prisma.$GymPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      user_id: string
+      gym_id: string
+      created_at: Date
+      created_by: string
+    }, ExtArgs["result"]["gymStaff"]>
+    composites: {}
+  }
+
+  type GymStaffGetPayload<S extends boolean | null | undefined | GymStaffDefaultArgs> = $Result.GetResult<Prisma.$GymStaffPayload, S>
+
+  type GymStaffCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GymStaffFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GymStaffCountAggregateInputType | true
+    }
+
+  export interface GymStaffDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GymStaff'], meta: { name: 'GymStaff' } }
+    /**
+     * Find zero or one GymStaff that matches the filter.
+     * @param {GymStaffFindUniqueArgs} args - Arguments to find a GymStaff
+     * @example
+     * // Get one GymStaff
+     * const gymStaff = await prisma.gymStaff.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GymStaffFindUniqueArgs>(args: SelectSubset<T, GymStaffFindUniqueArgs<ExtArgs>>): Prisma__GymStaffClient<$Result.GetResult<Prisma.$GymStaffPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one GymStaff that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GymStaffFindUniqueOrThrowArgs} args - Arguments to find a GymStaff
+     * @example
+     * // Get one GymStaff
+     * const gymStaff = await prisma.gymStaff.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GymStaffFindUniqueOrThrowArgs>(args: SelectSubset<T, GymStaffFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GymStaffClient<$Result.GetResult<Prisma.$GymStaffPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GymStaff that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GymStaffFindFirstArgs} args - Arguments to find a GymStaff
+     * @example
+     * // Get one GymStaff
+     * const gymStaff = await prisma.gymStaff.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GymStaffFindFirstArgs>(args?: SelectSubset<T, GymStaffFindFirstArgs<ExtArgs>>): Prisma__GymStaffClient<$Result.GetResult<Prisma.$GymStaffPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GymStaff that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GymStaffFindFirstOrThrowArgs} args - Arguments to find a GymStaff
+     * @example
+     * // Get one GymStaff
+     * const gymStaff = await prisma.gymStaff.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GymStaffFindFirstOrThrowArgs>(args?: SelectSubset<T, GymStaffFindFirstOrThrowArgs<ExtArgs>>): Prisma__GymStaffClient<$Result.GetResult<Prisma.$GymStaffPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more GymStaffs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GymStaffFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GymStaffs
+     * const gymStaffs = await prisma.gymStaff.findMany()
+     * 
+     * // Get first 10 GymStaffs
+     * const gymStaffs = await prisma.gymStaff.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const gymStaffWithIdOnly = await prisma.gymStaff.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GymStaffFindManyArgs>(args?: SelectSubset<T, GymStaffFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GymStaffPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a GymStaff.
+     * @param {GymStaffCreateArgs} args - Arguments to create a GymStaff.
+     * @example
+     * // Create one GymStaff
+     * const GymStaff = await prisma.gymStaff.create({
+     *   data: {
+     *     // ... data to create a GymStaff
+     *   }
+     * })
+     * 
+     */
+    create<T extends GymStaffCreateArgs>(args: SelectSubset<T, GymStaffCreateArgs<ExtArgs>>): Prisma__GymStaffClient<$Result.GetResult<Prisma.$GymStaffPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many GymStaffs.
+     * @param {GymStaffCreateManyArgs} args - Arguments to create many GymStaffs.
+     * @example
+     * // Create many GymStaffs
+     * const gymStaff = await prisma.gymStaff.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GymStaffCreateManyArgs>(args?: SelectSubset<T, GymStaffCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GymStaffs and returns the data saved in the database.
+     * @param {GymStaffCreateManyAndReturnArgs} args - Arguments to create many GymStaffs.
+     * @example
+     * // Create many GymStaffs
+     * const gymStaff = await prisma.gymStaff.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GymStaffs and only return the `id`
+     * const gymStaffWithIdOnly = await prisma.gymStaff.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GymStaffCreateManyAndReturnArgs>(args?: SelectSubset<T, GymStaffCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GymStaffPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a GymStaff.
+     * @param {GymStaffDeleteArgs} args - Arguments to delete one GymStaff.
+     * @example
+     * // Delete one GymStaff
+     * const GymStaff = await prisma.gymStaff.delete({
+     *   where: {
+     *     // ... filter to delete one GymStaff
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GymStaffDeleteArgs>(args: SelectSubset<T, GymStaffDeleteArgs<ExtArgs>>): Prisma__GymStaffClient<$Result.GetResult<Prisma.$GymStaffPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one GymStaff.
+     * @param {GymStaffUpdateArgs} args - Arguments to update one GymStaff.
+     * @example
+     * // Update one GymStaff
+     * const gymStaff = await prisma.gymStaff.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GymStaffUpdateArgs>(args: SelectSubset<T, GymStaffUpdateArgs<ExtArgs>>): Prisma__GymStaffClient<$Result.GetResult<Prisma.$GymStaffPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more GymStaffs.
+     * @param {GymStaffDeleteManyArgs} args - Arguments to filter GymStaffs to delete.
+     * @example
+     * // Delete a few GymStaffs
+     * const { count } = await prisma.gymStaff.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GymStaffDeleteManyArgs>(args?: SelectSubset<T, GymStaffDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GymStaffs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GymStaffUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GymStaffs
+     * const gymStaff = await prisma.gymStaff.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GymStaffUpdateManyArgs>(args: SelectSubset<T, GymStaffUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GymStaffs and returns the data updated in the database.
+     * @param {GymStaffUpdateManyAndReturnArgs} args - Arguments to update many GymStaffs.
+     * @example
+     * // Update many GymStaffs
+     * const gymStaff = await prisma.gymStaff.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GymStaffs and only return the `id`
+     * const gymStaffWithIdOnly = await prisma.gymStaff.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GymStaffUpdateManyAndReturnArgs>(args: SelectSubset<T, GymStaffUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GymStaffPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one GymStaff.
+     * @param {GymStaffUpsertArgs} args - Arguments to update or create a GymStaff.
+     * @example
+     * // Update or create a GymStaff
+     * const gymStaff = await prisma.gymStaff.upsert({
+     *   create: {
+     *     // ... data to create a GymStaff
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GymStaff we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GymStaffUpsertArgs>(args: SelectSubset<T, GymStaffUpsertArgs<ExtArgs>>): Prisma__GymStaffClient<$Result.GetResult<Prisma.$GymStaffPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of GymStaffs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GymStaffCountArgs} args - Arguments to filter GymStaffs to count.
+     * @example
+     * // Count the number of GymStaffs
+     * const count = await prisma.gymStaff.count({
+     *   where: {
+     *     // ... the filter for the GymStaffs we want to count
+     *   }
+     * })
+    **/
+    count<T extends GymStaffCountArgs>(
+      args?: Subset<T, GymStaffCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GymStaffCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GymStaff.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GymStaffAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GymStaffAggregateArgs>(args: Subset<T, GymStaffAggregateArgs>): Prisma.PrismaPromise<GetGymStaffAggregateType<T>>
+
+    /**
+     * Group by GymStaff.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GymStaffGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GymStaffGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GymStaffGroupByArgs['orderBy'] }
+        : { orderBy?: GymStaffGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GymStaffGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGymStaffGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GymStaff model
+   */
+  readonly fields: GymStaffFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GymStaff.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GymStaffClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    gym<T extends GymDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GymDefaultArgs<ExtArgs>>): Prisma__GymClient<$Result.GetResult<Prisma.$GymPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GymStaff model
+   */
+  interface GymStaffFieldRefs {
+    readonly id: FieldRef<"GymStaff", 'Int'>
+    readonly user_id: FieldRef<"GymStaff", 'String'>
+    readonly gym_id: FieldRef<"GymStaff", 'String'>
+    readonly created_at: FieldRef<"GymStaff", 'DateTime'>
+    readonly created_by: FieldRef<"GymStaff", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GymStaff findUnique
+   */
+  export type GymStaffFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymStaff
+     */
+    select?: GymStaffSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymStaff
+     */
+    omit?: GymStaffOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymStaffInclude<ExtArgs> | null
+    /**
+     * Filter, which GymStaff to fetch.
+     */
+    where: GymStaffWhereUniqueInput
+  }
+
+  /**
+   * GymStaff findUniqueOrThrow
+   */
+  export type GymStaffFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymStaff
+     */
+    select?: GymStaffSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymStaff
+     */
+    omit?: GymStaffOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymStaffInclude<ExtArgs> | null
+    /**
+     * Filter, which GymStaff to fetch.
+     */
+    where: GymStaffWhereUniqueInput
+  }
+
+  /**
+   * GymStaff findFirst
+   */
+  export type GymStaffFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymStaff
+     */
+    select?: GymStaffSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymStaff
+     */
+    omit?: GymStaffOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymStaffInclude<ExtArgs> | null
+    /**
+     * Filter, which GymStaff to fetch.
+     */
+    where?: GymStaffWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GymStaffs to fetch.
+     */
+    orderBy?: GymStaffOrderByWithRelationInput | GymStaffOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GymStaffs.
+     */
+    cursor?: GymStaffWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GymStaffs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GymStaffs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GymStaffs.
+     */
+    distinct?: GymStaffScalarFieldEnum | GymStaffScalarFieldEnum[]
+  }
+
+  /**
+   * GymStaff findFirstOrThrow
+   */
+  export type GymStaffFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymStaff
+     */
+    select?: GymStaffSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymStaff
+     */
+    omit?: GymStaffOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymStaffInclude<ExtArgs> | null
+    /**
+     * Filter, which GymStaff to fetch.
+     */
+    where?: GymStaffWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GymStaffs to fetch.
+     */
+    orderBy?: GymStaffOrderByWithRelationInput | GymStaffOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GymStaffs.
+     */
+    cursor?: GymStaffWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GymStaffs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GymStaffs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GymStaffs.
+     */
+    distinct?: GymStaffScalarFieldEnum | GymStaffScalarFieldEnum[]
+  }
+
+  /**
+   * GymStaff findMany
+   */
+  export type GymStaffFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymStaff
+     */
+    select?: GymStaffSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymStaff
+     */
+    omit?: GymStaffOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymStaffInclude<ExtArgs> | null
+    /**
+     * Filter, which GymStaffs to fetch.
+     */
+    where?: GymStaffWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GymStaffs to fetch.
+     */
+    orderBy?: GymStaffOrderByWithRelationInput | GymStaffOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GymStaffs.
+     */
+    cursor?: GymStaffWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GymStaffs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GymStaffs.
+     */
+    skip?: number
+    distinct?: GymStaffScalarFieldEnum | GymStaffScalarFieldEnum[]
+  }
+
+  /**
+   * GymStaff create
+   */
+  export type GymStaffCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymStaff
+     */
+    select?: GymStaffSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymStaff
+     */
+    omit?: GymStaffOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymStaffInclude<ExtArgs> | null
+    /**
+     * The data needed to create a GymStaff.
+     */
+    data: XOR<GymStaffCreateInput, GymStaffUncheckedCreateInput>
+  }
+
+  /**
+   * GymStaff createMany
+   */
+  export type GymStaffCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GymStaffs.
+     */
+    data: GymStaffCreateManyInput | GymStaffCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GymStaff createManyAndReturn
+   */
+  export type GymStaffCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymStaff
+     */
+    select?: GymStaffSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymStaff
+     */
+    omit?: GymStaffOmit<ExtArgs> | null
+    /**
+     * The data used to create many GymStaffs.
+     */
+    data: GymStaffCreateManyInput | GymStaffCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymStaffIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GymStaff update
+   */
+  export type GymStaffUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymStaff
+     */
+    select?: GymStaffSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymStaff
+     */
+    omit?: GymStaffOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymStaffInclude<ExtArgs> | null
+    /**
+     * The data needed to update a GymStaff.
+     */
+    data: XOR<GymStaffUpdateInput, GymStaffUncheckedUpdateInput>
+    /**
+     * Choose, which GymStaff to update.
+     */
+    where: GymStaffWhereUniqueInput
+  }
+
+  /**
+   * GymStaff updateMany
+   */
+  export type GymStaffUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GymStaffs.
+     */
+    data: XOR<GymStaffUpdateManyMutationInput, GymStaffUncheckedUpdateManyInput>
+    /**
+     * Filter which GymStaffs to update
+     */
+    where?: GymStaffWhereInput
+    /**
+     * Limit how many GymStaffs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GymStaff updateManyAndReturn
+   */
+  export type GymStaffUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymStaff
+     */
+    select?: GymStaffSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymStaff
+     */
+    omit?: GymStaffOmit<ExtArgs> | null
+    /**
+     * The data used to update GymStaffs.
+     */
+    data: XOR<GymStaffUpdateManyMutationInput, GymStaffUncheckedUpdateManyInput>
+    /**
+     * Filter which GymStaffs to update
+     */
+    where?: GymStaffWhereInput
+    /**
+     * Limit how many GymStaffs to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymStaffIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * GymStaff upsert
+   */
+  export type GymStaffUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymStaff
+     */
+    select?: GymStaffSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymStaff
+     */
+    omit?: GymStaffOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymStaffInclude<ExtArgs> | null
+    /**
+     * The filter to search for the GymStaff to update in case it exists.
+     */
+    where: GymStaffWhereUniqueInput
+    /**
+     * In case the GymStaff found by the `where` argument doesn't exist, create a new GymStaff with this data.
+     */
+    create: XOR<GymStaffCreateInput, GymStaffUncheckedCreateInput>
+    /**
+     * In case the GymStaff was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GymStaffUpdateInput, GymStaffUncheckedUpdateInput>
+  }
+
+  /**
+   * GymStaff delete
+   */
+  export type GymStaffDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymStaff
+     */
+    select?: GymStaffSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymStaff
+     */
+    omit?: GymStaffOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymStaffInclude<ExtArgs> | null
+    /**
+     * Filter which GymStaff to delete.
+     */
+    where: GymStaffWhereUniqueInput
+  }
+
+  /**
+   * GymStaff deleteMany
+   */
+  export type GymStaffDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GymStaffs to delete
+     */
+    where?: GymStaffWhereInput
+    /**
+     * Limit how many GymStaffs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GymStaff without action
+   */
+  export type GymStaffDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GymStaff
+     */
+    select?: GymStaffSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GymStaff
+     */
+    omit?: GymStaffOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymStaffInclude<ExtArgs> | null
   }
 
 
@@ -11904,6 +15582,25 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+  export const LimitScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    value: 'value'
+  };
+
+  export type LimitScalarFieldEnum = (typeof LimitScalarFieldEnum)[keyof typeof LimitScalarFieldEnum]
+
+
+  export const GymLimitScalarFieldEnum: {
+    id: 'id',
+    gym_id: 'gym_id',
+    limit_id: 'limit_id',
+    value: 'value'
+  };
+
+  export type GymLimitScalarFieldEnum = (typeof GymLimitScalarFieldEnum)[keyof typeof GymLimitScalarFieldEnum]
+
+
   export const GymStatsScalarFieldEnum: {
     id: 'id',
     gym_id: 'gym_id',
@@ -11975,6 +15672,17 @@ export namespace Prisma {
   };
 
   export type GymScalarFieldEnum = (typeof GymScalarFieldEnum)[keyof typeof GymScalarFieldEnum]
+
+
+  export const GymStaffScalarFieldEnum: {
+    id: 'id',
+    user_id: 'user_id',
+    gym_id: 'gym_id',
+    created_at: 'created_at',
+    created_by: 'created_by'
+  };
+
+  export type GymStaffScalarFieldEnum = (typeof GymStaffScalarFieldEnum)[keyof typeof GymStaffScalarFieldEnum]
 
 
   export const MembershipScalarFieldEnum: {
@@ -12052,6 +15760,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
    * Reference to a field of type 'String'
    */
   export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
@@ -12076,20 +15798,6 @@ export namespace Prisma {
    * Reference to a field of type 'Decimal[]'
    */
   export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 
@@ -12144,6 +15852,109 @@ export namespace Prisma {
    * Deep Input Types
    */
 
+
+  export type LimitWhereInput = {
+    AND?: LimitWhereInput | LimitWhereInput[]
+    OR?: LimitWhereInput[]
+    NOT?: LimitWhereInput | LimitWhereInput[]
+    id?: IntFilter<"Limit"> | number
+    name?: StringFilter<"Limit"> | string
+    value?: IntFilter<"Limit"> | number
+    settings?: GymLimitListRelationFilter
+  }
+
+  export type LimitOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    value?: SortOrder
+    settings?: GymLimitOrderByRelationAggregateInput
+  }
+
+  export type LimitWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: LimitWhereInput | LimitWhereInput[]
+    OR?: LimitWhereInput[]
+    NOT?: LimitWhereInput | LimitWhereInput[]
+    name?: StringFilter<"Limit"> | string
+    value?: IntFilter<"Limit"> | number
+    settings?: GymLimitListRelationFilter
+  }, "id">
+
+  export type LimitOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    value?: SortOrder
+    _count?: LimitCountOrderByAggregateInput
+    _avg?: LimitAvgOrderByAggregateInput
+    _max?: LimitMaxOrderByAggregateInput
+    _min?: LimitMinOrderByAggregateInput
+    _sum?: LimitSumOrderByAggregateInput
+  }
+
+  export type LimitScalarWhereWithAggregatesInput = {
+    AND?: LimitScalarWhereWithAggregatesInput | LimitScalarWhereWithAggregatesInput[]
+    OR?: LimitScalarWhereWithAggregatesInput[]
+    NOT?: LimitScalarWhereWithAggregatesInput | LimitScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Limit"> | number
+    name?: StringWithAggregatesFilter<"Limit"> | string
+    value?: IntWithAggregatesFilter<"Limit"> | number
+  }
+
+  export type GymLimitWhereInput = {
+    AND?: GymLimitWhereInput | GymLimitWhereInput[]
+    OR?: GymLimitWhereInput[]
+    NOT?: GymLimitWhereInput | GymLimitWhereInput[]
+    id?: IntFilter<"GymLimit"> | number
+    gym_id?: StringFilter<"GymLimit"> | string
+    limit_id?: IntFilter<"GymLimit"> | number
+    value?: IntFilter<"GymLimit"> | number
+    gym?: XOR<GymScalarRelationFilter, GymWhereInput>
+    limit?: XOR<LimitScalarRelationFilter, LimitWhereInput>
+  }
+
+  export type GymLimitOrderByWithRelationInput = {
+    id?: SortOrder
+    gym_id?: SortOrder
+    limit_id?: SortOrder
+    value?: SortOrder
+    gym?: GymOrderByWithRelationInput
+    limit?: LimitOrderByWithRelationInput
+  }
+
+  export type GymLimitWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    gym_id_limit_id?: GymLimitGym_idLimit_idCompoundUniqueInput
+    AND?: GymLimitWhereInput | GymLimitWhereInput[]
+    OR?: GymLimitWhereInput[]
+    NOT?: GymLimitWhereInput | GymLimitWhereInput[]
+    gym_id?: StringFilter<"GymLimit"> | string
+    limit_id?: IntFilter<"GymLimit"> | number
+    value?: IntFilter<"GymLimit"> | number
+    gym?: XOR<GymScalarRelationFilter, GymWhereInput>
+    limit?: XOR<LimitScalarRelationFilter, LimitWhereInput>
+  }, "id" | "gym_id_limit_id">
+
+  export type GymLimitOrderByWithAggregationInput = {
+    id?: SortOrder
+    gym_id?: SortOrder
+    limit_id?: SortOrder
+    value?: SortOrder
+    _count?: GymLimitCountOrderByAggregateInput
+    _avg?: GymLimitAvgOrderByAggregateInput
+    _max?: GymLimitMaxOrderByAggregateInput
+    _min?: GymLimitMinOrderByAggregateInput
+    _sum?: GymLimitSumOrderByAggregateInput
+  }
+
+  export type GymLimitScalarWhereWithAggregatesInput = {
+    AND?: GymLimitScalarWhereWithAggregatesInput | GymLimitScalarWhereWithAggregatesInput[]
+    OR?: GymLimitScalarWhereWithAggregatesInput[]
+    NOT?: GymLimitScalarWhereWithAggregatesInput | GymLimitScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"GymLimit"> | number
+    gym_id?: StringWithAggregatesFilter<"GymLimit"> | string
+    limit_id?: IntWithAggregatesFilter<"GymLimit"> | number
+    value?: IntWithAggregatesFilter<"GymLimit"> | number
+  }
 
   export type GymStatsWhereInput = {
     AND?: GymStatsWhereInput | GymStatsWhereInput[]
@@ -12341,6 +16152,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"User"> | Date | string
     created_by?: StringFilter<"User"> | string
     gyms?: GymListRelationFilter
+    gym_staff?: XOR<GymStaffNullableScalarRelationFilter, GymStaffWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -12353,6 +16165,7 @@ export namespace Prisma {
     created_at?: SortOrder
     created_by?: SortOrder
     gyms?: GymOrderByRelationAggregateInput
+    gym_staff?: GymStaffOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -12368,6 +16181,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"User"> | Date | string
     created_by?: StringFilter<"User"> | string
     gyms?: GymListRelationFilter
+    gym_staff?: XOR<GymStaffNullableScalarRelationFilter, GymStaffWhereInput> | null
   }, "id" | "username">
 
   export type UserOrderByWithAggregationInput = {
@@ -12475,6 +16289,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsListRelationFilter
     gym_stats?: XOR<GymStatsNullableScalarRelationFilter, GymStatsWhereInput> | null
     revenues?: RevenueListRelationFilter
+    staffs?: GymStaffListRelationFilter
+    limits?: GymLimitListRelationFilter
     membership_counts?: MembershipCountListRelationFilter
     owner?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
@@ -12490,6 +16306,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsOrderByRelationAggregateInput
     gym_stats?: GymStatsOrderByWithRelationInput
     revenues?: RevenueOrderByRelationAggregateInput
+    staffs?: GymStaffOrderByRelationAggregateInput
+    limits?: GymLimitOrderByRelationAggregateInput
     membership_counts?: MembershipCountOrderByRelationAggregateInput
     owner?: UserOrderByWithRelationInput
   }
@@ -12508,6 +16326,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsListRelationFilter
     gym_stats?: XOR<GymStatsNullableScalarRelationFilter, GymStatsWhereInput> | null
     revenues?: RevenueListRelationFilter
+    staffs?: GymStaffListRelationFilter
+    limits?: GymLimitListRelationFilter
     membership_counts?: MembershipCountListRelationFilter
     owner?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
@@ -12534,6 +16354,66 @@ export namespace Prisma {
     location?: StringWithAggregatesFilter<"Gym"> | string
     created_at?: DateTimeWithAggregatesFilter<"Gym"> | Date | string
     created_by?: StringWithAggregatesFilter<"Gym"> | string
+  }
+
+  export type GymStaffWhereInput = {
+    AND?: GymStaffWhereInput | GymStaffWhereInput[]
+    OR?: GymStaffWhereInput[]
+    NOT?: GymStaffWhereInput | GymStaffWhereInput[]
+    id?: IntFilter<"GymStaff"> | number
+    user_id?: StringFilter<"GymStaff"> | string
+    gym_id?: StringFilter<"GymStaff"> | string
+    created_at?: DateTimeFilter<"GymStaff"> | Date | string
+    created_by?: StringFilter<"GymStaff"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    gym?: XOR<GymScalarRelationFilter, GymWhereInput>
+  }
+
+  export type GymStaffOrderByWithRelationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    gym_id?: SortOrder
+    created_at?: SortOrder
+    created_by?: SortOrder
+    user?: UserOrderByWithRelationInput
+    gym?: GymOrderByWithRelationInput
+  }
+
+  export type GymStaffWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    user_id?: string
+    AND?: GymStaffWhereInput | GymStaffWhereInput[]
+    OR?: GymStaffWhereInput[]
+    NOT?: GymStaffWhereInput | GymStaffWhereInput[]
+    gym_id?: StringFilter<"GymStaff"> | string
+    created_at?: DateTimeFilter<"GymStaff"> | Date | string
+    created_by?: StringFilter<"GymStaff"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    gym?: XOR<GymScalarRelationFilter, GymWhereInput>
+  }, "id" | "user_id">
+
+  export type GymStaffOrderByWithAggregationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    gym_id?: SortOrder
+    created_at?: SortOrder
+    created_by?: SortOrder
+    _count?: GymStaffCountOrderByAggregateInput
+    _avg?: GymStaffAvgOrderByAggregateInput
+    _max?: GymStaffMaxOrderByAggregateInput
+    _min?: GymStaffMinOrderByAggregateInput
+    _sum?: GymStaffSumOrderByAggregateInput
+  }
+
+  export type GymStaffScalarWhereWithAggregatesInput = {
+    AND?: GymStaffScalarWhereWithAggregatesInput | GymStaffScalarWhereWithAggregatesInput[]
+    OR?: GymStaffScalarWhereWithAggregatesInput[]
+    NOT?: GymStaffScalarWhereWithAggregatesInput | GymStaffScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"GymStaff"> | number
+    user_id?: StringWithAggregatesFilter<"GymStaff"> | string
+    gym_id?: StringWithAggregatesFilter<"GymStaff"> | string
+    created_at?: DateTimeWithAggregatesFilter<"GymStaff"> | Date | string
+    created_by?: StringWithAggregatesFilter<"GymStaff"> | string
   }
 
   export type MembershipWhereInput = {
@@ -12770,6 +16650,96 @@ export namespace Prisma {
     recorded_by?: StringWithAggregatesFilter<"MemberTimeLogs"> | string
   }
 
+  export type LimitCreateInput = {
+    id: number
+    name: string
+    value: number
+    settings?: GymLimitCreateNestedManyWithoutLimitInput
+  }
+
+  export type LimitUncheckedCreateInput = {
+    id: number
+    name: string
+    value: number
+    settings?: GymLimitUncheckedCreateNestedManyWithoutLimitInput
+  }
+
+  export type LimitUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    value?: IntFieldUpdateOperationsInput | number
+    settings?: GymLimitUpdateManyWithoutLimitNestedInput
+  }
+
+  export type LimitUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    value?: IntFieldUpdateOperationsInput | number
+    settings?: GymLimitUncheckedUpdateManyWithoutLimitNestedInput
+  }
+
+  export type LimitCreateManyInput = {
+    id: number
+    name: string
+    value: number
+  }
+
+  export type LimitUpdateManyMutationInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    value?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LimitUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    value?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type GymLimitCreateInput = {
+    value: number
+    gym: GymCreateNestedOneWithoutLimitsInput
+    limit: LimitCreateNestedOneWithoutSettingsInput
+  }
+
+  export type GymLimitUncheckedCreateInput = {
+    id?: number
+    gym_id: string
+    limit_id: number
+    value: number
+  }
+
+  export type GymLimitUpdateInput = {
+    value?: IntFieldUpdateOperationsInput | number
+    gym?: GymUpdateOneRequiredWithoutLimitsNestedInput
+    limit?: LimitUpdateOneRequiredWithoutSettingsNestedInput
+  }
+
+  export type GymLimitUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    gym_id?: StringFieldUpdateOperationsInput | string
+    limit_id?: IntFieldUpdateOperationsInput | number
+    value?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type GymLimitCreateManyInput = {
+    id?: number
+    gym_id: string
+    limit_id: number
+    value: number
+  }
+
+  export type GymLimitUpdateManyMutationInput = {
+    value?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type GymLimitUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    gym_id?: StringFieldUpdateOperationsInput | string
+    limit_id?: IntFieldUpdateOperationsInput | number
+    value?: IntFieldUpdateOperationsInput | number
+  }
+
   export type GymStatsCreateInput = {
     id?: string
     total_revenue: Decimal | DecimalJsLike | number | string
@@ -12959,6 +16929,7 @@ export namespace Prisma {
     created_at?: Date | string
     created_by: string
     gyms?: GymCreateNestedManyWithoutOwnerInput
+    gym_staff?: GymStaffCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -12971,6 +16942,7 @@ export namespace Prisma {
     created_at?: Date | string
     created_by: string
     gyms?: GymUncheckedCreateNestedManyWithoutOwnerInput
+    gym_staff?: GymStaffUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -12983,6 +16955,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
     gyms?: GymUpdateManyWithoutOwnerNestedInput
+    gym_staff?: GymStaffUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -12995,6 +16968,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
     gyms?: GymUncheckedUpdateManyWithoutOwnerNestedInput
+    gym_staff?: GymStaffUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -13111,6 +17085,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsCreateNestedOneWithoutGymInput
     revenues?: RevenueCreateNestedManyWithoutGymInput
+    staffs?: GymStaffCreateNestedManyWithoutGymInput
+    limits?: GymLimitCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
     owner: UserCreateNestedOneWithoutGymsInput
   }
@@ -13126,6 +17102,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsUncheckedCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsUncheckedCreateNestedOneWithoutGymInput
     revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
+    staffs?: GymStaffUncheckedCreateNestedManyWithoutGymInput
+    limits?: GymLimitUncheckedCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
   }
 
@@ -13139,6 +17117,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUpdateOneWithoutGymNestedInput
     revenues?: RevenueUpdateManyWithoutGymNestedInput
+    staffs?: GymStaffUpdateManyWithoutGymNestedInput
+    limits?: GymLimitUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
     owner?: UserUpdateOneRequiredWithoutGymsNestedInput
   }
@@ -13154,6 +17134,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsUncheckedUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUncheckedUpdateOneWithoutGymNestedInput
     revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
+    staffs?: GymStaffUncheckedUpdateManyWithoutGymNestedInput
+    limits?: GymLimitUncheckedUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
   }
 
@@ -13179,6 +17161,57 @@ export namespace Prisma {
     owner_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     location?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type GymStaffCreateInput = {
+    created_at?: Date | string
+    created_by: string
+    user: UserCreateNestedOneWithoutGym_staffInput
+    gym: GymCreateNestedOneWithoutStaffsInput
+  }
+
+  export type GymStaffUncheckedCreateInput = {
+    id?: number
+    user_id: string
+    gym_id: string
+    created_at?: Date | string
+    created_by: string
+  }
+
+  export type GymStaffUpdateInput = {
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutGym_staffNestedInput
+    gym?: GymUpdateOneRequiredWithoutStaffsNestedInput
+  }
+
+  export type GymStaffUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: StringFieldUpdateOperationsInput | string
+    gym_id?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type GymStaffCreateManyInput = {
+    id?: number
+    user_id: string
+    gym_id: string
+    created_at?: Date | string
+    created_by: string
+  }
+
+  export type GymStaffUpdateManyMutationInput = {
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type GymStaffUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: StringFieldUpdateOperationsInput | string
+    gym_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
   }
@@ -13428,6 +17461,17 @@ export namespace Prisma {
     recorded_by?: StringFieldUpdateOperationsInput | string
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -13443,6 +17487,126 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type GymLimitListRelationFilter = {
+    every?: GymLimitWhereInput
+    some?: GymLimitWhereInput
+    none?: GymLimitWhereInput
+  }
+
+  export type GymLimitOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LimitCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    value?: SortOrder
+  }
+
+  export type LimitAvgOrderByAggregateInput = {
+    id?: SortOrder
+    value?: SortOrder
+  }
+
+  export type LimitMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    value?: SortOrder
+  }
+
+  export type LimitMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    value?: SortOrder
+  }
+
+  export type LimitSumOrderByAggregateInput = {
+    id?: SortOrder
+    value?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type GymScalarRelationFilter = {
+    is?: GymWhereInput
+    isNot?: GymWhereInput
+  }
+
+  export type LimitScalarRelationFilter = {
+    is?: LimitWhereInput
+    isNot?: LimitWhereInput
+  }
+
+  export type GymLimitGym_idLimit_idCompoundUniqueInput = {
+    gym_id: string
+    limit_id: number
+  }
+
+  export type GymLimitCountOrderByAggregateInput = {
+    id?: SortOrder
+    gym_id?: SortOrder
+    limit_id?: SortOrder
+    value?: SortOrder
+  }
+
+  export type GymLimitAvgOrderByAggregateInput = {
+    id?: SortOrder
+    limit_id?: SortOrder
+    value?: SortOrder
+  }
+
+  export type GymLimitMaxOrderByAggregateInput = {
+    id?: SortOrder
+    gym_id?: SortOrder
+    limit_id?: SortOrder
+    value?: SortOrder
+  }
+
+  export type GymLimitMinOrderByAggregateInput = {
+    id?: SortOrder
+    gym_id?: SortOrder
+    limit_id?: SortOrder
+    value?: SortOrder
+  }
+
+  export type GymLimitSumOrderByAggregateInput = {
+    id?: SortOrder
+    limit_id?: SortOrder
+    value?: SortOrder
+  }
+
   export type DecimalFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -13454,17 +17618,6 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -13474,11 +17627,6 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type GymScalarRelationFilter = {
-    is?: GymWhereInput
-    isNot?: GymWhereInput
   }
 
   export type GymStatsCountOrderByAggregateInput = {
@@ -13515,24 +17663,6 @@ export namespace Prisma {
     total_members?: SortOrder
   }
 
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
   export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -13547,22 +17677,6 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter<$PrismaModel>
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -13729,6 +17843,11 @@ export namespace Prisma {
     none?: GymWhereInput
   }
 
+  export type GymStaffNullableScalarRelationFilter = {
+    is?: GymStaffWhereInput | null
+    isNot?: GymStaffWhereInput | null
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -13865,6 +17984,12 @@ export namespace Prisma {
     none?: RevenueWhereInput
   }
 
+  export type GymStaffListRelationFilter = {
+    every?: GymStaffWhereInput
+    some?: GymStaffWhereInput
+    none?: GymStaffWhereInput
+  }
+
   export type MembershipCountListRelationFilter = {
     every?: MembershipCountWhereInput
     some?: MembershipCountWhereInput
@@ -13877,6 +18002,10 @@ export namespace Prisma {
   }
 
   export type RevenueOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type GymStaffOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -13909,6 +18038,38 @@ export namespace Prisma {
     location?: SortOrder
     created_at?: SortOrder
     created_by?: SortOrder
+  }
+
+  export type GymStaffCountOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    gym_id?: SortOrder
+    created_at?: SortOrder
+    created_by?: SortOrder
+  }
+
+  export type GymStaffAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type GymStaffMaxOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    gym_id?: SortOrder
+    created_at?: SortOrder
+    created_by?: SortOrder
+  }
+
+  export type GymStaffMinOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    gym_id?: SortOrder
+    created_at?: SortOrder
+    created_by?: SortOrder
+  }
+
+  export type GymStaffSumOrderByAggregateInput = {
+    id?: SortOrder
   }
 
   export type DateTimeNullableFilter<$PrismaModel = never> = {
@@ -14106,22 +18267,18 @@ export namespace Prisma {
     id?: SortOrder
   }
 
-  export type GymCreateNestedOneWithoutGym_statsInput = {
-    create?: XOR<GymCreateWithoutGym_statsInput, GymUncheckedCreateWithoutGym_statsInput>
-    connectOrCreate?: GymCreateOrConnectWithoutGym_statsInput
-    connect?: GymWhereUniqueInput
+  export type GymLimitCreateNestedManyWithoutLimitInput = {
+    create?: XOR<GymLimitCreateWithoutLimitInput, GymLimitUncheckedCreateWithoutLimitInput> | GymLimitCreateWithoutLimitInput[] | GymLimitUncheckedCreateWithoutLimitInput[]
+    connectOrCreate?: GymLimitCreateOrConnectWithoutLimitInput | GymLimitCreateOrConnectWithoutLimitInput[]
+    createMany?: GymLimitCreateManyLimitInputEnvelope
+    connect?: GymLimitWhereUniqueInput | GymLimitWhereUniqueInput[]
   }
 
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
-  }
-
-  export type DecimalFieldUpdateOperationsInput = {
-    set?: Decimal | DecimalJsLike | number | string
-    increment?: Decimal | DecimalJsLike | number | string
-    decrement?: Decimal | DecimalJsLike | number | string
-    multiply?: Decimal | DecimalJsLike | number | string
-    divide?: Decimal | DecimalJsLike | number | string
+  export type GymLimitUncheckedCreateNestedManyWithoutLimitInput = {
+    create?: XOR<GymLimitCreateWithoutLimitInput, GymLimitUncheckedCreateWithoutLimitInput> | GymLimitCreateWithoutLimitInput[] | GymLimitUncheckedCreateWithoutLimitInput[]
+    connectOrCreate?: GymLimitCreateOrConnectWithoutLimitInput | GymLimitCreateOrConnectWithoutLimitInput[]
+    createMany?: GymLimitCreateManyLimitInputEnvelope
+    connect?: GymLimitWhereUniqueInput | GymLimitWhereUniqueInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -14130,6 +18287,80 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type GymLimitUpdateManyWithoutLimitNestedInput = {
+    create?: XOR<GymLimitCreateWithoutLimitInput, GymLimitUncheckedCreateWithoutLimitInput> | GymLimitCreateWithoutLimitInput[] | GymLimitUncheckedCreateWithoutLimitInput[]
+    connectOrCreate?: GymLimitCreateOrConnectWithoutLimitInput | GymLimitCreateOrConnectWithoutLimitInput[]
+    upsert?: GymLimitUpsertWithWhereUniqueWithoutLimitInput | GymLimitUpsertWithWhereUniqueWithoutLimitInput[]
+    createMany?: GymLimitCreateManyLimitInputEnvelope
+    set?: GymLimitWhereUniqueInput | GymLimitWhereUniqueInput[]
+    disconnect?: GymLimitWhereUniqueInput | GymLimitWhereUniqueInput[]
+    delete?: GymLimitWhereUniqueInput | GymLimitWhereUniqueInput[]
+    connect?: GymLimitWhereUniqueInput | GymLimitWhereUniqueInput[]
+    update?: GymLimitUpdateWithWhereUniqueWithoutLimitInput | GymLimitUpdateWithWhereUniqueWithoutLimitInput[]
+    updateMany?: GymLimitUpdateManyWithWhereWithoutLimitInput | GymLimitUpdateManyWithWhereWithoutLimitInput[]
+    deleteMany?: GymLimitScalarWhereInput | GymLimitScalarWhereInput[]
+  }
+
+  export type GymLimitUncheckedUpdateManyWithoutLimitNestedInput = {
+    create?: XOR<GymLimitCreateWithoutLimitInput, GymLimitUncheckedCreateWithoutLimitInput> | GymLimitCreateWithoutLimitInput[] | GymLimitUncheckedCreateWithoutLimitInput[]
+    connectOrCreate?: GymLimitCreateOrConnectWithoutLimitInput | GymLimitCreateOrConnectWithoutLimitInput[]
+    upsert?: GymLimitUpsertWithWhereUniqueWithoutLimitInput | GymLimitUpsertWithWhereUniqueWithoutLimitInput[]
+    createMany?: GymLimitCreateManyLimitInputEnvelope
+    set?: GymLimitWhereUniqueInput | GymLimitWhereUniqueInput[]
+    disconnect?: GymLimitWhereUniqueInput | GymLimitWhereUniqueInput[]
+    delete?: GymLimitWhereUniqueInput | GymLimitWhereUniqueInput[]
+    connect?: GymLimitWhereUniqueInput | GymLimitWhereUniqueInput[]
+    update?: GymLimitUpdateWithWhereUniqueWithoutLimitInput | GymLimitUpdateWithWhereUniqueWithoutLimitInput[]
+    updateMany?: GymLimitUpdateManyWithWhereWithoutLimitInput | GymLimitUpdateManyWithWhereWithoutLimitInput[]
+    deleteMany?: GymLimitScalarWhereInput | GymLimitScalarWhereInput[]
+  }
+
+  export type GymCreateNestedOneWithoutLimitsInput = {
+    create?: XOR<GymCreateWithoutLimitsInput, GymUncheckedCreateWithoutLimitsInput>
+    connectOrCreate?: GymCreateOrConnectWithoutLimitsInput
+    connect?: GymWhereUniqueInput
+  }
+
+  export type LimitCreateNestedOneWithoutSettingsInput = {
+    create?: XOR<LimitCreateWithoutSettingsInput, LimitUncheckedCreateWithoutSettingsInput>
+    connectOrCreate?: LimitCreateOrConnectWithoutSettingsInput
+    connect?: LimitWhereUniqueInput
+  }
+
+  export type GymUpdateOneRequiredWithoutLimitsNestedInput = {
+    create?: XOR<GymCreateWithoutLimitsInput, GymUncheckedCreateWithoutLimitsInput>
+    connectOrCreate?: GymCreateOrConnectWithoutLimitsInput
+    upsert?: GymUpsertWithoutLimitsInput
+    connect?: GymWhereUniqueInput
+    update?: XOR<XOR<GymUpdateToOneWithWhereWithoutLimitsInput, GymUpdateWithoutLimitsInput>, GymUncheckedUpdateWithoutLimitsInput>
+  }
+
+  export type LimitUpdateOneRequiredWithoutSettingsNestedInput = {
+    create?: XOR<LimitCreateWithoutSettingsInput, LimitUncheckedCreateWithoutSettingsInput>
+    connectOrCreate?: LimitCreateOrConnectWithoutSettingsInput
+    upsert?: LimitUpsertWithoutSettingsInput
+    connect?: LimitWhereUniqueInput
+    update?: XOR<XOR<LimitUpdateToOneWithWhereWithoutSettingsInput, LimitUpdateWithoutSettingsInput>, LimitUncheckedUpdateWithoutSettingsInput>
+  }
+
+  export type GymCreateNestedOneWithoutGym_statsInput = {
+    create?: XOR<GymCreateWithoutGym_statsInput, GymUncheckedCreateWithoutGym_statsInput>
+    connectOrCreate?: GymCreateOrConnectWithoutGym_statsInput
+    connect?: GymWhereUniqueInput
+  }
+
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -14187,11 +18418,23 @@ export namespace Prisma {
     connect?: GymWhereUniqueInput | GymWhereUniqueInput[]
   }
 
+  export type GymStaffCreateNestedOneWithoutUserInput = {
+    create?: XOR<GymStaffCreateWithoutUserInput, GymStaffUncheckedCreateWithoutUserInput>
+    connectOrCreate?: GymStaffCreateOrConnectWithoutUserInput
+    connect?: GymStaffWhereUniqueInput
+  }
+
   export type GymUncheckedCreateNestedManyWithoutOwnerInput = {
     create?: XOR<GymCreateWithoutOwnerInput, GymUncheckedCreateWithoutOwnerInput> | GymCreateWithoutOwnerInput[] | GymUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: GymCreateOrConnectWithoutOwnerInput | GymCreateOrConnectWithoutOwnerInput[]
     createMany?: GymCreateManyOwnerInputEnvelope
     connect?: GymWhereUniqueInput | GymWhereUniqueInput[]
+  }
+
+  export type GymStaffUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<GymStaffCreateWithoutUserInput, GymStaffUncheckedCreateWithoutUserInput>
+    connectOrCreate?: GymStaffCreateOrConnectWithoutUserInput
+    connect?: GymStaffWhereUniqueInput
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -14220,6 +18463,16 @@ export namespace Prisma {
     deleteMany?: GymScalarWhereInput | GymScalarWhereInput[]
   }
 
+  export type GymStaffUpdateOneWithoutUserNestedInput = {
+    create?: XOR<GymStaffCreateWithoutUserInput, GymStaffUncheckedCreateWithoutUserInput>
+    connectOrCreate?: GymStaffCreateOrConnectWithoutUserInput
+    upsert?: GymStaffUpsertWithoutUserInput
+    disconnect?: GymStaffWhereInput | boolean
+    delete?: GymStaffWhereInput | boolean
+    connect?: GymStaffWhereUniqueInput
+    update?: XOR<XOR<GymStaffUpdateToOneWithWhereWithoutUserInput, GymStaffUpdateWithoutUserInput>, GymStaffUncheckedUpdateWithoutUserInput>
+  }
+
   export type GymUncheckedUpdateManyWithoutOwnerNestedInput = {
     create?: XOR<GymCreateWithoutOwnerInput, GymUncheckedCreateWithoutOwnerInput> | GymCreateWithoutOwnerInput[] | GymUncheckedCreateWithoutOwnerInput[]
     connectOrCreate?: GymCreateOrConnectWithoutOwnerInput | GymCreateOrConnectWithoutOwnerInput[]
@@ -14232,6 +18485,16 @@ export namespace Prisma {
     update?: GymUpdateWithWhereUniqueWithoutOwnerInput | GymUpdateWithWhereUniqueWithoutOwnerInput[]
     updateMany?: GymUpdateManyWithWhereWithoutOwnerInput | GymUpdateManyWithWhereWithoutOwnerInput[]
     deleteMany?: GymScalarWhereInput | GymScalarWhereInput[]
+  }
+
+  export type GymStaffUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<GymStaffCreateWithoutUserInput, GymStaffUncheckedCreateWithoutUserInput>
+    connectOrCreate?: GymStaffCreateOrConnectWithoutUserInput
+    upsert?: GymStaffUpsertWithoutUserInput
+    disconnect?: GymStaffWhereInput | boolean
+    delete?: GymStaffWhereInput | boolean
+    connect?: GymStaffWhereUniqueInput
+    update?: XOR<XOR<GymStaffUpdateToOneWithWhereWithoutUserInput, GymStaffUpdateWithoutUserInput>, GymStaffUncheckedUpdateWithoutUserInput>
   }
 
   export type MembershipCreateNestedManyWithoutMemberInput = {
@@ -14345,6 +18608,20 @@ export namespace Prisma {
     connect?: RevenueWhereUniqueInput | RevenueWhereUniqueInput[]
   }
 
+  export type GymStaffCreateNestedManyWithoutGymInput = {
+    create?: XOR<GymStaffCreateWithoutGymInput, GymStaffUncheckedCreateWithoutGymInput> | GymStaffCreateWithoutGymInput[] | GymStaffUncheckedCreateWithoutGymInput[]
+    connectOrCreate?: GymStaffCreateOrConnectWithoutGymInput | GymStaffCreateOrConnectWithoutGymInput[]
+    createMany?: GymStaffCreateManyGymInputEnvelope
+    connect?: GymStaffWhereUniqueInput | GymStaffWhereUniqueInput[]
+  }
+
+  export type GymLimitCreateNestedManyWithoutGymInput = {
+    create?: XOR<GymLimitCreateWithoutGymInput, GymLimitUncheckedCreateWithoutGymInput> | GymLimitCreateWithoutGymInput[] | GymLimitUncheckedCreateWithoutGymInput[]
+    connectOrCreate?: GymLimitCreateOrConnectWithoutGymInput | GymLimitCreateOrConnectWithoutGymInput[]
+    createMany?: GymLimitCreateManyGymInputEnvelope
+    connect?: GymLimitWhereUniqueInput | GymLimitWhereUniqueInput[]
+  }
+
   export type MembershipCountCreateNestedManyWithoutGymInput = {
     create?: XOR<MembershipCountCreateWithoutGymInput, MembershipCountUncheckedCreateWithoutGymInput> | MembershipCountCreateWithoutGymInput[] | MembershipCountUncheckedCreateWithoutGymInput[]
     connectOrCreate?: MembershipCountCreateOrConnectWithoutGymInput | MembershipCountCreateOrConnectWithoutGymInput[]
@@ -14383,6 +18660,20 @@ export namespace Prisma {
     connectOrCreate?: RevenueCreateOrConnectWithoutGymInput | RevenueCreateOrConnectWithoutGymInput[]
     createMany?: RevenueCreateManyGymInputEnvelope
     connect?: RevenueWhereUniqueInput | RevenueWhereUniqueInput[]
+  }
+
+  export type GymStaffUncheckedCreateNestedManyWithoutGymInput = {
+    create?: XOR<GymStaffCreateWithoutGymInput, GymStaffUncheckedCreateWithoutGymInput> | GymStaffCreateWithoutGymInput[] | GymStaffUncheckedCreateWithoutGymInput[]
+    connectOrCreate?: GymStaffCreateOrConnectWithoutGymInput | GymStaffCreateOrConnectWithoutGymInput[]
+    createMany?: GymStaffCreateManyGymInputEnvelope
+    connect?: GymStaffWhereUniqueInput | GymStaffWhereUniqueInput[]
+  }
+
+  export type GymLimitUncheckedCreateNestedManyWithoutGymInput = {
+    create?: XOR<GymLimitCreateWithoutGymInput, GymLimitUncheckedCreateWithoutGymInput> | GymLimitCreateWithoutGymInput[] | GymLimitUncheckedCreateWithoutGymInput[]
+    connectOrCreate?: GymLimitCreateOrConnectWithoutGymInput | GymLimitCreateOrConnectWithoutGymInput[]
+    createMany?: GymLimitCreateManyGymInputEnvelope
+    connect?: GymLimitWhereUniqueInput | GymLimitWhereUniqueInput[]
   }
 
   export type MembershipCountUncheckedCreateNestedManyWithoutGymInput = {
@@ -14442,6 +18733,34 @@ export namespace Prisma {
     update?: RevenueUpdateWithWhereUniqueWithoutGymInput | RevenueUpdateWithWhereUniqueWithoutGymInput[]
     updateMany?: RevenueUpdateManyWithWhereWithoutGymInput | RevenueUpdateManyWithWhereWithoutGymInput[]
     deleteMany?: RevenueScalarWhereInput | RevenueScalarWhereInput[]
+  }
+
+  export type GymStaffUpdateManyWithoutGymNestedInput = {
+    create?: XOR<GymStaffCreateWithoutGymInput, GymStaffUncheckedCreateWithoutGymInput> | GymStaffCreateWithoutGymInput[] | GymStaffUncheckedCreateWithoutGymInput[]
+    connectOrCreate?: GymStaffCreateOrConnectWithoutGymInput | GymStaffCreateOrConnectWithoutGymInput[]
+    upsert?: GymStaffUpsertWithWhereUniqueWithoutGymInput | GymStaffUpsertWithWhereUniqueWithoutGymInput[]
+    createMany?: GymStaffCreateManyGymInputEnvelope
+    set?: GymStaffWhereUniqueInput | GymStaffWhereUniqueInput[]
+    disconnect?: GymStaffWhereUniqueInput | GymStaffWhereUniqueInput[]
+    delete?: GymStaffWhereUniqueInput | GymStaffWhereUniqueInput[]
+    connect?: GymStaffWhereUniqueInput | GymStaffWhereUniqueInput[]
+    update?: GymStaffUpdateWithWhereUniqueWithoutGymInput | GymStaffUpdateWithWhereUniqueWithoutGymInput[]
+    updateMany?: GymStaffUpdateManyWithWhereWithoutGymInput | GymStaffUpdateManyWithWhereWithoutGymInput[]
+    deleteMany?: GymStaffScalarWhereInput | GymStaffScalarWhereInput[]
+  }
+
+  export type GymLimitUpdateManyWithoutGymNestedInput = {
+    create?: XOR<GymLimitCreateWithoutGymInput, GymLimitUncheckedCreateWithoutGymInput> | GymLimitCreateWithoutGymInput[] | GymLimitUncheckedCreateWithoutGymInput[]
+    connectOrCreate?: GymLimitCreateOrConnectWithoutGymInput | GymLimitCreateOrConnectWithoutGymInput[]
+    upsert?: GymLimitUpsertWithWhereUniqueWithoutGymInput | GymLimitUpsertWithWhereUniqueWithoutGymInput[]
+    createMany?: GymLimitCreateManyGymInputEnvelope
+    set?: GymLimitWhereUniqueInput | GymLimitWhereUniqueInput[]
+    disconnect?: GymLimitWhereUniqueInput | GymLimitWhereUniqueInput[]
+    delete?: GymLimitWhereUniqueInput | GymLimitWhereUniqueInput[]
+    connect?: GymLimitWhereUniqueInput | GymLimitWhereUniqueInput[]
+    update?: GymLimitUpdateWithWhereUniqueWithoutGymInput | GymLimitUpdateWithWhereUniqueWithoutGymInput[]
+    updateMany?: GymLimitUpdateManyWithWhereWithoutGymInput | GymLimitUpdateManyWithWhereWithoutGymInput[]
+    deleteMany?: GymLimitScalarWhereInput | GymLimitScalarWhereInput[]
   }
 
   export type MembershipCountUpdateManyWithoutGymNestedInput = {
@@ -14518,6 +18837,34 @@ export namespace Prisma {
     deleteMany?: RevenueScalarWhereInput | RevenueScalarWhereInput[]
   }
 
+  export type GymStaffUncheckedUpdateManyWithoutGymNestedInput = {
+    create?: XOR<GymStaffCreateWithoutGymInput, GymStaffUncheckedCreateWithoutGymInput> | GymStaffCreateWithoutGymInput[] | GymStaffUncheckedCreateWithoutGymInput[]
+    connectOrCreate?: GymStaffCreateOrConnectWithoutGymInput | GymStaffCreateOrConnectWithoutGymInput[]
+    upsert?: GymStaffUpsertWithWhereUniqueWithoutGymInput | GymStaffUpsertWithWhereUniqueWithoutGymInput[]
+    createMany?: GymStaffCreateManyGymInputEnvelope
+    set?: GymStaffWhereUniqueInput | GymStaffWhereUniqueInput[]
+    disconnect?: GymStaffWhereUniqueInput | GymStaffWhereUniqueInput[]
+    delete?: GymStaffWhereUniqueInput | GymStaffWhereUniqueInput[]
+    connect?: GymStaffWhereUniqueInput | GymStaffWhereUniqueInput[]
+    update?: GymStaffUpdateWithWhereUniqueWithoutGymInput | GymStaffUpdateWithWhereUniqueWithoutGymInput[]
+    updateMany?: GymStaffUpdateManyWithWhereWithoutGymInput | GymStaffUpdateManyWithWhereWithoutGymInput[]
+    deleteMany?: GymStaffScalarWhereInput | GymStaffScalarWhereInput[]
+  }
+
+  export type GymLimitUncheckedUpdateManyWithoutGymNestedInput = {
+    create?: XOR<GymLimitCreateWithoutGymInput, GymLimitUncheckedCreateWithoutGymInput> | GymLimitCreateWithoutGymInput[] | GymLimitUncheckedCreateWithoutGymInput[]
+    connectOrCreate?: GymLimitCreateOrConnectWithoutGymInput | GymLimitCreateOrConnectWithoutGymInput[]
+    upsert?: GymLimitUpsertWithWhereUniqueWithoutGymInput | GymLimitUpsertWithWhereUniqueWithoutGymInput[]
+    createMany?: GymLimitCreateManyGymInputEnvelope
+    set?: GymLimitWhereUniqueInput | GymLimitWhereUniqueInput[]
+    disconnect?: GymLimitWhereUniqueInput | GymLimitWhereUniqueInput[]
+    delete?: GymLimitWhereUniqueInput | GymLimitWhereUniqueInput[]
+    connect?: GymLimitWhereUniqueInput | GymLimitWhereUniqueInput[]
+    update?: GymLimitUpdateWithWhereUniqueWithoutGymInput | GymLimitUpdateWithWhereUniqueWithoutGymInput[]
+    updateMany?: GymLimitUpdateManyWithWhereWithoutGymInput | GymLimitUpdateManyWithWhereWithoutGymInput[]
+    deleteMany?: GymLimitScalarWhereInput | GymLimitScalarWhereInput[]
+  }
+
   export type MembershipCountUncheckedUpdateManyWithoutGymNestedInput = {
     create?: XOR<MembershipCountCreateWithoutGymInput, MembershipCountUncheckedCreateWithoutGymInput> | MembershipCountCreateWithoutGymInput[] | MembershipCountUncheckedCreateWithoutGymInput[]
     connectOrCreate?: MembershipCountCreateOrConnectWithoutGymInput | MembershipCountCreateOrConnectWithoutGymInput[]
@@ -14530,6 +18877,34 @@ export namespace Prisma {
     update?: MembershipCountUpdateWithWhereUniqueWithoutGymInput | MembershipCountUpdateWithWhereUniqueWithoutGymInput[]
     updateMany?: MembershipCountUpdateManyWithWhereWithoutGymInput | MembershipCountUpdateManyWithWhereWithoutGymInput[]
     deleteMany?: MembershipCountScalarWhereInput | MembershipCountScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutGym_staffInput = {
+    create?: XOR<UserCreateWithoutGym_staffInput, UserUncheckedCreateWithoutGym_staffInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGym_staffInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type GymCreateNestedOneWithoutStaffsInput = {
+    create?: XOR<GymCreateWithoutStaffsInput, GymUncheckedCreateWithoutStaffsInput>
+    connectOrCreate?: GymCreateOrConnectWithoutStaffsInput
+    connect?: GymWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutGym_staffNestedInput = {
+    create?: XOR<UserCreateWithoutGym_staffInput, UserUncheckedCreateWithoutGym_staffInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGym_staffInput
+    upsert?: UserUpsertWithoutGym_staffInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutGym_staffInput, UserUpdateWithoutGym_staffInput>, UserUncheckedUpdateWithoutGym_staffInput>
+  }
+
+  export type GymUpdateOneRequiredWithoutStaffsNestedInput = {
+    create?: XOR<GymCreateWithoutStaffsInput, GymUncheckedCreateWithoutStaffsInput>
+    connectOrCreate?: GymCreateOrConnectWithoutStaffsInput
+    upsert?: GymUpsertWithoutStaffsInput
+    connect?: GymWhereUniqueInput
+    update?: XOR<XOR<GymUpdateToOneWithWhereWithoutStaffsInput, GymUpdateWithoutStaffsInput>, GymUncheckedUpdateWithoutStaffsInput>
   }
 
   export type MemberCreateNestedOneWithoutMembershipsInput = {
@@ -14600,6 +18975,17 @@ export namespace Prisma {
     update?: XOR<XOR<GymUpdateToOneWithWhereWithoutMember_time_logsInput, GymUpdateWithoutMember_time_logsInput>, GymUncheckedUpdateWithoutMember_time_logsInput>
   }
 
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -14612,72 +18998,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
-  }
-
-  export type NestedDecimalFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-  }
-
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedDecimalFilter<$PrismaModel>
-    _sum?: NestedDecimalFilter<$PrismaModel>
-    _min?: NestedDecimalFilter<$PrismaModel>
-    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -14705,6 +19025,61 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedDecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -14861,6 +19236,169 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type GymLimitCreateWithoutLimitInput = {
+    value: number
+    gym: GymCreateNestedOneWithoutLimitsInput
+  }
+
+  export type GymLimitUncheckedCreateWithoutLimitInput = {
+    id?: number
+    gym_id: string
+    value: number
+  }
+
+  export type GymLimitCreateOrConnectWithoutLimitInput = {
+    where: GymLimitWhereUniqueInput
+    create: XOR<GymLimitCreateWithoutLimitInput, GymLimitUncheckedCreateWithoutLimitInput>
+  }
+
+  export type GymLimitCreateManyLimitInputEnvelope = {
+    data: GymLimitCreateManyLimitInput | GymLimitCreateManyLimitInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GymLimitUpsertWithWhereUniqueWithoutLimitInput = {
+    where: GymLimitWhereUniqueInput
+    update: XOR<GymLimitUpdateWithoutLimitInput, GymLimitUncheckedUpdateWithoutLimitInput>
+    create: XOR<GymLimitCreateWithoutLimitInput, GymLimitUncheckedCreateWithoutLimitInput>
+  }
+
+  export type GymLimitUpdateWithWhereUniqueWithoutLimitInput = {
+    where: GymLimitWhereUniqueInput
+    data: XOR<GymLimitUpdateWithoutLimitInput, GymLimitUncheckedUpdateWithoutLimitInput>
+  }
+
+  export type GymLimitUpdateManyWithWhereWithoutLimitInput = {
+    where: GymLimitScalarWhereInput
+    data: XOR<GymLimitUpdateManyMutationInput, GymLimitUncheckedUpdateManyWithoutLimitInput>
+  }
+
+  export type GymLimitScalarWhereInput = {
+    AND?: GymLimitScalarWhereInput | GymLimitScalarWhereInput[]
+    OR?: GymLimitScalarWhereInput[]
+    NOT?: GymLimitScalarWhereInput | GymLimitScalarWhereInput[]
+    id?: IntFilter<"GymLimit"> | number
+    gym_id?: StringFilter<"GymLimit"> | string
+    limit_id?: IntFilter<"GymLimit"> | number
+    value?: IntFilter<"GymLimit"> | number
+  }
+
+  export type GymCreateWithoutLimitsInput = {
+    id?: string
+    name: string
+    location: string
+    created_at?: Date | string
+    created_by: string
+    memberships?: MembershipCreateNestedManyWithoutGymInput
+    member_time_logs?: MemberTimeLogsCreateNestedManyWithoutGymInput
+    gym_stats?: GymStatsCreateNestedOneWithoutGymInput
+    revenues?: RevenueCreateNestedManyWithoutGymInput
+    staffs?: GymStaffCreateNestedManyWithoutGymInput
+    membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
+    owner: UserCreateNestedOneWithoutGymsInput
+  }
+
+  export type GymUncheckedCreateWithoutLimitsInput = {
+    id?: string
+    owner_id: string
+    name: string
+    location: string
+    created_at?: Date | string
+    created_by: string
+    memberships?: MembershipUncheckedCreateNestedManyWithoutGymInput
+    member_time_logs?: MemberTimeLogsUncheckedCreateNestedManyWithoutGymInput
+    gym_stats?: GymStatsUncheckedCreateNestedOneWithoutGymInput
+    revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
+    staffs?: GymStaffUncheckedCreateNestedManyWithoutGymInput
+    membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
+  }
+
+  export type GymCreateOrConnectWithoutLimitsInput = {
+    where: GymWhereUniqueInput
+    create: XOR<GymCreateWithoutLimitsInput, GymUncheckedCreateWithoutLimitsInput>
+  }
+
+  export type LimitCreateWithoutSettingsInput = {
+    id: number
+    name: string
+    value: number
+  }
+
+  export type LimitUncheckedCreateWithoutSettingsInput = {
+    id: number
+    name: string
+    value: number
+  }
+
+  export type LimitCreateOrConnectWithoutSettingsInput = {
+    where: LimitWhereUniqueInput
+    create: XOR<LimitCreateWithoutSettingsInput, LimitUncheckedCreateWithoutSettingsInput>
+  }
+
+  export type GymUpsertWithoutLimitsInput = {
+    update: XOR<GymUpdateWithoutLimitsInput, GymUncheckedUpdateWithoutLimitsInput>
+    create: XOR<GymCreateWithoutLimitsInput, GymUncheckedCreateWithoutLimitsInput>
+    where?: GymWhereInput
+  }
+
+  export type GymUpdateToOneWithWhereWithoutLimitsInput = {
+    where?: GymWhereInput
+    data: XOR<GymUpdateWithoutLimitsInput, GymUncheckedUpdateWithoutLimitsInput>
+  }
+
+  export type GymUpdateWithoutLimitsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    memberships?: MembershipUpdateManyWithoutGymNestedInput
+    member_time_logs?: MemberTimeLogsUpdateManyWithoutGymNestedInput
+    gym_stats?: GymStatsUpdateOneWithoutGymNestedInput
+    revenues?: RevenueUpdateManyWithoutGymNestedInput
+    staffs?: GymStaffUpdateManyWithoutGymNestedInput
+    membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
+    owner?: UserUpdateOneRequiredWithoutGymsNestedInput
+  }
+
+  export type GymUncheckedUpdateWithoutLimitsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    owner_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    memberships?: MembershipUncheckedUpdateManyWithoutGymNestedInput
+    member_time_logs?: MemberTimeLogsUncheckedUpdateManyWithoutGymNestedInput
+    gym_stats?: GymStatsUncheckedUpdateOneWithoutGymNestedInput
+    revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
+    staffs?: GymStaffUncheckedUpdateManyWithoutGymNestedInput
+    membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
+  }
+
+  export type LimitUpsertWithoutSettingsInput = {
+    update: XOR<LimitUpdateWithoutSettingsInput, LimitUncheckedUpdateWithoutSettingsInput>
+    create: XOR<LimitCreateWithoutSettingsInput, LimitUncheckedCreateWithoutSettingsInput>
+    where?: LimitWhereInput
+  }
+
+  export type LimitUpdateToOneWithWhereWithoutSettingsInput = {
+    where?: LimitWhereInput
+    data: XOR<LimitUpdateWithoutSettingsInput, LimitUncheckedUpdateWithoutSettingsInput>
+  }
+
+  export type LimitUpdateWithoutSettingsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    value?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LimitUncheckedUpdateWithoutSettingsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    value?: IntFieldUpdateOperationsInput | number
+  }
+
   export type GymCreateWithoutGym_statsInput = {
     id?: string
     name: string
@@ -14870,6 +19408,8 @@ export namespace Prisma {
     memberships?: MembershipCreateNestedManyWithoutGymInput
     member_time_logs?: MemberTimeLogsCreateNestedManyWithoutGymInput
     revenues?: RevenueCreateNestedManyWithoutGymInput
+    staffs?: GymStaffCreateNestedManyWithoutGymInput
+    limits?: GymLimitCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
     owner: UserCreateNestedOneWithoutGymsInput
   }
@@ -14884,6 +19424,8 @@ export namespace Prisma {
     memberships?: MembershipUncheckedCreateNestedManyWithoutGymInput
     member_time_logs?: MemberTimeLogsUncheckedCreateNestedManyWithoutGymInput
     revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
+    staffs?: GymStaffUncheckedCreateNestedManyWithoutGymInput
+    limits?: GymLimitUncheckedCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
   }
 
@@ -14912,6 +19454,8 @@ export namespace Prisma {
     memberships?: MembershipUpdateManyWithoutGymNestedInput
     member_time_logs?: MemberTimeLogsUpdateManyWithoutGymNestedInput
     revenues?: RevenueUpdateManyWithoutGymNestedInput
+    staffs?: GymStaffUpdateManyWithoutGymNestedInput
+    limits?: GymLimitUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
     owner?: UserUpdateOneRequiredWithoutGymsNestedInput
   }
@@ -14926,6 +19470,8 @@ export namespace Prisma {
     memberships?: MembershipUncheckedUpdateManyWithoutGymNestedInput
     member_time_logs?: MemberTimeLogsUncheckedUpdateManyWithoutGymNestedInput
     revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
+    staffs?: GymStaffUncheckedUpdateManyWithoutGymNestedInput
+    limits?: GymLimitUncheckedUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
   }
 
@@ -14938,6 +19484,8 @@ export namespace Prisma {
     memberships?: MembershipCreateNestedManyWithoutGymInput
     member_time_logs?: MemberTimeLogsCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsCreateNestedOneWithoutGymInput
+    staffs?: GymStaffCreateNestedManyWithoutGymInput
+    limits?: GymLimitCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
     owner: UserCreateNestedOneWithoutGymsInput
   }
@@ -14952,6 +19500,8 @@ export namespace Prisma {
     memberships?: MembershipUncheckedCreateNestedManyWithoutGymInput
     member_time_logs?: MemberTimeLogsUncheckedCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsUncheckedCreateNestedOneWithoutGymInput
+    staffs?: GymStaffUncheckedCreateNestedManyWithoutGymInput
+    limits?: GymLimitUncheckedCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
   }
 
@@ -14980,6 +19530,8 @@ export namespace Prisma {
     memberships?: MembershipUpdateManyWithoutGymNestedInput
     member_time_logs?: MemberTimeLogsUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUpdateOneWithoutGymNestedInput
+    staffs?: GymStaffUpdateManyWithoutGymNestedInput
+    limits?: GymLimitUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
     owner?: UserUpdateOneRequiredWithoutGymsNestedInput
   }
@@ -14994,6 +19546,8 @@ export namespace Prisma {
     memberships?: MembershipUncheckedUpdateManyWithoutGymNestedInput
     member_time_logs?: MemberTimeLogsUncheckedUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUncheckedUpdateOneWithoutGymNestedInput
+    staffs?: GymStaffUncheckedUpdateManyWithoutGymNestedInput
+    limits?: GymLimitUncheckedUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
   }
 
@@ -15007,6 +19561,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsCreateNestedOneWithoutGymInput
     revenues?: RevenueCreateNestedManyWithoutGymInput
+    staffs?: GymStaffCreateNestedManyWithoutGymInput
+    limits?: GymLimitCreateNestedManyWithoutGymInput
     owner: UserCreateNestedOneWithoutGymsInput
   }
 
@@ -15021,6 +19577,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsUncheckedCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsUncheckedCreateNestedOneWithoutGymInput
     revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
+    staffs?: GymStaffUncheckedCreateNestedManyWithoutGymInput
+    limits?: GymLimitUncheckedCreateNestedManyWithoutGymInput
   }
 
   export type GymCreateOrConnectWithoutMembership_countsInput = {
@@ -15049,6 +19607,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUpdateOneWithoutGymNestedInput
     revenues?: RevenueUpdateManyWithoutGymNestedInput
+    staffs?: GymStaffUpdateManyWithoutGymNestedInput
+    limits?: GymLimitUpdateManyWithoutGymNestedInput
     owner?: UserUpdateOneRequiredWithoutGymsNestedInput
   }
 
@@ -15063,6 +19623,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsUncheckedUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUncheckedUpdateOneWithoutGymNestedInput
     revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
+    staffs?: GymStaffUncheckedUpdateManyWithoutGymNestedInput
+    limits?: GymLimitUncheckedUpdateManyWithoutGymNestedInput
   }
 
   export type GymCreateWithoutOwnerInput = {
@@ -15075,6 +19637,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsCreateNestedOneWithoutGymInput
     revenues?: RevenueCreateNestedManyWithoutGymInput
+    staffs?: GymStaffCreateNestedManyWithoutGymInput
+    limits?: GymLimitCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
   }
 
@@ -15088,6 +19652,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsUncheckedCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsUncheckedCreateNestedOneWithoutGymInput
     revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
+    staffs?: GymStaffUncheckedCreateNestedManyWithoutGymInput
+    limits?: GymLimitUncheckedCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
   }
 
@@ -15099,6 +19665,24 @@ export namespace Prisma {
   export type GymCreateManyOwnerInputEnvelope = {
     data: GymCreateManyOwnerInput | GymCreateManyOwnerInput[]
     skipDuplicates?: boolean
+  }
+
+  export type GymStaffCreateWithoutUserInput = {
+    created_at?: Date | string
+    created_by: string
+    gym: GymCreateNestedOneWithoutStaffsInput
+  }
+
+  export type GymStaffUncheckedCreateWithoutUserInput = {
+    id?: number
+    gym_id: string
+    created_at?: Date | string
+    created_by: string
+  }
+
+  export type GymStaffCreateOrConnectWithoutUserInput = {
+    where: GymStaffWhereUniqueInput
+    create: XOR<GymStaffCreateWithoutUserInput, GymStaffUncheckedCreateWithoutUserInput>
   }
 
   export type GymUpsertWithWhereUniqueWithoutOwnerInput = {
@@ -15127,6 +19711,30 @@ export namespace Prisma {
     location?: StringFilter<"Gym"> | string
     created_at?: DateTimeFilter<"Gym"> | Date | string
     created_by?: StringFilter<"Gym"> | string
+  }
+
+  export type GymStaffUpsertWithoutUserInput = {
+    update: XOR<GymStaffUpdateWithoutUserInput, GymStaffUncheckedUpdateWithoutUserInput>
+    create: XOR<GymStaffCreateWithoutUserInput, GymStaffUncheckedCreateWithoutUserInput>
+    where?: GymStaffWhereInput
+  }
+
+  export type GymStaffUpdateToOneWithWhereWithoutUserInput = {
+    where?: GymStaffWhereInput
+    data: XOR<GymStaffUpdateWithoutUserInput, GymStaffUncheckedUpdateWithoutUserInput>
+  }
+
+  export type GymStaffUpdateWithoutUserInput = {
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    gym?: GymUpdateOneRequiredWithoutStaffsNestedInput
+  }
+
+  export type GymStaffUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    gym_id?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
   }
 
   export type MembershipCreateWithoutMemberInput = {
@@ -15362,6 +19970,50 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type GymStaffCreateWithoutGymInput = {
+    created_at?: Date | string
+    created_by: string
+    user: UserCreateNestedOneWithoutGym_staffInput
+  }
+
+  export type GymStaffUncheckedCreateWithoutGymInput = {
+    id?: number
+    user_id: string
+    created_at?: Date | string
+    created_by: string
+  }
+
+  export type GymStaffCreateOrConnectWithoutGymInput = {
+    where: GymStaffWhereUniqueInput
+    create: XOR<GymStaffCreateWithoutGymInput, GymStaffUncheckedCreateWithoutGymInput>
+  }
+
+  export type GymStaffCreateManyGymInputEnvelope = {
+    data: GymStaffCreateManyGymInput | GymStaffCreateManyGymInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type GymLimitCreateWithoutGymInput = {
+    value: number
+    limit: LimitCreateNestedOneWithoutSettingsInput
+  }
+
+  export type GymLimitUncheckedCreateWithoutGymInput = {
+    id?: number
+    limit_id: number
+    value: number
+  }
+
+  export type GymLimitCreateOrConnectWithoutGymInput = {
+    where: GymLimitWhereUniqueInput
+    create: XOR<GymLimitCreateWithoutGymInput, GymLimitUncheckedCreateWithoutGymInput>
+  }
+
+  export type GymLimitCreateManyGymInputEnvelope = {
+    data: GymLimitCreateManyGymInput | GymLimitCreateManyGymInput[]
+    skipDuplicates?: boolean
+  }
+
   export type MembershipCountCreateWithoutGymInput = {
     id?: string
     year: number
@@ -15397,6 +20049,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     created_by: string
+    gym_staff?: GymStaffCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutGymsInput = {
@@ -15408,6 +20061,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     created_by: string
+    gym_staff?: GymStaffUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutGymsInput = {
@@ -15500,6 +20154,49 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Revenue"> | Date | string
   }
 
+  export type GymStaffUpsertWithWhereUniqueWithoutGymInput = {
+    where: GymStaffWhereUniqueInput
+    update: XOR<GymStaffUpdateWithoutGymInput, GymStaffUncheckedUpdateWithoutGymInput>
+    create: XOR<GymStaffCreateWithoutGymInput, GymStaffUncheckedCreateWithoutGymInput>
+  }
+
+  export type GymStaffUpdateWithWhereUniqueWithoutGymInput = {
+    where: GymStaffWhereUniqueInput
+    data: XOR<GymStaffUpdateWithoutGymInput, GymStaffUncheckedUpdateWithoutGymInput>
+  }
+
+  export type GymStaffUpdateManyWithWhereWithoutGymInput = {
+    where: GymStaffScalarWhereInput
+    data: XOR<GymStaffUpdateManyMutationInput, GymStaffUncheckedUpdateManyWithoutGymInput>
+  }
+
+  export type GymStaffScalarWhereInput = {
+    AND?: GymStaffScalarWhereInput | GymStaffScalarWhereInput[]
+    OR?: GymStaffScalarWhereInput[]
+    NOT?: GymStaffScalarWhereInput | GymStaffScalarWhereInput[]
+    id?: IntFilter<"GymStaff"> | number
+    user_id?: StringFilter<"GymStaff"> | string
+    gym_id?: StringFilter<"GymStaff"> | string
+    created_at?: DateTimeFilter<"GymStaff"> | Date | string
+    created_by?: StringFilter<"GymStaff"> | string
+  }
+
+  export type GymLimitUpsertWithWhereUniqueWithoutGymInput = {
+    where: GymLimitWhereUniqueInput
+    update: XOR<GymLimitUpdateWithoutGymInput, GymLimitUncheckedUpdateWithoutGymInput>
+    create: XOR<GymLimitCreateWithoutGymInput, GymLimitUncheckedCreateWithoutGymInput>
+  }
+
+  export type GymLimitUpdateWithWhereUniqueWithoutGymInput = {
+    where: GymLimitWhereUniqueInput
+    data: XOR<GymLimitUpdateWithoutGymInput, GymLimitUncheckedUpdateWithoutGymInput>
+  }
+
+  export type GymLimitUpdateManyWithWhereWithoutGymInput = {
+    where: GymLimitScalarWhereInput
+    data: XOR<GymLimitUpdateManyMutationInput, GymLimitUncheckedUpdateManyWithoutGymInput>
+  }
+
   export type MembershipCountUpsertWithWhereUniqueWithoutGymInput = {
     where: MembershipCountWhereUniqueInput
     update: XOR<MembershipCountUpdateWithoutGymInput, MembershipCountUncheckedUpdateWithoutGymInput>
@@ -15548,6 +20245,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
+    gym_staff?: GymStaffUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGymsInput = {
@@ -15559,6 +20257,147 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
+    gym_staff?: GymStaffUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutGym_staffInput = {
+    id?: string
+    username?: string | null
+    password_hash: string
+    role?: $Enums.Role
+    contact_number?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    created_by: string
+    gyms?: GymCreateNestedManyWithoutOwnerInput
+  }
+
+  export type UserUncheckedCreateWithoutGym_staffInput = {
+    id?: string
+    username?: string | null
+    password_hash: string
+    role?: $Enums.Role
+    contact_number?: string | null
+    is_active?: boolean
+    created_at?: Date | string
+    created_by: string
+    gyms?: GymUncheckedCreateNestedManyWithoutOwnerInput
+  }
+
+  export type UserCreateOrConnectWithoutGym_staffInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutGym_staffInput, UserUncheckedCreateWithoutGym_staffInput>
+  }
+
+  export type GymCreateWithoutStaffsInput = {
+    id?: string
+    name: string
+    location: string
+    created_at?: Date | string
+    created_by: string
+    memberships?: MembershipCreateNestedManyWithoutGymInput
+    member_time_logs?: MemberTimeLogsCreateNestedManyWithoutGymInput
+    gym_stats?: GymStatsCreateNestedOneWithoutGymInput
+    revenues?: RevenueCreateNestedManyWithoutGymInput
+    limits?: GymLimitCreateNestedManyWithoutGymInput
+    membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
+    owner: UserCreateNestedOneWithoutGymsInput
+  }
+
+  export type GymUncheckedCreateWithoutStaffsInput = {
+    id?: string
+    owner_id: string
+    name: string
+    location: string
+    created_at?: Date | string
+    created_by: string
+    memberships?: MembershipUncheckedCreateNestedManyWithoutGymInput
+    member_time_logs?: MemberTimeLogsUncheckedCreateNestedManyWithoutGymInput
+    gym_stats?: GymStatsUncheckedCreateNestedOneWithoutGymInput
+    revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
+    limits?: GymLimitUncheckedCreateNestedManyWithoutGymInput
+    membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
+  }
+
+  export type GymCreateOrConnectWithoutStaffsInput = {
+    where: GymWhereUniqueInput
+    create: XOR<GymCreateWithoutStaffsInput, GymUncheckedCreateWithoutStaffsInput>
+  }
+
+  export type UserUpsertWithoutGym_staffInput = {
+    update: XOR<UserUpdateWithoutGym_staffInput, UserUncheckedUpdateWithoutGym_staffInput>
+    create: XOR<UserCreateWithoutGym_staffInput, UserUncheckedCreateWithoutGym_staffInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutGym_staffInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutGym_staffInput, UserUncheckedUpdateWithoutGym_staffInput>
+  }
+
+  export type UserUpdateWithoutGym_staffInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    password_hash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    contact_number?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    gyms?: GymUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutGym_staffInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    password_hash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    contact_number?: NullableStringFieldUpdateOperationsInput | string | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    gyms?: GymUncheckedUpdateManyWithoutOwnerNestedInput
+  }
+
+  export type GymUpsertWithoutStaffsInput = {
+    update: XOR<GymUpdateWithoutStaffsInput, GymUncheckedUpdateWithoutStaffsInput>
+    create: XOR<GymCreateWithoutStaffsInput, GymUncheckedCreateWithoutStaffsInput>
+    where?: GymWhereInput
+  }
+
+  export type GymUpdateToOneWithWhereWithoutStaffsInput = {
+    where?: GymWhereInput
+    data: XOR<GymUpdateWithoutStaffsInput, GymUncheckedUpdateWithoutStaffsInput>
+  }
+
+  export type GymUpdateWithoutStaffsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    memberships?: MembershipUpdateManyWithoutGymNestedInput
+    member_time_logs?: MemberTimeLogsUpdateManyWithoutGymNestedInput
+    gym_stats?: GymStatsUpdateOneWithoutGymNestedInput
+    revenues?: RevenueUpdateManyWithoutGymNestedInput
+    limits?: GymLimitUpdateManyWithoutGymNestedInput
+    membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
+    owner?: UserUpdateOneRequiredWithoutGymsNestedInput
+  }
+
+  export type GymUncheckedUpdateWithoutStaffsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    owner_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    memberships?: MembershipUncheckedUpdateManyWithoutGymNestedInput
+    member_time_logs?: MemberTimeLogsUncheckedUpdateManyWithoutGymNestedInput
+    gym_stats?: GymStatsUncheckedUpdateOneWithoutGymNestedInput
+    revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
+    limits?: GymLimitUncheckedUpdateManyWithoutGymNestedInput
+    membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
   }
 
   export type MemberCreateWithoutMembershipsInput = {
@@ -15595,6 +20434,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsCreateNestedOneWithoutGymInput
     revenues?: RevenueCreateNestedManyWithoutGymInput
+    staffs?: GymStaffCreateNestedManyWithoutGymInput
+    limits?: GymLimitCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
     owner: UserCreateNestedOneWithoutGymsInput
   }
@@ -15609,6 +20450,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsUncheckedCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsUncheckedCreateNestedOneWithoutGymInput
     revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
+    staffs?: GymStaffUncheckedCreateNestedManyWithoutGymInput
+    limits?: GymLimitUncheckedCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
   }
 
@@ -15668,6 +20511,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUpdateOneWithoutGymNestedInput
     revenues?: RevenueUpdateManyWithoutGymNestedInput
+    staffs?: GymStaffUpdateManyWithoutGymNestedInput
+    limits?: GymLimitUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
     owner?: UserUpdateOneRequiredWithoutGymsNestedInput
   }
@@ -15682,6 +20527,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsUncheckedUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUncheckedUpdateOneWithoutGymNestedInput
     revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
+    staffs?: GymStaffUncheckedUpdateManyWithoutGymNestedInput
+    limits?: GymLimitUncheckedUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
   }
 
@@ -15719,6 +20566,8 @@ export namespace Prisma {
     memberships?: MembershipCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsCreateNestedOneWithoutGymInput
     revenues?: RevenueCreateNestedManyWithoutGymInput
+    staffs?: GymStaffCreateNestedManyWithoutGymInput
+    limits?: GymLimitCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
     owner: UserCreateNestedOneWithoutGymsInput
   }
@@ -15733,6 +20582,8 @@ export namespace Prisma {
     memberships?: MembershipUncheckedCreateNestedManyWithoutGymInput
     gym_stats?: GymStatsUncheckedCreateNestedOneWithoutGymInput
     revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
+    staffs?: GymStaffUncheckedCreateNestedManyWithoutGymInput
+    limits?: GymLimitUncheckedCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
   }
 
@@ -15792,6 +20643,8 @@ export namespace Prisma {
     memberships?: MembershipUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUpdateOneWithoutGymNestedInput
     revenues?: RevenueUpdateManyWithoutGymNestedInput
+    staffs?: GymStaffUpdateManyWithoutGymNestedInput
+    limits?: GymLimitUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
     owner?: UserUpdateOneRequiredWithoutGymsNestedInput
   }
@@ -15806,7 +20659,32 @@ export namespace Prisma {
     memberships?: MembershipUncheckedUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUncheckedUpdateOneWithoutGymNestedInput
     revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
+    staffs?: GymStaffUncheckedUpdateManyWithoutGymNestedInput
+    limits?: GymLimitUncheckedUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
+  }
+
+  export type GymLimitCreateManyLimitInput = {
+    id?: number
+    gym_id: string
+    value: number
+  }
+
+  export type GymLimitUpdateWithoutLimitInput = {
+    value?: IntFieldUpdateOperationsInput | number
+    gym?: GymUpdateOneRequiredWithoutLimitsNestedInput
+  }
+
+  export type GymLimitUncheckedUpdateWithoutLimitInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    gym_id?: StringFieldUpdateOperationsInput | string
+    value?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type GymLimitUncheckedUpdateManyWithoutLimitInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    gym_id?: StringFieldUpdateOperationsInput | string
+    value?: IntFieldUpdateOperationsInput | number
   }
 
   export type GymCreateManyOwnerInput = {
@@ -15827,6 +20705,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUpdateOneWithoutGymNestedInput
     revenues?: RevenueUpdateManyWithoutGymNestedInput
+    staffs?: GymStaffUpdateManyWithoutGymNestedInput
+    limits?: GymLimitUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
   }
 
@@ -15840,6 +20720,8 @@ export namespace Prisma {
     member_time_logs?: MemberTimeLogsUncheckedUpdateManyWithoutGymNestedInput
     gym_stats?: GymStatsUncheckedUpdateOneWithoutGymNestedInput
     revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
+    staffs?: GymStaffUncheckedUpdateManyWithoutGymNestedInput
+    limits?: GymLimitUncheckedUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
   }
 
@@ -15968,6 +20850,19 @@ export namespace Prisma {
     created_at?: Date | string
   }
 
+  export type GymStaffCreateManyGymInput = {
+    id?: number
+    user_id: string
+    created_at?: Date | string
+    created_by: string
+  }
+
+  export type GymLimitCreateManyGymInput = {
+    id?: number
+    limit_id: number
+    value: number
+  }
+
   export type MembershipCountCreateManyGymInput = {
     id?: string
     year: number
@@ -16063,6 +20958,43 @@ export namespace Prisma {
     month?: IntFieldUpdateOperationsInput | number
     amount?: FloatFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GymStaffUpdateWithoutGymInput = {
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutGym_staffNestedInput
+  }
+
+  export type GymStaffUncheckedUpdateWithoutGymInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type GymStaffUncheckedUpdateManyWithoutGymInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    user_id?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type GymLimitUpdateWithoutGymInput = {
+    value?: IntFieldUpdateOperationsInput | number
+    limit?: LimitUpdateOneRequiredWithoutSettingsNestedInput
+  }
+
+  export type GymLimitUncheckedUpdateWithoutGymInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    limit_id?: IntFieldUpdateOperationsInput | number
+    value?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type GymLimitUncheckedUpdateManyWithoutGymInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    limit_id?: IntFieldUpdateOperationsInput | number
+    value?: IntFieldUpdateOperationsInput | number
   }
 
   export type MembershipCountUpdateWithoutGymInput = {

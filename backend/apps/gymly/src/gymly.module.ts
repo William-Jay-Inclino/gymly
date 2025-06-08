@@ -13,6 +13,9 @@ import { PlanModule } from './plan/plan.module';
 import { MemberTimeLogsModule } from './member-time-logs/member-time-logs.module';
 import { AnalyticsModule } from './analytics/analytics.module';
 import { AuthModule } from './auth/auth.module';
+import { GymStaffModule } from './gym-staff/gym-staff.module';
+import { LimitModule } from './limit/limit.module';
+import { GymLimitModule } from './gym-limit/gym-limit.module';
 
 @Module({
 	imports: [
@@ -34,6 +37,9 @@ import { AuthModule } from './auth/auth.module';
 		MemberTimeLogsModule,
 		AnalyticsModule,
 		AuthModule,
+		GymStaffModule,
+		LimitModule,
+		GymLimitModule,
 	],
 	controllers: [GymlyController],
 })

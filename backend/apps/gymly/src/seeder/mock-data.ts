@@ -1,4 +1,4 @@
-import { Gym, Plan, Prisma, Role, User } from "apps/gymly/prisma/generated/client";
+import { Gym, GymLimit, GymStaff, Limit, Plan, Prisma, Role, User } from "apps/gymly/prisma/generated/client";
 import { faker } from "@faker-js/faker";
 
 const owner_id = 'df30a8c0-9733-4bba-9b0d-1815bc88a550'
@@ -47,6 +47,57 @@ export const gyms: Gym[] = [
         created_by: 'system',
         created_at: new Date(),
     }
+]
+
+export const gym_staffs: GymStaff[] = [
+    {
+        id: 1,
+        user_id: users[2].id,
+        gym_id,
+        created_by: 'system',
+        created_at: new Date(),
+    }
+]
+
+export const limits: Limit[] = [
+    {id: 1, name: 'Member Limit', value: 100},
+    {id: 2, name: 'Plan Limit', value: 5},
+    {id: 3, name: 'Staff Limit', value: 1},
+    {id: 4, name: 'System Logs', value: 1},
+    {id: 5, name: 'Memberships per Member', value: 3},
+]
+
+export const gym_limits: GymLimit[] = [
+    {
+        id: 1,
+        limit_id: 1,
+        gym_id,
+        value: 100,
+    },
+    {
+        id: 2,
+        limit_id: 2,
+        gym_id,
+        value: 5,
+    },
+    {
+        id: 3,
+        limit_id: 3,
+        gym_id,
+        value: 1,
+    },
+    {
+        id: 4,
+        limit_id: 4,
+        gym_id,
+        value: 1,
+    },
+    {
+        id: 5,
+        limit_id: 5,
+        gym_id,
+        value: 3,
+    },
 ]
 
 export const plans: Plan[] = [

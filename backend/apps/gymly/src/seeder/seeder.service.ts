@@ -17,6 +17,9 @@ export class SeederService {
 
                 await this.seed_users(prisma as unknown as Prisma.TransactionClient)
                 await this.seed_gyms(prisma as unknown as Prisma.TransactionClient)
+                await this.seed_limits(prisma as unknown as Prisma.TransactionClient)
+                await this.seed_gym_limits(prisma as unknown as Prisma.TransactionClient)
+                await this.seed_gym_staff(prisma as unknown as Prisma.TransactionClient)
                 await this.seed_plans(prisma as unknown as Prisma.TransactionClient)
 
             });
@@ -54,6 +57,63 @@ export class SeederService {
 
             await prisma.gym.createMany({
                 data: data.gyms
+            })
+
+        } catch (error) {
+            throw error; 
+        }
+
+    }
+
+    async seed_gym_staff(prisma: Prisma.TransactionClient) {
+        console.log('inserting gym_staffs data...'); 
+        try {
+
+            const has_data = await prisma.gymStaff.count();
+            if (has_data > 0) {
+                await prisma.gymStaff.deleteMany({});
+            }
+
+            await prisma.gymStaff.createMany({
+                data: data.gym_staffs
+            })
+
+        } catch (error) {
+            throw error; 
+        }
+
+    }
+
+    async seed_limits(prisma: Prisma.TransactionClient) {
+        console.log('inserting limits data...'); 
+        try {
+
+            const has_data = await prisma.limit.count();
+            if (has_data > 0) {
+                await prisma.limit.deleteMany({});
+            }
+
+            await prisma.limit.createMany({
+                data: data.limits
+            })
+
+        } catch (error) {
+            throw error; 
+        }
+
+    }
+
+    async seed_gym_limits(prisma: Prisma.TransactionClient) {
+        console.log('inserting gym_limits data...'); 
+        try {
+
+            const has_data = await prisma.gymLimit.count();
+            if (has_data > 0) {
+                await prisma.gymLimit.deleteMany({});
+            }
+
+            await prisma.gymLimit.createMany({
+                data: data.gym_limits
             })
 
         } catch (error) {

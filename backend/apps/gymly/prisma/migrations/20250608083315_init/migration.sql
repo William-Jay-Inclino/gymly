@@ -2,6 +2,25 @@
 CREATE TYPE "Role" AS ENUM ('ADMIN', 'GYM_OWNER', 'GYM_STAFF');
 
 -- CreateTable
+CREATE TABLE "limits" (
+    "id" INTEGER NOT NULL,
+    "name" TEXT NOT NULL,
+    "value" INTEGER NOT NULL,
+
+    CONSTRAINT "limits_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "gym_limits" (
+    "id" SERIAL NOT NULL,
+    "gym_id" TEXT NOT NULL,
+    "limit_id" INTEGER NOT NULL,
+    "value" INTEGER NOT NULL,
+
+    CONSTRAINT "gym_limits_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "gym_stats" (
     "id" TEXT NOT NULL,
     "gym_id" TEXT NOT NULL,
@@ -75,6 +94,17 @@ CREATE TABLE "gyms" (
 );
 
 -- CreateTable
+CREATE TABLE "gym_staffs" (
+    "id" TEXT NOT NULL,
+    "user_id" TEXT NOT NULL,
+    "gym_id" TEXT NOT NULL,
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "created_by" TEXT NOT NULL,
+
+    CONSTRAINT "gym_staffs_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "memberships" (
     "id" TEXT NOT NULL,
     "member_id" TEXT NOT NULL,
@@ -120,6 +150,9 @@ CREATE TABLE "member_time_logs" (
 );
 
 -- CreateIndex
+CREATE UNIQUE INDEX "gym_limits_gym_id_limit_id_key" ON "gym_limits"("gym_id", "limit_id");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "gym_stats_gym_id_key" ON "gym_stats"("gym_id");
 
 -- CreateIndex
@@ -138,6 +171,15 @@ CREATE INDEX "users_username_idx" ON "users"("username");
 CREATE INDEX "members_firstname_lastname_idx" ON "members"("firstname", "lastname");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "gym_staffs_user_id_key" ON "gym_staffs"("user_id");
+
+-- CreateIndex
+CREATE INDEX "gym_staffs_user_id_idx" ON "gym_staffs"("user_id");
+
+-- CreateIndex
+CREATE INDEX "gym_staffs_gym_id_idx" ON "gym_staffs"("gym_id");
+
+-- CreateIndex
 CREATE INDEX "memberships_member_id_idx" ON "memberships"("member_id");
 
 -- CreateIndex
@@ -153,6 +195,12 @@ CREATE INDEX "member_time_logs_member_id_idx" ON "member_time_logs"("member_id")
 CREATE INDEX "member_time_logs_gym_id_checked_in_at_idx" ON "member_time_logs"("gym_id", "checked_in_at");
 
 -- AddForeignKey
+ALTER TABLE "gym_limits" ADD CONSTRAINT "gym_limits_gym_id_fkey" FOREIGN KEY ("gym_id") REFERENCES "gyms"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "gym_limits" ADD CONSTRAINT "gym_limits_limit_id_fkey" FOREIGN KEY ("limit_id") REFERENCES "limits"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "gym_stats" ADD CONSTRAINT "gym_stats_gym_id_fkey" FOREIGN KEY ("gym_id") REFERENCES "gyms"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -163,6 +211,12 @@ ALTER TABLE "membership_counts" ADD CONSTRAINT "membership_counts_gym_id_fkey" F
 
 -- AddForeignKey
 ALTER TABLE "gyms" ADD CONSTRAINT "gyms_owner_id_fkey" FOREIGN KEY ("owner_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "gym_staffs" ADD CONSTRAINT "gym_staffs_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "gym_staffs" ADD CONSTRAINT "gym_staffs_gym_id_fkey" FOREIGN KEY ("gym_id") REFERENCES "gyms"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "memberships" ADD CONSTRAINT "memberships_member_id_fkey" FOREIGN KEY ("member_id") REFERENCES "members"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -1,4 +1,3 @@
-import { LOCAL_STORAGE_AUTH_USER_KEY } from '~/utils/config'
 
 export async function login(payload: { username: string; password: string; api_url: string }): Promise<{ 
     access_token: string;
@@ -41,7 +40,9 @@ export function get_access_token(): string | null {
 }
 
 export function delete_access_token() {
-    localStorage.removeItem(LOCAL_STORAGE_AUTH_USER_KEY)
+    const config = useRuntimeConfig()
+    const accessTokenKeyName = config.public.accessTokenKeyName
+    localStorage.removeItem(accessTokenKeyName)
 }
 
 

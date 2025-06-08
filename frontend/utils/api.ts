@@ -1,6 +1,5 @@
 import axios, { type AxiosResponse } from 'axios';
 
-
   
 const handleSessionExpiration = (errors: any[]): void => {
 	const hasInvalidToken = errors.some((i) => i?.message?.includes('Invalid token'));

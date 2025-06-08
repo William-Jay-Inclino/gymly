@@ -14,6 +14,29 @@ enum Role {
   GYM_STAFF
 }
 
+model Limit {
+  id         Int     @id
+  name String 
+  value Int
+
+  settings GymLimit[]
+
+  @@map("limits")
+}
+
+model GymLimit {
+  id         Int     @id @default(autoincrement())
+  gym_id        String
+  limit_id        Int
+  value Int 
+
+  gym Gym @relation(fields: [gym_id], references: [id], onDelete: Cascade)
+  limit Limit @relation(fields: [limit_id], references: [id], onDelete: Restrict)
+
+  @@unique([gym_id, limit_id])
+  @@map("gym_limits")
+}
+
 model GymStats {
   id            String   @id @default(uuid())
   gym_id        String   @unique
@@ -65,6 +88,7 @@ model User {
   created_by     String
 
   gyms      Gym[]
+  gym_staff GymStaff? @relation("UserGymStaff")
 
   @@index([username])
   @@map("users")
@@ -100,6 +124,8 @@ model Gym {
   gym_stats        GymStats?
 
   revenues         Revenue[]         
+  staffs         GymStaff[]         
+  limits         GymLimit[]         
   membership_counts MembershipCount[]  
   owner   User    @relation(fields: [owner_id], references: [id], onDelete: Restrict)
 
@@ -107,6 +133,21 @@ model Gym {
   @@map("gyms")
 }
 
+model GymStaff {
+  id         Int     @id @default(autoincrement())
+  user_id   String @unique
+  gym_id      String
+  
+  created_at  DateTime  @default(now()) @db.Timestamptz
+  created_by  String
+
+  user   User    @relation("UserGymStaff", fields: [user_id], references: [id], onDelete: Restrict)
+  gym      Gym       @relation(fields: [gym_id], references: [id], onDelete: Restrict)
+
+  @@index([user_id])
+  @@index([gym_id])
+  @@map("gym_staffs")
+}
 
 model Membership {
   id          String    @id @default(uuid())
@@ -148,7 +189,6 @@ model Plan {
   @@index([gym_id])
   @@map("plans")
 }
-
 
 model MemberTimeLogs {
   id            Int      @id @default(autoincrement())
