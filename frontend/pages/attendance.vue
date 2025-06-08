@@ -95,6 +95,7 @@ import { usePlanStore } from '~/core/plan/plan.store'
 
 definePageMeta({
     layout: "base-layout",
+    middleware: ["auth"],
 })
 
 const { gym_id } = useGlobalStore()
@@ -115,6 +116,7 @@ const memberships = ref<Membership[]>([])
 const selectedMembershipIds = ref<string[]>([])
 
 onMounted(async () => {
+    if (!gym_id) return; 
     isLoadingPage.value = false
     const today = new Date().toISOString().slice(0, 10)
     const response = await api.init({ gym_id, date: today })
@@ -148,6 +150,7 @@ function formatTime(dateStr: string) {
 
 async function handleCheckIn() {
     if (!selectedMemberId.value || selectedMembershipIds.value.length === 0) return
+    if (!gym_id) return; 
 
     isLoggingAttendance.value = true
     try {
@@ -184,6 +187,7 @@ async function add_membership(input: {
     gym_id: string;
     plans: { plan_id: string; start_date: string; sessions_left?: number }[];
 }) {
+    if (!gym_id) return; 
     isAddingPlan.value = true;
     const response = await membershipApi.add_membership({
         plans: input.plans,

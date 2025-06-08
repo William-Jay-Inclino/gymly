@@ -4,7 +4,7 @@
             <div class="flex items-center mb-3">
                 <h1 class="text-4xl md:text-5xl font-bold font-sans tracking-tight text-white"
                     style="font-family: 'Inter', 'Segoe UI', Arial, sans-serif;">
-                    Luffy
+                    Gymly
                 </h1>
                 <span class="inline-flex items-center justify-center p-3">
                     <Activity class="w-8 h-8 text-white" style="stroke-width: 1.5;" />

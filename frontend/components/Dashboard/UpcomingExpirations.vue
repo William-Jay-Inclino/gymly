@@ -75,6 +75,7 @@ const store = useDashboardStore()
 const { gym_id } = useGlobalStore()
 
 onMounted(async() => {
+    if (!gym_id) return; 
     const memberships = await get_upcoming_membership_expirations({ gym_id })
     store.set_upcoming_membership_expirations({ memberships });
 });

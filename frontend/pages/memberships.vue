@@ -137,6 +137,7 @@ import { useGlobalStore } from '~/core/global.store'
 
 definePageMeta({
     layout: "base-layout",
+    middleware: ["auth"],
 })
 
 const planStore = usePlanStore()
@@ -159,6 +160,7 @@ const showPlanListModal = ref(false)
 const showAttendanceModal = ref(false)
 
 onMounted(async() => {
+    if (!gym_id) return; 
     const response = await memberApi.init({ gym_id })
     members.value = response.members
     planStore.set_plans(response.plans)
@@ -208,6 +210,7 @@ async function handleAddMember(newMember: {
     contact_number: string;
     plans: { plan_id: string; start_date: string; sessions_left?: number }[];
 }) {
+    if (!gym_id) return; 
     try {
         isAddingMember.value = true;
         const response = await memberApi.create_member({
@@ -236,6 +239,7 @@ async function add_membership(input: {
     gym_id: string;
     plans: { plan_id: string; start_date: string; sessions_left?: number }[];
 }) {
+    if (!gym_id) return; 
     isAddingPlan.value = true;
     const response = await membershipApi.add_membership({
         plans: input.plans,

@@ -3,6 +3,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
   runtimeConfig: {
       public: {
+          apiUrl: process.env.API_URL,
           graphqlApiUrl: process.env.GRAPHQL_API_URL,
           appVersion: process.env.APP_VERSION,
           TZ: process.env.TZ,

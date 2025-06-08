@@ -33,6 +33,7 @@ const endYear = ref<number | undefined>()
 
 // Fetch and store revenues on mount
 onMounted(async () => {
+    if (!gym_id) return; 
     const revenues = await get_revenues({ gym_id })
     if (revenues.length > 0) {
         store.set_revenues(

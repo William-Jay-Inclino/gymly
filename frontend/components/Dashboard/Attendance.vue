@@ -118,6 +118,7 @@ const selectedYear = ref(currentYear)
 const attendanceData = ref<{ date: string; count: number }[]>([])
 
 async function fetchAttendance() {
+    if (!gym_id) return; 
     attendanceData.value = []
     try {
         attendanceData.value = await get_monthly_attendance_calendar({

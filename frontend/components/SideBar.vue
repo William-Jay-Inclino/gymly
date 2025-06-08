@@ -7,19 +7,15 @@
                     :key="item.label"
                     :to="item.route"
                     class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all text-sm font-medium"
-                    :class="isActive(item.route)
-                        ? 'bg-primary text-white shadow-md'
-                        : 'hover:bg-base-200 text-base-content'"
+                    :class="item.label === 'Logout'
+                        ? 'hover:bg-red-100 text-red-500 w-full text-left'
+                        : isActive(item.route)
+                            ? 'bg-primary text-white shadow-md'
+                            : 'hover:bg-base-200 text-base-content'"
                 >
-                    <component :is="item.icon" class="w-5 h-5" />
+                    <component :is="item.icon" :class="item.label === 'Logout' ? 'w-5 h-5 text-red-400' : 'w-5 h-5'" />
                     <span>{{ item.label }}</span>
                 </NuxtLink>
-                <button
-                    class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all text-sm font-medium hover:bg-red-100 text-red-500 w-full text-left"
-                >
-                    <LogOut class="w-5 h-5 text-red-400" />
-                    <span>Logout</span>
-                </button>
             </nav>
         </div>
     </div>
@@ -42,8 +38,9 @@ const menuItems = [
     { label: 'Log Attendance', icon: Clock, route: '/attendance' },
     { label: 'Member Management', icon: Users, route: '/memberships' },
     { label: 'Subscription Plans', icon: DollarSign, route: '/plans' },
-    { label: 'System Logs', icon: List, route: '/system-logs' }, // <-- Added
-    { label: 'Settings', icon: Settings, route: '/settings' }
+    { label: 'System Logs', icon: List, route: '/system-logs' }, 
+    { label: 'Settings', icon: Settings, route: '/settings' },
+    { label: 'Logout', icon: LogOut, route: '/logout' }
 ]
 
 const route = useRoute()

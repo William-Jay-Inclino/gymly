@@ -34,6 +34,7 @@ const { gym_id } = useGlobalStore()
 
 
 onMounted( async() => {
+    if (!gym_id) return; 
     const stats = await get_gym_stats({ gym_id })
     if(stats) {
         store.set_gym_stats({

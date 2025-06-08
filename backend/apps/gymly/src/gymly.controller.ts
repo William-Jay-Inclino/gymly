@@ -4,13 +4,14 @@ import { AuthService } from './auth/auth.service';
 
 @Controller()
 export class GymlyController {
-  constructor(
-    private readonly authService: AuthService,
-) {}
+    
+    constructor(
+        private readonly authService: AuthService,
+    ) {}
 
     @Get('health-check')
     getHello(): string {
-      return 'Gymly API is running';
+        return 'Gymly API is running';
     }
 
     @UseGuards(LocalAuthGuard)

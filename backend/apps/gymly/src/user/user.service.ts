@@ -6,10 +6,28 @@ import { User } from 'apps/gymly/prisma/generated/client';
 export class UserService {
     constructor(private readonly prisma: PrismaService) {}
 
-    async findOne(payload: { username: string }): Promise<User> {
-        const { username } = payload;
+    async findByUsername(username: string): Promise<User> {
         return this.prisma.user.findUnique({
             where: { username },
+        });
+    }
+
+    async findById(user_id: string) {
+        return this.prisma.user.findUnique({
+            where: { id: user_id },
+            select: {
+                username: true,
+                gym_users: {
+                    select: {
+                        gym: {
+                            select: {
+                                id: true,
+                                name: true,
+                            }
+                        },
+                    },
+                }
+            }
         });
     }
 

@@ -53,6 +53,7 @@
 
         <!-- MembershipsModal for today's memberships -->
         <MembershipsModal
+            v-if="gym_id"
             :show="showMembershipsModal"
             :gym_id="gym_id"
             type="today"
@@ -63,6 +64,7 @@
 
         <!-- MembershipsModal for all memberships in selected month/year -->
         <MembershipsModal
+            v-if="gym_id"
             :show="showMonthMembershipsModal"
             :gym_id="gym_id"
             type="month"
@@ -91,6 +93,7 @@ const currentMonth = ref(new Date().getMonth())
 const membershipCounts = ref<{ year: number; month: number; count: number }[]>([])
 
 onMounted(async () => {
+    if (!gym_id) return; 
     membershipCounts.value = await get_membership_counts({ gym_id })
 })
 

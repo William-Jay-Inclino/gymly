@@ -8,6 +8,7 @@
 
     definePageMeta({
         layout: "base-layout",
+        middleware: ["auth"],
     })
 
 </script>
