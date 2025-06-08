@@ -29,6 +29,8 @@ export class GymStaffService {
                     select: {
                         id: true,
                         username: true,
+                        firstname: true,
+                        lastname: true,
                         contact_number: true,
                     }
                 }

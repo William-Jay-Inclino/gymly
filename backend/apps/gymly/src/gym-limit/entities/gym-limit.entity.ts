@@ -6,8 +6,8 @@ import { Limit } from '../../limit/entities/limit.entity';
 @ObjectType()
 export class GymLimit {
 
-    @Field()
-    id: string;
+    @Field(() => Int)
+    id: number;
 
     @Field()
     gym_id: string;

@@ -84,12 +84,6 @@
                         </table>
                     </div>
                 </div>
-                <div class="text-xs text-base-content/60 mt-6 mb-2">
-                         <span class="font-semibold">Total Members:</span> <span class="font-semibold text-error">{{ members?.length || 0 }} </span>
-                </div>
-                <div class="text-xs text-base-content/60">
-                        Maximum of <span class="font-semibold text-error">100 members</span>. Contact system admin if you want to increase your limit.
-                </div>
                 <AddMemberModal
                     :show="showAddModal"
                     @close="showAddModal = false"
@@ -124,7 +118,7 @@
 </template>
 
 <script setup lang="ts">
-import { BookCopy, CalendarCheck, UserPlus, PlusSquare } from 'lucide-vue-next'
+import { BookCopy, CalendarCheck, UserPlus, PlusSquare, AlertCircle } from 'lucide-vue-next'
 import AddMemberModal from '~/components/AddMemberModal.vue'
 import AddPlanModal from '~/components/AddPlanModal.vue'
 import MembershipHistoryModal from '~/components/MembershipHistoryModal.vue'

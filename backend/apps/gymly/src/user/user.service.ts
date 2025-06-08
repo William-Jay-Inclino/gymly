@@ -18,6 +18,7 @@ export class UserService {
         return this.prisma.user.findUnique({
             where: { id: user_id },
             select: {
+                id: true,
                 username: true,
                 gyms: {
                     select: {
@@ -79,6 +80,29 @@ export class UserService {
         return {
             success: true,
             msg: 'Password updated successfully',
+        };
+    }
+
+    async reset_password(payload: { user_id: string, password: string }): Promise<MutationUserResponse> {
+        const { user_id, password } = payload;
+
+        const user = await this.prisma.user.findUnique({ where: { id: user_id } });
+        if (!user) {
+            return {
+                success: false,
+                msg: 'User not found',
+                data: null,
+            };
+        }
+
+        await this.prisma.user.update({
+            where: { id: user_id },
+            data: { password },
+        });
+
+        return {
+            success: true,
+            msg: 'Password has been reset successfully',
         };
     }
 

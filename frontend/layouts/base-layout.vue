@@ -4,7 +4,6 @@
 
         <div class="flex flex-col lg:flex-row gap-8 px-4 py-10 max-w-[100rem] mx-auto w-full items-start">
             <div class="lg:w-64 w-full">
-                <!-- Modern Welcome label above the sidebar -->
                 <AuthUser />
                 <SideBar />
             </div>

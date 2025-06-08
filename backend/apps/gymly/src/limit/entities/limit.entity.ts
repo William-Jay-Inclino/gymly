@@ -4,8 +4,8 @@ import { ObjectType, Field, Int, Float } from '@nestjs/graphql';
 @ObjectType()
 export class Limit {
 
-    @Field()
-    id: string;
+    @Field(() => Int)
+    id: number;
 
     @Field()
     name: string;

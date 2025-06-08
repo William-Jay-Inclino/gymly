@@ -3,6 +3,8 @@ import type { Gym } from "../gym/gym.types";
 export interface User {
     id: string;
     username: string;
+    firstname: string;
+    lastname: string;
     role: string;
     contact_number: string;
     is_active: boolean;
