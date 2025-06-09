@@ -3,11 +3,20 @@ import { MemberService } from './member.service';
 import { CreateMemberInput } from './dto/create-member.input';
 import { Member } from './entities/member.entity';
 import { MutationMemberResponse } from './entities/member.response.entity';
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import { User } from '../user/entities/user.entity';
+import { UserAgent } from '../auth/decorators/user-agent.decorator';
+import { IpAddress } from '../auth/decorators/ip-address.decorator';
+import { getDeviceInfo } from '../libs/helpers';
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Member)
 export class MemberResolver {
+
+    private readonly logger = new Logger(MemberResolver.name);
+    private filename = 'member.resolver.ts'
+
     constructor(private readonly memberService: MemberService) {}
 
     @Query(() => [Member])
@@ -19,9 +28,29 @@ export class MemberResolver {
 
     @Mutation(() => MutationMemberResponse)
     async create_member(
+        @CurrentUser() user: User,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
         @Args('data') data: CreateMemberInput,
     ) {
-        return this.memberService.create(data);
+
+        try{
+
+            this.logger.log('Creating member...', {
+                username: user.username,
+                filename: this.filename,
+                input: data
+            });
+
+            return this.memberService.create(data, {
+                ip_address,
+                device_info: getDeviceInfo(user_agent),
+                current_user: user
+            });
+        } catch(error) {
+            this.logger.error('Error in creating member', error)
+        }
+
     }
 
     @ResolveField(() => Boolean)

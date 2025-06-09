@@ -7,12 +7,16 @@ import { UserService } from '../user/user.service';
 import { Prisma, Role } from 'apps/gymly/prisma/generated/client';
 import { UpdateGymStaffInput } from './dto/update-gym-staff.input';
 import { LIMIT } from '../limit/enums/limit.enums';
+import { User } from '../user/entities/user.entity';
+import { AuditLogsService } from '../audit-logs/audit-logs.service';
+import { DB_TABLE } from '../libs/common-types';
 
 @Injectable()
 export class GymStaffService {
     constructor(
         private readonly prisma: PrismaService,
         private readonly userService: UserService,
+        private readonly audit: AuditLogsService,
     ) {}
 
     async find_all(payload: { gym_id: string }) {
@@ -40,7 +44,11 @@ export class GymStaffService {
         });
     }
 
-    async create(input: CreateGymStaffInput): Promise<MutationGymStaffResponse> {
+    async create(input: CreateGymStaffInput, metadata: {
+        ip_address: string,
+        device_info: any,
+        current_user: User,
+    }): Promise<MutationGymStaffResponse> {
 
         return await this.prisma.$transaction(async (tx) => {
 
@@ -97,6 +105,17 @@ export class GymStaffService {
                     user: true,
                 },
             });
+
+            await this.audit.createAuditEntry({
+                gym_id: input.gym_id,
+                username: metadata.current_user.username,
+                table: DB_TABLE.GYM_STAFF,
+                action: 'CREATE-GYM-STAFF',
+                reference_id: gymStaff.id.toString(),
+                metadata: gymStaff,
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as unknown as Prisma.TransactionClient)
     
             return {
                 success: true,
@@ -108,9 +127,27 @@ export class GymStaffService {
 
     }
 
-    async update(input: UpdateGymStaffInput): Promise<MutationGymStaffResponse> {
+    async update(input: UpdateGymStaffInput, metadata: {
+        ip_address: string,
+        device_info: any,
+        current_user: User,
+    }): Promise<MutationGymStaffResponse> {
 
         return await this.prisma.$transaction(async (tx) => {
+
+            const existingGymStaff = await tx.gymStaff.findUnique({
+                where: { user_id: input.user_id },
+                include: {
+                    user: true,
+                },
+            })
+
+            if(!existingGymStaff) {
+                return {
+                    success: false,
+                    msg: 'Gym staff not found',
+                };
+            }
 
             // Update user
             const user = await tx.user.update({
@@ -129,6 +166,20 @@ export class GymStaffService {
                 },
             })
 
+            await this.audit.createAuditEntry({
+                gym_id: gymStaff.gym_id,
+                username: metadata.current_user.username,
+                table: DB_TABLE.GYM_STAFF,
+                action: 'UPDATE-GYM-STAFF',
+                reference_id: gymStaff.id.toString(),
+                metadata: {
+                    'old_value': existingGymStaff,
+                    'new_value': gymStaff,
+                },
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as unknown as Prisma.TransactionClient)
+
             return {
                 success: true,
                 msg: 'Gym staff updated successfully',
@@ -140,7 +191,11 @@ export class GymStaffService {
     }
 
 
-    async delete(user_id: string): Promise<MutationGymStaffResponse> {
+    async delete(user_id: string, metadata: {
+        current_user: User,
+        ip_address: string,
+        device_info: any,
+    }): Promise<MutationGymStaffResponse> {
 
         return await this.prisma.$transaction(async (tx) => {
 
@@ -155,9 +210,27 @@ export class GymStaffService {
                 };
             }
 
-            await tx.user.delete({
+            const deleted = await tx.user.delete({
                 where: { id: user_id },
+                select: {
+                    gym_staff: {
+                        include: {
+                            user: true,
+                        },
+                    },
+                },
             });
+
+            await this.audit.createAuditEntry({
+                gym_id: deleted.gym_staff.gym_id,
+                username: metadata.current_user.username,
+                table: DB_TABLE.GYM_STAFF,
+                action: 'DELETE-GYM-STAFF',
+                reference_id: deleted.gym_staff.id.toString(),
+                metadata: deleted.gym_staff,
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as unknown as Prisma.TransactionClient)
 
             return {
                 success: true,

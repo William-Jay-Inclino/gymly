@@ -5,11 +5,16 @@ import { MutationMemberResponse } from './entities/member.response.entity';
 import { Member, Prisma } from 'apps/gymly/prisma/generated/client';
 import { addDays } from 'date-fns';
 import { LIMIT } from '../limit/enums/limit.enums';
+import { AuditLogsService } from '../audit-logs/audit-logs.service';
+import { DB_TABLE } from '../libs/common-types';
 
 @Injectable()
 export class MemberService {
 
-    constructor(private readonly prisma: PrismaService) {}
+    constructor(
+        private readonly prisma: PrismaService,
+        private readonly audit: AuditLogsService,
+    ) {}
 
     async find_all(payload: { gym_id: string }): Promise<Member[]> {
         return this.prisma.member.findMany({
@@ -26,7 +31,11 @@ export class MemberService {
         });
     }
 
-    async create(data: CreateMemberInput): Promise<MutationMemberResponse> {
+    async create(data: CreateMemberInput, metadata: {
+        ip_address: string,
+        device_info: any,
+        current_user: { id: string, username: string },
+    }): Promise<MutationMemberResponse> {
         return await this.prisma.$transaction(async (tx) => {
             // Validate plans
             if (!data.plan.plans || data.plan.plans.length === 0) {
@@ -72,7 +81,21 @@ export class MemberService {
                     contact_number: data.contact_number,
                     created_by: 'system',
                 },
+                include: {
+                    memberships: true,
+                },
             });
+
+            await this.audit.createAuditEntry({
+                gym_id: data.plan.gym_id,
+                username: metadata.current_user.username,
+                table: DB_TABLE.MEMBER,
+                action: 'CREATE-MEMBER',
+                reference_id: member.id,
+                metadata: member,
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as unknown as Prisma.TransactionClient)
 
             // Update total member
             await this.update_gym_stats({

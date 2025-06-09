@@ -3,12 +3,21 @@ import { MemberTimeLogsService } from './member-time-logs.service';
 import { CreateMemberTimeLogsInput } from './dto/create-member-time-logs.input';
 import { MemberTimeLog } from './entities/member-time-log.entity';
 import { MutationMemberTimeLogResponse } from './entities/member-time-log.response.entity';
-import { UseGuards } from '@nestjs/common';
+import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import { User } from '../user/entities/user.entity';
+import { IpAddress } from '../auth/decorators/ip-address.decorator';
+import { UserAgent } from '../auth/decorators/user-agent.decorator';
+import { getDeviceInfo } from '../libs/helpers';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => MemberTimeLog)
 export class MemberTimeLogsResolver {
+
+    private readonly logger = new Logger(MemberTimeLogsResolver.name);
+    private filename = 'member-time-logs.resolver.ts'
+
     constructor(private readonly memberTimeLogsService: MemberTimeLogsService) {}
 
     @Query(() => [MemberTimeLog])
@@ -22,9 +31,29 @@ export class MemberTimeLogsResolver {
 
     @Mutation(() => MutationMemberTimeLogResponse)
     async log_checkin(
+        @CurrentUser() user: User,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
         @Args('input') input: CreateMemberTimeLogsInput,
     ) {
-        return this.memberTimeLogsService.logCheckIn(input);
+
+        try {
+            
+            this.logger.log('Logging member check-in...', {
+                username: user.username,
+                filename: this.filename,
+                input
+            });
+
+            return this.memberTimeLogsService.logCheckIn(input, {
+                ip_address,
+                device_info: getDeviceInfo(user_agent),
+                current_user: user
+            });
+        } catch (error) {
+            this.logger.error('Error in logging member check-in', error);
+        }
+
     }
 
     @Query(() => Int)

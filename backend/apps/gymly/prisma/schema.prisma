@@ -14,6 +14,26 @@ enum Role {
   GYM_STAFF
 }
 
+model Audit {
+  id           String   @id @default(cuid()) 
+  gym_id        String?
+  username     String 
+  table        String   
+  action       String   
+  reference_id String?  
+  metadata     Json?    
+  ip_address   String? 
+  device_info  Json?    
+  created_at   DateTime @default(now()) @db.Timestamptz
+  notes        String?  
+
+  gym Gym? @relation(fields: [gym_id], references: [id], onDelete: Cascade)
+
+  @@index([username])
+  @@index([gym_id])
+  @@map("audit_logs")
+}
+
 model Limit {
   id         Int     @id
   name String 
@@ -111,7 +131,6 @@ model Member {
   @@map("members")
 }
 
-
 model Gym {
   id         String   @id @default(uuid())
   owner_id String
@@ -128,6 +147,7 @@ model Gym {
   revenues         Revenue[]         
   staffs         GymStaff[]         
   limits         GymLimit[]         
+  audit_logs         Audit[]         
   membership_counts MembershipCount[]  
   owner   User    @relation(fields: [owner_id], references: [id], onDelete: Restrict)
 

@@ -2,11 +2,18 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { startOfDay, endOfDay, endOfMonth, eachDayOfInterval } from 'date-fns';
 import { MutationMemberTimeLogResponse } from './entities/member-time-log.response.entity';
+import { AuditLogsService } from '../audit-logs/audit-logs.service';
+import { User } from '../user/entities/user.entity';
+import { DB_TABLE } from '../libs/common-types';
+import { Prisma } from 'apps/gymly/prisma/generated/client';
 
 @Injectable()
 export class MemberTimeLogsService {
 
-    constructor(private readonly prisma: PrismaService) {}
+    constructor(
+        private readonly prisma: PrismaService,
+        private readonly audit: AuditLogsService,
+    ) {}
 
     async findTimeLogs(payload: {
         gym_id?: string | null,
@@ -38,6 +45,10 @@ export class MemberTimeLogsService {
         gym_id: string;
         membership_ids: string[]; 
         recorded_by?: string 
+    }, metadata: {
+        ip_address: string;
+        device_info: any;
+        current_user: User; 
     }): Promise<MutationMemberTimeLogResponse> {
 
         const { member_id, gym_id, membership_ids, recorded_by } = input
@@ -91,6 +102,17 @@ export class MemberTimeLogsService {
                         member: true
                     }
                 });
+
+                await this.audit.createAuditEntry({
+                    gym_id: input.gym_id,
+                    username: metadata.current_user.username,
+                    table: DB_TABLE.MEMBER_TIME_LOG,
+                    action: 'LOG-CHECK-IN',
+                    reference_id: created.id.toString(),
+                    metadata: created,
+                    ip_address: metadata.ip_address,
+                    device_info: metadata.device_info
+                }, tx as unknown as Prisma.TransactionClient)
 
                 return {
                     success: true,

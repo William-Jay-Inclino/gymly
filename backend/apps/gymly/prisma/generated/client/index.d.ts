@@ -14,6 +14,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
 /**
+ * Model Audit
+ * 
+ */
+export type Audit = $Result.DefaultSelection<Prisma.$AuditPayload>
+/**
  * Model Limit
  * 
  */
@@ -99,8 +104,8 @@ export const Role: typeof $Enums.Role
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Limits
- * const limits = await prisma.limit.findMany()
+ * // Fetch zero or more Audits
+ * const audits = await prisma.audit.findMany()
  * ```
  *
  *
@@ -120,8 +125,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Limits
-   * const limits = await prisma.limit.findMany()
+   * // Fetch zero or more Audits
+   * const audits = await prisma.audit.findMany()
    * ```
    *
    *
@@ -218,6 +223,16 @@ export class PrismaClient<
   }>>
 
       /**
+   * `prisma.audit`: Exposes CRUD operations for the **Audit** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Audits
+    * const audits = await prisma.audit.findMany()
+    * ```
+    */
+  get audit(): Prisma.AuditDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.limit`: Exposes CRUD operations for the **Limit** model.
     * Example usage:
     * ```ts
@@ -776,6 +791,7 @@ export namespace Prisma {
 
 
   export const ModelName: {
+    Audit: 'Audit',
     Limit: 'Limit',
     GymLimit: 'GymLimit',
     GymStats: 'GymStats',
@@ -806,10 +822,84 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "limit" | "gymLimit" | "gymStats" | "revenue" | "membershipCount" | "user" | "member" | "gym" | "gymStaff" | "membership" | "plan" | "memberTimeLogs"
+      modelProps: "audit" | "limit" | "gymLimit" | "gymStats" | "revenue" | "membershipCount" | "user" | "member" | "gym" | "gymStaff" | "membership" | "plan" | "memberTimeLogs"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
+      Audit: {
+        payload: Prisma.$AuditPayload<ExtArgs>
+        fields: Prisma.AuditFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AuditFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AuditFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditPayload>
+          }
+          findFirst: {
+            args: Prisma.AuditFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AuditFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditPayload>
+          }
+          findMany: {
+            args: Prisma.AuditFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditPayload>[]
+          }
+          create: {
+            args: Prisma.AuditCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditPayload>
+          }
+          createMany: {
+            args: Prisma.AuditCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AuditCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditPayload>[]
+          }
+          delete: {
+            args: Prisma.AuditDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditPayload>
+          }
+          update: {
+            args: Prisma.AuditUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditPayload>
+          }
+          deleteMany: {
+            args: Prisma.AuditDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AuditUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AuditUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditPayload>[]
+          }
+          upsert: {
+            args: Prisma.AuditUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditPayload>
+          }
+          aggregate: {
+            args: Prisma.AuditAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAudit>
+          }
+          groupBy: {
+            args: Prisma.AuditGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AuditGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AuditCountArgs<ExtArgs>
+            result: $Utils.Optional<AuditCountAggregateOutputType> | number
+          }
+        }
+      }
       Limit: {
         payload: Prisma.$LimitPayload<ExtArgs>
         fields: Prisma.LimitFieldRefs
@@ -1782,6 +1872,7 @@ export namespace Prisma {
     omit?: Prisma.GlobalOmitConfig
   }
   export type GlobalOmitConfig = {
+    audit?: AuditOmit
     limit?: LimitOmit
     gymLimit?: GymLimitOmit
     gymStats?: GymStatsOmit
@@ -1995,6 +2086,7 @@ export namespace Prisma {
     revenues: number
     staffs: number
     limits: number
+    audit_logs: number
     membership_counts: number
   }
 
@@ -2004,6 +2096,7 @@ export namespace Prisma {
     revenues?: boolean | GymCountOutputTypeCountRevenuesArgs
     staffs?: boolean | GymCountOutputTypeCountStaffsArgs
     limits?: boolean | GymCountOutputTypeCountLimitsArgs
+    audit_logs?: boolean | GymCountOutputTypeCountAudit_logsArgs
     membership_counts?: boolean | GymCountOutputTypeCountMembership_countsArgs
   }
 
@@ -2056,6 +2149,13 @@ export namespace Prisma {
   /**
    * GymCountOutputType without action
    */
+  export type GymCountOutputTypeCountAudit_logsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AuditWhereInput
+  }
+
+  /**
+   * GymCountOutputType without action
+   */
   export type GymCountOutputTypeCountMembership_countsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MembershipCountWhereInput
   }
@@ -2064,6 +2164,1153 @@ export namespace Prisma {
   /**
    * Models
    */
+
+  /**
+   * Model Audit
+   */
+
+  export type AggregateAudit = {
+    _count: AuditCountAggregateOutputType | null
+    _min: AuditMinAggregateOutputType | null
+    _max: AuditMaxAggregateOutputType | null
+  }
+
+  export type AuditMinAggregateOutputType = {
+    id: string | null
+    gym_id: string | null
+    username: string | null
+    table: string | null
+    action: string | null
+    reference_id: string | null
+    ip_address: string | null
+    created_at: Date | null
+    notes: string | null
+  }
+
+  export type AuditMaxAggregateOutputType = {
+    id: string | null
+    gym_id: string | null
+    username: string | null
+    table: string | null
+    action: string | null
+    reference_id: string | null
+    ip_address: string | null
+    created_at: Date | null
+    notes: string | null
+  }
+
+  export type AuditCountAggregateOutputType = {
+    id: number
+    gym_id: number
+    username: number
+    table: number
+    action: number
+    reference_id: number
+    metadata: number
+    ip_address: number
+    device_info: number
+    created_at: number
+    notes: number
+    _all: number
+  }
+
+
+  export type AuditMinAggregateInputType = {
+    id?: true
+    gym_id?: true
+    username?: true
+    table?: true
+    action?: true
+    reference_id?: true
+    ip_address?: true
+    created_at?: true
+    notes?: true
+  }
+
+  export type AuditMaxAggregateInputType = {
+    id?: true
+    gym_id?: true
+    username?: true
+    table?: true
+    action?: true
+    reference_id?: true
+    ip_address?: true
+    created_at?: true
+    notes?: true
+  }
+
+  export type AuditCountAggregateInputType = {
+    id?: true
+    gym_id?: true
+    username?: true
+    table?: true
+    action?: true
+    reference_id?: true
+    metadata?: true
+    ip_address?: true
+    device_info?: true
+    created_at?: true
+    notes?: true
+    _all?: true
+  }
+
+  export type AuditAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Audit to aggregate.
+     */
+    where?: AuditWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Audits to fetch.
+     */
+    orderBy?: AuditOrderByWithRelationInput | AuditOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AuditWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Audits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Audits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Audits
+    **/
+    _count?: true | AuditCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AuditMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AuditMaxAggregateInputType
+  }
+
+  export type GetAuditAggregateType<T extends AuditAggregateArgs> = {
+        [P in keyof T & keyof AggregateAudit]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAudit[P]>
+      : GetScalarType<T[P], AggregateAudit[P]>
+  }
+
+
+
+
+  export type AuditGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AuditWhereInput
+    orderBy?: AuditOrderByWithAggregationInput | AuditOrderByWithAggregationInput[]
+    by: AuditScalarFieldEnum[] | AuditScalarFieldEnum
+    having?: AuditScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AuditCountAggregateInputType | true
+    _min?: AuditMinAggregateInputType
+    _max?: AuditMaxAggregateInputType
+  }
+
+  export type AuditGroupByOutputType = {
+    id: string
+    gym_id: string | null
+    username: string
+    table: string
+    action: string
+    reference_id: string | null
+    metadata: JsonValue | null
+    ip_address: string | null
+    device_info: JsonValue | null
+    created_at: Date
+    notes: string | null
+    _count: AuditCountAggregateOutputType | null
+    _min: AuditMinAggregateOutputType | null
+    _max: AuditMaxAggregateOutputType | null
+  }
+
+  type GetAuditGroupByPayload<T extends AuditGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AuditGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AuditGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AuditGroupByOutputType[P]>
+            : GetScalarType<T[P], AuditGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AuditSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    gym_id?: boolean
+    username?: boolean
+    table?: boolean
+    action?: boolean
+    reference_id?: boolean
+    metadata?: boolean
+    ip_address?: boolean
+    device_info?: boolean
+    created_at?: boolean
+    notes?: boolean
+    gym?: boolean | Audit$gymArgs<ExtArgs>
+  }, ExtArgs["result"]["audit"]>
+
+  export type AuditSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    gym_id?: boolean
+    username?: boolean
+    table?: boolean
+    action?: boolean
+    reference_id?: boolean
+    metadata?: boolean
+    ip_address?: boolean
+    device_info?: boolean
+    created_at?: boolean
+    notes?: boolean
+    gym?: boolean | Audit$gymArgs<ExtArgs>
+  }, ExtArgs["result"]["audit"]>
+
+  export type AuditSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    gym_id?: boolean
+    username?: boolean
+    table?: boolean
+    action?: boolean
+    reference_id?: boolean
+    metadata?: boolean
+    ip_address?: boolean
+    device_info?: boolean
+    created_at?: boolean
+    notes?: boolean
+    gym?: boolean | Audit$gymArgs<ExtArgs>
+  }, ExtArgs["result"]["audit"]>
+
+  export type AuditSelectScalar = {
+    id?: boolean
+    gym_id?: boolean
+    username?: boolean
+    table?: boolean
+    action?: boolean
+    reference_id?: boolean
+    metadata?: boolean
+    ip_address?: boolean
+    device_info?: boolean
+    created_at?: boolean
+    notes?: boolean
+  }
+
+  export type AuditOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "gym_id" | "username" | "table" | "action" | "reference_id" | "metadata" | "ip_address" | "device_info" | "created_at" | "notes", ExtArgs["result"]["audit"]>
+  export type AuditInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    gym?: boolean | Audit$gymArgs<ExtArgs>
+  }
+  export type AuditIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    gym?: boolean | Audit$gymArgs<ExtArgs>
+  }
+  export type AuditIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    gym?: boolean | Audit$gymArgs<ExtArgs>
+  }
+
+  export type $AuditPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Audit"
+    objects: {
+      gym: Prisma.$GymPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      gym_id: string | null
+      username: string
+      table: string
+      action: string
+      reference_id: string | null
+      metadata: Prisma.JsonValue | null
+      ip_address: string | null
+      device_info: Prisma.JsonValue | null
+      created_at: Date
+      notes: string | null
+    }, ExtArgs["result"]["audit"]>
+    composites: {}
+  }
+
+  type AuditGetPayload<S extends boolean | null | undefined | AuditDefaultArgs> = $Result.GetResult<Prisma.$AuditPayload, S>
+
+  type AuditCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AuditFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AuditCountAggregateInputType | true
+    }
+
+  export interface AuditDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Audit'], meta: { name: 'Audit' } }
+    /**
+     * Find zero or one Audit that matches the filter.
+     * @param {AuditFindUniqueArgs} args - Arguments to find a Audit
+     * @example
+     * // Get one Audit
+     * const audit = await prisma.audit.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AuditFindUniqueArgs>(args: SelectSubset<T, AuditFindUniqueArgs<ExtArgs>>): Prisma__AuditClient<$Result.GetResult<Prisma.$AuditPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Audit that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AuditFindUniqueOrThrowArgs} args - Arguments to find a Audit
+     * @example
+     * // Get one Audit
+     * const audit = await prisma.audit.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AuditFindUniqueOrThrowArgs>(args: SelectSubset<T, AuditFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AuditClient<$Result.GetResult<Prisma.$AuditPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Audit that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditFindFirstArgs} args - Arguments to find a Audit
+     * @example
+     * // Get one Audit
+     * const audit = await prisma.audit.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AuditFindFirstArgs>(args?: SelectSubset<T, AuditFindFirstArgs<ExtArgs>>): Prisma__AuditClient<$Result.GetResult<Prisma.$AuditPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Audit that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditFindFirstOrThrowArgs} args - Arguments to find a Audit
+     * @example
+     * // Get one Audit
+     * const audit = await prisma.audit.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AuditFindFirstOrThrowArgs>(args?: SelectSubset<T, AuditFindFirstOrThrowArgs<ExtArgs>>): Prisma__AuditClient<$Result.GetResult<Prisma.$AuditPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Audits that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Audits
+     * const audits = await prisma.audit.findMany()
+     * 
+     * // Get first 10 Audits
+     * const audits = await prisma.audit.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const auditWithIdOnly = await prisma.audit.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AuditFindManyArgs>(args?: SelectSubset<T, AuditFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Audit.
+     * @param {AuditCreateArgs} args - Arguments to create a Audit.
+     * @example
+     * // Create one Audit
+     * const Audit = await prisma.audit.create({
+     *   data: {
+     *     // ... data to create a Audit
+     *   }
+     * })
+     * 
+     */
+    create<T extends AuditCreateArgs>(args: SelectSubset<T, AuditCreateArgs<ExtArgs>>): Prisma__AuditClient<$Result.GetResult<Prisma.$AuditPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Audits.
+     * @param {AuditCreateManyArgs} args - Arguments to create many Audits.
+     * @example
+     * // Create many Audits
+     * const audit = await prisma.audit.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AuditCreateManyArgs>(args?: SelectSubset<T, AuditCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Audits and returns the data saved in the database.
+     * @param {AuditCreateManyAndReturnArgs} args - Arguments to create many Audits.
+     * @example
+     * // Create many Audits
+     * const audit = await prisma.audit.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Audits and only return the `id`
+     * const auditWithIdOnly = await prisma.audit.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AuditCreateManyAndReturnArgs>(args?: SelectSubset<T, AuditCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Audit.
+     * @param {AuditDeleteArgs} args - Arguments to delete one Audit.
+     * @example
+     * // Delete one Audit
+     * const Audit = await prisma.audit.delete({
+     *   where: {
+     *     // ... filter to delete one Audit
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AuditDeleteArgs>(args: SelectSubset<T, AuditDeleteArgs<ExtArgs>>): Prisma__AuditClient<$Result.GetResult<Prisma.$AuditPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Audit.
+     * @param {AuditUpdateArgs} args - Arguments to update one Audit.
+     * @example
+     * // Update one Audit
+     * const audit = await prisma.audit.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AuditUpdateArgs>(args: SelectSubset<T, AuditUpdateArgs<ExtArgs>>): Prisma__AuditClient<$Result.GetResult<Prisma.$AuditPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Audits.
+     * @param {AuditDeleteManyArgs} args - Arguments to filter Audits to delete.
+     * @example
+     * // Delete a few Audits
+     * const { count } = await prisma.audit.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AuditDeleteManyArgs>(args?: SelectSubset<T, AuditDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Audits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Audits
+     * const audit = await prisma.audit.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AuditUpdateManyArgs>(args: SelectSubset<T, AuditUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Audits and returns the data updated in the database.
+     * @param {AuditUpdateManyAndReturnArgs} args - Arguments to update many Audits.
+     * @example
+     * // Update many Audits
+     * const audit = await prisma.audit.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Audits and only return the `id`
+     * const auditWithIdOnly = await prisma.audit.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AuditUpdateManyAndReturnArgs>(args: SelectSubset<T, AuditUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Audit.
+     * @param {AuditUpsertArgs} args - Arguments to update or create a Audit.
+     * @example
+     * // Update or create a Audit
+     * const audit = await prisma.audit.upsert({
+     *   create: {
+     *     // ... data to create a Audit
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Audit we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AuditUpsertArgs>(args: SelectSubset<T, AuditUpsertArgs<ExtArgs>>): Prisma__AuditClient<$Result.GetResult<Prisma.$AuditPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Audits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditCountArgs} args - Arguments to filter Audits to count.
+     * @example
+     * // Count the number of Audits
+     * const count = await prisma.audit.count({
+     *   where: {
+     *     // ... the filter for the Audits we want to count
+     *   }
+     * })
+    **/
+    count<T extends AuditCountArgs>(
+      args?: Subset<T, AuditCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AuditCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Audit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AuditAggregateArgs>(args: Subset<T, AuditAggregateArgs>): Prisma.PrismaPromise<GetAuditAggregateType<T>>
+
+    /**
+     * Group by Audit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AuditGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AuditGroupByArgs['orderBy'] }
+        : { orderBy?: AuditGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AuditGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAuditGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Audit model
+   */
+  readonly fields: AuditFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Audit.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AuditClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    gym<T extends Audit$gymArgs<ExtArgs> = {}>(args?: Subset<T, Audit$gymArgs<ExtArgs>>): Prisma__GymClient<$Result.GetResult<Prisma.$GymPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Audit model
+   */
+  interface AuditFieldRefs {
+    readonly id: FieldRef<"Audit", 'String'>
+    readonly gym_id: FieldRef<"Audit", 'String'>
+    readonly username: FieldRef<"Audit", 'String'>
+    readonly table: FieldRef<"Audit", 'String'>
+    readonly action: FieldRef<"Audit", 'String'>
+    readonly reference_id: FieldRef<"Audit", 'String'>
+    readonly metadata: FieldRef<"Audit", 'Json'>
+    readonly ip_address: FieldRef<"Audit", 'String'>
+    readonly device_info: FieldRef<"Audit", 'Json'>
+    readonly created_at: FieldRef<"Audit", 'DateTime'>
+    readonly notes: FieldRef<"Audit", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Audit findUnique
+   */
+  export type AuditFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Audit
+     */
+    select?: AuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Audit
+     */
+    omit?: AuditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditInclude<ExtArgs> | null
+    /**
+     * Filter, which Audit to fetch.
+     */
+    where: AuditWhereUniqueInput
+  }
+
+  /**
+   * Audit findUniqueOrThrow
+   */
+  export type AuditFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Audit
+     */
+    select?: AuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Audit
+     */
+    omit?: AuditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditInclude<ExtArgs> | null
+    /**
+     * Filter, which Audit to fetch.
+     */
+    where: AuditWhereUniqueInput
+  }
+
+  /**
+   * Audit findFirst
+   */
+  export type AuditFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Audit
+     */
+    select?: AuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Audit
+     */
+    omit?: AuditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditInclude<ExtArgs> | null
+    /**
+     * Filter, which Audit to fetch.
+     */
+    where?: AuditWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Audits to fetch.
+     */
+    orderBy?: AuditOrderByWithRelationInput | AuditOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Audits.
+     */
+    cursor?: AuditWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Audits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Audits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Audits.
+     */
+    distinct?: AuditScalarFieldEnum | AuditScalarFieldEnum[]
+  }
+
+  /**
+   * Audit findFirstOrThrow
+   */
+  export type AuditFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Audit
+     */
+    select?: AuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Audit
+     */
+    omit?: AuditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditInclude<ExtArgs> | null
+    /**
+     * Filter, which Audit to fetch.
+     */
+    where?: AuditWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Audits to fetch.
+     */
+    orderBy?: AuditOrderByWithRelationInput | AuditOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Audits.
+     */
+    cursor?: AuditWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Audits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Audits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Audits.
+     */
+    distinct?: AuditScalarFieldEnum | AuditScalarFieldEnum[]
+  }
+
+  /**
+   * Audit findMany
+   */
+  export type AuditFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Audit
+     */
+    select?: AuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Audit
+     */
+    omit?: AuditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditInclude<ExtArgs> | null
+    /**
+     * Filter, which Audits to fetch.
+     */
+    where?: AuditWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Audits to fetch.
+     */
+    orderBy?: AuditOrderByWithRelationInput | AuditOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Audits.
+     */
+    cursor?: AuditWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Audits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Audits.
+     */
+    skip?: number
+    distinct?: AuditScalarFieldEnum | AuditScalarFieldEnum[]
+  }
+
+  /**
+   * Audit create
+   */
+  export type AuditCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Audit
+     */
+    select?: AuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Audit
+     */
+    omit?: AuditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Audit.
+     */
+    data: XOR<AuditCreateInput, AuditUncheckedCreateInput>
+  }
+
+  /**
+   * Audit createMany
+   */
+  export type AuditCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Audits.
+     */
+    data: AuditCreateManyInput | AuditCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Audit createManyAndReturn
+   */
+  export type AuditCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Audit
+     */
+    select?: AuditSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Audit
+     */
+    omit?: AuditOmit<ExtArgs> | null
+    /**
+     * The data used to create many Audits.
+     */
+    data: AuditCreateManyInput | AuditCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Audit update
+   */
+  export type AuditUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Audit
+     */
+    select?: AuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Audit
+     */
+    omit?: AuditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Audit.
+     */
+    data: XOR<AuditUpdateInput, AuditUncheckedUpdateInput>
+    /**
+     * Choose, which Audit to update.
+     */
+    where: AuditWhereUniqueInput
+  }
+
+  /**
+   * Audit updateMany
+   */
+  export type AuditUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Audits.
+     */
+    data: XOR<AuditUpdateManyMutationInput, AuditUncheckedUpdateManyInput>
+    /**
+     * Filter which Audits to update
+     */
+    where?: AuditWhereInput
+    /**
+     * Limit how many Audits to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Audit updateManyAndReturn
+   */
+  export type AuditUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Audit
+     */
+    select?: AuditSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Audit
+     */
+    omit?: AuditOmit<ExtArgs> | null
+    /**
+     * The data used to update Audits.
+     */
+    data: XOR<AuditUpdateManyMutationInput, AuditUncheckedUpdateManyInput>
+    /**
+     * Filter which Audits to update
+     */
+    where?: AuditWhereInput
+    /**
+     * Limit how many Audits to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Audit upsert
+   */
+  export type AuditUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Audit
+     */
+    select?: AuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Audit
+     */
+    omit?: AuditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Audit to update in case it exists.
+     */
+    where: AuditWhereUniqueInput
+    /**
+     * In case the Audit found by the `where` argument doesn't exist, create a new Audit with this data.
+     */
+    create: XOR<AuditCreateInput, AuditUncheckedCreateInput>
+    /**
+     * In case the Audit was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AuditUpdateInput, AuditUncheckedUpdateInput>
+  }
+
+  /**
+   * Audit delete
+   */
+  export type AuditDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Audit
+     */
+    select?: AuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Audit
+     */
+    omit?: AuditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditInclude<ExtArgs> | null
+    /**
+     * Filter which Audit to delete.
+     */
+    where: AuditWhereUniqueInput
+  }
+
+  /**
+   * Audit deleteMany
+   */
+  export type AuditDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Audits to delete
+     */
+    where?: AuditWhereInput
+    /**
+     * Limit how many Audits to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Audit.gym
+   */
+  export type Audit$gymArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Gym
+     */
+    select?: GymSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Gym
+     */
+    omit?: GymOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GymInclude<ExtArgs> | null
+    where?: GymWhereInput
+  }
+
+  /**
+   * Audit without action
+   */
+  export type AuditDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Audit
+     */
+    select?: AuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Audit
+     */
+    omit?: AuditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditInclude<ExtArgs> | null
+  }
+
 
   /**
    * Model Limit
@@ -10011,6 +11258,7 @@ export namespace Prisma {
     revenues?: boolean | Gym$revenuesArgs<ExtArgs>
     staffs?: boolean | Gym$staffsArgs<ExtArgs>
     limits?: boolean | Gym$limitsArgs<ExtArgs>
+    audit_logs?: boolean | Gym$audit_logsArgs<ExtArgs>
     membership_counts?: boolean | Gym$membership_countsArgs<ExtArgs>
     owner?: boolean | UserDefaultArgs<ExtArgs>
     _count?: boolean | GymCountOutputTypeDefaultArgs<ExtArgs>
@@ -10053,6 +11301,7 @@ export namespace Prisma {
     revenues?: boolean | Gym$revenuesArgs<ExtArgs>
     staffs?: boolean | Gym$staffsArgs<ExtArgs>
     limits?: boolean | Gym$limitsArgs<ExtArgs>
+    audit_logs?: boolean | Gym$audit_logsArgs<ExtArgs>
     membership_counts?: boolean | Gym$membership_countsArgs<ExtArgs>
     owner?: boolean | UserDefaultArgs<ExtArgs>
     _count?: boolean | GymCountOutputTypeDefaultArgs<ExtArgs>
@@ -10073,6 +11322,7 @@ export namespace Prisma {
       revenues: Prisma.$RevenuePayload<ExtArgs>[]
       staffs: Prisma.$GymStaffPayload<ExtArgs>[]
       limits: Prisma.$GymLimitPayload<ExtArgs>[]
+      audit_logs: Prisma.$AuditPayload<ExtArgs>[]
       membership_counts: Prisma.$MembershipCountPayload<ExtArgs>[]
       owner: Prisma.$UserPayload<ExtArgs>
     }
@@ -10483,6 +11733,7 @@ export namespace Prisma {
     revenues<T extends Gym$revenuesArgs<ExtArgs> = {}>(args?: Subset<T, Gym$revenuesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RevenuePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     staffs<T extends Gym$staffsArgs<ExtArgs> = {}>(args?: Subset<T, Gym$staffsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GymStaffPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     limits<T extends Gym$limitsArgs<ExtArgs> = {}>(args?: Subset<T, Gym$limitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GymLimitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    audit_logs<T extends Gym$audit_logsArgs<ExtArgs> = {}>(args?: Subset<T, Gym$audit_logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     membership_counts<T extends Gym$membership_countsArgs<ExtArgs> = {}>(args?: Subset<T, Gym$membership_countsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipCountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     owner<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -11052,6 +12303,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: GymLimitScalarFieldEnum | GymLimitScalarFieldEnum[]
+  }
+
+  /**
+   * Gym.audit_logs
+   */
+  export type Gym$audit_logsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Audit
+     */
+    select?: AuditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Audit
+     */
+    omit?: AuditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AuditInclude<ExtArgs> | null
+    where?: AuditWhereInput
+    orderBy?: AuditOrderByWithRelationInput | AuditOrderByWithRelationInput[]
+    cursor?: AuditWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AuditScalarFieldEnum | AuditScalarFieldEnum[]
   }
 
   /**
@@ -15608,6 +16883,23 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+  export const AuditScalarFieldEnum: {
+    id: 'id',
+    gym_id: 'gym_id',
+    username: 'username',
+    table: 'table',
+    action: 'action',
+    reference_id: 'reference_id',
+    metadata: 'metadata',
+    ip_address: 'ip_address',
+    device_info: 'device_info',
+    created_at: 'created_at',
+    notes: 'notes'
+  };
+
+  export type AuditScalarFieldEnum = (typeof AuditScalarFieldEnum)[keyof typeof AuditScalarFieldEnum]
+
+
   export const LimitScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -15766,12 +17058,29 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   export const NullsOrder: {
@@ -15785,20 +17094,6 @@ export namespace Prisma {
   /**
    * Field references
    */
-
-
-  /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
 
 
   /**
@@ -15816,16 +17111,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Decimal'
+   * Reference to a field of type 'Json'
    */
-  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
     
 
 
   /**
-   * Reference to a field of type 'Decimal[]'
+   * Reference to a field of type 'QueryMode'
    */
-  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -15840,6 +17135,34 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal'
+   */
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal[]'
+   */
+  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
     
 
 
@@ -15880,6 +17203,91 @@ export namespace Prisma {
    * Deep Input Types
    */
 
+
+  export type AuditWhereInput = {
+    AND?: AuditWhereInput | AuditWhereInput[]
+    OR?: AuditWhereInput[]
+    NOT?: AuditWhereInput | AuditWhereInput[]
+    id?: StringFilter<"Audit"> | string
+    gym_id?: StringNullableFilter<"Audit"> | string | null
+    username?: StringFilter<"Audit"> | string
+    table?: StringFilter<"Audit"> | string
+    action?: StringFilter<"Audit"> | string
+    reference_id?: StringNullableFilter<"Audit"> | string | null
+    metadata?: JsonNullableFilter<"Audit">
+    ip_address?: StringNullableFilter<"Audit"> | string | null
+    device_info?: JsonNullableFilter<"Audit">
+    created_at?: DateTimeFilter<"Audit"> | Date | string
+    notes?: StringNullableFilter<"Audit"> | string | null
+    gym?: XOR<GymNullableScalarRelationFilter, GymWhereInput> | null
+  }
+
+  export type AuditOrderByWithRelationInput = {
+    id?: SortOrder
+    gym_id?: SortOrderInput | SortOrder
+    username?: SortOrder
+    table?: SortOrder
+    action?: SortOrder
+    reference_id?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    ip_address?: SortOrderInput | SortOrder
+    device_info?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    gym?: GymOrderByWithRelationInput
+  }
+
+  export type AuditWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AuditWhereInput | AuditWhereInput[]
+    OR?: AuditWhereInput[]
+    NOT?: AuditWhereInput | AuditWhereInput[]
+    gym_id?: StringNullableFilter<"Audit"> | string | null
+    username?: StringFilter<"Audit"> | string
+    table?: StringFilter<"Audit"> | string
+    action?: StringFilter<"Audit"> | string
+    reference_id?: StringNullableFilter<"Audit"> | string | null
+    metadata?: JsonNullableFilter<"Audit">
+    ip_address?: StringNullableFilter<"Audit"> | string | null
+    device_info?: JsonNullableFilter<"Audit">
+    created_at?: DateTimeFilter<"Audit"> | Date | string
+    notes?: StringNullableFilter<"Audit"> | string | null
+    gym?: XOR<GymNullableScalarRelationFilter, GymWhereInput> | null
+  }, "id">
+
+  export type AuditOrderByWithAggregationInput = {
+    id?: SortOrder
+    gym_id?: SortOrderInput | SortOrder
+    username?: SortOrder
+    table?: SortOrder
+    action?: SortOrder
+    reference_id?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    ip_address?: SortOrderInput | SortOrder
+    device_info?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    _count?: AuditCountOrderByAggregateInput
+    _max?: AuditMaxOrderByAggregateInput
+    _min?: AuditMinOrderByAggregateInput
+  }
+
+  export type AuditScalarWhereWithAggregatesInput = {
+    AND?: AuditScalarWhereWithAggregatesInput | AuditScalarWhereWithAggregatesInput[]
+    OR?: AuditScalarWhereWithAggregatesInput[]
+    NOT?: AuditScalarWhereWithAggregatesInput | AuditScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Audit"> | string
+    gym_id?: StringNullableWithAggregatesFilter<"Audit"> | string | null
+    username?: StringWithAggregatesFilter<"Audit"> | string
+    table?: StringWithAggregatesFilter<"Audit"> | string
+    action?: StringWithAggregatesFilter<"Audit"> | string
+    reference_id?: StringNullableWithAggregatesFilter<"Audit"> | string | null
+    metadata?: JsonNullableWithAggregatesFilter<"Audit">
+    ip_address?: StringNullableWithAggregatesFilter<"Audit"> | string | null
+    device_info?: JsonNullableWithAggregatesFilter<"Audit">
+    created_at?: DateTimeWithAggregatesFilter<"Audit"> | Date | string
+    notes?: StringNullableWithAggregatesFilter<"Audit"> | string | null
+  }
 
   export type LimitWhereInput = {
     AND?: LimitWhereInput | LimitWhereInput[]
@@ -16329,6 +17737,7 @@ export namespace Prisma {
     revenues?: RevenueListRelationFilter
     staffs?: GymStaffListRelationFilter
     limits?: GymLimitListRelationFilter
+    audit_logs?: AuditListRelationFilter
     membership_counts?: MembershipCountListRelationFilter
     owner?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
@@ -16346,6 +17755,7 @@ export namespace Prisma {
     revenues?: RevenueOrderByRelationAggregateInput
     staffs?: GymStaffOrderByRelationAggregateInput
     limits?: GymLimitOrderByRelationAggregateInput
+    audit_logs?: AuditOrderByRelationAggregateInput
     membership_counts?: MembershipCountOrderByRelationAggregateInput
     owner?: UserOrderByWithRelationInput
   }
@@ -16366,6 +17776,7 @@ export namespace Prisma {
     revenues?: RevenueListRelationFilter
     staffs?: GymStaffListRelationFilter
     limits?: GymLimitListRelationFilter
+    audit_logs?: AuditListRelationFilter
     membership_counts?: MembershipCountListRelationFilter
     owner?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
@@ -16686,6 +18097,103 @@ export namespace Prisma {
     gym_id?: StringWithAggregatesFilter<"MemberTimeLogs"> | string
     checked_in_at?: DateTimeWithAggregatesFilter<"MemberTimeLogs"> | Date | string
     recorded_by?: StringWithAggregatesFilter<"MemberTimeLogs"> | string
+  }
+
+  export type AuditCreateInput = {
+    id?: string
+    username: string
+    table: string
+    action: string
+    reference_id?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    ip_address?: string | null
+    device_info?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    notes?: string | null
+    gym?: GymCreateNestedOneWithoutAudit_logsInput
+  }
+
+  export type AuditUncheckedCreateInput = {
+    id?: string
+    gym_id?: string | null
+    username: string
+    table: string
+    action: string
+    reference_id?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    ip_address?: string | null
+    device_info?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    notes?: string | null
+  }
+
+  export type AuditUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    table?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    reference_id?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    ip_address?: NullableStringFieldUpdateOperationsInput | string | null
+    device_info?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    gym?: GymUpdateOneWithoutAudit_logsNestedInput
+  }
+
+  export type AuditUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gym_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    table?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    reference_id?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    ip_address?: NullableStringFieldUpdateOperationsInput | string | null
+    device_info?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AuditCreateManyInput = {
+    id?: string
+    gym_id?: string | null
+    username: string
+    table: string
+    action: string
+    reference_id?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    ip_address?: string | null
+    device_info?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    notes?: string | null
+  }
+
+  export type AuditUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    table?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    reference_id?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    ip_address?: NullableStringFieldUpdateOperationsInput | string | null
+    device_info?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AuditUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    gym_id?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    table?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    reference_id?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    ip_address?: NullableStringFieldUpdateOperationsInput | string | null
+    device_info?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LimitCreateInput = {
@@ -17139,6 +18647,7 @@ export namespace Prisma {
     revenues?: RevenueCreateNestedManyWithoutGymInput
     staffs?: GymStaffCreateNestedManyWithoutGymInput
     limits?: GymLimitCreateNestedManyWithoutGymInput
+    audit_logs?: AuditCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
     owner: UserCreateNestedOneWithoutGymsInput
   }
@@ -17156,6 +18665,7 @@ export namespace Prisma {
     revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
     staffs?: GymStaffUncheckedCreateNestedManyWithoutGymInput
     limits?: GymLimitUncheckedCreateNestedManyWithoutGymInput
+    audit_logs?: AuditUncheckedCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
   }
 
@@ -17171,6 +18681,7 @@ export namespace Prisma {
     revenues?: RevenueUpdateManyWithoutGymNestedInput
     staffs?: GymStaffUpdateManyWithoutGymNestedInput
     limits?: GymLimitUpdateManyWithoutGymNestedInput
+    audit_logs?: AuditUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
     owner?: UserUpdateOneRequiredWithoutGymsNestedInput
   }
@@ -17188,6 +18699,7 @@ export namespace Prisma {
     revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
     staffs?: GymStaffUncheckedUpdateManyWithoutGymNestedInput
     limits?: GymLimitUncheckedUpdateManyWithoutGymNestedInput
+    audit_logs?: AuditUncheckedUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
   }
 
@@ -17513,17 +19025,6 @@ export namespace Prisma {
     recorded_by?: StringFieldUpdateOperationsInput | string
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -17537,6 +19038,190 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type GymNullableScalarRelationFilter = {
+    is?: GymWhereInput | null
+    isNot?: GymWhereInput | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type AuditCountOrderByAggregateInput = {
+    id?: SortOrder
+    gym_id?: SortOrder
+    username?: SortOrder
+    table?: SortOrder
+    action?: SortOrder
+    reference_id?: SortOrder
+    metadata?: SortOrder
+    ip_address?: SortOrder
+    device_info?: SortOrder
+    created_at?: SortOrder
+    notes?: SortOrder
+  }
+
+  export type AuditMaxOrderByAggregateInput = {
+    id?: SortOrder
+    gym_id?: SortOrder
+    username?: SortOrder
+    table?: SortOrder
+    action?: SortOrder
+    reference_id?: SortOrder
+    ip_address?: SortOrder
+    created_at?: SortOrder
+    notes?: SortOrder
+  }
+
+  export type AuditMinOrderByAggregateInput = {
+    id?: SortOrder
+    gym_id?: SortOrder
+    username?: SortOrder
+    table?: SortOrder
+    action?: SortOrder
+    reference_id?: SortOrder
+    ip_address?: SortOrder
+    created_at?: SortOrder
+    notes?: SortOrder
+  }
+
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type GymLimitListRelationFilter = {
@@ -17591,24 +19276,6 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
   }
 
   export type GymScalarRelationFilter = {
@@ -17670,17 +19337,6 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
   export type GymStatsCountOrderByAggregateInput = {
     id?: SortOrder
     gym_id?: SortOrder
@@ -17729,20 +19385,6 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter<$PrismaModel>
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
-  }
-
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type FloatFilter<$PrismaModel = never> = {
@@ -17862,21 +19504,6 @@ export namespace Prisma {
     count?: SortOrder
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type EnumRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
@@ -17898,11 +19525,6 @@ export namespace Prisma {
   export type GymStaffNullableScalarRelationFilter = {
     is?: GymStaffWhereInput | null
     isNot?: GymStaffWhereInput | null
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type GymOrderByRelationAggregateInput = {
@@ -17946,24 +19568,6 @@ export namespace Prisma {
     is_active?: SortOrder
     created_at?: SortOrder
     created_by?: SortOrder
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -18048,6 +19652,12 @@ export namespace Prisma {
     none?: GymStaffWhereInput
   }
 
+  export type AuditListRelationFilter = {
+    every?: AuditWhereInput
+    some?: AuditWhereInput
+    none?: AuditWhereInput
+  }
+
   export type MembershipCountListRelationFilter = {
     every?: MembershipCountWhereInput
     some?: MembershipCountWhereInput
@@ -18064,6 +19674,10 @@ export namespace Prisma {
   }
 
   export type GymStaffOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AuditOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -18325,6 +19939,34 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type GymCreateNestedOneWithoutAudit_logsInput = {
+    create?: XOR<GymCreateWithoutAudit_logsInput, GymUncheckedCreateWithoutAudit_logsInput>
+    connectOrCreate?: GymCreateOrConnectWithoutAudit_logsInput
+    connect?: GymWhereUniqueInput
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type GymUpdateOneWithoutAudit_logsNestedInput = {
+    create?: XOR<GymCreateWithoutAudit_logsInput, GymUncheckedCreateWithoutAudit_logsInput>
+    connectOrCreate?: GymCreateOrConnectWithoutAudit_logsInput
+    upsert?: GymUpsertWithoutAudit_logsInput
+    disconnect?: GymWhereInput | boolean
+    delete?: GymWhereInput | boolean
+    connect?: GymWhereUniqueInput
+    update?: XOR<XOR<GymUpdateToOneWithWhereWithoutAudit_logsInput, GymUpdateWithoutAudit_logsInput>, GymUncheckedUpdateWithoutAudit_logsInput>
+  }
+
   export type GymLimitCreateNestedManyWithoutLimitInput = {
     create?: XOR<GymLimitCreateWithoutLimitInput, GymLimitUncheckedCreateWithoutLimitInput> | GymLimitCreateWithoutLimitInput[] | GymLimitUncheckedCreateWithoutLimitInput[]
     connectOrCreate?: GymLimitCreateOrConnectWithoutLimitInput | GymLimitCreateOrConnectWithoutLimitInput[]
@@ -18345,10 +19987,6 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
-  }
-
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
   }
 
   export type GymLimitUpdateManyWithoutLimitNestedInput = {
@@ -18421,10 +20059,6 @@ export namespace Prisma {
     divide?: Decimal | DecimalJsLike | number | string
   }
 
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
-  }
-
   export type GymUpdateOneRequiredWithoutGym_statsNestedInput = {
     create?: XOR<GymCreateWithoutGym_statsInput, GymUncheckedCreateWithoutGym_statsInput>
     connectOrCreate?: GymCreateOrConnectWithoutGym_statsInput
@@ -18493,10 +20127,6 @@ export namespace Prisma {
     create?: XOR<GymStaffCreateWithoutUserInput, GymStaffUncheckedCreateWithoutUserInput>
     connectOrCreate?: GymStaffCreateOrConnectWithoutUserInput
     connect?: GymStaffWhereUniqueInput
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type EnumRoleFieldUpdateOperationsInput = {
@@ -18680,6 +20310,13 @@ export namespace Prisma {
     connect?: GymLimitWhereUniqueInput | GymLimitWhereUniqueInput[]
   }
 
+  export type AuditCreateNestedManyWithoutGymInput = {
+    create?: XOR<AuditCreateWithoutGymInput, AuditUncheckedCreateWithoutGymInput> | AuditCreateWithoutGymInput[] | AuditUncheckedCreateWithoutGymInput[]
+    connectOrCreate?: AuditCreateOrConnectWithoutGymInput | AuditCreateOrConnectWithoutGymInput[]
+    createMany?: AuditCreateManyGymInputEnvelope
+    connect?: AuditWhereUniqueInput | AuditWhereUniqueInput[]
+  }
+
   export type MembershipCountCreateNestedManyWithoutGymInput = {
     create?: XOR<MembershipCountCreateWithoutGymInput, MembershipCountUncheckedCreateWithoutGymInput> | MembershipCountCreateWithoutGymInput[] | MembershipCountUncheckedCreateWithoutGymInput[]
     connectOrCreate?: MembershipCountCreateOrConnectWithoutGymInput | MembershipCountCreateOrConnectWithoutGymInput[]
@@ -18732,6 +20369,13 @@ export namespace Prisma {
     connectOrCreate?: GymLimitCreateOrConnectWithoutGymInput | GymLimitCreateOrConnectWithoutGymInput[]
     createMany?: GymLimitCreateManyGymInputEnvelope
     connect?: GymLimitWhereUniqueInput | GymLimitWhereUniqueInput[]
+  }
+
+  export type AuditUncheckedCreateNestedManyWithoutGymInput = {
+    create?: XOR<AuditCreateWithoutGymInput, AuditUncheckedCreateWithoutGymInput> | AuditCreateWithoutGymInput[] | AuditUncheckedCreateWithoutGymInput[]
+    connectOrCreate?: AuditCreateOrConnectWithoutGymInput | AuditCreateOrConnectWithoutGymInput[]
+    createMany?: AuditCreateManyGymInputEnvelope
+    connect?: AuditWhereUniqueInput | AuditWhereUniqueInput[]
   }
 
   export type MembershipCountUncheckedCreateNestedManyWithoutGymInput = {
@@ -18819,6 +20463,20 @@ export namespace Prisma {
     update?: GymLimitUpdateWithWhereUniqueWithoutGymInput | GymLimitUpdateWithWhereUniqueWithoutGymInput[]
     updateMany?: GymLimitUpdateManyWithWhereWithoutGymInput | GymLimitUpdateManyWithWhereWithoutGymInput[]
     deleteMany?: GymLimitScalarWhereInput | GymLimitScalarWhereInput[]
+  }
+
+  export type AuditUpdateManyWithoutGymNestedInput = {
+    create?: XOR<AuditCreateWithoutGymInput, AuditUncheckedCreateWithoutGymInput> | AuditCreateWithoutGymInput[] | AuditUncheckedCreateWithoutGymInput[]
+    connectOrCreate?: AuditCreateOrConnectWithoutGymInput | AuditCreateOrConnectWithoutGymInput[]
+    upsert?: AuditUpsertWithWhereUniqueWithoutGymInput | AuditUpsertWithWhereUniqueWithoutGymInput[]
+    createMany?: AuditCreateManyGymInputEnvelope
+    set?: AuditWhereUniqueInput | AuditWhereUniqueInput[]
+    disconnect?: AuditWhereUniqueInput | AuditWhereUniqueInput[]
+    delete?: AuditWhereUniqueInput | AuditWhereUniqueInput[]
+    connect?: AuditWhereUniqueInput | AuditWhereUniqueInput[]
+    update?: AuditUpdateWithWhereUniqueWithoutGymInput | AuditUpdateWithWhereUniqueWithoutGymInput[]
+    updateMany?: AuditUpdateManyWithWhereWithoutGymInput | AuditUpdateManyWithWhereWithoutGymInput[]
+    deleteMany?: AuditScalarWhereInput | AuditScalarWhereInput[]
   }
 
   export type MembershipCountUpdateManyWithoutGymNestedInput = {
@@ -18921,6 +20579,20 @@ export namespace Prisma {
     update?: GymLimitUpdateWithWhereUniqueWithoutGymInput | GymLimitUpdateWithWhereUniqueWithoutGymInput[]
     updateMany?: GymLimitUpdateManyWithWhereWithoutGymInput | GymLimitUpdateManyWithWhereWithoutGymInput[]
     deleteMany?: GymLimitScalarWhereInput | GymLimitScalarWhereInput[]
+  }
+
+  export type AuditUncheckedUpdateManyWithoutGymNestedInput = {
+    create?: XOR<AuditCreateWithoutGymInput, AuditUncheckedCreateWithoutGymInput> | AuditCreateWithoutGymInput[] | AuditUncheckedCreateWithoutGymInput[]
+    connectOrCreate?: AuditCreateOrConnectWithoutGymInput | AuditCreateOrConnectWithoutGymInput[]
+    upsert?: AuditUpsertWithWhereUniqueWithoutGymInput | AuditUpsertWithWhereUniqueWithoutGymInput[]
+    createMany?: AuditCreateManyGymInputEnvelope
+    set?: AuditWhereUniqueInput | AuditWhereUniqueInput[]
+    disconnect?: AuditWhereUniqueInput | AuditWhereUniqueInput[]
+    delete?: AuditWhereUniqueInput | AuditWhereUniqueInput[]
+    connect?: AuditWhereUniqueInput | AuditWhereUniqueInput[]
+    update?: AuditUpdateWithWhereUniqueWithoutGymInput | AuditUpdateWithWhereUniqueWithoutGymInput[]
+    updateMany?: AuditUpdateManyWithWhereWithoutGymInput | AuditUpdateManyWithWhereWithoutGymInput[]
+    deleteMany?: AuditScalarWhereInput | AuditScalarWhereInput[]
   }
 
   export type MembershipCountUncheckedUpdateManyWithoutGymNestedInput = {
@@ -19033,17 +20705,6 @@ export namespace Prisma {
     update?: XOR<XOR<GymUpdateToOneWithWhereWithoutMember_time_logsInput, GymUpdateWithoutMember_time_logsInput>, GymUncheckedUpdateWithoutMember_time_logsInput>
   }
 
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -19056,6 +20717,124 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -19085,23 +20864,6 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
   export type NestedDecimalFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -19111,17 +20873,6 @@ export namespace Prisma {
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-  }
-
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
@@ -19140,20 +20891,6 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -19170,20 +20907,6 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type NestedEnumRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
@@ -19194,34 +20917,6 @@ export namespace Prisma {
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -19294,6 +20989,86 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type GymCreateWithoutAudit_logsInput = {
+    id?: string
+    name: string
+    location: string
+    created_at?: Date | string
+    created_by: string
+    memberships?: MembershipCreateNestedManyWithoutGymInput
+    member_time_logs?: MemberTimeLogsCreateNestedManyWithoutGymInput
+    gym_stats?: GymStatsCreateNestedOneWithoutGymInput
+    revenues?: RevenueCreateNestedManyWithoutGymInput
+    staffs?: GymStaffCreateNestedManyWithoutGymInput
+    limits?: GymLimitCreateNestedManyWithoutGymInput
+    membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
+    owner: UserCreateNestedOneWithoutGymsInput
+  }
+
+  export type GymUncheckedCreateWithoutAudit_logsInput = {
+    id?: string
+    owner_id: string
+    name: string
+    location: string
+    created_at?: Date | string
+    created_by: string
+    memberships?: MembershipUncheckedCreateNestedManyWithoutGymInput
+    member_time_logs?: MemberTimeLogsUncheckedCreateNestedManyWithoutGymInput
+    gym_stats?: GymStatsUncheckedCreateNestedOneWithoutGymInput
+    revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
+    staffs?: GymStaffUncheckedCreateNestedManyWithoutGymInput
+    limits?: GymLimitUncheckedCreateNestedManyWithoutGymInput
+    membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
+  }
+
+  export type GymCreateOrConnectWithoutAudit_logsInput = {
+    where: GymWhereUniqueInput
+    create: XOR<GymCreateWithoutAudit_logsInput, GymUncheckedCreateWithoutAudit_logsInput>
+  }
+
+  export type GymUpsertWithoutAudit_logsInput = {
+    update: XOR<GymUpdateWithoutAudit_logsInput, GymUncheckedUpdateWithoutAudit_logsInput>
+    create: XOR<GymCreateWithoutAudit_logsInput, GymUncheckedCreateWithoutAudit_logsInput>
+    where?: GymWhereInput
+  }
+
+  export type GymUpdateToOneWithWhereWithoutAudit_logsInput = {
+    where?: GymWhereInput
+    data: XOR<GymUpdateWithoutAudit_logsInput, GymUncheckedUpdateWithoutAudit_logsInput>
+  }
+
+  export type GymUpdateWithoutAudit_logsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    memberships?: MembershipUpdateManyWithoutGymNestedInput
+    member_time_logs?: MemberTimeLogsUpdateManyWithoutGymNestedInput
+    gym_stats?: GymStatsUpdateOneWithoutGymNestedInput
+    revenues?: RevenueUpdateManyWithoutGymNestedInput
+    staffs?: GymStaffUpdateManyWithoutGymNestedInput
+    limits?: GymLimitUpdateManyWithoutGymNestedInput
+    membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
+    owner?: UserUpdateOneRequiredWithoutGymsNestedInput
+  }
+
+  export type GymUncheckedUpdateWithoutAudit_logsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    owner_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    memberships?: MembershipUncheckedUpdateManyWithoutGymNestedInput
+    member_time_logs?: MemberTimeLogsUncheckedUpdateManyWithoutGymNestedInput
+    gym_stats?: GymStatsUncheckedUpdateOneWithoutGymNestedInput
+    revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
+    staffs?: GymStaffUncheckedUpdateManyWithoutGymNestedInput
+    limits?: GymLimitUncheckedUpdateManyWithoutGymNestedInput
+    membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
+  }
+
   export type GymLimitCreateWithoutLimitInput = {
     value: number
     gym: GymCreateNestedOneWithoutLimitsInput
@@ -19352,6 +21127,7 @@ export namespace Prisma {
     gym_stats?: GymStatsCreateNestedOneWithoutGymInput
     revenues?: RevenueCreateNestedManyWithoutGymInput
     staffs?: GymStaffCreateNestedManyWithoutGymInput
+    audit_logs?: AuditCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
     owner: UserCreateNestedOneWithoutGymsInput
   }
@@ -19368,6 +21144,7 @@ export namespace Prisma {
     gym_stats?: GymStatsUncheckedCreateNestedOneWithoutGymInput
     revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
     staffs?: GymStaffUncheckedCreateNestedManyWithoutGymInput
+    audit_logs?: AuditUncheckedCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
   }
 
@@ -19415,6 +21192,7 @@ export namespace Prisma {
     gym_stats?: GymStatsUpdateOneWithoutGymNestedInput
     revenues?: RevenueUpdateManyWithoutGymNestedInput
     staffs?: GymStaffUpdateManyWithoutGymNestedInput
+    audit_logs?: AuditUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
     owner?: UserUpdateOneRequiredWithoutGymsNestedInput
   }
@@ -19431,6 +21209,7 @@ export namespace Prisma {
     gym_stats?: GymStatsUncheckedUpdateOneWithoutGymNestedInput
     revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
     staffs?: GymStaffUncheckedUpdateManyWithoutGymNestedInput
+    audit_logs?: AuditUncheckedUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
   }
 
@@ -19468,6 +21247,7 @@ export namespace Prisma {
     revenues?: RevenueCreateNestedManyWithoutGymInput
     staffs?: GymStaffCreateNestedManyWithoutGymInput
     limits?: GymLimitCreateNestedManyWithoutGymInput
+    audit_logs?: AuditCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
     owner: UserCreateNestedOneWithoutGymsInput
   }
@@ -19484,6 +21264,7 @@ export namespace Prisma {
     revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
     staffs?: GymStaffUncheckedCreateNestedManyWithoutGymInput
     limits?: GymLimitUncheckedCreateNestedManyWithoutGymInput
+    audit_logs?: AuditUncheckedCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
   }
 
@@ -19514,6 +21295,7 @@ export namespace Prisma {
     revenues?: RevenueUpdateManyWithoutGymNestedInput
     staffs?: GymStaffUpdateManyWithoutGymNestedInput
     limits?: GymLimitUpdateManyWithoutGymNestedInput
+    audit_logs?: AuditUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
     owner?: UserUpdateOneRequiredWithoutGymsNestedInput
   }
@@ -19530,6 +21312,7 @@ export namespace Prisma {
     revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
     staffs?: GymStaffUncheckedUpdateManyWithoutGymNestedInput
     limits?: GymLimitUncheckedUpdateManyWithoutGymNestedInput
+    audit_logs?: AuditUncheckedUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
   }
 
@@ -19544,6 +21327,7 @@ export namespace Prisma {
     gym_stats?: GymStatsCreateNestedOneWithoutGymInput
     staffs?: GymStaffCreateNestedManyWithoutGymInput
     limits?: GymLimitCreateNestedManyWithoutGymInput
+    audit_logs?: AuditCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
     owner: UserCreateNestedOneWithoutGymsInput
   }
@@ -19560,6 +21344,7 @@ export namespace Prisma {
     gym_stats?: GymStatsUncheckedCreateNestedOneWithoutGymInput
     staffs?: GymStaffUncheckedCreateNestedManyWithoutGymInput
     limits?: GymLimitUncheckedCreateNestedManyWithoutGymInput
+    audit_logs?: AuditUncheckedCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
   }
 
@@ -19590,6 +21375,7 @@ export namespace Prisma {
     gym_stats?: GymStatsUpdateOneWithoutGymNestedInput
     staffs?: GymStaffUpdateManyWithoutGymNestedInput
     limits?: GymLimitUpdateManyWithoutGymNestedInput
+    audit_logs?: AuditUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
     owner?: UserUpdateOneRequiredWithoutGymsNestedInput
   }
@@ -19606,6 +21392,7 @@ export namespace Prisma {
     gym_stats?: GymStatsUncheckedUpdateOneWithoutGymNestedInput
     staffs?: GymStaffUncheckedUpdateManyWithoutGymNestedInput
     limits?: GymLimitUncheckedUpdateManyWithoutGymNestedInput
+    audit_logs?: AuditUncheckedUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
   }
 
@@ -19621,6 +21408,7 @@ export namespace Prisma {
     revenues?: RevenueCreateNestedManyWithoutGymInput
     staffs?: GymStaffCreateNestedManyWithoutGymInput
     limits?: GymLimitCreateNestedManyWithoutGymInput
+    audit_logs?: AuditCreateNestedManyWithoutGymInput
     owner: UserCreateNestedOneWithoutGymsInput
   }
 
@@ -19637,6 +21425,7 @@ export namespace Prisma {
     revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
     staffs?: GymStaffUncheckedCreateNestedManyWithoutGymInput
     limits?: GymLimitUncheckedCreateNestedManyWithoutGymInput
+    audit_logs?: AuditUncheckedCreateNestedManyWithoutGymInput
   }
 
   export type GymCreateOrConnectWithoutMembership_countsInput = {
@@ -19667,6 +21456,7 @@ export namespace Prisma {
     revenues?: RevenueUpdateManyWithoutGymNestedInput
     staffs?: GymStaffUpdateManyWithoutGymNestedInput
     limits?: GymLimitUpdateManyWithoutGymNestedInput
+    audit_logs?: AuditUpdateManyWithoutGymNestedInput
     owner?: UserUpdateOneRequiredWithoutGymsNestedInput
   }
 
@@ -19683,6 +21473,7 @@ export namespace Prisma {
     revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
     staffs?: GymStaffUncheckedUpdateManyWithoutGymNestedInput
     limits?: GymLimitUncheckedUpdateManyWithoutGymNestedInput
+    audit_logs?: AuditUncheckedUpdateManyWithoutGymNestedInput
   }
 
   export type GymCreateWithoutOwnerInput = {
@@ -19697,6 +21488,7 @@ export namespace Prisma {
     revenues?: RevenueCreateNestedManyWithoutGymInput
     staffs?: GymStaffCreateNestedManyWithoutGymInput
     limits?: GymLimitCreateNestedManyWithoutGymInput
+    audit_logs?: AuditCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
   }
 
@@ -19712,6 +21504,7 @@ export namespace Prisma {
     revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
     staffs?: GymStaffUncheckedCreateNestedManyWithoutGymInput
     limits?: GymLimitUncheckedCreateNestedManyWithoutGymInput
+    audit_logs?: AuditUncheckedCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
   }
 
@@ -20072,6 +21865,42 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AuditCreateWithoutGymInput = {
+    id?: string
+    username: string
+    table: string
+    action: string
+    reference_id?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    ip_address?: string | null
+    device_info?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    notes?: string | null
+  }
+
+  export type AuditUncheckedCreateWithoutGymInput = {
+    id?: string
+    username: string
+    table: string
+    action: string
+    reference_id?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    ip_address?: string | null
+    device_info?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    notes?: string | null
+  }
+
+  export type AuditCreateOrConnectWithoutGymInput = {
+    where: AuditWhereUniqueInput
+    create: XOR<AuditCreateWithoutGymInput, AuditUncheckedCreateWithoutGymInput>
+  }
+
+  export type AuditCreateManyGymInputEnvelope = {
+    data: AuditCreateManyGymInput | AuditCreateManyGymInput[]
+    skipDuplicates?: boolean
+  }
+
   export type MembershipCountCreateWithoutGymInput = {
     id?: string
     year: number
@@ -20259,6 +22088,39 @@ export namespace Prisma {
     data: XOR<GymLimitUpdateManyMutationInput, GymLimitUncheckedUpdateManyWithoutGymInput>
   }
 
+  export type AuditUpsertWithWhereUniqueWithoutGymInput = {
+    where: AuditWhereUniqueInput
+    update: XOR<AuditUpdateWithoutGymInput, AuditUncheckedUpdateWithoutGymInput>
+    create: XOR<AuditCreateWithoutGymInput, AuditUncheckedCreateWithoutGymInput>
+  }
+
+  export type AuditUpdateWithWhereUniqueWithoutGymInput = {
+    where: AuditWhereUniqueInput
+    data: XOR<AuditUpdateWithoutGymInput, AuditUncheckedUpdateWithoutGymInput>
+  }
+
+  export type AuditUpdateManyWithWhereWithoutGymInput = {
+    where: AuditScalarWhereInput
+    data: XOR<AuditUpdateManyMutationInput, AuditUncheckedUpdateManyWithoutGymInput>
+  }
+
+  export type AuditScalarWhereInput = {
+    AND?: AuditScalarWhereInput | AuditScalarWhereInput[]
+    OR?: AuditScalarWhereInput[]
+    NOT?: AuditScalarWhereInput | AuditScalarWhereInput[]
+    id?: StringFilter<"Audit"> | string
+    gym_id?: StringNullableFilter<"Audit"> | string | null
+    username?: StringFilter<"Audit"> | string
+    table?: StringFilter<"Audit"> | string
+    action?: StringFilter<"Audit"> | string
+    reference_id?: StringNullableFilter<"Audit"> | string | null
+    metadata?: JsonNullableFilter<"Audit">
+    ip_address?: StringNullableFilter<"Audit"> | string | null
+    device_info?: JsonNullableFilter<"Audit">
+    created_at?: DateTimeFilter<"Audit"> | Date | string
+    notes?: StringNullableFilter<"Audit"> | string | null
+  }
+
   export type MembershipCountUpsertWithWhereUniqueWithoutGymInput = {
     where: MembershipCountWhereUniqueInput
     update: XOR<MembershipCountUpdateWithoutGymInput, MembershipCountUncheckedUpdateWithoutGymInput>
@@ -20370,6 +22232,7 @@ export namespace Prisma {
     gym_stats?: GymStatsCreateNestedOneWithoutGymInput
     revenues?: RevenueCreateNestedManyWithoutGymInput
     limits?: GymLimitCreateNestedManyWithoutGymInput
+    audit_logs?: AuditCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
     owner: UserCreateNestedOneWithoutGymsInput
   }
@@ -20386,6 +22249,7 @@ export namespace Prisma {
     gym_stats?: GymStatsUncheckedCreateNestedOneWithoutGymInput
     revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
     limits?: GymLimitUncheckedCreateNestedManyWithoutGymInput
+    audit_logs?: AuditUncheckedCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
   }
 
@@ -20455,6 +22319,7 @@ export namespace Prisma {
     gym_stats?: GymStatsUpdateOneWithoutGymNestedInput
     revenues?: RevenueUpdateManyWithoutGymNestedInput
     limits?: GymLimitUpdateManyWithoutGymNestedInput
+    audit_logs?: AuditUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
     owner?: UserUpdateOneRequiredWithoutGymsNestedInput
   }
@@ -20471,6 +22336,7 @@ export namespace Prisma {
     gym_stats?: GymStatsUncheckedUpdateOneWithoutGymNestedInput
     revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
     limits?: GymLimitUncheckedUpdateManyWithoutGymNestedInput
+    audit_logs?: AuditUncheckedUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
   }
 
@@ -20510,6 +22376,7 @@ export namespace Prisma {
     revenues?: RevenueCreateNestedManyWithoutGymInput
     staffs?: GymStaffCreateNestedManyWithoutGymInput
     limits?: GymLimitCreateNestedManyWithoutGymInput
+    audit_logs?: AuditCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
     owner: UserCreateNestedOneWithoutGymsInput
   }
@@ -20526,6 +22393,7 @@ export namespace Prisma {
     revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
     staffs?: GymStaffUncheckedCreateNestedManyWithoutGymInput
     limits?: GymLimitUncheckedCreateNestedManyWithoutGymInput
+    audit_logs?: AuditUncheckedCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
   }
 
@@ -20587,6 +22455,7 @@ export namespace Prisma {
     revenues?: RevenueUpdateManyWithoutGymNestedInput
     staffs?: GymStaffUpdateManyWithoutGymNestedInput
     limits?: GymLimitUpdateManyWithoutGymNestedInput
+    audit_logs?: AuditUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
     owner?: UserUpdateOneRequiredWithoutGymsNestedInput
   }
@@ -20603,6 +22472,7 @@ export namespace Prisma {
     revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
     staffs?: GymStaffUncheckedUpdateManyWithoutGymNestedInput
     limits?: GymLimitUncheckedUpdateManyWithoutGymNestedInput
+    audit_logs?: AuditUncheckedUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
   }
 
@@ -20642,6 +22512,7 @@ export namespace Prisma {
     revenues?: RevenueCreateNestedManyWithoutGymInput
     staffs?: GymStaffCreateNestedManyWithoutGymInput
     limits?: GymLimitCreateNestedManyWithoutGymInput
+    audit_logs?: AuditCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
     owner: UserCreateNestedOneWithoutGymsInput
   }
@@ -20658,6 +22529,7 @@ export namespace Prisma {
     revenues?: RevenueUncheckedCreateNestedManyWithoutGymInput
     staffs?: GymStaffUncheckedCreateNestedManyWithoutGymInput
     limits?: GymLimitUncheckedCreateNestedManyWithoutGymInput
+    audit_logs?: AuditUncheckedCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountUncheckedCreateNestedManyWithoutGymInput
   }
 
@@ -20719,6 +22591,7 @@ export namespace Prisma {
     revenues?: RevenueUpdateManyWithoutGymNestedInput
     staffs?: GymStaffUpdateManyWithoutGymNestedInput
     limits?: GymLimitUpdateManyWithoutGymNestedInput
+    audit_logs?: AuditUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
     owner?: UserUpdateOneRequiredWithoutGymsNestedInput
   }
@@ -20735,6 +22608,7 @@ export namespace Prisma {
     revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
     staffs?: GymStaffUncheckedUpdateManyWithoutGymNestedInput
     limits?: GymLimitUncheckedUpdateManyWithoutGymNestedInput
+    audit_logs?: AuditUncheckedUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
   }
 
@@ -20781,6 +22655,7 @@ export namespace Prisma {
     revenues?: RevenueUpdateManyWithoutGymNestedInput
     staffs?: GymStaffUpdateManyWithoutGymNestedInput
     limits?: GymLimitUpdateManyWithoutGymNestedInput
+    audit_logs?: AuditUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
   }
 
@@ -20796,6 +22671,7 @@ export namespace Prisma {
     revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
     staffs?: GymStaffUncheckedUpdateManyWithoutGymNestedInput
     limits?: GymLimitUncheckedUpdateManyWithoutGymNestedInput
+    audit_logs?: AuditUncheckedUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
   }
 
@@ -20937,6 +22813,19 @@ export namespace Prisma {
     value: number
   }
 
+  export type AuditCreateManyGymInput = {
+    id?: string
+    username: string
+    table: string
+    action: string
+    reference_id?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    ip_address?: string | null
+    device_info?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    notes?: string | null
+  }
+
   export type MembershipCountCreateManyGymInput = {
     id?: string
     year: number
@@ -21069,6 +22958,45 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     limit_id?: IntFieldUpdateOperationsInput | number
     value?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type AuditUpdateWithoutGymInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    table?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    reference_id?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    ip_address?: NullableStringFieldUpdateOperationsInput | string | null
+    device_info?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AuditUncheckedUpdateWithoutGymInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    table?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    reference_id?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    ip_address?: NullableStringFieldUpdateOperationsInput | string | null
+    device_info?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AuditUncheckedUpdateManyWithoutGymInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    table?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    reference_id?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    ip_address?: NullableStringFieldUpdateOperationsInput | string | null
+    device_info?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MembershipCountUpdateWithoutGymInput = {

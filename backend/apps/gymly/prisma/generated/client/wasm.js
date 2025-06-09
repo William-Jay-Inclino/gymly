@@ -120,6 +120,20 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.AuditScalarFieldEnum = {
+  id: 'id',
+  gym_id: 'gym_id',
+  username: 'username',
+  table: 'table',
+  action: 'action',
+  reference_id: 'reference_id',
+  metadata: 'metadata',
+  ip_address: 'ip_address',
+  device_info: 'device_info',
+  created_at: 'created_at',
+  notes: 'notes'
+};
+
 exports.Prisma.LimitScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -239,9 +253,20 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 
 exports.Prisma.NullsOrder = {
@@ -255,6 +280,7 @@ exports.Role = exports.$Enums.Role = {
 };
 
 exports.Prisma.ModelName = {
+  Audit: 'Audit',
   Limit: 'Limit',
   GymLimit: 'GymLimit',
   GymStats: 'GymStats',

@@ -8,6 +8,9 @@ import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { User } from '../user/entities/user.entity';
+import { UserAgent } from '../auth/decorators/user-agent.decorator';
+import { IpAddress } from '../auth/decorators/ip-address.decorator';
+import { getDeviceInfo } from '../libs/helpers';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => GymStaff)
@@ -26,6 +29,8 @@ export class GymStaffResolver {
     @Mutation(() => MutationGymStaffResponse)
     async create_gym_staff(
         @CurrentUser() user: User,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
         @Args('input') input: CreateGymStaffInput
     ): Promise<MutationGymStaffResponse> {
 
@@ -37,7 +42,11 @@ export class GymStaffResolver {
                 input
             })
 
-            return this.gymStaffService.create(input);
+            return this.gymStaffService.create(input, {
+                ip_address,
+                device_info: getDeviceInfo(user_agent),
+                current_user: user
+            });
 
         } catch (error) {
             this.logger.error('Error in creating gym staff', error)
@@ -47,6 +56,8 @@ export class GymStaffResolver {
     @Mutation(() => MutationGymStaffResponse)
     async update_gym_staff(
         @CurrentUser() user: User,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
         @Args('input') input: UpdateGymStaffInput
     ): Promise<MutationGymStaffResponse> {
 
@@ -58,7 +69,11 @@ export class GymStaffResolver {
                 input
             })
 
-            return this.gymStaffService.update(input);
+            return this.gymStaffService.update(input, {
+                ip_address,
+                device_info: getDeviceInfo(user_agent),
+                current_user: user
+            });
 
         } catch (error) {
             this.logger.error('Error in updating gym staff', error)
@@ -68,6 +83,8 @@ export class GymStaffResolver {
     @Mutation(() => MutationGymStaffResponse)
     async delete_gym_staff(
         @CurrentUser() user: User,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
         @Args('user_id', { type: () => String }) user_id: string
     ): Promise<MutationGymStaffResponse> {
 
@@ -79,7 +96,11 @@ export class GymStaffResolver {
                 user_id
             })
 
-            return this.gymStaffService.delete(user_id);
+            return this.gymStaffService.delete(user_id, {
+                current_user: user,
+                ip_address,
+                device_info: getDeviceInfo(user_agent)
+            });
         } catch (error) {
             this.logger.error('Error in deleting gym staff', error)
         }

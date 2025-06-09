@@ -5,6 +5,9 @@ import { MutationMembershipResponse } from './entities/membership.response.entit
 import { addDays, endOfDay, startOfDay } from 'date-fns';
 import { MemberService } from '../member/member.service';
 import { Prisma } from 'apps/gymly/prisma/generated/client';
+import { AuditLogsService } from '../audit-logs/audit-logs.service';
+import { User } from '../user/entities/user.entity';
+import { DB_TABLE } from '../libs/common-types';
 
 @Injectable()
 export class MembershipService {
@@ -12,10 +15,18 @@ export class MembershipService {
     constructor(
         private readonly prisma: PrismaService,
         private readonly memberService: MemberService,
+        private readonly audit: AuditLogsService,
     ) {}
 
-    async create_membership(payload: { input: CreateMembershipInput }): Promise<MutationMembershipResponse> {
-        const { input } = payload;
+    async create_membership(payload: {
+        input: CreateMembershipInput,
+        metadata: {
+            ip_address: string,
+            device_info: any,
+            current_user: User, 
+        }
+    }): Promise<MutationMembershipResponse> {
+        const { input, metadata } = payload;
 
         return await this.prisma.$transaction(async (tx) => {
             // 1. Validate plans
@@ -61,7 +72,21 @@ export class MembershipService {
                         plan_description: plan.description,
                         amount_paid: plan.price,
                     },
+                    include: {
+                        member: true,
+                    },
                 });
+
+                await this.audit.createAuditEntry({
+                    gym_id: input.gym_id,
+                    username: metadata.current_user.username,
+                    table: DB_TABLE.MEMBERSHIP,
+                    action: 'CREATE-MEMBERSHIP',
+                    reference_id: membership.id,
+                    metadata: membership,
+                    ip_address: metadata.ip_address,
+                    device_info: metadata.device_info
+                }, tx as unknown as Prisma.TransactionClient)
 
                 createdMemberships.push(membership);
 
@@ -174,16 +199,42 @@ export class MembershipService {
         });
     }
 
-    async set_is_reminded(membership_id: string, is_reminded: boolean): Promise<MutationMembershipResponse> {
+    async set_is_reminded(
+        membership_id: string, 
+        is_reminded: boolean,
+        metadata: {
+            ip_address: string,
+            device_info: any,
+            current_user: User,
+        }
+    ): Promise<MutationMembershipResponse> {
         try {
-            await this.prisma.membership.update({
-                where: { id: membership_id },
-                data: { is_reminded },
-            });
-            return {
-                success: true,
-                msg: 'Membership reminder status updated successfully',
-            };
+
+            return await this.prisma.$transaction(async (tx) => {
+
+                const updated = await tx.membership.update({
+                    where: { id: membership_id },
+                    data: { is_reminded },
+                });
+    
+                await this.audit.createAuditEntry({
+                    gym_id: updated.gym_id,
+                    username: metadata.current_user.username,
+                    table: DB_TABLE.MEMBERSHIP,
+                    action: 'UPDATE-REMINDER-STATUS',
+                    reference_id: updated.id,
+                    metadata: updated,
+                    ip_address: metadata.ip_address,
+                    device_info: metadata.device_info
+                }, tx as unknown as Prisma.TransactionClient)
+    
+                return {
+                    success: true,
+                    msg: 'Membership reminder status updated successfully',
+                };
+
+            })
+
         } catch (error) {
             return {
                 success: false,

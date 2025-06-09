@@ -3,15 +3,26 @@ import { PrismaService } from '../prisma/prisma.service';
 import { Prisma, User } from 'apps/gymly/prisma/generated/client';
 import { UpdatePasswordInput } from './dto/update-password.input';
 import { MutationUserResponse } from './entities/user.response.entity';
+import { AuditLogsService } from '../audit-logs/audit-logs.service';
+import { DB_TABLE } from '../libs/common-types';
+import { User as UserEntity } from './entities/user.entity';
 
 @Injectable()
 export class UserService {
-    constructor(private readonly prisma: PrismaService) {}
 
-    async findByUsername(username: string): Promise<User> {
+    constructor(
+        private readonly prisma: PrismaService,
+        private readonly audit: AuditLogsService,
+    ) {}
+
+    async findByUsername(username: string): Promise<UserEntity> {
         return this.prisma.user.findUnique({
             where: { username },
-        });
+            include: {
+                gym_staff: true,
+                gyms: true,
+            }
+        }) as unknown as UserEntity;
     }
 
     async findById(user_id: string) {
@@ -64,57 +75,92 @@ export class UserService {
         return username;
     }
 
-    async updatePassword(input: UpdatePasswordInput): Promise<MutationUserResponse> {
+    async updatePassword(input: UpdatePasswordInput, metadata: {
+        ip_address: string,
+        device_info: any,
+        current_user: UserEntity,
+    }): Promise<MutationUserResponse> {
         const { user_id, current_password, new_password } = input;
 
-        const user = await this.prisma.user.findUnique({ where: { id: user_id } });
-        if (!user) {
+        return await this.prisma.$transaction(async (tx) => {
+    
+            const user = await tx.user.findUnique({ where: { id: user_id } });
+            if (!user) {
+                return {
+                    success: false,
+                    msg: 'User not found',
+                    data: null,
+                };
+            }
+    
+            if (user.password !== current_password) {
+                return {
+                    success: false,
+                    msg: 'Current password is incorrect',
+                };
+            }
+    
+            const updatedUser = await tx.user.update({
+                where: { id: user_id },
+                data: { password: new_password },
+            });
+
+            await this.audit.createAuditEntry({
+                username: metadata.current_user.username,
+                table: DB_TABLE.USER,
+                action: 'UPDATE-PASSWORD',
+                reference_id: updatedUser.id,
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as unknown as Prisma.TransactionClient)
+
             return {
-                success: false,
-                msg: 'User not found',
-                data: null,
+                success: true,
+                msg: 'Password updated successfully',
             };
-        }
 
-        if (user.password !== current_password) {
-            return {
-                success: false,
-                msg: 'Current password is incorrect',
-            };
-        }
-
-        const updatedUser = await this.prisma.user.update({
-            where: { id: user_id },
-            data: { password: new_password },
-        });
-
-        return {
-            success: true,
-            msg: 'Password updated successfully',
-        };
+        })
     }
 
-    async reset_password(payload: { user_id: string, password: string }): Promise<MutationUserResponse> {
+    async reset_password(payload: { user_id: string, password: string }, metadata: {
+        ip_address: string,
+        device_info: any,
+        current_user: UserEntity,
+    }): Promise<MutationUserResponse> {
         const { user_id, password } = payload;
 
-        const user = await this.prisma.user.findUnique({ where: { id: user_id } });
-        if (!user) {
+        return await this.prisma.$transaction(async (tx) => {
+
+            const user = await this.prisma.user.findUnique({ where: { id: user_id } });
+            if (!user) {
+                return {
+                    success: false,
+                    msg: 'User not found',
+                    data: null,
+                };
+            }
+    
+            const updated = await this.prisma.user.update({
+                where: { id: user_id },
+                data: { password },
+            });
+            
+            await this.audit.createAuditEntry({
+                username: metadata.current_user.username,
+                table: DB_TABLE.USER,
+                action: 'RESET-PASSWORD',
+                reference_id: updated.id,
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as unknown as Prisma.TransactionClient)
+    
             return {
-                success: false,
-                msg: 'User not found',
-                data: null,
+                success: true,
+                msg: 'Password has been reset successfully',
             };
-        }
 
-        await this.prisma.user.update({
-            where: { id: user_id },
-            data: { password },
-        });
+        })
 
-        return {
-            success: true,
-            msg: 'Password has been reset successfully',
-        };
     }
 
 }
