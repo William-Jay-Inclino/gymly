@@ -23,6 +23,7 @@ import { GymLimitModule } from './gym-limit/gym-limit.module';
 			driver: ApolloDriver,
 			autoSchemaFile: true, 
 			playground: true,
+			path: '/gymly/graphql',
 		}),
 		ConfigModule.forRoot({
 			isGlobal: true, 

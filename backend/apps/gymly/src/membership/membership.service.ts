@@ -3,17 +3,19 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CreateMembershipInput } from './dto/create-membership.input';
 import { MutationMembershipResponse } from './entities/membership.response.entity';
 import { addDays, endOfDay, startOfDay } from 'date-fns';
-import { Membership } from './entities/membership.entity';
+import { MemberService } from '../member/member.service';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class MembershipService {
 
-    constructor(private readonly prisma: PrismaService) {}
+    constructor(
+        private readonly prisma: PrismaService,
+        private readonly memberService: MemberService,
+    ) {}
 
     async create_membership(payload: { input: CreateMembershipInput }): Promise<MutationMembershipResponse> {
         const { input } = payload;
-
-        console.log('Creating membership with input:', input);
 
         return await this.prisma.$transaction(async (tx) => {
             // 1. Validate plans
@@ -47,8 +49,6 @@ export class MembershipService {
                     sessionsLeft = plan.num_of_sessions;
                 }
 
-                console.log('sessionsLeft', sessionsLeft);
-
                 const membership = await tx.membership.create({
                     data: {
                         member_id: input.member_id,
@@ -64,6 +64,30 @@ export class MembershipService {
                 });
 
                 createdMemberships.push(membership);
+
+                // --- Update stats for analytics ---
+                const now = new Date();
+                const year = now.getFullYear();
+                const month = now.getMonth() + 1;
+
+                
+                await this.memberService.update_gym_stats({
+                    gym_id: input.gym_id,
+                    amount: plan.price.toNumber ? plan.price.toNumber() : Number(plan.price),
+                }, tx as Prisma.TransactionClient)
+
+                await this.memberService.update_revenue({
+                    gym_id: input.gym_id,
+                    amount: plan.price.toNumber ? plan.price.toNumber() : Number(plan.price),
+                    year,
+                    month,
+                }, tx as Prisma.TransactionClient);
+
+                await this.memberService.update_membership_count({
+                    gym_id: input.gym_id,
+                    year,
+                    month,
+                }, tx as Prisma.TransactionClient);
             }
 
             return {

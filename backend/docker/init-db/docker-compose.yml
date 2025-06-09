@@ -1,0 +1,25 @@
+services:
+
+  gymly-db:
+    image: postgres:16
+    ports:
+      - 5436:5432
+    environment:
+      POSTGRES_USER: jay
+      POSTGRES_PASSWORD: jay123
+      POSTGRES_HOST_AUTH_METHOD: md5
+      TZ: Asia/Manila
+    command: postgres -c "listen_addresses=*"
+    networks:
+      - gymly-network
+    restart: always
+    volumes:
+      - gymly-db-data:/var/lib/postgresql/data
+      - ./init-db:/docker-entrypoint-initdb.d
+
+networks:
+  gymly-network:
+    driver: bridge
+
+volumes:
+  gymly-db-data:

@@ -3,8 +3,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
+    "clean:node_modules": "rimraf node_modules",
+    "clean:nuxt": "rimraf .nuxt dist",
+    "clean:all": "npm run clean:nuxt && npm run clean:node_modules",
+    "reinstall": "npm run clean:node_modules && npm install",
+    "build": "npm run clean:nuxt && nuxt build",
+    "start:dev": "nuxt dev",
+    "start:prod": "nuxt start",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
@@ -24,7 +29,9 @@
     "vue": "^3.5.15",
     "vue-router": "^4.5.1",
     "vue-toastification": "2.0.0-rc.5",
-    "sweetalert2": "^11.15.3"
+    "sweetalert2": "^11.15.3",
+    "rimraf": "^5.0.10",
+    "dotenv": "^16.4.7"
   },
   "devDependencies": {
     "@types/crypto-js": "^4.2.2"

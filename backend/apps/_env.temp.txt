@@ -1,0 +1,24 @@
+# Environment
+NODE_ENV=development
+TZ=Asia/Manila
+
+# Ports
+GYMLY_PORT=5000
+
+# Database URLs
+GYMLY_DATABASE_URL="postgresql://jay:jay123@localhost:5436/gymly_db?schema=public"
+
+# Secret Keys
+JWT_SECRET_KEY="sk_xA9z!8Fg$Z7p2@LqR5w#TdCmVbE1nUyH"
+
+# Database Configuration
+DB_CONTAINER_NAME=docker-gymly-db-1
+DB_USER=jay
+
+DB_GYMLY_NAME=gymly_db
+
+MAX_BACKUPS=5
+
+# Backup Directories & Logs
+BACKUP_SYSTEM_DIR=/home/jay/apps/gymly/backup/gymly_db
+BACKUP_SYSTEM_LOG=/home/jay/apps/gymly/backup/logs/gymly_db_backup.log
