@@ -4,7 +4,7 @@ import { CreateMembershipInput } from './dto/create-membership.input';
 import { MutationMembershipResponse } from './entities/membership.response.entity';
 import { addDays, endOfDay, startOfDay } from 'date-fns';
 import { MemberService } from '../member/member.service';
-import { Prisma } from '@prisma/client';
+import { Prisma } from 'apps/gymly/prisma/generated/client';
 
 @Injectable()
 export class MembershipService {

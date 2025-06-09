@@ -4,8 +4,7 @@ import { GymStaff } from './entities/gym-staff.entity';
 import { CreateGymStaffInput } from './dto/create-gym-staff.input';
 import { MutationGymStaffResponse } from './entities/gym-staff.response.entity';
 import { UserService } from '../user/user.service';
-import { Prisma } from '@prisma/client';
-import { Role } from 'apps/gymly/prisma/generated/client';
+import { Prisma, Role } from 'apps/gymly/prisma/generated/client';
 import { UpdateGymStaffInput } from './dto/update-gym-staff.input';
 import { LIMIT } from '../limit/enums/limit.enums';
 
