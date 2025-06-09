@@ -102,7 +102,7 @@ import { Users, UserPlus, UserCog, Pencil, Trash2, KeyRound } from 'lucide-vue-n
 import { useGlobalStore } from '~/core/global.store'
 import { get_gym_staffs, create_gym_staff, update_gym_staff, delete_gym_staff } from '~/core/gym-staff/gym-staff.api'
 import { reset_password } from '~/core/user/user.api'
-import type { GymStaff } from '~/core/gym-staff/gym-staff'
+import type { GymStaff } from '~/core/gym-staff/gym-staff.types'
 import type { GymLimit } from '~/core/gym-limit/gym-limit'
 import { showDeleteConfirm } from '~/utils/sweetalert'
 

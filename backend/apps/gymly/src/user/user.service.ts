@@ -20,10 +20,21 @@ export class UserService {
             select: {
                 id: true,
                 username: true,
+                role: true,
                 gyms: {
                     select: {
                         id: true,
                         name: true,
+                    }
+                },
+                gym_staff: {
+                    select: {
+                        gym: {
+                            select: {
+                                id: true,
+                                name: true,
+                            }
+                        }
                     }
                 }
             }

@@ -1,9 +1,11 @@
+import { LIMIT, type GymLimit } from "../gym-limit/gym-limit";
 import type { Plan } from "../plan/plan.types";
 import type { Member } from "./member.types";
 
 export async function init(payload: { gym_id: string }): Promise<{
     members: Member[],
     plans: Plan[],
+    limit: GymLimit | undefined
 }> {
 
     const { gym_id } = payload;
@@ -19,7 +21,7 @@ export async function init(payload: { gym_id: string }): Promise<{
                 created_by
                 is_active
             }
-            plans {
+            plans(gym_id: "${ gym_id }") {
                 id
                 name
                 description
@@ -28,6 +30,9 @@ export async function init(payload: { gym_id: string }): Promise<{
                 num_of_sessions
                 created_at
                 created_by
+            }
+            gym_limit(gym_id: "${gym_id}", limit_id: ${ LIMIT.MEMBER_LIMIT }) {
+                value
             }
         }
     `;
@@ -38,6 +43,7 @@ export async function init(payload: { gym_id: string }): Promise<{
         return {
             members: deepClone(response.data.data.members),
             plans: deepClone(response.data.data.plans),
+            limit: deepClone(response.data.data.gym_limit) as GymLimit | undefined
         }
     } catch (error) {
         console.error(error);
@@ -100,7 +106,10 @@ export async function create_member(input: {
         return response.data.data.create_member;
     } catch (error) {
         console.error(error);
-        throw error;
+        return {
+            success: false,
+            msg: 'Failed to create member',
+        }
     }
 }
 

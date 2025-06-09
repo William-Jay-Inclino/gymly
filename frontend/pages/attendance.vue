@@ -107,7 +107,6 @@ const isAddingPlan = ref(false)
 const isLoadingMemberships = ref(false)
 
 const showAddPlanModal = ref(false)
-const addPlanMember = ref<Member | undefined>(undefined)
 
 const members = ref<Member[]>([])
 const checkedInToday = ref<MemberTimeLog[]>([])

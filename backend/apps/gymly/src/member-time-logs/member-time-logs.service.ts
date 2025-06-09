@@ -8,12 +8,12 @@ export class MemberTimeLogsService {
 
     constructor(private readonly prisma: PrismaService) {}
 
-    async findTimeLogs(params: {
+    async findTimeLogs(payload: {
         gym_id?: string | null,
         checked_in_at?: Date | null,
         member_id?: string | null
     }) {
-        const { gym_id, checked_in_at, member_id } = params;
+        const { gym_id, checked_in_at, member_id } = payload;
 
         return this.prisma.memberTimeLogs.findMany({
             where: {
@@ -143,6 +143,30 @@ export class MemberTimeLogsService {
         });
 
         return calendarData;
+    }
+
+    async getMemberLogsByMonth(payload: { 
+        year: number; 
+        month: number; 
+        member_id: string;
+        gym_id: string;
+    }) {
+        const { year, month, member_id, gym_id } = payload;
+        // JS months are 0-based, so month-1 for start, month for end
+        const start = new Date(year, month - 1, 1, 0, 0, 0, 0);
+        const end = new Date(year, month, 0, 23, 59, 59, 999);
+
+        return this.prisma.memberTimeLogs.findMany({
+            where: {
+                member_id,
+                gym_id,
+                checked_in_at: {
+                    gte: start,
+                    lte: end,
+                },
+            },
+            orderBy: { checked_in_at: 'asc' },
+        });
     }
 
 }

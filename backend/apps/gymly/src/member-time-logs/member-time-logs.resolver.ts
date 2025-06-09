@@ -33,5 +33,15 @@ export class MemberTimeLogsResolver {
     ): Promise<number> {
         return this.memberTimeLogsService.getTotalCheckedInToday(gym_id);
     }
+
+    @Query(() => [MemberTimeLog])
+    async member_time_logs_by_month(
+        @Args('year', { type: () => Number }) year: number,
+        @Args('month', { type: () => Number }) month: number,
+        @Args('member_id', { type: () => String }) member_id: string,
+        @Args('gym_id', { type: () => String }) gym_id: string,
+    ) {
+        return this.memberTimeLogsService.getMemberLogsByMonth({ year, month, member_id, gym_id });
+    }
     
 }

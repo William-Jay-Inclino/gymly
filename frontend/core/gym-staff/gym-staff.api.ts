@@ -1,6 +1,6 @@
 import { deepClone } from "~/utils/helpers";
 import { sendRequest } from "~/utils/api";
-import type { CreateGymStaffInput, GymStaff, UpdateGymStaffInput } from "./gym-staff";
+import type { CreateGymStaffInput, GymStaff, UpdateGymStaffInput } from "./gym-staff.types";
 import { LIMIT, type GymLimit } from "../gym-limit/gym-limit";
 
 // Get all gym staffs for a gym

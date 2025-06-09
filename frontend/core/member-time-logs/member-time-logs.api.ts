@@ -74,7 +74,7 @@ export async function init(payload: { gym_id?: string, date?: string, member_id?
                 firstname
                 lastname
             }
-            plans {
+            plans(gym_id: "${ gym_id }") {
                 id
                 name
                 description
@@ -98,4 +98,30 @@ export async function init(payload: { gym_id?: string, date?: string, member_id?
         console.error(error);
         throw error;
     }
+}
+
+
+export async function member_time_logs_by_month(payload: {
+    year: number;
+    month: number;
+    member_id: string;
+    gym_id: string;
+}) {
+    const { year, month, member_id, gym_id } = payload;
+    const query = `
+        query {
+            member_time_logs_by_month(
+                year: ${year},
+                month: ${month},
+                member_id: "${member_id}",
+                gym_id: "${gym_id}"
+            ) {
+                id
+                checked_in_at
+            }
+        }
+    `;
+    const response = await sendRequest(query);
+    console.log('member_time_logs_by_month', response);
+    return deepClone(response.data.data.member_time_logs_by_month);
 }

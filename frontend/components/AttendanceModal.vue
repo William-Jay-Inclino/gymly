@@ -9,7 +9,15 @@
                             {{ member.firstname }} {{ member.lastname }}
                         </span>
                     </h3>
-                    <div v-if="props.is_loading" class="flex justify-center items-center min-h-[120px]">
+                    <div class="flex gap-2 mb-4">
+                        <select v-model="selectedYear" class="select select-bordered">
+                            <option v-for="year in years" :key="year" :value="year">{{ year }}</option>
+                        </select>
+                        <select v-model="selectedMonth" class="select select-bordered">
+                            <option v-for="(month, idx) in months" :key="idx" :value="idx + 1">{{ month }}</option>
+                        </select>
+                    </div>
+                    <div v-if="is_loading" class="flex justify-center items-center min-h-[120px]">
                         <span class="loading loading-spinner loading-lg text-primary"></span>
                     </div>
                     <div v-else class="overflow-x-auto">
@@ -18,27 +26,15 @@
                                 <tr>
                                     <th class="text-base">Date</th>
                                     <th class="text-base">Time In</th>
-                                    <th class="text-base">Time Out</th>
-                                    <th class="text-base">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="record in attendance" :key="record.id">
-                                    <td>{{ formatDate(record.date) }}</td>
-                                    <td>{{ record.time_in || '-' }}</td>
-                                    <td>{{ record.time_out || '-' }}</td>
-                                    <td>
-                                        <span
-                                            v-if="record.status === 'present'"
-                                            class="badge badge-soft badge-success"
-                                        >
-                                            Present
-                                        </span>
-                                        <span v-else> - </span>
-                                    </td>
+                                    <td>{{ formatDate(record.checked_in_at) }}</td>
+                                    <td>{{ formatTime(record.checked_in_at) }}</td>
                                 </tr>
                                 <tr v-if="attendance.length === 0">
-                                    <td colspan="4" class="text-center text-base-content/60 py-8">
+                                    <td colspan="2" class="text-center text-base-content/60 py-8">
                                         No attendance records found.
                                     </td>
                                 </tr>
@@ -55,39 +51,59 @@
 </template>
 
 <script setup lang="ts">
-import type { Member } from '~/core/member/member.types';
+import { member_time_logs_by_month } from '~/core/member-time-logs/member-time-logs.api'
+import type { Member } from '~/core/member/member.types'
 
 const props = defineProps<{
     member?: Member,
-    is_loading?: boolean,
+    gym_id: string,
     show: boolean
 }>()
 
+const is_loading = ref(false)
 const emit = defineEmits(['close'])
 
-const attendance = ref([
-    {
-        id: 1,
-        date: '2024-05-01',
-        time_in: '08:00',
-        time_out: '09:00',
-        status: 'present',
+const attendance = ref<any[]>([])
+
+const now = new Date()
+const selectedYear = ref(now.getFullYear())
+const selectedMonth = ref(now.getMonth() + 1)
+
+const years = Array.from({ length: 5 }, (_, i) => now.getFullYear() - i)
+const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+]
+
+async function fetchAttendance() {
+    if (!props.member || !props.gym_id) {
+        attendance.value = []
+        return
+    }
+    is_loading.value = true
+    try {
+        attendance.value = await member_time_logs_by_month({
+            year: selectedYear.value,
+            month: selectedMonth.value,
+            member_id: props.member.id,
+            gym_id: props.gym_id
+        })
+    } catch (e) {
+        attendance.value = []
+    }
+    is_loading.value = false
+}
+
+// Fetch attendance when modal opens or filters change
+watch(
+    () => [props.member?.id, props.gym_id, selectedYear.value, selectedMonth.value, props.show],
+    ([memberId, gymId, year, month, show]) => {
+        if (show && memberId && gymId) {
+            fetchAttendance()
+        }
     },
-    {
-        id: 2,
-        date: '2024-05-02',
-        time_in: '08:10',
-        time_out: '09:05',
-        status: 'present',
-    },
-    {
-        id: 3,
-        date: '2024-05-03',
-        time_in: null,
-        time_out: null,
-        status: 'absent',
-    },
-])
+    { immediate: true }
+)
 
 function close() {
     emit('close')
@@ -99,6 +115,14 @@ function formatDate(dateStr: string) {
         year: 'numeric',
         month: 'short',
         day: 'numeric',
+    })
+}
+
+function formatTime(dateStr: string) {
+    const date = new Date(dateStr)
+    return date.toLocaleTimeString(undefined, {
+        hour: '2-digit',
+        minute: '2-digit',
     })
 }
 </script>

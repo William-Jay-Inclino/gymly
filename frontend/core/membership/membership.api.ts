@@ -80,7 +80,10 @@ export async function add_membership(input: {
         return response.data.data.create_membership;
     } catch (error) {
         console.error(error);
-        throw error;
+        return {
+            success: false,
+            msg: 'Failed to add membership',
+        }
     }
 }
 
