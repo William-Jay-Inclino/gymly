@@ -10,8 +10,9 @@
                     :class="item.label === 'Logout'
                         ? 'hover:bg-red-100 w-full text-left'
                         : isActive(item.route)
-                            ? 'bg-primary text-white shadow-md'
+                            ? 'shadow-md text-white'
                             : 'hover:bg-base-200 text-base-content'"
+                    :style="isActive(item.route) && item.label !== 'Logout' ? { background: '#3b82f6' } : {}"
                 >
                     <span>
                         <component
