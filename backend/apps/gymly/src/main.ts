@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { GymlyModule } from './gymly.module';
 import { config } from 'dotenv';
+import { WinstonLoggerService } from './logger/winston-logger.service';
 
 async function bootstrap() {
 
@@ -13,6 +14,9 @@ async function bootstrap() {
 
     const app = await NestFactory.create(GymlyModule);
 
+    const winstonLogger = app.get(WinstonLoggerService);
+
+    app.useLogger(winstonLogger);
     app.setGlobalPrefix('/gymly/api');
     app.enableCors();
 

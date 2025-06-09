@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
 import { GymService } from './gym.service';
-import { GymResolver } from './gym.resolver';
 
 @Module({
-  providers: [GymResolver, GymService],
+  providers: [GymService],
 })
 export class GymModule {}

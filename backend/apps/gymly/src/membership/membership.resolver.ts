@@ -16,7 +16,6 @@ export class MembershipResolver {
     async create_membership(
         @Args('input') input: CreateMembershipInput
     ) {
-        console.log('create_membership');
         return this.membershipService.create_membership({ input });
     }
 

@@ -188,8 +188,6 @@ export class MemberService {
     }, tx: Prisma.TransactionClient) {
         const { gym_id, amount, year, month } = payload;
 
-        console.log('update_revenue', payload);
-
         const x = await tx.revenue.upsert({
             where: {
                 gym_id_year_month: {
@@ -209,7 +207,6 @@ export class MemberService {
             },
         });
 
-        console.log('x', x);
     }
 
     async update_membership_count(payload: {
@@ -218,8 +215,6 @@ export class MemberService {
         month: number,
     }, tx: Prisma.TransactionClient) {
         const { gym_id, year, month } = payload;
-
-        console.log('update_membership_count', payload);
 
         await tx.membershipCount.upsert({
             where: {

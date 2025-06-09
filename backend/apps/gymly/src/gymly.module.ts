@@ -16,6 +16,8 @@ import { AuthModule } from './auth/auth.module';
 import { GymStaffModule } from './gym-staff/gym-staff.module';
 import { LimitModule } from './limit/limit.module';
 import { GymLimitModule } from './gym-limit/gym-limit.module';
+import { TaskService } from './task-scheduler/task.service';
+import { LoggerModule } from './logger/logger.module';
 
 @Module({
 	imports: [
@@ -41,7 +43,9 @@ import { GymLimitModule } from './gym-limit/gym-limit.module';
 		GymStaffModule,
 		LimitModule,
 		GymLimitModule,
+		LoggerModule,
 	],
 	controllers: [GymlyController],
+	providers: [TaskService],
 })
 export class GymlyModule {}
