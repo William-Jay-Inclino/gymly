@@ -212,3 +212,23 @@ function format_amount(amount: number | string | null | undefined) {
     return Number(amount).toLocaleString("en-PH", { style: "currency", currency: "PHP", minimumFractionDigits: 2 })
 }
 </script>
+
+
+<style scoped>
+.modal-enter-active, .modal-leave-active {
+    transition: all 0.25s ease-out;
+}
+
+.modal-enter-from, .modal-leave-to {
+    opacity: 0;
+}
+
+.modal-enter-from .bg-base-100, .modal-leave-to .bg-base-100 {
+    transform: translateY(-20px) scale(0.95);
+}
+
+.modal-enter-to .bg-base-100, .modal-leave-from .bg-base-100 {
+    transform: translateY(0) scale(1);
+    transition: transform 0.25s ease-out;
+}
+</style>
