@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { MembershipService } from './membership.service';
 import { MembershipResolver } from './membership.resolver';
-import { MemberModule } from '../member/member.module'
+import { AnalyticsModule } from '../analytics/analytics.module';
 @Module({
-  imports: [MemberModule],
+  imports: [AnalyticsModule],
   providers: [MembershipResolver, MembershipService],
   exports: [MembershipService],
 })

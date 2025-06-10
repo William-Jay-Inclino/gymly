@@ -7,12 +7,14 @@ import { addDays } from 'date-fns';
 import { LIMIT } from '../limit/enums/limit.enums';
 import { AuditLogsService } from '../audit-logs/audit-logs.service';
 import { DB_TABLE } from '../libs/common-types';
+import { AnalyticsService } from '../analytics/analytics.service';
 
 @Injectable()
 export class MemberService {
 
     constructor(
         private readonly prisma: PrismaService,
+        private readonly analytics: AnalyticsService,
         private readonly audit: AuditLogsService,
     ) {}
 
@@ -79,13 +81,11 @@ export class MemberService {
                     firstname: data.firstname,
                     lastname: data.lastname,
                     contact_number: data.contact_number,
-                    created_by: 'system',
-                },
-                include: {
-                    memberships: true,
+                    created_by: metadata.current_user.username,
                 },
             });
 
+            // Audit log for member creation
             await this.audit.createAuditEntry({
                 gym_id: data.plan.gym_id,
                 username: metadata.current_user.username,
@@ -95,15 +95,20 @@ export class MemberService {
                 metadata: member,
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
-            }, tx as unknown as Prisma.TransactionClient)
+            }, tx as Prisma.TransactionClient);
 
-            // Update total member
-            await this.update_gym_stats({
+            // Update total member count
+            await this.analytics.update_gym_stats({
                 gym_id: data.plan.gym_id,
                 increment_member: true,
             }, tx as Prisma.TransactionClient);
 
             // For each plan, create a membership and update stats for analytics
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = now.getMonth() + 1;
+            const createdMemberships = [];
+
             for (const planObj of data.plan.plans) {
                 const plan = await tx.plan.findUnique({
                     where: { id: planObj.plan_id },
@@ -112,7 +117,7 @@ export class MemberService {
                     throw new BadRequestException(`Plan not found: ${planObj.plan_id}`);
                 }
 
-                const startDate = new Date(planObj.start_date);
+                const startDate = planObj.start_date ? new Date(planObj.start_date) : new Date();
                 let endDate: Date | null = null;
                 let sessionsLeft: number | null = null;
 
@@ -127,45 +132,59 @@ export class MemberService {
                     sessionsLeft = plan.num_of_sessions;
                 }
 
-                await tx.membership.create({
+                const membership = await tx.membership.create({
                     data: {
                         member_id: member.id,
                         gym_id: data.plan.gym_id,
                         start_date: startDate,
                         end_date: endDate,
-                        created_by: 'system',
+                        created_by: metadata.current_user.username,
+                        is_active: true,
+                        is_reminded: false,
                         ...(sessionsLeft !== null && { sessions_left: sessionsLeft }),
                         plan_name: plan.name,
                         plan_description: plan.description,
-                        amount_paid: plan.price,
+                        amount_paid: plan.price, // Decimal
                     },
                 });
 
                 // --- Update stats ---
-                const now = new Date();
-                const year = now.getFullYear();
-                const month = now.getMonth() + 1;
+                const amount = plan.price;
 
                 // Update total revenue
-                await this.update_gym_stats({
+                await this.analytics.update_gym_stats({
                     gym_id: data.plan.gym_id,
-                    amount: plan.price.toNumber ? plan.price.toNumber() : Number(plan.price),
+                    amount,
                 }, tx as Prisma.TransactionClient);
 
                 // Update revenue for the specific month and year (Used in analytics)
-                await this.update_revenue({
+                await this.analytics.update_revenue({
                     gym_id: data.plan.gym_id,
-                    amount: plan.price.toNumber ? plan.price.toNumber() : Number(plan.price),
+                    amount,
                     year,
                     month,
                 }, tx as Prisma.TransactionClient);
 
                 // Update membership count for the specific month and year (Used in analytics)
-                await this.update_membership_count({
+                await this.analytics.update_membership_count({
                     gym_id: data.plan.gym_id,
                     year,
                     month,
                 }, tx as Prisma.TransactionClient);
+
+                // Audit log for membership creation
+                await this.audit.createAuditEntry({
+                    gym_id: data.plan.gym_id,
+                    username: metadata.current_user.username,
+                    table: DB_TABLE.MEMBERSHIP,
+                    action: 'CREATE-MEMBERSHIP',
+                    reference_id: membership.id,
+                    metadata: membership,
+                    ip_address: metadata.ip_address,
+                    device_info: metadata.device_info
+                }, tx as Prisma.TransactionClient);
+
+                createdMemberships.push(membership);
             }
 
             // Fetch the created member with memberships
@@ -179,83 +198,6 @@ export class MemberService {
                 msg: 'Member created successfully',
                 data: created,
             };
-        });
-    }
-
-    async update_gym_stats(payload: {
-        gym_id: string, 
-        amount?: number,
-        increment_member?: boolean,
-    }, tx: Prisma.TransactionClient) {
-        const { gym_id, amount, increment_member } = payload;
-
-        await tx.gymStats.upsert({
-            where: { gym_id },
-            update: {
-                ...(amount && { total_revenue: { increment: amount } }),
-                ...(increment_member && { total_members: { increment: 1 } }),
-            },
-            create: {
-                gym_id,
-                total_revenue: amount ?? 0,
-                total_members: increment_member ? 1 : 0,
-            },
-        });
-    }
-
-    async update_revenue(payload: {
-        gym_id: string, 
-        amount: number,
-        year: number,
-        month: number,
-    }, tx: Prisma.TransactionClient) {
-        const { gym_id, amount, year, month } = payload;
-
-        const x = await tx.revenue.upsert({
-            where: {
-                gym_id_year_month: {
-                    gym_id,
-                    year,
-                    month,
-                },
-            },
-            update: {
-                amount: { increment: amount },
-            },
-            create: {
-                gym_id,
-                year,
-                month,
-                amount,
-            },
-        });
-
-    }
-
-    async update_membership_count(payload: {
-        gym_id: string, 
-        year: number,
-        month: number,
-    }, tx: Prisma.TransactionClient) {
-        const { gym_id, year, month } = payload;
-
-        await tx.membershipCount.upsert({
-            where: {
-                gym_id_year_month: {
-                    gym_id,
-                    year,
-                    month,
-                },
-            },
-            update: {
-                count: { increment: 1 },
-            },
-            create: {
-                gym_id,
-                year,
-                month,
-                count: 1,
-            },
         });
     }
 

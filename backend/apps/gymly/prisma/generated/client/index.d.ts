@@ -6722,13 +6722,13 @@ export namespace Prisma {
   export type RevenueAvgAggregateOutputType = {
     year: number | null
     month: number | null
-    amount: number | null
+    amount: Decimal | null
   }
 
   export type RevenueSumAggregateOutputType = {
     year: number | null
     month: number | null
-    amount: number | null
+    amount: Decimal | null
   }
 
   export type RevenueMinAggregateOutputType = {
@@ -6736,7 +6736,7 @@ export namespace Prisma {
     gym_id: string | null
     year: number | null
     month: number | null
-    amount: number | null
+    amount: Decimal | null
     created_at: Date | null
   }
 
@@ -6745,7 +6745,7 @@ export namespace Prisma {
     gym_id: string | null
     year: number | null
     month: number | null
-    amount: number | null
+    amount: Decimal | null
     created_at: Date | null
   }
 
@@ -6891,7 +6891,7 @@ export namespace Prisma {
     gym_id: string
     year: number
     month: number
-    amount: number
+    amount: Decimal
     created_at: Date
     _count: RevenueCountAggregateOutputType | null
     _avg: RevenueAvgAggregateOutputType | null
@@ -6974,7 +6974,7 @@ export namespace Prisma {
       gym_id: string
       year: number
       month: number
-      amount: number
+      amount: Prisma.Decimal
       created_at: Date
     }, ExtArgs["result"]["revenue"]>
     composites: {}
@@ -7404,7 +7404,7 @@ export namespace Prisma {
     readonly gym_id: FieldRef<"Revenue", 'String'>
     readonly year: FieldRef<"Revenue", 'Int'>
     readonly month: FieldRef<"Revenue", 'Int'>
-    readonly amount: FieldRef<"Revenue", 'Float'>
+    readonly amount: FieldRef<"Revenue", 'Decimal'>
     readonly created_at: FieldRef<"Revenue", 'DateTime'>
   }
     
@@ -18429,20 +18429,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Float'
-   */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float[]'
-   */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Role'
    */
   export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
@@ -18460,6 +18446,20 @@ export namespace Prisma {
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -18719,7 +18719,7 @@ export namespace Prisma {
     gym_id?: StringFilter<"Revenue"> | string
     year?: IntFilter<"Revenue"> | number
     month?: IntFilter<"Revenue"> | number
-    amount?: FloatFilter<"Revenue"> | number
+    amount?: DecimalFilter<"Revenue"> | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFilter<"Revenue"> | Date | string
     gym?: XOR<GymScalarRelationFilter, GymWhereInput>
   }
@@ -18743,7 +18743,7 @@ export namespace Prisma {
     gym_id?: StringFilter<"Revenue"> | string
     year?: IntFilter<"Revenue"> | number
     month?: IntFilter<"Revenue"> | number
-    amount?: FloatFilter<"Revenue"> | number
+    amount?: DecimalFilter<"Revenue"> | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFilter<"Revenue"> | Date | string
     gym?: XOR<GymScalarRelationFilter, GymWhereInput>
   }, "id" | "gym_id_year_month">
@@ -18770,7 +18770,7 @@ export namespace Prisma {
     gym_id?: StringWithAggregatesFilter<"Revenue"> | string
     year?: IntWithAggregatesFilter<"Revenue"> | number
     month?: IntWithAggregatesFilter<"Revenue"> | number
-    amount?: FloatWithAggregatesFilter<"Revenue"> | number
+    amount?: DecimalWithAggregatesFilter<"Revenue"> | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeWithAggregatesFilter<"Revenue"> | Date | string
   }
 
@@ -19664,7 +19664,7 @@ export namespace Prisma {
     id?: string
     year: number
     month: number
-    amount: number
+    amount: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
     gym: GymCreateNestedOneWithoutRevenuesInput
   }
@@ -19674,7 +19674,7 @@ export namespace Prisma {
     gym_id: string
     year: number
     month: number
-    amount: number
+    amount: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
   }
 
@@ -19682,7 +19682,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     year?: IntFieldUpdateOperationsInput | number
     month?: IntFieldUpdateOperationsInput | number
-    amount?: FloatFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     gym?: GymUpdateOneRequiredWithoutRevenuesNestedInput
   }
@@ -19692,7 +19692,7 @@ export namespace Prisma {
     gym_id?: StringFieldUpdateOperationsInput | string
     year?: IntFieldUpdateOperationsInput | number
     month?: IntFieldUpdateOperationsInput | number
-    amount?: FloatFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -19701,7 +19701,7 @@ export namespace Prisma {
     gym_id: string
     year: number
     month: number
-    amount: number
+    amount: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
   }
 
@@ -19709,7 +19709,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     year?: IntFieldUpdateOperationsInput | number
     month?: IntFieldUpdateOperationsInput | number
-    amount?: FloatFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -19718,7 +19718,7 @@ export namespace Prisma {
     gym_id?: StringFieldUpdateOperationsInput | string
     year?: IntFieldUpdateOperationsInput | number
     month?: IntFieldUpdateOperationsInput | number
-    amount?: FloatFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -20752,17 +20752,6 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
-  export type FloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
   export type RevenueGym_idYearMonthCompoundUniqueInput = {
     gym_id: string
     year: number
@@ -20806,22 +20795,6 @@ export namespace Prisma {
     year?: SortOrder
     month?: SortOrder
     amount?: SortOrder
-  }
-
-  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type MembershipCountGym_idYearMonthCompoundUniqueInput = {
@@ -21479,14 +21452,6 @@ export namespace Prisma {
     create?: XOR<GymCreateWithoutRevenuesInput, GymUncheckedCreateWithoutRevenuesInput>
     connectOrCreate?: GymCreateOrConnectWithoutRevenuesInput
     connect?: GymWhereUniqueInput
-  }
-
-  export type FloatFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type GymUpdateOneRequiredWithoutRevenuesNestedInput = {
@@ -22401,22 +22366,6 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
-  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
-  }
-
   export type NestedEnumRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
@@ -23327,7 +23276,7 @@ export namespace Prisma {
     id?: string
     year: number
     month: number
-    amount: number
+    amount: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
   }
 
@@ -23335,7 +23284,7 @@ export namespace Prisma {
     id?: string
     year: number
     month: number
-    amount: number
+    amount: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
   }
 
@@ -23569,7 +23518,7 @@ export namespace Prisma {
     gym_id?: StringFilter<"Revenue"> | string
     year?: IntFilter<"Revenue"> | number
     month?: IntFilter<"Revenue"> | number
-    amount?: FloatFilter<"Revenue"> | number
+    amount?: DecimalFilter<"Revenue"> | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFilter<"Revenue"> | Date | string
   }
 
@@ -24485,7 +24434,7 @@ export namespace Prisma {
     id?: string
     year: number
     month: number
-    amount: number
+    amount: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
   }
 
@@ -24596,7 +24545,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     year?: IntFieldUpdateOperationsInput | number
     month?: IntFieldUpdateOperationsInput | number
-    amount?: FloatFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -24604,7 +24553,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     year?: IntFieldUpdateOperationsInput | number
     month?: IntFieldUpdateOperationsInput | number
-    amount?: FloatFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -24612,7 +24561,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     year?: IntFieldUpdateOperationsInput | number
     month?: IntFieldUpdateOperationsInput | number
-    amount?: FloatFieldUpdateOperationsInput | number
+    amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

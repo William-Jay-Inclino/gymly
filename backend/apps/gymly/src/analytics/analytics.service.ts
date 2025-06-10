@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { eachDayOfInterval, endOfDay, endOfMonth, startOfDay, startOfMonth } from 'date-fns';
 import { MonthlyAttendance } from './entities/monthly-attendance.entity';
+import { Prisma } from 'apps/gymly/prisma/generated/client';
 
 @Injectable()
 export class AnalyticsService {
@@ -154,6 +155,82 @@ export class AnalyticsService {
             orderBy: [
                 { start_date: 'desc' }
             ],
+        });
+    }
+
+    async update_gym_stats(payload: {
+        gym_id: string,
+        amount?: Prisma.Decimal,
+        increment_member?: boolean,
+    }, tx: Prisma.TransactionClient) {
+        const { gym_id, amount, increment_member } = payload;
+
+        await tx.gymStats.upsert({
+            where: { gym_id },
+            update: {
+                ...(amount && { total_revenue: { increment: amount } }),
+                ...(increment_member && { total_members: { increment: 1 } }),
+            },
+            create: {
+                gym_id,
+                total_revenue: amount ?? 0,
+                total_members: increment_member ? 1 : 0,
+            },
+        });
+    }
+
+    async update_revenue(payload: {
+        gym_id: string,
+        amount: Prisma.Decimal,
+        year: number,
+        month: number,
+    }, tx: Prisma.TransactionClient) {
+        const { gym_id, amount, year, month } = payload;
+
+        await tx.revenue.upsert({
+            where: {
+                gym_id_year_month: {
+                    gym_id,
+                    year,
+                    month,
+                },
+            },
+            update: {
+                amount: { increment: amount },
+            },
+            create: {
+                gym_id,
+                year,
+                month,
+                amount,
+            },
+        });
+    }
+
+    async update_membership_count(payload: {
+        gym_id: string,
+        year: number,
+        month: number,
+    }, tx: Prisma.TransactionClient) {
+        const { gym_id, year, month } = payload;
+
+        await tx.membershipCount.upsert({
+            where: {
+                gym_id_year_month: {
+                    gym_id,
+                    year,
+                    month,
+                },
+            },
+            update: {
+                count: { increment: 1 },
+            },
+            create: {
+                gym_id,
+                year,
+                month,
+                count: 1,
+            },
         });
     }
     

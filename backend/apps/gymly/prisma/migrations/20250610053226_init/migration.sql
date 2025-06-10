@@ -2,6 +2,23 @@
 CREATE TYPE "Role" AS ENUM ('ADMIN', 'GYM_OWNER', 'GYM_STAFF');
 
 -- CreateTable
+CREATE TABLE "audit_logs" (
+    "id" TEXT NOT NULL,
+    "gym_id" TEXT,
+    "username" TEXT NOT NULL,
+    "table" TEXT NOT NULL,
+    "action" TEXT NOT NULL,
+    "reference_id" TEXT,
+    "metadata" JSONB,
+    "ip_address" TEXT,
+    "device_info" JSONB,
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "notes" TEXT,
+
+    CONSTRAINT "audit_logs_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "limits" (
     "id" INTEGER NOT NULL,
     "name" TEXT NOT NULL,
@@ -37,7 +54,7 @@ CREATE TABLE "revenues" (
     "gym_id" TEXT NOT NULL,
     "year" INTEGER NOT NULL,
     "month" INTEGER NOT NULL,
-    "amount" DOUBLE PRECISION NOT NULL,
+    "amount" DECIMAL NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "revenues_pkey" PRIMARY KEY ("id")
@@ -151,6 +168,21 @@ CREATE TABLE "member_time_logs" (
     CONSTRAINT "member_time_logs_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "member_time_logs_memberships" (
+    "id" SERIAL NOT NULL,
+    "member_time_log_id" INTEGER NOT NULL,
+    "membership_id" TEXT NOT NULL,
+
+    CONSTRAINT "member_time_logs_memberships_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateIndex
+CREATE INDEX "audit_logs_username_idx" ON "audit_logs"("username");
+
+-- CreateIndex
+CREATE INDEX "audit_logs_gym_id_idx" ON "audit_logs"("gym_id");
+
 -- CreateIndex
 CREATE UNIQUE INDEX "gym_limits_gym_id_limit_id_key" ON "gym_limits"("gym_id", "limit_id");
 
@@ -173,6 +205,9 @@ CREATE INDEX "users_username_idx" ON "users"("username");
 CREATE INDEX "members_firstname_lastname_idx" ON "members"("firstname", "lastname");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "gyms_owner_id_key" ON "gyms"("owner_id");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "gym_staffs_user_id_key" ON "gym_staffs"("user_id");
 
 -- CreateIndex
@@ -191,10 +226,13 @@ CREATE INDEX "memberships_gym_id_idx" ON "memberships"("gym_id");
 CREATE INDEX "plans_gym_id_idx" ON "plans"("gym_id");
 
 -- CreateIndex
-CREATE INDEX "member_time_logs_member_id_idx" ON "member_time_logs"("member_id");
+CREATE INDEX "member_time_logs_member_id_gym_id_checked_in_at_idx" ON "member_time_logs"("member_id", "gym_id", "checked_in_at");
 
 -- CreateIndex
-CREATE INDEX "member_time_logs_gym_id_checked_in_at_idx" ON "member_time_logs"("gym_id", "checked_in_at");
+CREATE UNIQUE INDEX "member_time_logs_memberships_member_time_log_id_membership__key" ON "member_time_logs_memberships"("member_time_log_id", "membership_id");
+
+-- AddForeignKey
+ALTER TABLE "audit_logs" ADD CONSTRAINT "audit_logs_gym_id_fkey" FOREIGN KEY ("gym_id") REFERENCES "gyms"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "gym_limits" ADD CONSTRAINT "gym_limits_gym_id_fkey" FOREIGN KEY ("gym_id") REFERENCES "gyms"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -215,10 +253,10 @@ ALTER TABLE "membership_counts" ADD CONSTRAINT "membership_counts_gym_id_fkey" F
 ALTER TABLE "gyms" ADD CONSTRAINT "gyms_owner_id_fkey" FOREIGN KEY ("owner_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "gym_staffs" ADD CONSTRAINT "gym_staffs_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "gym_staffs" ADD CONSTRAINT "gym_staffs_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "gym_staffs" ADD CONSTRAINT "gym_staffs_gym_id_fkey" FOREIGN KEY ("gym_id") REFERENCES "gyms"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "gym_staffs" ADD CONSTRAINT "gym_staffs_gym_id_fkey" FOREIGN KEY ("gym_id") REFERENCES "gyms"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "memberships" ADD CONSTRAINT "memberships_member_id_fkey" FOREIGN KEY ("member_id") REFERENCES "members"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -231,3 +269,9 @@ ALTER TABLE "member_time_logs" ADD CONSTRAINT "member_time_logs_member_id_fkey" 
 
 -- AddForeignKey
 ALTER TABLE "member_time_logs" ADD CONSTRAINT "member_time_logs_gym_id_fkey" FOREIGN KEY ("gym_id") REFERENCES "gyms"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "member_time_logs_memberships" ADD CONSTRAINT "member_time_logs_memberships_member_time_log_id_fkey" FOREIGN KEY ("member_time_log_id") REFERENCES "member_time_logs"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "member_time_logs_memberships" ADD CONSTRAINT "member_time_logs_memberships_membership_id_fkey" FOREIGN KEY ("membership_id") REFERENCES "memberships"("id") ON DELETE CASCADE ON UPDATE CASCADE;

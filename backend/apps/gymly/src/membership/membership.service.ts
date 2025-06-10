@@ -8,13 +8,14 @@ import { Prisma } from 'apps/gymly/prisma/generated/client';
 import { AuditLogsService } from '../audit-logs/audit-logs.service';
 import { User } from '../user/entities/user.entity';
 import { DB_TABLE } from '../libs/common-types';
+import { AnalyticsService } from '../analytics/analytics.service';
 
 @Injectable()
 export class MembershipService {
 
     constructor(
         private readonly prisma: PrismaService,
-        private readonly memberService: MemberService,
+        private readonly analytics: AnalyticsService,
         private readonly audit: AuditLogsService,
     ) {}
 
@@ -23,60 +24,91 @@ export class MembershipService {
         metadata: {
             ip_address: string,
             device_info: any,
-            current_user: User, 
+            current_user: { id: string, username: string },
         }
     }): Promise<MutationMembershipResponse> {
         const { input, metadata } = payload;
 
         return await this.prisma.$transaction(async (tx) => {
-            // 1. Validate plans
-            if (!input.plans || input.plans.length === 0) {
-                throw new BadRequestException('At least one plan is required');
+            // Validate member
+            const member = await tx.member.findUnique({
+                where: { id: input.member_id },
+            });
+            if (!member) {
+                throw new BadRequestException(`Member not found: ${input.member_id}`);
             }
+
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = now.getMonth() + 1;
 
             const createdMemberships = [];
 
-            // 2. For each plan, create a membership
-            for (const planObj of input.plans) {
+            for (const planInput of input.plans) {
+                // Validate plan
                 const plan = await tx.plan.findUnique({
-                    where: { id: planObj.plan_id },
+                    where: { id: planInput.plan_id },
                 });
                 if (!plan) {
-                    throw new BadRequestException(`Plan not found: ${planObj.plan_id}`);
+                    throw new BadRequestException(`Plan not found: ${planInput.plan_id}`);
                 }
 
-                const startDate = new Date(planObj.start_date);
+                // Compute dates and sessions
+                const startDate = planInput.start_date ? new Date(planInput.start_date) : new Date();
                 let endDate: Date | null = null;
                 let sessionsLeft: number | null = null;
 
                 if (plan.num_of_days != null) {
                     endDate = addDays(startDate, plan.num_of_days);
                 }
-
-                // Use sessions_left from input if it is defined (even if 0), otherwise use plan default
-                if (Object.prototype.hasOwnProperty.call(planObj, 'sessions_left')) {
-                    sessionsLeft = planObj.sessions_left;
+                if (planInput.sessions_left !== undefined && planInput.sessions_left !== null) {
+                    sessionsLeft = planInput.sessions_left;
                 } else if (plan.num_of_sessions != null) {
                     sessionsLeft = plan.num_of_sessions;
                 }
 
+                // Create membership
                 const membership = await tx.membership.create({
                     data: {
                         member_id: input.member_id,
                         gym_id: input.gym_id,
                         start_date: startDate,
                         end_date: endDate,
-                        created_by: 'system',
+                        created_by: metadata.current_user.username,
+                        is_active: true,
+                        is_reminded: false,
                         ...(sessionsLeft !== null && { sessions_left: sessionsLeft }),
                         plan_name: plan.name,
                         plan_description: plan.description,
-                        amount_paid: plan.price,
-                    },
-                    include: {
-                        member: true,
+                        amount_paid: plan.price, // Decimal
                     },
                 });
 
+                // --- Update analytics ---
+                const amount = plan.price;
+
+                // Update total revenue
+                await this.analytics.update_gym_stats({
+                    gym_id: input.gym_id,
+                    amount,
+                }, tx as Prisma.TransactionClient);
+
+                // Update revenue for the specific month and year
+                await this.analytics.update_revenue({
+                    gym_id: input.gym_id,
+                    amount,
+                    year,
+                    month,
+                }, tx as Prisma.TransactionClient);
+
+                // Update membership count for the specific month and year
+                await this.analytics.update_membership_count({
+                    gym_id: input.gym_id,
+                    year,
+                    month,
+                }, tx as Prisma.TransactionClient);
+
+                // Audit log
                 await this.audit.createAuditEntry({
                     gym_id: input.gym_id,
                     username: metadata.current_user.username,
@@ -85,34 +117,10 @@ export class MembershipService {
                     reference_id: membership.id,
                     metadata: membership,
                     ip_address: metadata.ip_address,
-                    device_info: metadata.device_info
-                }, tx as unknown as Prisma.TransactionClient)
+                    device_info: metadata.device_info,
+                }, tx as Prisma.TransactionClient);
 
                 createdMemberships.push(membership);
-
-                // --- Update stats for analytics ---
-                const now = new Date();
-                const year = now.getFullYear();
-                const month = now.getMonth() + 1;
-
-                
-                await this.memberService.update_gym_stats({
-                    gym_id: input.gym_id,
-                    amount: plan.price.toNumber ? plan.price.toNumber() : Number(plan.price),
-                }, tx as Prisma.TransactionClient)
-
-                await this.memberService.update_revenue({
-                    gym_id: input.gym_id,
-                    amount: plan.price.toNumber ? plan.price.toNumber() : Number(plan.price),
-                    year,
-                    month,
-                }, tx as Prisma.TransactionClient);
-
-                await this.memberService.update_membership_count({
-                    gym_id: input.gym_id,
-                    year,
-                    month,
-                }, tx as Prisma.TransactionClient);
             }
 
             return {

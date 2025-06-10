@@ -74,7 +74,7 @@ model Revenue {
   gym_id    String
   year      Int
   month     Int      // 1 = Jan, 12 = Dec
-  amount    Float    // Store as number for easy calculations
+  amount    Decimal   @db.Decimal
   created_at DateTime @default(now()) @db.Timestamptz
 
   gym Gym @relation(fields: [gym_id], references: [id], onDelete: Cascade)
