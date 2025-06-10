@@ -11,7 +11,6 @@ import { getDeviceInfo } from './libs/helpers';
 export class GymlyController {
 
     private readonly logger = new Logger(GymlyController.name);
-    private filename = 'gymly.controller.ts'
     
     constructor(
         private readonly authService: AuthService,
@@ -30,13 +29,6 @@ export class GymlyController {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
-
-        this.logger.log('User login attempt', {
-            username: req.user?.username,
-            filename: this.filename,
-            user_agent,
-            ip_address,
-        });
 
         const result = await this.authService.login(req.user);
 
