@@ -66,7 +66,7 @@ export const gym_staffs: GymStaff[] = [
 ]
 
 export const limits: Limit[] = [
-    {id: 1, name: 'Member Limit', value: 100},
+    {id: 1, name: 'Member Limit', value: 50},
     {id: 2, name: 'Plan Limit', value: 5},
     {id: 3, name: 'Staff Limit', value: 2},
     {id: 4, name: 'System Logs', value: 1},

@@ -23,14 +23,14 @@
                         placeholder="Search member..."
                         class="input input-bordered input-sm w-full"
                     />
-                    <span
+                    <!-- <span
                         v-if="limit"
                         class="badge badge-outline badge-sm whitespace-nowrap"
                         style="max-width: 110px; overflow: hidden; text-overflow: ellipsis;"
                     >
                         {{ members?.length || 0 }}/{{ limit.value }}
                         <span class="hidden sm:inline"> members</span>
-                    </span>
+                    </span> -->
                 </div>
                 <div v-if="isNearMemberLimit && !isMemberLimitReached" class="text-xs text-warning flex items-center gap-1 mb-2">
                     <span class="w-4 h-4 flex items-center justify-center">
