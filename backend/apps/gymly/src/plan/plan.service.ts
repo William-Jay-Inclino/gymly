@@ -33,7 +33,7 @@ export class PlanService {
         return await this.prisma.$transaction(async (tx) => {
 
             const created = await tx.plan.create({
-                data: {...createPlanInput, created_by: 'system'},
+                data: {...createPlanInput, created_by: metadata.current_user.username},
             });
 
             await this.audit.createAuditEntry({

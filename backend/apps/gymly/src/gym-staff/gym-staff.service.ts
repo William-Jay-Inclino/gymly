@@ -90,7 +90,7 @@ export class GymStaffService {
                     password: input.password, 
                     role: Role.GYM_STAFF,
                     contact_number: input.contact_number,
-                    created_by: 'system',
+                    created_by: metadata.current_user.username,
                 },
             });
     
@@ -99,7 +99,7 @@ export class GymStaffService {
                 data: {
                     user_id: user.id,
                     gym_id: input.gym_id,
-                    created_by: 'system',
+                    created_by: metadata.current_user.username,
                 },
                 include: {
                     user: true,
