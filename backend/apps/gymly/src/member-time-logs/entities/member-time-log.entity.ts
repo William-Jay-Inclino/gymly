@@ -2,6 +2,7 @@ import { ObjectType, Field } from '@nestjs/graphql';
 import { Membership } from '../../membership/entities/membership.entity';
 import { Member } from '../../member/entities/member.entity';
 import { Gym } from '../../gym/entities/gym.entity';
+import { MemberTimeLogMembership } from './member-time-log-membership.entity';
 
 
 @ObjectType()
@@ -29,5 +30,8 @@ export class MemberTimeLog {
 
     @Field(() => Gym)
     gym: Gym;
+
+    @Field(() => [MemberTimeLogMembership])
+    memberships: MemberTimeLogMembership[];
 
 }

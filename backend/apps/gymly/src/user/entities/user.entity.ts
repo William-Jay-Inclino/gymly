@@ -45,7 +45,7 @@ export class User {
 
     // relations
     
-    @Field(() => [Gym])      
-    gyms: Gym[];
+    @Field(() => Gym)      
+    gyms: Gym;
 
 }

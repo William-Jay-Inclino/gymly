@@ -37,7 +37,7 @@ export class MembershipResolver {
                 input
             });
 
-            return this.membershipService.create_membership({
+            const x = await this.membershipService.create_membership({
                 input,
                 metadata: {
                     ip_address,
@@ -45,6 +45,11 @@ export class MembershipResolver {
                     current_user: user
                 }
             });
+
+            this.logger.log(x.msg);
+
+            return x;
+
         } catch (error) {
             this.logger.error('Error in creating membership', error);
         }
@@ -108,11 +113,16 @@ export class MembershipResolver {
                 is_reminded
             });
 
-            return this.membershipService.set_is_reminded(membership_id, is_reminded, {
+            const x = await this.membershipService.set_is_reminded(membership_id, is_reminded, {
                 ip_address,
                 device_info: getDeviceInfo(user_agent),
                 current_user: user
             });
+
+            this.logger.log(x.msg);
+
+            return x
+
         } catch (error) {
             this.logger.error('Error in setting membership reminder', error);
         }

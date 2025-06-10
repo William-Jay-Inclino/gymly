@@ -78,6 +78,11 @@ export type Plan = $Result.DefaultSelection<Prisma.$PlanPayload>
  * 
  */
 export type MemberTimeLogs = $Result.DefaultSelection<Prisma.$MemberTimeLogsPayload>
+/**
+ * Model MemberTimeLogsMembership
+ * 
+ */
+export type MemberTimeLogsMembership = $Result.DefaultSelection<Prisma.$MemberTimeLogsMembershipPayload>
 
 /**
  * Enums
@@ -351,6 +356,16 @@ export class PrismaClient<
     * ```
     */
   get memberTimeLogs(): Prisma.MemberTimeLogsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.memberTimeLogsMembership`: Exposes CRUD operations for the **MemberTimeLogsMembership** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MemberTimeLogsMemberships
+    * const memberTimeLogsMemberships = await prisma.memberTimeLogsMembership.findMany()
+    * ```
+    */
+  get memberTimeLogsMembership(): Prisma.MemberTimeLogsMembershipDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -803,7 +818,8 @@ export namespace Prisma {
     GymStaff: 'GymStaff',
     Membership: 'Membership',
     Plan: 'Plan',
-    MemberTimeLogs: 'MemberTimeLogs'
+    MemberTimeLogs: 'MemberTimeLogs',
+    MemberTimeLogsMembership: 'MemberTimeLogsMembership'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -822,7 +838,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "audit" | "limit" | "gymLimit" | "gymStats" | "revenue" | "membershipCount" | "user" | "member" | "gym" | "gymStaff" | "membership" | "plan" | "memberTimeLogs"
+      modelProps: "audit" | "limit" | "gymLimit" | "gymStats" | "revenue" | "membershipCount" | "user" | "member" | "gym" | "gymStaff" | "membership" | "plan" | "memberTimeLogs" | "memberTimeLogsMembership"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1788,6 +1804,80 @@ export namespace Prisma {
           }
         }
       }
+      MemberTimeLogsMembership: {
+        payload: Prisma.$MemberTimeLogsMembershipPayload<ExtArgs>
+        fields: Prisma.MemberTimeLogsMembershipFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MemberTimeLogsMembershipFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberTimeLogsMembershipPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MemberTimeLogsMembershipFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberTimeLogsMembershipPayload>
+          }
+          findFirst: {
+            args: Prisma.MemberTimeLogsMembershipFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberTimeLogsMembershipPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MemberTimeLogsMembershipFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberTimeLogsMembershipPayload>
+          }
+          findMany: {
+            args: Prisma.MemberTimeLogsMembershipFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberTimeLogsMembershipPayload>[]
+          }
+          create: {
+            args: Prisma.MemberTimeLogsMembershipCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberTimeLogsMembershipPayload>
+          }
+          createMany: {
+            args: Prisma.MemberTimeLogsMembershipCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MemberTimeLogsMembershipCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberTimeLogsMembershipPayload>[]
+          }
+          delete: {
+            args: Prisma.MemberTimeLogsMembershipDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberTimeLogsMembershipPayload>
+          }
+          update: {
+            args: Prisma.MemberTimeLogsMembershipUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberTimeLogsMembershipPayload>
+          }
+          deleteMany: {
+            args: Prisma.MemberTimeLogsMembershipDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MemberTimeLogsMembershipUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MemberTimeLogsMembershipUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberTimeLogsMembershipPayload>[]
+          }
+          upsert: {
+            args: Prisma.MemberTimeLogsMembershipUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemberTimeLogsMembershipPayload>
+          }
+          aggregate: {
+            args: Prisma.MemberTimeLogsMembershipAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMemberTimeLogsMembership>
+          }
+          groupBy: {
+            args: Prisma.MemberTimeLogsMembershipGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MemberTimeLogsMembershipGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MemberTimeLogsMembershipCountArgs<ExtArgs>
+            result: $Utils.Optional<MemberTimeLogsMembershipCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1885,6 +1975,7 @@ export namespace Prisma {
     membership?: MembershipOmit
     plan?: PlanOmit
     memberTimeLogs?: MemberTimeLogsOmit
+    memberTimeLogsMembership?: MemberTimeLogsMembershipOmit
   }
 
   /* Types for Logging */
@@ -2002,37 +2093,6 @@ export namespace Prisma {
    */
   export type LimitCountOutputTypeCountSettingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: GymLimitWhereInput
-  }
-
-
-  /**
-   * Count Type UserCountOutputType
-   */
-
-  export type UserCountOutputType = {
-    gyms: number
-  }
-
-  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    gyms?: boolean | UserCountOutputTypeCountGymsArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UserCountOutputType
-     */
-    select?: UserCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountGymsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: GymWhereInput
   }
 
 
@@ -2158,6 +2218,68 @@ export namespace Prisma {
    */
   export type GymCountOutputTypeCountMembership_countsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MembershipCountWhereInput
+  }
+
+
+  /**
+   * Count Type MembershipCountOutputType
+   */
+
+  export type MembershipCountOutputType = {
+    attendance_logs: number
+  }
+
+  export type MembershipCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    attendance_logs?: boolean | MembershipCountOutputTypeCountAttendance_logsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * MembershipCountOutputType without action
+   */
+  export type MembershipCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MembershipCountOutputType
+     */
+    select?: MembershipCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * MembershipCountOutputType without action
+   */
+  export type MembershipCountOutputTypeCountAttendance_logsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MemberTimeLogsMembershipWhereInput
+  }
+
+
+  /**
+   * Count Type MemberTimeLogsCountOutputType
+   */
+
+  export type MemberTimeLogsCountOutputType = {
+    memberships: number
+  }
+
+  export type MemberTimeLogsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    memberships?: boolean | MemberTimeLogsCountOutputTypeCountMembershipsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * MemberTimeLogsCountOutputType without action
+   */
+  export type MemberTimeLogsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberTimeLogsCountOutputType
+     */
+    select?: MemberTimeLogsCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * MemberTimeLogsCountOutputType without action
+   */
+  export type MemberTimeLogsCountOutputTypeCountMembershipsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MemberTimeLogsMembershipWhereInput
   }
 
 
@@ -9015,9 +9137,8 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: boolean
     created_by?: boolean
-    gyms?: boolean | User$gymsArgs<ExtArgs>
+    gym?: boolean | User$gymArgs<ExtArgs>
     gym_staff?: boolean | User$gym_staffArgs<ExtArgs>
-    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9061,9 +9182,8 @@ export namespace Prisma {
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "firstname" | "lastname" | "password" | "role" | "contact_number" | "is_active" | "created_at" | "created_by", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    gyms?: boolean | User$gymsArgs<ExtArgs>
+    gym?: boolean | User$gymArgs<ExtArgs>
     gym_staff?: boolean | User$gym_staffArgs<ExtArgs>
-    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
   export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -9071,7 +9191,7 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      gyms: Prisma.$GymPayload<ExtArgs>[]
+      gym: Prisma.$GymPayload<ExtArgs> | null
       gym_staff: Prisma.$GymStaffPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -9479,7 +9599,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    gyms<T extends User$gymsArgs<ExtArgs> = {}>(args?: Subset<T, User$gymsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GymPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    gym<T extends User$gymArgs<ExtArgs> = {}>(args?: Subset<T, User$gymArgs<ExtArgs>>): Prisma__GymClient<$Result.GetResult<Prisma.$GymPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     gym_staff<T extends User$gym_staffArgs<ExtArgs> = {}>(args?: Subset<T, User$gym_staffArgs<ExtArgs>>): Prisma__GymStaffClient<$Result.GetResult<Prisma.$GymStaffPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -9908,9 +10028,9 @@ export namespace Prisma {
   }
 
   /**
-   * User.gyms
+   * User.gym
    */
-  export type User$gymsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$gymArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Gym
      */
@@ -9924,11 +10044,6 @@ export namespace Prisma {
      */
     include?: GymInclude<ExtArgs> | null
     where?: GymWhereInput
-    orderBy?: GymOrderByWithRelationInput | GymOrderByWithRelationInput[]
-    cursor?: GymWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: GymScalarFieldEnum | GymScalarFieldEnum[]
   }
 
   /**
@@ -13740,6 +13855,8 @@ export namespace Prisma {
     created_by?: boolean
     member?: boolean | MemberDefaultArgs<ExtArgs>
     gym?: boolean | GymDefaultArgs<ExtArgs>
+    attendance_logs?: boolean | Membership$attendance_logsArgs<ExtArgs>
+    _count?: boolean | MembershipCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["membership"]>
 
   export type MembershipSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -13798,6 +13915,8 @@ export namespace Prisma {
   export type MembershipInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     member?: boolean | MemberDefaultArgs<ExtArgs>
     gym?: boolean | GymDefaultArgs<ExtArgs>
+    attendance_logs?: boolean | Membership$attendance_logsArgs<ExtArgs>
+    _count?: boolean | MembershipCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type MembershipIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     member?: boolean | MemberDefaultArgs<ExtArgs>
@@ -13813,6 +13932,7 @@ export namespace Prisma {
     objects: {
       member: Prisma.$MemberPayload<ExtArgs>
       gym: Prisma.$GymPayload<ExtArgs>
+      attendance_logs: Prisma.$MemberTimeLogsMembershipPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -14224,6 +14344,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     member<T extends MemberDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MemberDefaultArgs<ExtArgs>>): Prisma__MemberClient<$Result.GetResult<Prisma.$MemberPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     gym<T extends GymDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GymDefaultArgs<ExtArgs>>): Prisma__GymClient<$Result.GetResult<Prisma.$GymPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    attendance_logs<T extends Membership$attendance_logsArgs<ExtArgs> = {}>(args?: Subset<T, Membership$attendance_logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberTimeLogsMembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -14659,6 +14780,30 @@ export namespace Prisma {
      * Limit how many Memberships to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Membership.attendance_logs
+   */
+  export type Membership$attendance_logsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberTimeLogsMembership
+     */
+    select?: MemberTimeLogsMembershipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberTimeLogsMembership
+     */
+    omit?: MemberTimeLogsMembershipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberTimeLogsMembershipInclude<ExtArgs> | null
+    where?: MemberTimeLogsMembershipWhereInput
+    orderBy?: MemberTimeLogsMembershipOrderByWithRelationInput | MemberTimeLogsMembershipOrderByWithRelationInput[]
+    cursor?: MemberTimeLogsMembershipWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MemberTimeLogsMembershipScalarFieldEnum | MemberTimeLogsMembershipScalarFieldEnum[]
   }
 
   /**
@@ -15969,6 +16114,8 @@ export namespace Prisma {
     recorded_by?: boolean
     member?: boolean | MemberDefaultArgs<ExtArgs>
     gym?: boolean | GymDefaultArgs<ExtArgs>
+    memberships?: boolean | MemberTimeLogs$membershipsArgs<ExtArgs>
+    _count?: boolean | MemberTimeLogsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["memberTimeLogs"]>
 
   export type MemberTimeLogsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -16003,6 +16150,8 @@ export namespace Prisma {
   export type MemberTimeLogsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     member?: boolean | MemberDefaultArgs<ExtArgs>
     gym?: boolean | GymDefaultArgs<ExtArgs>
+    memberships?: boolean | MemberTimeLogs$membershipsArgs<ExtArgs>
+    _count?: boolean | MemberTimeLogsCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type MemberTimeLogsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     member?: boolean | MemberDefaultArgs<ExtArgs>
@@ -16018,6 +16167,7 @@ export namespace Prisma {
     objects: {
       member: Prisma.$MemberPayload<ExtArgs>
       gym: Prisma.$GymPayload<ExtArgs>
+      memberships: Prisma.$MemberTimeLogsMembershipPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -16421,6 +16571,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     member<T extends MemberDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MemberDefaultArgs<ExtArgs>>): Prisma__MemberClient<$Result.GetResult<Prisma.$MemberPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     gym<T extends GymDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GymDefaultArgs<ExtArgs>>): Prisma__GymClient<$Result.GetResult<Prisma.$GymPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    memberships<T extends MemberTimeLogs$membershipsArgs<ExtArgs> = {}>(args?: Subset<T, MemberTimeLogs$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberTimeLogsMembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16851,6 +17002,30 @@ export namespace Prisma {
   }
 
   /**
+   * MemberTimeLogs.memberships
+   */
+  export type MemberTimeLogs$membershipsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberTimeLogsMembership
+     */
+    select?: MemberTimeLogsMembershipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberTimeLogsMembership
+     */
+    omit?: MemberTimeLogsMembershipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberTimeLogsMembershipInclude<ExtArgs> | null
+    where?: MemberTimeLogsMembershipWhereInput
+    orderBy?: MemberTimeLogsMembershipOrderByWithRelationInput | MemberTimeLogsMembershipOrderByWithRelationInput[]
+    cursor?: MemberTimeLogsMembershipWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MemberTimeLogsMembershipScalarFieldEnum | MemberTimeLogsMembershipScalarFieldEnum[]
+  }
+
+  /**
    * MemberTimeLogs without action
    */
   export type MemberTimeLogsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -16866,6 +17041,1084 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: MemberTimeLogsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MemberTimeLogsMembership
+   */
+
+  export type AggregateMemberTimeLogsMembership = {
+    _count: MemberTimeLogsMembershipCountAggregateOutputType | null
+    _avg: MemberTimeLogsMembershipAvgAggregateOutputType | null
+    _sum: MemberTimeLogsMembershipSumAggregateOutputType | null
+    _min: MemberTimeLogsMembershipMinAggregateOutputType | null
+    _max: MemberTimeLogsMembershipMaxAggregateOutputType | null
+  }
+
+  export type MemberTimeLogsMembershipAvgAggregateOutputType = {
+    id: number | null
+    member_time_log_id: number | null
+  }
+
+  export type MemberTimeLogsMembershipSumAggregateOutputType = {
+    id: number | null
+    member_time_log_id: number | null
+  }
+
+  export type MemberTimeLogsMembershipMinAggregateOutputType = {
+    id: number | null
+    member_time_log_id: number | null
+    membership_id: string | null
+  }
+
+  export type MemberTimeLogsMembershipMaxAggregateOutputType = {
+    id: number | null
+    member_time_log_id: number | null
+    membership_id: string | null
+  }
+
+  export type MemberTimeLogsMembershipCountAggregateOutputType = {
+    id: number
+    member_time_log_id: number
+    membership_id: number
+    _all: number
+  }
+
+
+  export type MemberTimeLogsMembershipAvgAggregateInputType = {
+    id?: true
+    member_time_log_id?: true
+  }
+
+  export type MemberTimeLogsMembershipSumAggregateInputType = {
+    id?: true
+    member_time_log_id?: true
+  }
+
+  export type MemberTimeLogsMembershipMinAggregateInputType = {
+    id?: true
+    member_time_log_id?: true
+    membership_id?: true
+  }
+
+  export type MemberTimeLogsMembershipMaxAggregateInputType = {
+    id?: true
+    member_time_log_id?: true
+    membership_id?: true
+  }
+
+  export type MemberTimeLogsMembershipCountAggregateInputType = {
+    id?: true
+    member_time_log_id?: true
+    membership_id?: true
+    _all?: true
+  }
+
+  export type MemberTimeLogsMembershipAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MemberTimeLogsMembership to aggregate.
+     */
+    where?: MemberTimeLogsMembershipWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MemberTimeLogsMemberships to fetch.
+     */
+    orderBy?: MemberTimeLogsMembershipOrderByWithRelationInput | MemberTimeLogsMembershipOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MemberTimeLogsMembershipWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MemberTimeLogsMemberships from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MemberTimeLogsMemberships.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MemberTimeLogsMemberships
+    **/
+    _count?: true | MemberTimeLogsMembershipCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MemberTimeLogsMembershipAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MemberTimeLogsMembershipSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MemberTimeLogsMembershipMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MemberTimeLogsMembershipMaxAggregateInputType
+  }
+
+  export type GetMemberTimeLogsMembershipAggregateType<T extends MemberTimeLogsMembershipAggregateArgs> = {
+        [P in keyof T & keyof AggregateMemberTimeLogsMembership]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMemberTimeLogsMembership[P]>
+      : GetScalarType<T[P], AggregateMemberTimeLogsMembership[P]>
+  }
+
+
+
+
+  export type MemberTimeLogsMembershipGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MemberTimeLogsMembershipWhereInput
+    orderBy?: MemberTimeLogsMembershipOrderByWithAggregationInput | MemberTimeLogsMembershipOrderByWithAggregationInput[]
+    by: MemberTimeLogsMembershipScalarFieldEnum[] | MemberTimeLogsMembershipScalarFieldEnum
+    having?: MemberTimeLogsMembershipScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MemberTimeLogsMembershipCountAggregateInputType | true
+    _avg?: MemberTimeLogsMembershipAvgAggregateInputType
+    _sum?: MemberTimeLogsMembershipSumAggregateInputType
+    _min?: MemberTimeLogsMembershipMinAggregateInputType
+    _max?: MemberTimeLogsMembershipMaxAggregateInputType
+  }
+
+  export type MemberTimeLogsMembershipGroupByOutputType = {
+    id: number
+    member_time_log_id: number
+    membership_id: string
+    _count: MemberTimeLogsMembershipCountAggregateOutputType | null
+    _avg: MemberTimeLogsMembershipAvgAggregateOutputType | null
+    _sum: MemberTimeLogsMembershipSumAggregateOutputType | null
+    _min: MemberTimeLogsMembershipMinAggregateOutputType | null
+    _max: MemberTimeLogsMembershipMaxAggregateOutputType | null
+  }
+
+  type GetMemberTimeLogsMembershipGroupByPayload<T extends MemberTimeLogsMembershipGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MemberTimeLogsMembershipGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MemberTimeLogsMembershipGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MemberTimeLogsMembershipGroupByOutputType[P]>
+            : GetScalarType<T[P], MemberTimeLogsMembershipGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MemberTimeLogsMembershipSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    member_time_log_id?: boolean
+    membership_id?: boolean
+    member_time_log?: boolean | MemberTimeLogsDefaultArgs<ExtArgs>
+    membership?: boolean | MembershipDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["memberTimeLogsMembership"]>
+
+  export type MemberTimeLogsMembershipSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    member_time_log_id?: boolean
+    membership_id?: boolean
+    member_time_log?: boolean | MemberTimeLogsDefaultArgs<ExtArgs>
+    membership?: boolean | MembershipDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["memberTimeLogsMembership"]>
+
+  export type MemberTimeLogsMembershipSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    member_time_log_id?: boolean
+    membership_id?: boolean
+    member_time_log?: boolean | MemberTimeLogsDefaultArgs<ExtArgs>
+    membership?: boolean | MembershipDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["memberTimeLogsMembership"]>
+
+  export type MemberTimeLogsMembershipSelectScalar = {
+    id?: boolean
+    member_time_log_id?: boolean
+    membership_id?: boolean
+  }
+
+  export type MemberTimeLogsMembershipOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "member_time_log_id" | "membership_id", ExtArgs["result"]["memberTimeLogsMembership"]>
+  export type MemberTimeLogsMembershipInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    member_time_log?: boolean | MemberTimeLogsDefaultArgs<ExtArgs>
+    membership?: boolean | MembershipDefaultArgs<ExtArgs>
+  }
+  export type MemberTimeLogsMembershipIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    member_time_log?: boolean | MemberTimeLogsDefaultArgs<ExtArgs>
+    membership?: boolean | MembershipDefaultArgs<ExtArgs>
+  }
+  export type MemberTimeLogsMembershipIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    member_time_log?: boolean | MemberTimeLogsDefaultArgs<ExtArgs>
+    membership?: boolean | MembershipDefaultArgs<ExtArgs>
+  }
+
+  export type $MemberTimeLogsMembershipPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MemberTimeLogsMembership"
+    objects: {
+      member_time_log: Prisma.$MemberTimeLogsPayload<ExtArgs>
+      membership: Prisma.$MembershipPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      member_time_log_id: number
+      membership_id: string
+    }, ExtArgs["result"]["memberTimeLogsMembership"]>
+    composites: {}
+  }
+
+  type MemberTimeLogsMembershipGetPayload<S extends boolean | null | undefined | MemberTimeLogsMembershipDefaultArgs> = $Result.GetResult<Prisma.$MemberTimeLogsMembershipPayload, S>
+
+  type MemberTimeLogsMembershipCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MemberTimeLogsMembershipFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MemberTimeLogsMembershipCountAggregateInputType | true
+    }
+
+  export interface MemberTimeLogsMembershipDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MemberTimeLogsMembership'], meta: { name: 'MemberTimeLogsMembership' } }
+    /**
+     * Find zero or one MemberTimeLogsMembership that matches the filter.
+     * @param {MemberTimeLogsMembershipFindUniqueArgs} args - Arguments to find a MemberTimeLogsMembership
+     * @example
+     * // Get one MemberTimeLogsMembership
+     * const memberTimeLogsMembership = await prisma.memberTimeLogsMembership.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MemberTimeLogsMembershipFindUniqueArgs>(args: SelectSubset<T, MemberTimeLogsMembershipFindUniqueArgs<ExtArgs>>): Prisma__MemberTimeLogsMembershipClient<$Result.GetResult<Prisma.$MemberTimeLogsMembershipPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MemberTimeLogsMembership that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MemberTimeLogsMembershipFindUniqueOrThrowArgs} args - Arguments to find a MemberTimeLogsMembership
+     * @example
+     * // Get one MemberTimeLogsMembership
+     * const memberTimeLogsMembership = await prisma.memberTimeLogsMembership.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MemberTimeLogsMembershipFindUniqueOrThrowArgs>(args: SelectSubset<T, MemberTimeLogsMembershipFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MemberTimeLogsMembershipClient<$Result.GetResult<Prisma.$MemberTimeLogsMembershipPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MemberTimeLogsMembership that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberTimeLogsMembershipFindFirstArgs} args - Arguments to find a MemberTimeLogsMembership
+     * @example
+     * // Get one MemberTimeLogsMembership
+     * const memberTimeLogsMembership = await prisma.memberTimeLogsMembership.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MemberTimeLogsMembershipFindFirstArgs>(args?: SelectSubset<T, MemberTimeLogsMembershipFindFirstArgs<ExtArgs>>): Prisma__MemberTimeLogsMembershipClient<$Result.GetResult<Prisma.$MemberTimeLogsMembershipPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MemberTimeLogsMembership that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberTimeLogsMembershipFindFirstOrThrowArgs} args - Arguments to find a MemberTimeLogsMembership
+     * @example
+     * // Get one MemberTimeLogsMembership
+     * const memberTimeLogsMembership = await prisma.memberTimeLogsMembership.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MemberTimeLogsMembershipFindFirstOrThrowArgs>(args?: SelectSubset<T, MemberTimeLogsMembershipFindFirstOrThrowArgs<ExtArgs>>): Prisma__MemberTimeLogsMembershipClient<$Result.GetResult<Prisma.$MemberTimeLogsMembershipPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MemberTimeLogsMemberships that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberTimeLogsMembershipFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MemberTimeLogsMemberships
+     * const memberTimeLogsMemberships = await prisma.memberTimeLogsMembership.findMany()
+     * 
+     * // Get first 10 MemberTimeLogsMemberships
+     * const memberTimeLogsMemberships = await prisma.memberTimeLogsMembership.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const memberTimeLogsMembershipWithIdOnly = await prisma.memberTimeLogsMembership.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MemberTimeLogsMembershipFindManyArgs>(args?: SelectSubset<T, MemberTimeLogsMembershipFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberTimeLogsMembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MemberTimeLogsMembership.
+     * @param {MemberTimeLogsMembershipCreateArgs} args - Arguments to create a MemberTimeLogsMembership.
+     * @example
+     * // Create one MemberTimeLogsMembership
+     * const MemberTimeLogsMembership = await prisma.memberTimeLogsMembership.create({
+     *   data: {
+     *     // ... data to create a MemberTimeLogsMembership
+     *   }
+     * })
+     * 
+     */
+    create<T extends MemberTimeLogsMembershipCreateArgs>(args: SelectSubset<T, MemberTimeLogsMembershipCreateArgs<ExtArgs>>): Prisma__MemberTimeLogsMembershipClient<$Result.GetResult<Prisma.$MemberTimeLogsMembershipPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MemberTimeLogsMemberships.
+     * @param {MemberTimeLogsMembershipCreateManyArgs} args - Arguments to create many MemberTimeLogsMemberships.
+     * @example
+     * // Create many MemberTimeLogsMemberships
+     * const memberTimeLogsMembership = await prisma.memberTimeLogsMembership.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MemberTimeLogsMembershipCreateManyArgs>(args?: SelectSubset<T, MemberTimeLogsMembershipCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MemberTimeLogsMemberships and returns the data saved in the database.
+     * @param {MemberTimeLogsMembershipCreateManyAndReturnArgs} args - Arguments to create many MemberTimeLogsMemberships.
+     * @example
+     * // Create many MemberTimeLogsMemberships
+     * const memberTimeLogsMembership = await prisma.memberTimeLogsMembership.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MemberTimeLogsMemberships and only return the `id`
+     * const memberTimeLogsMembershipWithIdOnly = await prisma.memberTimeLogsMembership.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MemberTimeLogsMembershipCreateManyAndReturnArgs>(args?: SelectSubset<T, MemberTimeLogsMembershipCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberTimeLogsMembershipPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MemberTimeLogsMembership.
+     * @param {MemberTimeLogsMembershipDeleteArgs} args - Arguments to delete one MemberTimeLogsMembership.
+     * @example
+     * // Delete one MemberTimeLogsMembership
+     * const MemberTimeLogsMembership = await prisma.memberTimeLogsMembership.delete({
+     *   where: {
+     *     // ... filter to delete one MemberTimeLogsMembership
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MemberTimeLogsMembershipDeleteArgs>(args: SelectSubset<T, MemberTimeLogsMembershipDeleteArgs<ExtArgs>>): Prisma__MemberTimeLogsMembershipClient<$Result.GetResult<Prisma.$MemberTimeLogsMembershipPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MemberTimeLogsMembership.
+     * @param {MemberTimeLogsMembershipUpdateArgs} args - Arguments to update one MemberTimeLogsMembership.
+     * @example
+     * // Update one MemberTimeLogsMembership
+     * const memberTimeLogsMembership = await prisma.memberTimeLogsMembership.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MemberTimeLogsMembershipUpdateArgs>(args: SelectSubset<T, MemberTimeLogsMembershipUpdateArgs<ExtArgs>>): Prisma__MemberTimeLogsMembershipClient<$Result.GetResult<Prisma.$MemberTimeLogsMembershipPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MemberTimeLogsMemberships.
+     * @param {MemberTimeLogsMembershipDeleteManyArgs} args - Arguments to filter MemberTimeLogsMemberships to delete.
+     * @example
+     * // Delete a few MemberTimeLogsMemberships
+     * const { count } = await prisma.memberTimeLogsMembership.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MemberTimeLogsMembershipDeleteManyArgs>(args?: SelectSubset<T, MemberTimeLogsMembershipDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MemberTimeLogsMemberships.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberTimeLogsMembershipUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MemberTimeLogsMemberships
+     * const memberTimeLogsMembership = await prisma.memberTimeLogsMembership.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MemberTimeLogsMembershipUpdateManyArgs>(args: SelectSubset<T, MemberTimeLogsMembershipUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MemberTimeLogsMemberships and returns the data updated in the database.
+     * @param {MemberTimeLogsMembershipUpdateManyAndReturnArgs} args - Arguments to update many MemberTimeLogsMemberships.
+     * @example
+     * // Update many MemberTimeLogsMemberships
+     * const memberTimeLogsMembership = await prisma.memberTimeLogsMembership.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MemberTimeLogsMemberships and only return the `id`
+     * const memberTimeLogsMembershipWithIdOnly = await prisma.memberTimeLogsMembership.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MemberTimeLogsMembershipUpdateManyAndReturnArgs>(args: SelectSubset<T, MemberTimeLogsMembershipUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemberTimeLogsMembershipPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MemberTimeLogsMembership.
+     * @param {MemberTimeLogsMembershipUpsertArgs} args - Arguments to update or create a MemberTimeLogsMembership.
+     * @example
+     * // Update or create a MemberTimeLogsMembership
+     * const memberTimeLogsMembership = await prisma.memberTimeLogsMembership.upsert({
+     *   create: {
+     *     // ... data to create a MemberTimeLogsMembership
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MemberTimeLogsMembership we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MemberTimeLogsMembershipUpsertArgs>(args: SelectSubset<T, MemberTimeLogsMembershipUpsertArgs<ExtArgs>>): Prisma__MemberTimeLogsMembershipClient<$Result.GetResult<Prisma.$MemberTimeLogsMembershipPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MemberTimeLogsMemberships.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberTimeLogsMembershipCountArgs} args - Arguments to filter MemberTimeLogsMemberships to count.
+     * @example
+     * // Count the number of MemberTimeLogsMemberships
+     * const count = await prisma.memberTimeLogsMembership.count({
+     *   where: {
+     *     // ... the filter for the MemberTimeLogsMemberships we want to count
+     *   }
+     * })
+    **/
+    count<T extends MemberTimeLogsMembershipCountArgs>(
+      args?: Subset<T, MemberTimeLogsMembershipCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MemberTimeLogsMembershipCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MemberTimeLogsMembership.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberTimeLogsMembershipAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MemberTimeLogsMembershipAggregateArgs>(args: Subset<T, MemberTimeLogsMembershipAggregateArgs>): Prisma.PrismaPromise<GetMemberTimeLogsMembershipAggregateType<T>>
+
+    /**
+     * Group by MemberTimeLogsMembership.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemberTimeLogsMembershipGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MemberTimeLogsMembershipGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MemberTimeLogsMembershipGroupByArgs['orderBy'] }
+        : { orderBy?: MemberTimeLogsMembershipGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MemberTimeLogsMembershipGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMemberTimeLogsMembershipGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MemberTimeLogsMembership model
+   */
+  readonly fields: MemberTimeLogsMembershipFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MemberTimeLogsMembership.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MemberTimeLogsMembershipClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    member_time_log<T extends MemberTimeLogsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MemberTimeLogsDefaultArgs<ExtArgs>>): Prisma__MemberTimeLogsClient<$Result.GetResult<Prisma.$MemberTimeLogsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    membership<T extends MembershipDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MembershipDefaultArgs<ExtArgs>>): Prisma__MembershipClient<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MemberTimeLogsMembership model
+   */
+  interface MemberTimeLogsMembershipFieldRefs {
+    readonly id: FieldRef<"MemberTimeLogsMembership", 'Int'>
+    readonly member_time_log_id: FieldRef<"MemberTimeLogsMembership", 'Int'>
+    readonly membership_id: FieldRef<"MemberTimeLogsMembership", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MemberTimeLogsMembership findUnique
+   */
+  export type MemberTimeLogsMembershipFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberTimeLogsMembership
+     */
+    select?: MemberTimeLogsMembershipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberTimeLogsMembership
+     */
+    omit?: MemberTimeLogsMembershipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberTimeLogsMembershipInclude<ExtArgs> | null
+    /**
+     * Filter, which MemberTimeLogsMembership to fetch.
+     */
+    where: MemberTimeLogsMembershipWhereUniqueInput
+  }
+
+  /**
+   * MemberTimeLogsMembership findUniqueOrThrow
+   */
+  export type MemberTimeLogsMembershipFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberTimeLogsMembership
+     */
+    select?: MemberTimeLogsMembershipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberTimeLogsMembership
+     */
+    omit?: MemberTimeLogsMembershipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberTimeLogsMembershipInclude<ExtArgs> | null
+    /**
+     * Filter, which MemberTimeLogsMembership to fetch.
+     */
+    where: MemberTimeLogsMembershipWhereUniqueInput
+  }
+
+  /**
+   * MemberTimeLogsMembership findFirst
+   */
+  export type MemberTimeLogsMembershipFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberTimeLogsMembership
+     */
+    select?: MemberTimeLogsMembershipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberTimeLogsMembership
+     */
+    omit?: MemberTimeLogsMembershipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberTimeLogsMembershipInclude<ExtArgs> | null
+    /**
+     * Filter, which MemberTimeLogsMembership to fetch.
+     */
+    where?: MemberTimeLogsMembershipWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MemberTimeLogsMemberships to fetch.
+     */
+    orderBy?: MemberTimeLogsMembershipOrderByWithRelationInput | MemberTimeLogsMembershipOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MemberTimeLogsMemberships.
+     */
+    cursor?: MemberTimeLogsMembershipWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MemberTimeLogsMemberships from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MemberTimeLogsMemberships.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MemberTimeLogsMemberships.
+     */
+    distinct?: MemberTimeLogsMembershipScalarFieldEnum | MemberTimeLogsMembershipScalarFieldEnum[]
+  }
+
+  /**
+   * MemberTimeLogsMembership findFirstOrThrow
+   */
+  export type MemberTimeLogsMembershipFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberTimeLogsMembership
+     */
+    select?: MemberTimeLogsMembershipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberTimeLogsMembership
+     */
+    omit?: MemberTimeLogsMembershipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberTimeLogsMembershipInclude<ExtArgs> | null
+    /**
+     * Filter, which MemberTimeLogsMembership to fetch.
+     */
+    where?: MemberTimeLogsMembershipWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MemberTimeLogsMemberships to fetch.
+     */
+    orderBy?: MemberTimeLogsMembershipOrderByWithRelationInput | MemberTimeLogsMembershipOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MemberTimeLogsMemberships.
+     */
+    cursor?: MemberTimeLogsMembershipWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MemberTimeLogsMemberships from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MemberTimeLogsMemberships.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MemberTimeLogsMemberships.
+     */
+    distinct?: MemberTimeLogsMembershipScalarFieldEnum | MemberTimeLogsMembershipScalarFieldEnum[]
+  }
+
+  /**
+   * MemberTimeLogsMembership findMany
+   */
+  export type MemberTimeLogsMembershipFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberTimeLogsMembership
+     */
+    select?: MemberTimeLogsMembershipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberTimeLogsMembership
+     */
+    omit?: MemberTimeLogsMembershipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberTimeLogsMembershipInclude<ExtArgs> | null
+    /**
+     * Filter, which MemberTimeLogsMemberships to fetch.
+     */
+    where?: MemberTimeLogsMembershipWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MemberTimeLogsMemberships to fetch.
+     */
+    orderBy?: MemberTimeLogsMembershipOrderByWithRelationInput | MemberTimeLogsMembershipOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MemberTimeLogsMemberships.
+     */
+    cursor?: MemberTimeLogsMembershipWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MemberTimeLogsMemberships from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MemberTimeLogsMemberships.
+     */
+    skip?: number
+    distinct?: MemberTimeLogsMembershipScalarFieldEnum | MemberTimeLogsMembershipScalarFieldEnum[]
+  }
+
+  /**
+   * MemberTimeLogsMembership create
+   */
+  export type MemberTimeLogsMembershipCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberTimeLogsMembership
+     */
+    select?: MemberTimeLogsMembershipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberTimeLogsMembership
+     */
+    omit?: MemberTimeLogsMembershipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberTimeLogsMembershipInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MemberTimeLogsMembership.
+     */
+    data: XOR<MemberTimeLogsMembershipCreateInput, MemberTimeLogsMembershipUncheckedCreateInput>
+  }
+
+  /**
+   * MemberTimeLogsMembership createMany
+   */
+  export type MemberTimeLogsMembershipCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MemberTimeLogsMemberships.
+     */
+    data: MemberTimeLogsMembershipCreateManyInput | MemberTimeLogsMembershipCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MemberTimeLogsMembership createManyAndReturn
+   */
+  export type MemberTimeLogsMembershipCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberTimeLogsMembership
+     */
+    select?: MemberTimeLogsMembershipSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberTimeLogsMembership
+     */
+    omit?: MemberTimeLogsMembershipOmit<ExtArgs> | null
+    /**
+     * The data used to create many MemberTimeLogsMemberships.
+     */
+    data: MemberTimeLogsMembershipCreateManyInput | MemberTimeLogsMembershipCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberTimeLogsMembershipIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MemberTimeLogsMembership update
+   */
+  export type MemberTimeLogsMembershipUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberTimeLogsMembership
+     */
+    select?: MemberTimeLogsMembershipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberTimeLogsMembership
+     */
+    omit?: MemberTimeLogsMembershipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberTimeLogsMembershipInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MemberTimeLogsMembership.
+     */
+    data: XOR<MemberTimeLogsMembershipUpdateInput, MemberTimeLogsMembershipUncheckedUpdateInput>
+    /**
+     * Choose, which MemberTimeLogsMembership to update.
+     */
+    where: MemberTimeLogsMembershipWhereUniqueInput
+  }
+
+  /**
+   * MemberTimeLogsMembership updateMany
+   */
+  export type MemberTimeLogsMembershipUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MemberTimeLogsMemberships.
+     */
+    data: XOR<MemberTimeLogsMembershipUpdateManyMutationInput, MemberTimeLogsMembershipUncheckedUpdateManyInput>
+    /**
+     * Filter which MemberTimeLogsMemberships to update
+     */
+    where?: MemberTimeLogsMembershipWhereInput
+    /**
+     * Limit how many MemberTimeLogsMemberships to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MemberTimeLogsMembership updateManyAndReturn
+   */
+  export type MemberTimeLogsMembershipUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberTimeLogsMembership
+     */
+    select?: MemberTimeLogsMembershipSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberTimeLogsMembership
+     */
+    omit?: MemberTimeLogsMembershipOmit<ExtArgs> | null
+    /**
+     * The data used to update MemberTimeLogsMemberships.
+     */
+    data: XOR<MemberTimeLogsMembershipUpdateManyMutationInput, MemberTimeLogsMembershipUncheckedUpdateManyInput>
+    /**
+     * Filter which MemberTimeLogsMemberships to update
+     */
+    where?: MemberTimeLogsMembershipWhereInput
+    /**
+     * Limit how many MemberTimeLogsMemberships to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberTimeLogsMembershipIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MemberTimeLogsMembership upsert
+   */
+  export type MemberTimeLogsMembershipUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberTimeLogsMembership
+     */
+    select?: MemberTimeLogsMembershipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberTimeLogsMembership
+     */
+    omit?: MemberTimeLogsMembershipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberTimeLogsMembershipInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MemberTimeLogsMembership to update in case it exists.
+     */
+    where: MemberTimeLogsMembershipWhereUniqueInput
+    /**
+     * In case the MemberTimeLogsMembership found by the `where` argument doesn't exist, create a new MemberTimeLogsMembership with this data.
+     */
+    create: XOR<MemberTimeLogsMembershipCreateInput, MemberTimeLogsMembershipUncheckedCreateInput>
+    /**
+     * In case the MemberTimeLogsMembership was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MemberTimeLogsMembershipUpdateInput, MemberTimeLogsMembershipUncheckedUpdateInput>
+  }
+
+  /**
+   * MemberTimeLogsMembership delete
+   */
+  export type MemberTimeLogsMembershipDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberTimeLogsMembership
+     */
+    select?: MemberTimeLogsMembershipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberTimeLogsMembership
+     */
+    omit?: MemberTimeLogsMembershipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberTimeLogsMembershipInclude<ExtArgs> | null
+    /**
+     * Filter which MemberTimeLogsMembership to delete.
+     */
+    where: MemberTimeLogsMembershipWhereUniqueInput
+  }
+
+  /**
+   * MemberTimeLogsMembership deleteMany
+   */
+  export type MemberTimeLogsMembershipDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MemberTimeLogsMemberships to delete
+     */
+    where?: MemberTimeLogsMembershipWhereInput
+    /**
+     * Limit how many MemberTimeLogsMemberships to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MemberTimeLogsMembership without action
+   */
+  export type MemberTimeLogsMembershipDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemberTimeLogsMembership
+     */
+    select?: MemberTimeLogsMembershipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MemberTimeLogsMembership
+     */
+    omit?: MemberTimeLogsMembershipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MemberTimeLogsMembershipInclude<ExtArgs> | null
   }
 
 
@@ -17048,6 +18301,15 @@ export namespace Prisma {
   };
 
   export type MemberTimeLogsScalarFieldEnum = (typeof MemberTimeLogsScalarFieldEnum)[keyof typeof MemberTimeLogsScalarFieldEnum]
+
+
+  export const MemberTimeLogsMembershipScalarFieldEnum: {
+    id: 'id',
+    member_time_log_id: 'member_time_log_id',
+    membership_id: 'membership_id'
+  };
+
+  export type MemberTimeLogsMembershipScalarFieldEnum = (typeof MemberTimeLogsMembershipScalarFieldEnum)[keyof typeof MemberTimeLogsMembershipScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -17589,7 +18851,7 @@ export namespace Prisma {
     is_active?: BoolFilter<"User"> | boolean
     created_at?: DateTimeFilter<"User"> | Date | string
     created_by?: StringFilter<"User"> | string
-    gyms?: GymListRelationFilter
+    gym?: XOR<GymNullableScalarRelationFilter, GymWhereInput> | null
     gym_staff?: XOR<GymStaffNullableScalarRelationFilter, GymStaffWhereInput> | null
   }
 
@@ -17604,7 +18866,7 @@ export namespace Prisma {
     is_active?: SortOrder
     created_at?: SortOrder
     created_by?: SortOrder
-    gyms?: GymOrderByRelationAggregateInput
+    gym?: GymOrderByWithRelationInput
     gym_staff?: GymStaffOrderByWithRelationInput
   }
 
@@ -17622,7 +18884,7 @@ export namespace Prisma {
     is_active?: BoolFilter<"User"> | boolean
     created_at?: DateTimeFilter<"User"> | Date | string
     created_by?: StringFilter<"User"> | string
-    gyms?: GymListRelationFilter
+    gym?: XOR<GymNullableScalarRelationFilter, GymWhereInput> | null
     gym_staff?: XOR<GymStaffNullableScalarRelationFilter, GymStaffWhereInput> | null
   }, "id" | "username">
 
@@ -17762,10 +19024,10 @@ export namespace Prisma {
 
   export type GymWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    owner_id?: string
     AND?: GymWhereInput | GymWhereInput[]
     OR?: GymWhereInput[]
     NOT?: GymWhereInput | GymWhereInput[]
-    owner_id?: StringFilter<"Gym"> | string
     name?: StringFilter<"Gym"> | string
     location?: StringFilter<"Gym"> | string
     created_at?: DateTimeFilter<"Gym"> | Date | string
@@ -17779,7 +19041,7 @@ export namespace Prisma {
     audit_logs?: AuditListRelationFilter
     membership_counts?: MembershipCountListRelationFilter
     owner?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id">
+  }, "id" | "owner_id">
 
   export type GymOrderByWithAggregationInput = {
     id?: SortOrder
@@ -17884,6 +19146,7 @@ export namespace Prisma {
     created_by?: StringFilter<"Membership"> | string
     member?: XOR<MemberScalarRelationFilter, MemberWhereInput>
     gym?: XOR<GymScalarRelationFilter, GymWhereInput>
+    attendance_logs?: MemberTimeLogsMembershipListRelationFilter
   }
 
   export type MembershipOrderByWithRelationInput = {
@@ -17902,6 +19165,7 @@ export namespace Prisma {
     created_by?: SortOrder
     member?: MemberOrderByWithRelationInput
     gym?: GymOrderByWithRelationInput
+    attendance_logs?: MemberTimeLogsMembershipOrderByRelationAggregateInput
   }
 
   export type MembershipWhereUniqueInput = Prisma.AtLeast<{
@@ -17923,6 +19187,7 @@ export namespace Prisma {
     created_by?: StringFilter<"Membership"> | string
     member?: XOR<MemberScalarRelationFilter, MemberWhereInput>
     gym?: XOR<GymScalarRelationFilter, GymWhereInput>
+    attendance_logs?: MemberTimeLogsMembershipListRelationFilter
   }, "id">
 
   export type MembershipOrderByWithAggregationInput = {
@@ -18050,6 +19315,7 @@ export namespace Prisma {
     recorded_by?: StringFilter<"MemberTimeLogs"> | string
     member?: XOR<MemberScalarRelationFilter, MemberWhereInput>
     gym?: XOR<GymScalarRelationFilter, GymWhereInput>
+    memberships?: MemberTimeLogsMembershipListRelationFilter
   }
 
   export type MemberTimeLogsOrderByWithRelationInput = {
@@ -18060,6 +19326,7 @@ export namespace Prisma {
     recorded_by?: SortOrder
     member?: MemberOrderByWithRelationInput
     gym?: GymOrderByWithRelationInput
+    memberships?: MemberTimeLogsMembershipOrderByRelationAggregateInput
   }
 
   export type MemberTimeLogsWhereUniqueInput = Prisma.AtLeast<{
@@ -18073,6 +19340,7 @@ export namespace Prisma {
     recorded_by?: StringFilter<"MemberTimeLogs"> | string
     member?: XOR<MemberScalarRelationFilter, MemberWhereInput>
     gym?: XOR<GymScalarRelationFilter, GymWhereInput>
+    memberships?: MemberTimeLogsMembershipListRelationFilter
   }, "id">
 
   export type MemberTimeLogsOrderByWithAggregationInput = {
@@ -18097,6 +19365,57 @@ export namespace Prisma {
     gym_id?: StringWithAggregatesFilter<"MemberTimeLogs"> | string
     checked_in_at?: DateTimeWithAggregatesFilter<"MemberTimeLogs"> | Date | string
     recorded_by?: StringWithAggregatesFilter<"MemberTimeLogs"> | string
+  }
+
+  export type MemberTimeLogsMembershipWhereInput = {
+    AND?: MemberTimeLogsMembershipWhereInput | MemberTimeLogsMembershipWhereInput[]
+    OR?: MemberTimeLogsMembershipWhereInput[]
+    NOT?: MemberTimeLogsMembershipWhereInput | MemberTimeLogsMembershipWhereInput[]
+    id?: IntFilter<"MemberTimeLogsMembership"> | number
+    member_time_log_id?: IntFilter<"MemberTimeLogsMembership"> | number
+    membership_id?: StringFilter<"MemberTimeLogsMembership"> | string
+    member_time_log?: XOR<MemberTimeLogsScalarRelationFilter, MemberTimeLogsWhereInput>
+    membership?: XOR<MembershipScalarRelationFilter, MembershipWhereInput>
+  }
+
+  export type MemberTimeLogsMembershipOrderByWithRelationInput = {
+    id?: SortOrder
+    member_time_log_id?: SortOrder
+    membership_id?: SortOrder
+    member_time_log?: MemberTimeLogsOrderByWithRelationInput
+    membership?: MembershipOrderByWithRelationInput
+  }
+
+  export type MemberTimeLogsMembershipWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    member_time_log_id_membership_id?: MemberTimeLogsMembershipMember_time_log_idMembership_idCompoundUniqueInput
+    AND?: MemberTimeLogsMembershipWhereInput | MemberTimeLogsMembershipWhereInput[]
+    OR?: MemberTimeLogsMembershipWhereInput[]
+    NOT?: MemberTimeLogsMembershipWhereInput | MemberTimeLogsMembershipWhereInput[]
+    member_time_log_id?: IntFilter<"MemberTimeLogsMembership"> | number
+    membership_id?: StringFilter<"MemberTimeLogsMembership"> | string
+    member_time_log?: XOR<MemberTimeLogsScalarRelationFilter, MemberTimeLogsWhereInput>
+    membership?: XOR<MembershipScalarRelationFilter, MembershipWhereInput>
+  }, "id" | "member_time_log_id_membership_id">
+
+  export type MemberTimeLogsMembershipOrderByWithAggregationInput = {
+    id?: SortOrder
+    member_time_log_id?: SortOrder
+    membership_id?: SortOrder
+    _count?: MemberTimeLogsMembershipCountOrderByAggregateInput
+    _avg?: MemberTimeLogsMembershipAvgOrderByAggregateInput
+    _max?: MemberTimeLogsMembershipMaxOrderByAggregateInput
+    _min?: MemberTimeLogsMembershipMinOrderByAggregateInput
+    _sum?: MemberTimeLogsMembershipSumOrderByAggregateInput
+  }
+
+  export type MemberTimeLogsMembershipScalarWhereWithAggregatesInput = {
+    AND?: MemberTimeLogsMembershipScalarWhereWithAggregatesInput | MemberTimeLogsMembershipScalarWhereWithAggregatesInput[]
+    OR?: MemberTimeLogsMembershipScalarWhereWithAggregatesInput[]
+    NOT?: MemberTimeLogsMembershipScalarWhereWithAggregatesInput | MemberTimeLogsMembershipScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"MemberTimeLogsMembership"> | number
+    member_time_log_id?: IntWithAggregatesFilter<"MemberTimeLogsMembership"> | number
+    membership_id?: StringWithAggregatesFilter<"MemberTimeLogsMembership"> | string
   }
 
   export type AuditCreateInput = {
@@ -18476,7 +19795,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     created_by: string
-    gyms?: GymCreateNestedManyWithoutOwnerInput
+    gym?: GymCreateNestedOneWithoutOwnerInput
     gym_staff?: GymStaffCreateNestedOneWithoutUserInput
   }
 
@@ -18491,7 +19810,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     created_by: string
-    gyms?: GymUncheckedCreateNestedManyWithoutOwnerInput
+    gym?: GymUncheckedCreateNestedOneWithoutOwnerInput
     gym_staff?: GymStaffUncheckedCreateNestedOneWithoutUserInput
   }
 
@@ -18506,7 +19825,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
-    gyms?: GymUpdateManyWithoutOwnerNestedInput
+    gym?: GymUpdateOneWithoutOwnerNestedInput
     gym_staff?: GymStaffUpdateOneWithoutUserNestedInput
   }
 
@@ -18521,7 +19840,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
-    gyms?: GymUncheckedUpdateManyWithoutOwnerNestedInput
+    gym?: GymUncheckedUpdateOneWithoutOwnerNestedInput
     gym_staff?: GymStaffUncheckedUpdateOneWithoutUserNestedInput
   }
 
@@ -18649,7 +19968,7 @@ export namespace Prisma {
     limits?: GymLimitCreateNestedManyWithoutGymInput
     audit_logs?: AuditCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
-    owner: UserCreateNestedOneWithoutGymsInput
+    owner: UserCreateNestedOneWithoutGymInput
   }
 
   export type GymUncheckedCreateInput = {
@@ -18683,7 +20002,7 @@ export namespace Prisma {
     limits?: GymLimitUpdateManyWithoutGymNestedInput
     audit_logs?: AuditUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
-    owner?: UserUpdateOneRequiredWithoutGymsNestedInput
+    owner?: UserUpdateOneRequiredWithoutGymNestedInput
   }
 
   export type GymUncheckedUpdateInput = {
@@ -18794,6 +20113,7 @@ export namespace Prisma {
     created_by: string
     member: MemberCreateNestedOneWithoutMembershipsInput
     gym: GymCreateNestedOneWithoutMembershipsInput
+    attendance_logs?: MemberTimeLogsMembershipCreateNestedManyWithoutMembershipInput
   }
 
   export type MembershipUncheckedCreateInput = {
@@ -18810,6 +20130,7 @@ export namespace Prisma {
     amount_paid: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
     created_by: string
+    attendance_logs?: MemberTimeLogsMembershipUncheckedCreateNestedManyWithoutMembershipInput
   }
 
   export type MembershipUpdateInput = {
@@ -18826,6 +20147,7 @@ export namespace Prisma {
     created_by?: StringFieldUpdateOperationsInput | string
     member?: MemberUpdateOneRequiredWithoutMembershipsNestedInput
     gym?: GymUpdateOneRequiredWithoutMembershipsNestedInput
+    attendance_logs?: MemberTimeLogsMembershipUpdateManyWithoutMembershipNestedInput
   }
 
   export type MembershipUncheckedUpdateInput = {
@@ -18842,6 +20164,7 @@ export namespace Prisma {
     amount_paid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
+    attendance_logs?: MemberTimeLogsMembershipUncheckedUpdateManyWithoutMembershipNestedInput
   }
 
   export type MembershipCreateManyInput = {
@@ -18979,6 +20302,7 @@ export namespace Prisma {
     recorded_by: string
     member: MemberCreateNestedOneWithoutAttendance_logsInput
     gym: GymCreateNestedOneWithoutMember_time_logsInput
+    memberships?: MemberTimeLogsMembershipCreateNestedManyWithoutMember_time_logInput
   }
 
   export type MemberTimeLogsUncheckedCreateInput = {
@@ -18987,6 +20311,7 @@ export namespace Prisma {
     gym_id: string
     checked_in_at?: Date | string
     recorded_by: string
+    memberships?: MemberTimeLogsMembershipUncheckedCreateNestedManyWithoutMember_time_logInput
   }
 
   export type MemberTimeLogsUpdateInput = {
@@ -18994,6 +20319,7 @@ export namespace Prisma {
     recorded_by?: StringFieldUpdateOperationsInput | string
     member?: MemberUpdateOneRequiredWithoutAttendance_logsNestedInput
     gym?: GymUpdateOneRequiredWithoutMember_time_logsNestedInput
+    memberships?: MemberTimeLogsMembershipUpdateManyWithoutMember_time_logNestedInput
   }
 
   export type MemberTimeLogsUncheckedUpdateInput = {
@@ -19002,6 +20328,7 @@ export namespace Prisma {
     gym_id?: StringFieldUpdateOperationsInput | string
     checked_in_at?: DateTimeFieldUpdateOperationsInput | Date | string
     recorded_by?: StringFieldUpdateOperationsInput | string
+    memberships?: MemberTimeLogsMembershipUncheckedUpdateManyWithoutMember_time_logNestedInput
   }
 
   export type MemberTimeLogsCreateManyInput = {
@@ -19023,6 +20350,44 @@ export namespace Prisma {
     gym_id?: StringFieldUpdateOperationsInput | string
     checked_in_at?: DateTimeFieldUpdateOperationsInput | Date | string
     recorded_by?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MemberTimeLogsMembershipCreateInput = {
+    member_time_log: MemberTimeLogsCreateNestedOneWithoutMembershipsInput
+    membership: MembershipCreateNestedOneWithoutAttendance_logsInput
+  }
+
+  export type MemberTimeLogsMembershipUncheckedCreateInput = {
+    id?: number
+    member_time_log_id: number
+    membership_id: string
+  }
+
+  export type MemberTimeLogsMembershipUpdateInput = {
+    member_time_log?: MemberTimeLogsUpdateOneRequiredWithoutMembershipsNestedInput
+    membership?: MembershipUpdateOneRequiredWithoutAttendance_logsNestedInput
+  }
+
+  export type MemberTimeLogsMembershipUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    member_time_log_id?: IntFieldUpdateOperationsInput | number
+    membership_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MemberTimeLogsMembershipCreateManyInput = {
+    id?: number
+    member_time_log_id: number
+    membership_id: string
+  }
+
+  export type MemberTimeLogsMembershipUpdateManyMutationInput = {
+
+  }
+
+  export type MemberTimeLogsMembershipUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    member_time_log_id?: IntFieldUpdateOperationsInput | number
+    membership_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -19516,19 +20881,9 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
-  export type GymListRelationFilter = {
-    every?: GymWhereInput
-    some?: GymWhereInput
-    none?: GymWhereInput
-  }
-
   export type GymStaffNullableScalarRelationFilter = {
     is?: GymStaffWhereInput | null
     isNot?: GymStaffWhereInput | null
-  }
-
-  export type GymOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type UserCountOrderByAggregateInput = {
@@ -19771,6 +21126,16 @@ export namespace Prisma {
     isNot?: MemberWhereInput
   }
 
+  export type MemberTimeLogsMembershipListRelationFilter = {
+    every?: MemberTimeLogsMembershipWhereInput
+    some?: MemberTimeLogsMembershipWhereInput
+    none?: MemberTimeLogsMembershipWhereInput
+  }
+
+  export type MemberTimeLogsMembershipOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type MembershipCountOrderByAggregateInput = {
     id?: SortOrder
     member_id?: SortOrder
@@ -19939,6 +21304,49 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type MemberTimeLogsScalarRelationFilter = {
+    is?: MemberTimeLogsWhereInput
+    isNot?: MemberTimeLogsWhereInput
+  }
+
+  export type MembershipScalarRelationFilter = {
+    is?: MembershipWhereInput
+    isNot?: MembershipWhereInput
+  }
+
+  export type MemberTimeLogsMembershipMember_time_log_idMembership_idCompoundUniqueInput = {
+    member_time_log_id: number
+    membership_id: string
+  }
+
+  export type MemberTimeLogsMembershipCountOrderByAggregateInput = {
+    id?: SortOrder
+    member_time_log_id?: SortOrder
+    membership_id?: SortOrder
+  }
+
+  export type MemberTimeLogsMembershipAvgOrderByAggregateInput = {
+    id?: SortOrder
+    member_time_log_id?: SortOrder
+  }
+
+  export type MemberTimeLogsMembershipMaxOrderByAggregateInput = {
+    id?: SortOrder
+    member_time_log_id?: SortOrder
+    membership_id?: SortOrder
+  }
+
+  export type MemberTimeLogsMembershipMinOrderByAggregateInput = {
+    id?: SortOrder
+    member_time_log_id?: SortOrder
+    membership_id?: SortOrder
+  }
+
+  export type MemberTimeLogsMembershipSumOrderByAggregateInput = {
+    id?: SortOrder
+    member_time_log_id?: SortOrder
+  }
+
   export type GymCreateNestedOneWithoutAudit_logsInput = {
     create?: XOR<GymCreateWithoutAudit_logsInput, GymUncheckedCreateWithoutAudit_logsInput>
     connectOrCreate?: GymCreateOrConnectWithoutAudit_logsInput
@@ -20103,11 +21511,10 @@ export namespace Prisma {
     update?: XOR<XOR<GymUpdateToOneWithWhereWithoutMembership_countsInput, GymUpdateWithoutMembership_countsInput>, GymUncheckedUpdateWithoutMembership_countsInput>
   }
 
-  export type GymCreateNestedManyWithoutOwnerInput = {
-    create?: XOR<GymCreateWithoutOwnerInput, GymUncheckedCreateWithoutOwnerInput> | GymCreateWithoutOwnerInput[] | GymUncheckedCreateWithoutOwnerInput[]
-    connectOrCreate?: GymCreateOrConnectWithoutOwnerInput | GymCreateOrConnectWithoutOwnerInput[]
-    createMany?: GymCreateManyOwnerInputEnvelope
-    connect?: GymWhereUniqueInput | GymWhereUniqueInput[]
+  export type GymCreateNestedOneWithoutOwnerInput = {
+    create?: XOR<GymCreateWithoutOwnerInput, GymUncheckedCreateWithoutOwnerInput>
+    connectOrCreate?: GymCreateOrConnectWithoutOwnerInput
+    connect?: GymWhereUniqueInput
   }
 
   export type GymStaffCreateNestedOneWithoutUserInput = {
@@ -20116,11 +21523,10 @@ export namespace Prisma {
     connect?: GymStaffWhereUniqueInput
   }
 
-  export type GymUncheckedCreateNestedManyWithoutOwnerInput = {
-    create?: XOR<GymCreateWithoutOwnerInput, GymUncheckedCreateWithoutOwnerInput> | GymCreateWithoutOwnerInput[] | GymUncheckedCreateWithoutOwnerInput[]
-    connectOrCreate?: GymCreateOrConnectWithoutOwnerInput | GymCreateOrConnectWithoutOwnerInput[]
-    createMany?: GymCreateManyOwnerInputEnvelope
-    connect?: GymWhereUniqueInput | GymWhereUniqueInput[]
+  export type GymUncheckedCreateNestedOneWithoutOwnerInput = {
+    create?: XOR<GymCreateWithoutOwnerInput, GymUncheckedCreateWithoutOwnerInput>
+    connectOrCreate?: GymCreateOrConnectWithoutOwnerInput
+    connect?: GymWhereUniqueInput
   }
 
   export type GymStaffUncheckedCreateNestedOneWithoutUserInput = {
@@ -20137,18 +21543,14 @@ export namespace Prisma {
     set?: boolean
   }
 
-  export type GymUpdateManyWithoutOwnerNestedInput = {
-    create?: XOR<GymCreateWithoutOwnerInput, GymUncheckedCreateWithoutOwnerInput> | GymCreateWithoutOwnerInput[] | GymUncheckedCreateWithoutOwnerInput[]
-    connectOrCreate?: GymCreateOrConnectWithoutOwnerInput | GymCreateOrConnectWithoutOwnerInput[]
-    upsert?: GymUpsertWithWhereUniqueWithoutOwnerInput | GymUpsertWithWhereUniqueWithoutOwnerInput[]
-    createMany?: GymCreateManyOwnerInputEnvelope
-    set?: GymWhereUniqueInput | GymWhereUniqueInput[]
-    disconnect?: GymWhereUniqueInput | GymWhereUniqueInput[]
-    delete?: GymWhereUniqueInput | GymWhereUniqueInput[]
-    connect?: GymWhereUniqueInput | GymWhereUniqueInput[]
-    update?: GymUpdateWithWhereUniqueWithoutOwnerInput | GymUpdateWithWhereUniqueWithoutOwnerInput[]
-    updateMany?: GymUpdateManyWithWhereWithoutOwnerInput | GymUpdateManyWithWhereWithoutOwnerInput[]
-    deleteMany?: GymScalarWhereInput | GymScalarWhereInput[]
+  export type GymUpdateOneWithoutOwnerNestedInput = {
+    create?: XOR<GymCreateWithoutOwnerInput, GymUncheckedCreateWithoutOwnerInput>
+    connectOrCreate?: GymCreateOrConnectWithoutOwnerInput
+    upsert?: GymUpsertWithoutOwnerInput
+    disconnect?: GymWhereInput | boolean
+    delete?: GymWhereInput | boolean
+    connect?: GymWhereUniqueInput
+    update?: XOR<XOR<GymUpdateToOneWithWhereWithoutOwnerInput, GymUpdateWithoutOwnerInput>, GymUncheckedUpdateWithoutOwnerInput>
   }
 
   export type GymStaffUpdateOneWithoutUserNestedInput = {
@@ -20161,18 +21563,14 @@ export namespace Prisma {
     update?: XOR<XOR<GymStaffUpdateToOneWithWhereWithoutUserInput, GymStaffUpdateWithoutUserInput>, GymStaffUncheckedUpdateWithoutUserInput>
   }
 
-  export type GymUncheckedUpdateManyWithoutOwnerNestedInput = {
-    create?: XOR<GymCreateWithoutOwnerInput, GymUncheckedCreateWithoutOwnerInput> | GymCreateWithoutOwnerInput[] | GymUncheckedCreateWithoutOwnerInput[]
-    connectOrCreate?: GymCreateOrConnectWithoutOwnerInput | GymCreateOrConnectWithoutOwnerInput[]
-    upsert?: GymUpsertWithWhereUniqueWithoutOwnerInput | GymUpsertWithWhereUniqueWithoutOwnerInput[]
-    createMany?: GymCreateManyOwnerInputEnvelope
-    set?: GymWhereUniqueInput | GymWhereUniqueInput[]
-    disconnect?: GymWhereUniqueInput | GymWhereUniqueInput[]
-    delete?: GymWhereUniqueInput | GymWhereUniqueInput[]
-    connect?: GymWhereUniqueInput | GymWhereUniqueInput[]
-    update?: GymUpdateWithWhereUniqueWithoutOwnerInput | GymUpdateWithWhereUniqueWithoutOwnerInput[]
-    updateMany?: GymUpdateManyWithWhereWithoutOwnerInput | GymUpdateManyWithWhereWithoutOwnerInput[]
-    deleteMany?: GymScalarWhereInput | GymScalarWhereInput[]
+  export type GymUncheckedUpdateOneWithoutOwnerNestedInput = {
+    create?: XOR<GymCreateWithoutOwnerInput, GymUncheckedCreateWithoutOwnerInput>
+    connectOrCreate?: GymCreateOrConnectWithoutOwnerInput
+    upsert?: GymUpsertWithoutOwnerInput
+    disconnect?: GymWhereInput | boolean
+    delete?: GymWhereInput | boolean
+    connect?: GymWhereUniqueInput
+    update?: XOR<XOR<GymUpdateToOneWithWhereWithoutOwnerInput, GymUpdateWithoutOwnerInput>, GymUncheckedUpdateWithoutOwnerInput>
   }
 
   export type GymStaffUncheckedUpdateOneWithoutUserNestedInput = {
@@ -20324,9 +21722,9 @@ export namespace Prisma {
     connect?: MembershipCountWhereUniqueInput | MembershipCountWhereUniqueInput[]
   }
 
-  export type UserCreateNestedOneWithoutGymsInput = {
-    create?: XOR<UserCreateWithoutGymsInput, UserUncheckedCreateWithoutGymsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutGymsInput
+  export type UserCreateNestedOneWithoutGymInput = {
+    create?: XOR<UserCreateWithoutGymInput, UserUncheckedCreateWithoutGymInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGymInput
     connect?: UserWhereUniqueInput
   }
 
@@ -20493,12 +21891,12 @@ export namespace Prisma {
     deleteMany?: MembershipCountScalarWhereInput | MembershipCountScalarWhereInput[]
   }
 
-  export type UserUpdateOneRequiredWithoutGymsNestedInput = {
-    create?: XOR<UserCreateWithoutGymsInput, UserUncheckedCreateWithoutGymsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutGymsInput
-    upsert?: UserUpsertWithoutGymsInput
+  export type UserUpdateOneRequiredWithoutGymNestedInput = {
+    create?: XOR<UserCreateWithoutGymInput, UserUncheckedCreateWithoutGymInput>
+    connectOrCreate?: UserCreateOrConnectWithoutGymInput
+    upsert?: UserUpsertWithoutGymInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutGymsInput, UserUpdateWithoutGymsInput>, UserUncheckedUpdateWithoutGymsInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutGymInput, UserUpdateWithoutGymInput>, UserUncheckedUpdateWithoutGymInput>
   }
 
   export type MembershipUncheckedUpdateManyWithoutGymNestedInput = {
@@ -20649,6 +22047,20 @@ export namespace Prisma {
     connect?: GymWhereUniqueInput
   }
 
+  export type MemberTimeLogsMembershipCreateNestedManyWithoutMembershipInput = {
+    create?: XOR<MemberTimeLogsMembershipCreateWithoutMembershipInput, MemberTimeLogsMembershipUncheckedCreateWithoutMembershipInput> | MemberTimeLogsMembershipCreateWithoutMembershipInput[] | MemberTimeLogsMembershipUncheckedCreateWithoutMembershipInput[]
+    connectOrCreate?: MemberTimeLogsMembershipCreateOrConnectWithoutMembershipInput | MemberTimeLogsMembershipCreateOrConnectWithoutMembershipInput[]
+    createMany?: MemberTimeLogsMembershipCreateManyMembershipInputEnvelope
+    connect?: MemberTimeLogsMembershipWhereUniqueInput | MemberTimeLogsMembershipWhereUniqueInput[]
+  }
+
+  export type MemberTimeLogsMembershipUncheckedCreateNestedManyWithoutMembershipInput = {
+    create?: XOR<MemberTimeLogsMembershipCreateWithoutMembershipInput, MemberTimeLogsMembershipUncheckedCreateWithoutMembershipInput> | MemberTimeLogsMembershipCreateWithoutMembershipInput[] | MemberTimeLogsMembershipUncheckedCreateWithoutMembershipInput[]
+    connectOrCreate?: MemberTimeLogsMembershipCreateOrConnectWithoutMembershipInput | MemberTimeLogsMembershipCreateOrConnectWithoutMembershipInput[]
+    createMany?: MemberTimeLogsMembershipCreateManyMembershipInputEnvelope
+    connect?: MemberTimeLogsMembershipWhereUniqueInput | MemberTimeLogsMembershipWhereUniqueInput[]
+  }
+
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
   }
@@ -20677,6 +22089,34 @@ export namespace Prisma {
     update?: XOR<XOR<GymUpdateToOneWithWhereWithoutMembershipsInput, GymUpdateWithoutMembershipsInput>, GymUncheckedUpdateWithoutMembershipsInput>
   }
 
+  export type MemberTimeLogsMembershipUpdateManyWithoutMembershipNestedInput = {
+    create?: XOR<MemberTimeLogsMembershipCreateWithoutMembershipInput, MemberTimeLogsMembershipUncheckedCreateWithoutMembershipInput> | MemberTimeLogsMembershipCreateWithoutMembershipInput[] | MemberTimeLogsMembershipUncheckedCreateWithoutMembershipInput[]
+    connectOrCreate?: MemberTimeLogsMembershipCreateOrConnectWithoutMembershipInput | MemberTimeLogsMembershipCreateOrConnectWithoutMembershipInput[]
+    upsert?: MemberTimeLogsMembershipUpsertWithWhereUniqueWithoutMembershipInput | MemberTimeLogsMembershipUpsertWithWhereUniqueWithoutMembershipInput[]
+    createMany?: MemberTimeLogsMembershipCreateManyMembershipInputEnvelope
+    set?: MemberTimeLogsMembershipWhereUniqueInput | MemberTimeLogsMembershipWhereUniqueInput[]
+    disconnect?: MemberTimeLogsMembershipWhereUniqueInput | MemberTimeLogsMembershipWhereUniqueInput[]
+    delete?: MemberTimeLogsMembershipWhereUniqueInput | MemberTimeLogsMembershipWhereUniqueInput[]
+    connect?: MemberTimeLogsMembershipWhereUniqueInput | MemberTimeLogsMembershipWhereUniqueInput[]
+    update?: MemberTimeLogsMembershipUpdateWithWhereUniqueWithoutMembershipInput | MemberTimeLogsMembershipUpdateWithWhereUniqueWithoutMembershipInput[]
+    updateMany?: MemberTimeLogsMembershipUpdateManyWithWhereWithoutMembershipInput | MemberTimeLogsMembershipUpdateManyWithWhereWithoutMembershipInput[]
+    deleteMany?: MemberTimeLogsMembershipScalarWhereInput | MemberTimeLogsMembershipScalarWhereInput[]
+  }
+
+  export type MemberTimeLogsMembershipUncheckedUpdateManyWithoutMembershipNestedInput = {
+    create?: XOR<MemberTimeLogsMembershipCreateWithoutMembershipInput, MemberTimeLogsMembershipUncheckedCreateWithoutMembershipInput> | MemberTimeLogsMembershipCreateWithoutMembershipInput[] | MemberTimeLogsMembershipUncheckedCreateWithoutMembershipInput[]
+    connectOrCreate?: MemberTimeLogsMembershipCreateOrConnectWithoutMembershipInput | MemberTimeLogsMembershipCreateOrConnectWithoutMembershipInput[]
+    upsert?: MemberTimeLogsMembershipUpsertWithWhereUniqueWithoutMembershipInput | MemberTimeLogsMembershipUpsertWithWhereUniqueWithoutMembershipInput[]
+    createMany?: MemberTimeLogsMembershipCreateManyMembershipInputEnvelope
+    set?: MemberTimeLogsMembershipWhereUniqueInput | MemberTimeLogsMembershipWhereUniqueInput[]
+    disconnect?: MemberTimeLogsMembershipWhereUniqueInput | MemberTimeLogsMembershipWhereUniqueInput[]
+    delete?: MemberTimeLogsMembershipWhereUniqueInput | MemberTimeLogsMembershipWhereUniqueInput[]
+    connect?: MemberTimeLogsMembershipWhereUniqueInput | MemberTimeLogsMembershipWhereUniqueInput[]
+    update?: MemberTimeLogsMembershipUpdateWithWhereUniqueWithoutMembershipInput | MemberTimeLogsMembershipUpdateWithWhereUniqueWithoutMembershipInput[]
+    updateMany?: MemberTimeLogsMembershipUpdateManyWithWhereWithoutMembershipInput | MemberTimeLogsMembershipUpdateManyWithWhereWithoutMembershipInput[]
+    deleteMany?: MemberTimeLogsMembershipScalarWhereInput | MemberTimeLogsMembershipScalarWhereInput[]
+  }
+
   export type MemberCreateNestedOneWithoutAttendance_logsInput = {
     create?: XOR<MemberCreateWithoutAttendance_logsInput, MemberUncheckedCreateWithoutAttendance_logsInput>
     connectOrCreate?: MemberCreateOrConnectWithoutAttendance_logsInput
@@ -20687,6 +22127,20 @@ export namespace Prisma {
     create?: XOR<GymCreateWithoutMember_time_logsInput, GymUncheckedCreateWithoutMember_time_logsInput>
     connectOrCreate?: GymCreateOrConnectWithoutMember_time_logsInput
     connect?: GymWhereUniqueInput
+  }
+
+  export type MemberTimeLogsMembershipCreateNestedManyWithoutMember_time_logInput = {
+    create?: XOR<MemberTimeLogsMembershipCreateWithoutMember_time_logInput, MemberTimeLogsMembershipUncheckedCreateWithoutMember_time_logInput> | MemberTimeLogsMembershipCreateWithoutMember_time_logInput[] | MemberTimeLogsMembershipUncheckedCreateWithoutMember_time_logInput[]
+    connectOrCreate?: MemberTimeLogsMembershipCreateOrConnectWithoutMember_time_logInput | MemberTimeLogsMembershipCreateOrConnectWithoutMember_time_logInput[]
+    createMany?: MemberTimeLogsMembershipCreateManyMember_time_logInputEnvelope
+    connect?: MemberTimeLogsMembershipWhereUniqueInput | MemberTimeLogsMembershipWhereUniqueInput[]
+  }
+
+  export type MemberTimeLogsMembershipUncheckedCreateNestedManyWithoutMember_time_logInput = {
+    create?: XOR<MemberTimeLogsMembershipCreateWithoutMember_time_logInput, MemberTimeLogsMembershipUncheckedCreateWithoutMember_time_logInput> | MemberTimeLogsMembershipCreateWithoutMember_time_logInput[] | MemberTimeLogsMembershipUncheckedCreateWithoutMember_time_logInput[]
+    connectOrCreate?: MemberTimeLogsMembershipCreateOrConnectWithoutMember_time_logInput | MemberTimeLogsMembershipCreateOrConnectWithoutMember_time_logInput[]
+    createMany?: MemberTimeLogsMembershipCreateManyMember_time_logInputEnvelope
+    connect?: MemberTimeLogsMembershipWhereUniqueInput | MemberTimeLogsMembershipWhereUniqueInput[]
   }
 
   export type MemberUpdateOneRequiredWithoutAttendance_logsNestedInput = {
@@ -20703,6 +22157,62 @@ export namespace Prisma {
     upsert?: GymUpsertWithoutMember_time_logsInput
     connect?: GymWhereUniqueInput
     update?: XOR<XOR<GymUpdateToOneWithWhereWithoutMember_time_logsInput, GymUpdateWithoutMember_time_logsInput>, GymUncheckedUpdateWithoutMember_time_logsInput>
+  }
+
+  export type MemberTimeLogsMembershipUpdateManyWithoutMember_time_logNestedInput = {
+    create?: XOR<MemberTimeLogsMembershipCreateWithoutMember_time_logInput, MemberTimeLogsMembershipUncheckedCreateWithoutMember_time_logInput> | MemberTimeLogsMembershipCreateWithoutMember_time_logInput[] | MemberTimeLogsMembershipUncheckedCreateWithoutMember_time_logInput[]
+    connectOrCreate?: MemberTimeLogsMembershipCreateOrConnectWithoutMember_time_logInput | MemberTimeLogsMembershipCreateOrConnectWithoutMember_time_logInput[]
+    upsert?: MemberTimeLogsMembershipUpsertWithWhereUniqueWithoutMember_time_logInput | MemberTimeLogsMembershipUpsertWithWhereUniqueWithoutMember_time_logInput[]
+    createMany?: MemberTimeLogsMembershipCreateManyMember_time_logInputEnvelope
+    set?: MemberTimeLogsMembershipWhereUniqueInput | MemberTimeLogsMembershipWhereUniqueInput[]
+    disconnect?: MemberTimeLogsMembershipWhereUniqueInput | MemberTimeLogsMembershipWhereUniqueInput[]
+    delete?: MemberTimeLogsMembershipWhereUniqueInput | MemberTimeLogsMembershipWhereUniqueInput[]
+    connect?: MemberTimeLogsMembershipWhereUniqueInput | MemberTimeLogsMembershipWhereUniqueInput[]
+    update?: MemberTimeLogsMembershipUpdateWithWhereUniqueWithoutMember_time_logInput | MemberTimeLogsMembershipUpdateWithWhereUniqueWithoutMember_time_logInput[]
+    updateMany?: MemberTimeLogsMembershipUpdateManyWithWhereWithoutMember_time_logInput | MemberTimeLogsMembershipUpdateManyWithWhereWithoutMember_time_logInput[]
+    deleteMany?: MemberTimeLogsMembershipScalarWhereInput | MemberTimeLogsMembershipScalarWhereInput[]
+  }
+
+  export type MemberTimeLogsMembershipUncheckedUpdateManyWithoutMember_time_logNestedInput = {
+    create?: XOR<MemberTimeLogsMembershipCreateWithoutMember_time_logInput, MemberTimeLogsMembershipUncheckedCreateWithoutMember_time_logInput> | MemberTimeLogsMembershipCreateWithoutMember_time_logInput[] | MemberTimeLogsMembershipUncheckedCreateWithoutMember_time_logInput[]
+    connectOrCreate?: MemberTimeLogsMembershipCreateOrConnectWithoutMember_time_logInput | MemberTimeLogsMembershipCreateOrConnectWithoutMember_time_logInput[]
+    upsert?: MemberTimeLogsMembershipUpsertWithWhereUniqueWithoutMember_time_logInput | MemberTimeLogsMembershipUpsertWithWhereUniqueWithoutMember_time_logInput[]
+    createMany?: MemberTimeLogsMembershipCreateManyMember_time_logInputEnvelope
+    set?: MemberTimeLogsMembershipWhereUniqueInput | MemberTimeLogsMembershipWhereUniqueInput[]
+    disconnect?: MemberTimeLogsMembershipWhereUniqueInput | MemberTimeLogsMembershipWhereUniqueInput[]
+    delete?: MemberTimeLogsMembershipWhereUniqueInput | MemberTimeLogsMembershipWhereUniqueInput[]
+    connect?: MemberTimeLogsMembershipWhereUniqueInput | MemberTimeLogsMembershipWhereUniqueInput[]
+    update?: MemberTimeLogsMembershipUpdateWithWhereUniqueWithoutMember_time_logInput | MemberTimeLogsMembershipUpdateWithWhereUniqueWithoutMember_time_logInput[]
+    updateMany?: MemberTimeLogsMembershipUpdateManyWithWhereWithoutMember_time_logInput | MemberTimeLogsMembershipUpdateManyWithWhereWithoutMember_time_logInput[]
+    deleteMany?: MemberTimeLogsMembershipScalarWhereInput | MemberTimeLogsMembershipScalarWhereInput[]
+  }
+
+  export type MemberTimeLogsCreateNestedOneWithoutMembershipsInput = {
+    create?: XOR<MemberTimeLogsCreateWithoutMembershipsInput, MemberTimeLogsUncheckedCreateWithoutMembershipsInput>
+    connectOrCreate?: MemberTimeLogsCreateOrConnectWithoutMembershipsInput
+    connect?: MemberTimeLogsWhereUniqueInput
+  }
+
+  export type MembershipCreateNestedOneWithoutAttendance_logsInput = {
+    create?: XOR<MembershipCreateWithoutAttendance_logsInput, MembershipUncheckedCreateWithoutAttendance_logsInput>
+    connectOrCreate?: MembershipCreateOrConnectWithoutAttendance_logsInput
+    connect?: MembershipWhereUniqueInput
+  }
+
+  export type MemberTimeLogsUpdateOneRequiredWithoutMembershipsNestedInput = {
+    create?: XOR<MemberTimeLogsCreateWithoutMembershipsInput, MemberTimeLogsUncheckedCreateWithoutMembershipsInput>
+    connectOrCreate?: MemberTimeLogsCreateOrConnectWithoutMembershipsInput
+    upsert?: MemberTimeLogsUpsertWithoutMembershipsInput
+    connect?: MemberTimeLogsWhereUniqueInput
+    update?: XOR<XOR<MemberTimeLogsUpdateToOneWithWhereWithoutMembershipsInput, MemberTimeLogsUpdateWithoutMembershipsInput>, MemberTimeLogsUncheckedUpdateWithoutMembershipsInput>
+  }
+
+  export type MembershipUpdateOneRequiredWithoutAttendance_logsNestedInput = {
+    create?: XOR<MembershipCreateWithoutAttendance_logsInput, MembershipUncheckedCreateWithoutAttendance_logsInput>
+    connectOrCreate?: MembershipCreateOrConnectWithoutAttendance_logsInput
+    upsert?: MembershipUpsertWithoutAttendance_logsInput
+    connect?: MembershipWhereUniqueInput
+    update?: XOR<XOR<MembershipUpdateToOneWithWhereWithoutAttendance_logsInput, MembershipUpdateWithoutAttendance_logsInput>, MembershipUncheckedUpdateWithoutAttendance_logsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -21002,7 +22512,7 @@ export namespace Prisma {
     staffs?: GymStaffCreateNestedManyWithoutGymInput
     limits?: GymLimitCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
-    owner: UserCreateNestedOneWithoutGymsInput
+    owner: UserCreateNestedOneWithoutGymInput
   }
 
   export type GymUncheckedCreateWithoutAudit_logsInput = {
@@ -21050,7 +22560,7 @@ export namespace Prisma {
     staffs?: GymStaffUpdateManyWithoutGymNestedInput
     limits?: GymLimitUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
-    owner?: UserUpdateOneRequiredWithoutGymsNestedInput
+    owner?: UserUpdateOneRequiredWithoutGymNestedInput
   }
 
   export type GymUncheckedUpdateWithoutAudit_logsInput = {
@@ -21129,7 +22639,7 @@ export namespace Prisma {
     staffs?: GymStaffCreateNestedManyWithoutGymInput
     audit_logs?: AuditCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
-    owner: UserCreateNestedOneWithoutGymsInput
+    owner: UserCreateNestedOneWithoutGymInput
   }
 
   export type GymUncheckedCreateWithoutLimitsInput = {
@@ -21194,7 +22704,7 @@ export namespace Prisma {
     staffs?: GymStaffUpdateManyWithoutGymNestedInput
     audit_logs?: AuditUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
-    owner?: UserUpdateOneRequiredWithoutGymsNestedInput
+    owner?: UserUpdateOneRequiredWithoutGymNestedInput
   }
 
   export type GymUncheckedUpdateWithoutLimitsInput = {
@@ -21249,7 +22759,7 @@ export namespace Prisma {
     limits?: GymLimitCreateNestedManyWithoutGymInput
     audit_logs?: AuditCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
-    owner: UserCreateNestedOneWithoutGymsInput
+    owner: UserCreateNestedOneWithoutGymInput
   }
 
   export type GymUncheckedCreateWithoutGym_statsInput = {
@@ -21297,7 +22807,7 @@ export namespace Prisma {
     limits?: GymLimitUpdateManyWithoutGymNestedInput
     audit_logs?: AuditUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
-    owner?: UserUpdateOneRequiredWithoutGymsNestedInput
+    owner?: UserUpdateOneRequiredWithoutGymNestedInput
   }
 
   export type GymUncheckedUpdateWithoutGym_statsInput = {
@@ -21329,7 +22839,7 @@ export namespace Prisma {
     limits?: GymLimitCreateNestedManyWithoutGymInput
     audit_logs?: AuditCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
-    owner: UserCreateNestedOneWithoutGymsInput
+    owner: UserCreateNestedOneWithoutGymInput
   }
 
   export type GymUncheckedCreateWithoutRevenuesInput = {
@@ -21377,7 +22887,7 @@ export namespace Prisma {
     limits?: GymLimitUpdateManyWithoutGymNestedInput
     audit_logs?: AuditUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
-    owner?: UserUpdateOneRequiredWithoutGymsNestedInput
+    owner?: UserUpdateOneRequiredWithoutGymNestedInput
   }
 
   export type GymUncheckedUpdateWithoutRevenuesInput = {
@@ -21409,7 +22919,7 @@ export namespace Prisma {
     staffs?: GymStaffCreateNestedManyWithoutGymInput
     limits?: GymLimitCreateNestedManyWithoutGymInput
     audit_logs?: AuditCreateNestedManyWithoutGymInput
-    owner: UserCreateNestedOneWithoutGymsInput
+    owner: UserCreateNestedOneWithoutGymInput
   }
 
   export type GymUncheckedCreateWithoutMembership_countsInput = {
@@ -21457,7 +22967,7 @@ export namespace Prisma {
     staffs?: GymStaffUpdateManyWithoutGymNestedInput
     limits?: GymLimitUpdateManyWithoutGymNestedInput
     audit_logs?: AuditUpdateManyWithoutGymNestedInput
-    owner?: UserUpdateOneRequiredWithoutGymsNestedInput
+    owner?: UserUpdateOneRequiredWithoutGymNestedInput
   }
 
   export type GymUncheckedUpdateWithoutMembership_countsInput = {
@@ -21513,11 +23023,6 @@ export namespace Prisma {
     create: XOR<GymCreateWithoutOwnerInput, GymUncheckedCreateWithoutOwnerInput>
   }
 
-  export type GymCreateManyOwnerInputEnvelope = {
-    data: GymCreateManyOwnerInput | GymCreateManyOwnerInput[]
-    skipDuplicates?: boolean
-  }
-
   export type GymStaffCreateWithoutUserInput = {
     created_at?: Date | string
     created_by: string
@@ -21536,32 +23041,47 @@ export namespace Prisma {
     create: XOR<GymStaffCreateWithoutUserInput, GymStaffUncheckedCreateWithoutUserInput>
   }
 
-  export type GymUpsertWithWhereUniqueWithoutOwnerInput = {
-    where: GymWhereUniqueInput
+  export type GymUpsertWithoutOwnerInput = {
     update: XOR<GymUpdateWithoutOwnerInput, GymUncheckedUpdateWithoutOwnerInput>
     create: XOR<GymCreateWithoutOwnerInput, GymUncheckedCreateWithoutOwnerInput>
+    where?: GymWhereInput
   }
 
-  export type GymUpdateWithWhereUniqueWithoutOwnerInput = {
-    where: GymWhereUniqueInput
+  export type GymUpdateToOneWithWhereWithoutOwnerInput = {
+    where?: GymWhereInput
     data: XOR<GymUpdateWithoutOwnerInput, GymUncheckedUpdateWithoutOwnerInput>
   }
 
-  export type GymUpdateManyWithWhereWithoutOwnerInput = {
-    where: GymScalarWhereInput
-    data: XOR<GymUpdateManyMutationInput, GymUncheckedUpdateManyWithoutOwnerInput>
+  export type GymUpdateWithoutOwnerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    memberships?: MembershipUpdateManyWithoutGymNestedInput
+    member_time_logs?: MemberTimeLogsUpdateManyWithoutGymNestedInput
+    gym_stats?: GymStatsUpdateOneWithoutGymNestedInput
+    revenues?: RevenueUpdateManyWithoutGymNestedInput
+    staffs?: GymStaffUpdateManyWithoutGymNestedInput
+    limits?: GymLimitUpdateManyWithoutGymNestedInput
+    audit_logs?: AuditUpdateManyWithoutGymNestedInput
+    membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
   }
 
-  export type GymScalarWhereInput = {
-    AND?: GymScalarWhereInput | GymScalarWhereInput[]
-    OR?: GymScalarWhereInput[]
-    NOT?: GymScalarWhereInput | GymScalarWhereInput[]
-    id?: StringFilter<"Gym"> | string
-    owner_id?: StringFilter<"Gym"> | string
-    name?: StringFilter<"Gym"> | string
-    location?: StringFilter<"Gym"> | string
-    created_at?: DateTimeFilter<"Gym"> | Date | string
-    created_by?: StringFilter<"Gym"> | string
+  export type GymUncheckedUpdateWithoutOwnerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    location?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    memberships?: MembershipUncheckedUpdateManyWithoutGymNestedInput
+    member_time_logs?: MemberTimeLogsUncheckedUpdateManyWithoutGymNestedInput
+    gym_stats?: GymStatsUncheckedUpdateOneWithoutGymNestedInput
+    revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
+    staffs?: GymStaffUncheckedUpdateManyWithoutGymNestedInput
+    limits?: GymLimitUncheckedUpdateManyWithoutGymNestedInput
+    audit_logs?: AuditUncheckedUpdateManyWithoutGymNestedInput
+    membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
   }
 
   export type GymStaffUpsertWithoutUserInput = {
@@ -21601,6 +23121,7 @@ export namespace Prisma {
     created_at?: Date | string
     created_by: string
     gym: GymCreateNestedOneWithoutMembershipsInput
+    attendance_logs?: MemberTimeLogsMembershipCreateNestedManyWithoutMembershipInput
   }
 
   export type MembershipUncheckedCreateWithoutMemberInput = {
@@ -21616,6 +23137,7 @@ export namespace Prisma {
     amount_paid: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
     created_by: string
+    attendance_logs?: MemberTimeLogsMembershipUncheckedCreateNestedManyWithoutMembershipInput
   }
 
   export type MembershipCreateOrConnectWithoutMemberInput = {
@@ -21632,6 +23154,7 @@ export namespace Prisma {
     checked_in_at?: Date | string
     recorded_by: string
     gym: GymCreateNestedOneWithoutMember_time_logsInput
+    memberships?: MemberTimeLogsMembershipCreateNestedManyWithoutMember_time_logInput
   }
 
   export type MemberTimeLogsUncheckedCreateWithoutMemberInput = {
@@ -21639,6 +23162,7 @@ export namespace Prisma {
     gym_id: string
     checked_in_at?: Date | string
     recorded_by: string
+    memberships?: MemberTimeLogsMembershipUncheckedCreateNestedManyWithoutMember_time_logInput
   }
 
   export type MemberTimeLogsCreateOrConnectWithoutMemberInput = {
@@ -21726,6 +23250,7 @@ export namespace Prisma {
     created_at?: Date | string
     created_by: string
     member: MemberCreateNestedOneWithoutMembershipsInput
+    attendance_logs?: MemberTimeLogsMembershipCreateNestedManyWithoutMembershipInput
   }
 
   export type MembershipUncheckedCreateWithoutGymInput = {
@@ -21741,6 +23266,7 @@ export namespace Prisma {
     amount_paid: Decimal | DecimalJsLike | number | string
     created_at?: Date | string
     created_by: string
+    attendance_logs?: MemberTimeLogsMembershipUncheckedCreateNestedManyWithoutMembershipInput
   }
 
   export type MembershipCreateOrConnectWithoutGymInput = {
@@ -21757,6 +23283,7 @@ export namespace Prisma {
     checked_in_at?: Date | string
     recorded_by: string
     member: MemberCreateNestedOneWithoutAttendance_logsInput
+    memberships?: MemberTimeLogsMembershipCreateNestedManyWithoutMember_time_logInput
   }
 
   export type MemberTimeLogsUncheckedCreateWithoutGymInput = {
@@ -21764,6 +23291,7 @@ export namespace Prisma {
     member_id: string
     checked_in_at?: Date | string
     recorded_by: string
+    memberships?: MemberTimeLogsMembershipUncheckedCreateNestedManyWithoutMember_time_logInput
   }
 
   export type MemberTimeLogsCreateOrConnectWithoutGymInput = {
@@ -21927,7 +23455,7 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UserCreateWithoutGymsInput = {
+  export type UserCreateWithoutGymInput = {
     id?: string
     username?: string | null
     firstname: string
@@ -21941,7 +23469,7 @@ export namespace Prisma {
     gym_staff?: GymStaffCreateNestedOneWithoutUserInput
   }
 
-  export type UserUncheckedCreateWithoutGymsInput = {
+  export type UserUncheckedCreateWithoutGymInput = {
     id?: string
     username?: string | null
     firstname: string
@@ -21955,9 +23483,9 @@ export namespace Prisma {
     gym_staff?: GymStaffUncheckedCreateNestedOneWithoutUserInput
   }
 
-  export type UserCreateOrConnectWithoutGymsInput = {
+  export type UserCreateOrConnectWithoutGymInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutGymsInput, UserUncheckedCreateWithoutGymsInput>
+    create: XOR<UserCreateWithoutGymInput, UserUncheckedCreateWithoutGymInput>
   }
 
   export type MembershipUpsertWithWhereUniqueWithoutGymInput = {
@@ -22149,18 +23677,18 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"MembershipCount"> | Date | string
   }
 
-  export type UserUpsertWithoutGymsInput = {
-    update: XOR<UserUpdateWithoutGymsInput, UserUncheckedUpdateWithoutGymsInput>
-    create: XOR<UserCreateWithoutGymsInput, UserUncheckedCreateWithoutGymsInput>
+  export type UserUpsertWithoutGymInput = {
+    update: XOR<UserUpdateWithoutGymInput, UserUncheckedUpdateWithoutGymInput>
+    create: XOR<UserCreateWithoutGymInput, UserUncheckedCreateWithoutGymInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutGymsInput = {
+  export type UserUpdateToOneWithWhereWithoutGymInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutGymsInput, UserUncheckedUpdateWithoutGymsInput>
+    data: XOR<UserUpdateWithoutGymInput, UserUncheckedUpdateWithoutGymInput>
   }
 
-  export type UserUpdateWithoutGymsInput = {
+  export type UserUpdateWithoutGymInput = {
     id?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstname?: StringFieldUpdateOperationsInput | string
@@ -22174,7 +23702,7 @@ export namespace Prisma {
     gym_staff?: GymStaffUpdateOneWithoutUserNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutGymsInput = {
+  export type UserUncheckedUpdateWithoutGymInput = {
     id?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     firstname?: StringFieldUpdateOperationsInput | string
@@ -22199,7 +23727,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     created_by: string
-    gyms?: GymCreateNestedManyWithoutOwnerInput
+    gym?: GymCreateNestedOneWithoutOwnerInput
   }
 
   export type UserUncheckedCreateWithoutGym_staffInput = {
@@ -22213,7 +23741,7 @@ export namespace Prisma {
     is_active?: boolean
     created_at?: Date | string
     created_by: string
-    gyms?: GymUncheckedCreateNestedManyWithoutOwnerInput
+    gym?: GymUncheckedCreateNestedOneWithoutOwnerInput
   }
 
   export type UserCreateOrConnectWithoutGym_staffInput = {
@@ -22234,7 +23762,7 @@ export namespace Prisma {
     limits?: GymLimitCreateNestedManyWithoutGymInput
     audit_logs?: AuditCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
-    owner: UserCreateNestedOneWithoutGymsInput
+    owner: UserCreateNestedOneWithoutGymInput
   }
 
   export type GymUncheckedCreateWithoutStaffsInput = {
@@ -22280,7 +23808,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
-    gyms?: GymUpdateManyWithoutOwnerNestedInput
+    gym?: GymUpdateOneWithoutOwnerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGym_staffInput = {
@@ -22294,7 +23822,7 @@ export namespace Prisma {
     is_active?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
-    gyms?: GymUncheckedUpdateManyWithoutOwnerNestedInput
+    gym?: GymUncheckedUpdateOneWithoutOwnerNestedInput
   }
 
   export type GymUpsertWithoutStaffsInput = {
@@ -22321,7 +23849,7 @@ export namespace Prisma {
     limits?: GymLimitUpdateManyWithoutGymNestedInput
     audit_logs?: AuditUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
-    owner?: UserUpdateOneRequiredWithoutGymsNestedInput
+    owner?: UserUpdateOneRequiredWithoutGymNestedInput
   }
 
   export type GymUncheckedUpdateWithoutStaffsInput = {
@@ -22378,7 +23906,7 @@ export namespace Prisma {
     limits?: GymLimitCreateNestedManyWithoutGymInput
     audit_logs?: AuditCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
-    owner: UserCreateNestedOneWithoutGymsInput
+    owner: UserCreateNestedOneWithoutGymInput
   }
 
   export type GymUncheckedCreateWithoutMembershipsInput = {
@@ -22400,6 +23928,25 @@ export namespace Prisma {
   export type GymCreateOrConnectWithoutMembershipsInput = {
     where: GymWhereUniqueInput
     create: XOR<GymCreateWithoutMembershipsInput, GymUncheckedCreateWithoutMembershipsInput>
+  }
+
+  export type MemberTimeLogsMembershipCreateWithoutMembershipInput = {
+    member_time_log: MemberTimeLogsCreateNestedOneWithoutMembershipsInput
+  }
+
+  export type MemberTimeLogsMembershipUncheckedCreateWithoutMembershipInput = {
+    id?: number
+    member_time_log_id: number
+  }
+
+  export type MemberTimeLogsMembershipCreateOrConnectWithoutMembershipInput = {
+    where: MemberTimeLogsMembershipWhereUniqueInput
+    create: XOR<MemberTimeLogsMembershipCreateWithoutMembershipInput, MemberTimeLogsMembershipUncheckedCreateWithoutMembershipInput>
+  }
+
+  export type MemberTimeLogsMembershipCreateManyMembershipInputEnvelope = {
+    data: MemberTimeLogsMembershipCreateManyMembershipInput | MemberTimeLogsMembershipCreateManyMembershipInput[]
+    skipDuplicates?: boolean
   }
 
   export type MemberUpsertWithoutMembershipsInput = {
@@ -22457,7 +24004,7 @@ export namespace Prisma {
     limits?: GymLimitUpdateManyWithoutGymNestedInput
     audit_logs?: AuditUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
-    owner?: UserUpdateOneRequiredWithoutGymsNestedInput
+    owner?: UserUpdateOneRequiredWithoutGymNestedInput
   }
 
   export type GymUncheckedUpdateWithoutMembershipsInput = {
@@ -22474,6 +24021,31 @@ export namespace Prisma {
     limits?: GymLimitUncheckedUpdateManyWithoutGymNestedInput
     audit_logs?: AuditUncheckedUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
+  }
+
+  export type MemberTimeLogsMembershipUpsertWithWhereUniqueWithoutMembershipInput = {
+    where: MemberTimeLogsMembershipWhereUniqueInput
+    update: XOR<MemberTimeLogsMembershipUpdateWithoutMembershipInput, MemberTimeLogsMembershipUncheckedUpdateWithoutMembershipInput>
+    create: XOR<MemberTimeLogsMembershipCreateWithoutMembershipInput, MemberTimeLogsMembershipUncheckedCreateWithoutMembershipInput>
+  }
+
+  export type MemberTimeLogsMembershipUpdateWithWhereUniqueWithoutMembershipInput = {
+    where: MemberTimeLogsMembershipWhereUniqueInput
+    data: XOR<MemberTimeLogsMembershipUpdateWithoutMembershipInput, MemberTimeLogsMembershipUncheckedUpdateWithoutMembershipInput>
+  }
+
+  export type MemberTimeLogsMembershipUpdateManyWithWhereWithoutMembershipInput = {
+    where: MemberTimeLogsMembershipScalarWhereInput
+    data: XOR<MemberTimeLogsMembershipUpdateManyMutationInput, MemberTimeLogsMembershipUncheckedUpdateManyWithoutMembershipInput>
+  }
+
+  export type MemberTimeLogsMembershipScalarWhereInput = {
+    AND?: MemberTimeLogsMembershipScalarWhereInput | MemberTimeLogsMembershipScalarWhereInput[]
+    OR?: MemberTimeLogsMembershipScalarWhereInput[]
+    NOT?: MemberTimeLogsMembershipScalarWhereInput | MemberTimeLogsMembershipScalarWhereInput[]
+    id?: IntFilter<"MemberTimeLogsMembership"> | number
+    member_time_log_id?: IntFilter<"MemberTimeLogsMembership"> | number
+    membership_id?: StringFilter<"MemberTimeLogsMembership"> | string
   }
 
   export type MemberCreateWithoutAttendance_logsInput = {
@@ -22514,7 +24086,7 @@ export namespace Prisma {
     limits?: GymLimitCreateNestedManyWithoutGymInput
     audit_logs?: AuditCreateNestedManyWithoutGymInput
     membership_counts?: MembershipCountCreateNestedManyWithoutGymInput
-    owner: UserCreateNestedOneWithoutGymsInput
+    owner: UserCreateNestedOneWithoutGymInput
   }
 
   export type GymUncheckedCreateWithoutMember_time_logsInput = {
@@ -22536,6 +24108,25 @@ export namespace Prisma {
   export type GymCreateOrConnectWithoutMember_time_logsInput = {
     where: GymWhereUniqueInput
     create: XOR<GymCreateWithoutMember_time_logsInput, GymUncheckedCreateWithoutMember_time_logsInput>
+  }
+
+  export type MemberTimeLogsMembershipCreateWithoutMember_time_logInput = {
+    membership: MembershipCreateNestedOneWithoutAttendance_logsInput
+  }
+
+  export type MemberTimeLogsMembershipUncheckedCreateWithoutMember_time_logInput = {
+    id?: number
+    membership_id: string
+  }
+
+  export type MemberTimeLogsMembershipCreateOrConnectWithoutMember_time_logInput = {
+    where: MemberTimeLogsMembershipWhereUniqueInput
+    create: XOR<MemberTimeLogsMembershipCreateWithoutMember_time_logInput, MemberTimeLogsMembershipUncheckedCreateWithoutMember_time_logInput>
+  }
+
+  export type MemberTimeLogsMembershipCreateManyMember_time_logInputEnvelope = {
+    data: MemberTimeLogsMembershipCreateManyMember_time_logInput | MemberTimeLogsMembershipCreateManyMember_time_logInput[]
+    skipDuplicates?: boolean
   }
 
   export type MemberUpsertWithoutAttendance_logsInput = {
@@ -22593,7 +24184,7 @@ export namespace Prisma {
     limits?: GymLimitUpdateManyWithoutGymNestedInput
     audit_logs?: AuditUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
-    owner?: UserUpdateOneRequiredWithoutGymsNestedInput
+    owner?: UserUpdateOneRequiredWithoutGymNestedInput
   }
 
   export type GymUncheckedUpdateWithoutMember_time_logsInput = {
@@ -22610,6 +24201,148 @@ export namespace Prisma {
     limits?: GymLimitUncheckedUpdateManyWithoutGymNestedInput
     audit_logs?: AuditUncheckedUpdateManyWithoutGymNestedInput
     membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
+  }
+
+  export type MemberTimeLogsMembershipUpsertWithWhereUniqueWithoutMember_time_logInput = {
+    where: MemberTimeLogsMembershipWhereUniqueInput
+    update: XOR<MemberTimeLogsMembershipUpdateWithoutMember_time_logInput, MemberTimeLogsMembershipUncheckedUpdateWithoutMember_time_logInput>
+    create: XOR<MemberTimeLogsMembershipCreateWithoutMember_time_logInput, MemberTimeLogsMembershipUncheckedCreateWithoutMember_time_logInput>
+  }
+
+  export type MemberTimeLogsMembershipUpdateWithWhereUniqueWithoutMember_time_logInput = {
+    where: MemberTimeLogsMembershipWhereUniqueInput
+    data: XOR<MemberTimeLogsMembershipUpdateWithoutMember_time_logInput, MemberTimeLogsMembershipUncheckedUpdateWithoutMember_time_logInput>
+  }
+
+  export type MemberTimeLogsMembershipUpdateManyWithWhereWithoutMember_time_logInput = {
+    where: MemberTimeLogsMembershipScalarWhereInput
+    data: XOR<MemberTimeLogsMembershipUpdateManyMutationInput, MemberTimeLogsMembershipUncheckedUpdateManyWithoutMember_time_logInput>
+  }
+
+  export type MemberTimeLogsCreateWithoutMembershipsInput = {
+    checked_in_at?: Date | string
+    recorded_by: string
+    member: MemberCreateNestedOneWithoutAttendance_logsInput
+    gym: GymCreateNestedOneWithoutMember_time_logsInput
+  }
+
+  export type MemberTimeLogsUncheckedCreateWithoutMembershipsInput = {
+    id?: number
+    member_id: string
+    gym_id: string
+    checked_in_at?: Date | string
+    recorded_by: string
+  }
+
+  export type MemberTimeLogsCreateOrConnectWithoutMembershipsInput = {
+    where: MemberTimeLogsWhereUniqueInput
+    create: XOR<MemberTimeLogsCreateWithoutMembershipsInput, MemberTimeLogsUncheckedCreateWithoutMembershipsInput>
+  }
+
+  export type MembershipCreateWithoutAttendance_logsInput = {
+    id?: string
+    start_date?: Date | string
+    end_date?: Date | string | null
+    sessions_left?: number | null
+    is_active?: boolean
+    is_reminded?: boolean
+    plan_name: string
+    plan_description?: string | null
+    amount_paid: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    created_by: string
+    member: MemberCreateNestedOneWithoutMembershipsInput
+    gym: GymCreateNestedOneWithoutMembershipsInput
+  }
+
+  export type MembershipUncheckedCreateWithoutAttendance_logsInput = {
+    id?: string
+    member_id: string
+    gym_id: string
+    start_date?: Date | string
+    end_date?: Date | string | null
+    sessions_left?: number | null
+    is_active?: boolean
+    is_reminded?: boolean
+    plan_name: string
+    plan_description?: string | null
+    amount_paid: Decimal | DecimalJsLike | number | string
+    created_at?: Date | string
+    created_by: string
+  }
+
+  export type MembershipCreateOrConnectWithoutAttendance_logsInput = {
+    where: MembershipWhereUniqueInput
+    create: XOR<MembershipCreateWithoutAttendance_logsInput, MembershipUncheckedCreateWithoutAttendance_logsInput>
+  }
+
+  export type MemberTimeLogsUpsertWithoutMembershipsInput = {
+    update: XOR<MemberTimeLogsUpdateWithoutMembershipsInput, MemberTimeLogsUncheckedUpdateWithoutMembershipsInput>
+    create: XOR<MemberTimeLogsCreateWithoutMembershipsInput, MemberTimeLogsUncheckedCreateWithoutMembershipsInput>
+    where?: MemberTimeLogsWhereInput
+  }
+
+  export type MemberTimeLogsUpdateToOneWithWhereWithoutMembershipsInput = {
+    where?: MemberTimeLogsWhereInput
+    data: XOR<MemberTimeLogsUpdateWithoutMembershipsInput, MemberTimeLogsUncheckedUpdateWithoutMembershipsInput>
+  }
+
+  export type MemberTimeLogsUpdateWithoutMembershipsInput = {
+    checked_in_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    recorded_by?: StringFieldUpdateOperationsInput | string
+    member?: MemberUpdateOneRequiredWithoutAttendance_logsNestedInput
+    gym?: GymUpdateOneRequiredWithoutMember_time_logsNestedInput
+  }
+
+  export type MemberTimeLogsUncheckedUpdateWithoutMembershipsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    member_id?: StringFieldUpdateOperationsInput | string
+    gym_id?: StringFieldUpdateOperationsInput | string
+    checked_in_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    recorded_by?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MembershipUpsertWithoutAttendance_logsInput = {
+    update: XOR<MembershipUpdateWithoutAttendance_logsInput, MembershipUncheckedUpdateWithoutAttendance_logsInput>
+    create: XOR<MembershipCreateWithoutAttendance_logsInput, MembershipUncheckedCreateWithoutAttendance_logsInput>
+    where?: MembershipWhereInput
+  }
+
+  export type MembershipUpdateToOneWithWhereWithoutAttendance_logsInput = {
+    where?: MembershipWhereInput
+    data: XOR<MembershipUpdateWithoutAttendance_logsInput, MembershipUncheckedUpdateWithoutAttendance_logsInput>
+  }
+
+  export type MembershipUpdateWithoutAttendance_logsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessions_left?: NullableIntFieldUpdateOperationsInput | number | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    is_reminded?: BoolFieldUpdateOperationsInput | boolean
+    plan_name?: StringFieldUpdateOperationsInput | string
+    plan_description?: NullableStringFieldUpdateOperationsInput | string | null
+    amount_paid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    member?: MemberUpdateOneRequiredWithoutMembershipsNestedInput
+    gym?: GymUpdateOneRequiredWithoutMembershipsNestedInput
+  }
+
+  export type MembershipUncheckedUpdateWithoutAttendance_logsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    member_id?: StringFieldUpdateOperationsInput | string
+    gym_id?: StringFieldUpdateOperationsInput | string
+    start_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sessions_left?: NullableIntFieldUpdateOperationsInput | number | null
+    is_active?: BoolFieldUpdateOperationsInput | boolean
+    is_reminded?: BoolFieldUpdateOperationsInput | boolean
+    plan_name?: StringFieldUpdateOperationsInput | string
+    plan_description?: NullableStringFieldUpdateOperationsInput | string | null
+    amount_paid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_by?: StringFieldUpdateOperationsInput | string
   }
 
   export type GymLimitCreateManyLimitInput = {
@@ -22633,54 +24366,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     gym_id?: StringFieldUpdateOperationsInput | string
     value?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type GymCreateManyOwnerInput = {
-    id?: string
-    name: string
-    location: string
-    created_at?: Date | string
-    created_by: string
-  }
-
-  export type GymUpdateWithoutOwnerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    memberships?: MembershipUpdateManyWithoutGymNestedInput
-    member_time_logs?: MemberTimeLogsUpdateManyWithoutGymNestedInput
-    gym_stats?: GymStatsUpdateOneWithoutGymNestedInput
-    revenues?: RevenueUpdateManyWithoutGymNestedInput
-    staffs?: GymStaffUpdateManyWithoutGymNestedInput
-    limits?: GymLimitUpdateManyWithoutGymNestedInput
-    audit_logs?: AuditUpdateManyWithoutGymNestedInput
-    membership_counts?: MembershipCountUpdateManyWithoutGymNestedInput
-  }
-
-  export type GymUncheckedUpdateWithoutOwnerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    created_by?: StringFieldUpdateOperationsInput | string
-    memberships?: MembershipUncheckedUpdateManyWithoutGymNestedInput
-    member_time_logs?: MemberTimeLogsUncheckedUpdateManyWithoutGymNestedInput
-    gym_stats?: GymStatsUncheckedUpdateOneWithoutGymNestedInput
-    revenues?: RevenueUncheckedUpdateManyWithoutGymNestedInput
-    staffs?: GymStaffUncheckedUpdateManyWithoutGymNestedInput
-    limits?: GymLimitUncheckedUpdateManyWithoutGymNestedInput
-    audit_logs?: AuditUncheckedUpdateManyWithoutGymNestedInput
-    membership_counts?: MembershipCountUncheckedUpdateManyWithoutGymNestedInput
-  }
-
-  export type GymUncheckedUpdateManyWithoutOwnerInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    location?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    created_by?: StringFieldUpdateOperationsInput | string
   }
 
   export type MembershipCreateManyMemberInput = {
@@ -22718,6 +24403,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
     gym?: GymUpdateOneRequiredWithoutMembershipsNestedInput
+    attendance_logs?: MemberTimeLogsMembershipUpdateManyWithoutMembershipNestedInput
   }
 
   export type MembershipUncheckedUpdateWithoutMemberInput = {
@@ -22733,6 +24419,7 @@ export namespace Prisma {
     amount_paid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
+    attendance_logs?: MemberTimeLogsMembershipUncheckedUpdateManyWithoutMembershipNestedInput
   }
 
   export type MembershipUncheckedUpdateManyWithoutMemberInput = {
@@ -22754,6 +24441,7 @@ export namespace Prisma {
     checked_in_at?: DateTimeFieldUpdateOperationsInput | Date | string
     recorded_by?: StringFieldUpdateOperationsInput | string
     gym?: GymUpdateOneRequiredWithoutMember_time_logsNestedInput
+    memberships?: MemberTimeLogsMembershipUpdateManyWithoutMember_time_logNestedInput
   }
 
   export type MemberTimeLogsUncheckedUpdateWithoutMemberInput = {
@@ -22761,6 +24449,7 @@ export namespace Prisma {
     gym_id?: StringFieldUpdateOperationsInput | string
     checked_in_at?: DateTimeFieldUpdateOperationsInput | Date | string
     recorded_by?: StringFieldUpdateOperationsInput | string
+    memberships?: MemberTimeLogsMembershipUncheckedUpdateManyWithoutMember_time_logNestedInput
   }
 
   export type MemberTimeLogsUncheckedUpdateManyWithoutMemberInput = {
@@ -22847,6 +24536,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
     member?: MemberUpdateOneRequiredWithoutMembershipsNestedInput
+    attendance_logs?: MemberTimeLogsMembershipUpdateManyWithoutMembershipNestedInput
   }
 
   export type MembershipUncheckedUpdateWithoutGymInput = {
@@ -22862,6 +24552,7 @@ export namespace Prisma {
     amount_paid?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: StringFieldUpdateOperationsInput | string
+    attendance_logs?: MemberTimeLogsMembershipUncheckedUpdateManyWithoutMembershipNestedInput
   }
 
   export type MembershipUncheckedUpdateManyWithoutGymInput = {
@@ -22883,6 +24574,7 @@ export namespace Prisma {
     checked_in_at?: DateTimeFieldUpdateOperationsInput | Date | string
     recorded_by?: StringFieldUpdateOperationsInput | string
     member?: MemberUpdateOneRequiredWithoutAttendance_logsNestedInput
+    memberships?: MemberTimeLogsMembershipUpdateManyWithoutMember_time_logNestedInput
   }
 
   export type MemberTimeLogsUncheckedUpdateWithoutGymInput = {
@@ -22890,6 +24582,7 @@ export namespace Prisma {
     member_id?: StringFieldUpdateOperationsInput | string
     checked_in_at?: DateTimeFieldUpdateOperationsInput | Date | string
     recorded_by?: StringFieldUpdateOperationsInput | string
+    memberships?: MemberTimeLogsMembershipUncheckedUpdateManyWithoutMember_time_logNestedInput
   }
 
   export type MemberTimeLogsUncheckedUpdateManyWithoutGymInput = {
@@ -23021,6 +24714,44 @@ export namespace Prisma {
     month?: IntFieldUpdateOperationsInput | number
     count?: IntFieldUpdateOperationsInput | number
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MemberTimeLogsMembershipCreateManyMembershipInput = {
+    id?: number
+    member_time_log_id: number
+  }
+
+  export type MemberTimeLogsMembershipUpdateWithoutMembershipInput = {
+    member_time_log?: MemberTimeLogsUpdateOneRequiredWithoutMembershipsNestedInput
+  }
+
+  export type MemberTimeLogsMembershipUncheckedUpdateWithoutMembershipInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    member_time_log_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type MemberTimeLogsMembershipUncheckedUpdateManyWithoutMembershipInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    member_time_log_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type MemberTimeLogsMembershipCreateManyMember_time_logInput = {
+    id?: number
+    membership_id: string
+  }
+
+  export type MemberTimeLogsMembershipUpdateWithoutMember_time_logInput = {
+    membership?: MembershipUpdateOneRequiredWithoutAttendance_logsNestedInput
+  }
+
+  export type MemberTimeLogsMembershipUncheckedUpdateWithoutMember_time_logInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    membership_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MemberTimeLogsMembershipUncheckedUpdateManyWithoutMember_time_logInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    membership_id?: StringFieldUpdateOperationsInput | string
   }
 
 

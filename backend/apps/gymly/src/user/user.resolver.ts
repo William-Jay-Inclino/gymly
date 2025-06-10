@@ -34,12 +34,16 @@ export class UserResolver {
                 input
             });
 
-            const device_info = getDeviceInfo(user_agent);
-            return this.userService.updatePassword(input, {
+            const x = await this.userService.updatePassword(input, {
                 ip_address,
-                device_info,
+                device_info: getDeviceInfo(user_agent),
                 current_user: user,
             });
+
+            this.logger.log(x.msg)
+
+            return x
+
         } catch (error) {
             this.logger.error('Error in updating password', error);
         }
@@ -64,11 +68,16 @@ export class UserResolver {
                 password
             });
 
-            return this.userService.reset_password({ user_id, password }, {
+            const x = await this.userService.reset_password({ user_id, password }, {
                 ip_address,
                 device_info: getDeviceInfo(user_agent),
                 current_user: user,
             });
+
+            this.logger.log(x.msg);
+
+            return x;
+
         } catch (error) {
             this.logger.error('Error in resetting password', error);
         }

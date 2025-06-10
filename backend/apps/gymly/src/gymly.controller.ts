@@ -1,4 +1,4 @@
-import { Controller, Get, Post, UseGuards, Request } from '@nestjs/common';
+import { Controller, Get, Post, UseGuards, Request, Logger } from '@nestjs/common';
 import { LocalAuthGuard } from './auth/guards/local-auth.guard';
 import { AuthService } from './auth/auth.service';
 import { AuditLogsService } from './audit-logs/audit-logs.service';
@@ -9,6 +9,9 @@ import { getDeviceInfo } from './libs/helpers';
 
 @Controller()
 export class GymlyController {
+
+    private readonly logger = new Logger(GymlyController.name);
+    private filename = 'gymly.controller.ts'
     
     constructor(
         private readonly authService: AuthService,
@@ -27,10 +30,20 @@ export class GymlyController {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
+
+        this.logger.log('User login attempt', {
+            username: req.user?.username,
+            filename: this.filename,
+            user_agent,
+            ip_address,
+        });
+
         const result = await this.authService.login(req.user);
 
         // Log audit if login is successful
         if (result && req.user) {
+
+            this.logger.log('User logged in successfully')
 
             await this.audit.createAuditEntry({
                 username: req.user.username,

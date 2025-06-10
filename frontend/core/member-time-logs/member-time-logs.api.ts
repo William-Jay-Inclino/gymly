@@ -125,3 +125,36 @@ export async function member_time_logs_by_month(payload: {
     console.log('member_time_logs_by_month', response);
     return deepClone(response.data.data.member_time_logs_by_month);
 }
+
+
+export async function get_all_attendance_by_date(payload: { date: string; gym_id: string }) {
+    const { date, gym_id } = payload;
+    const query = `
+        query {
+            get_all_attendance_by_date(
+                date: "${date}",
+                gym_id: "${gym_id}"
+            ) {
+                id
+                checked_in_at
+                member {
+                    id
+                    firstname
+                    lastname
+                }
+                memberships {
+                    membership {
+                        plan_name
+                    }
+                }
+            }
+        }
+    `;
+    try {
+        const response = await sendRequest(query);
+        return deepClone(response.data.data.get_all_attendance_by_date);
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}

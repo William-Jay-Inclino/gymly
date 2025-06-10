@@ -42,11 +42,16 @@ export class PlanResolver {
                 input
             });
 
-            return this.planService.create(input, {
+            const x = await this.planService.create(input, {
                 ip_address,
                 device_info: getDeviceInfo(user_agent),
                 current_user: user
             });
+
+            this.logger.log('Gym plan created successfully');
+
+            return x
+
         } catch (error) {
             this.logger.error('Error in creating plan', error);
         }
@@ -71,11 +76,15 @@ export class PlanResolver {
                 input
             });
 
-            return this.planService.update(id, input, {
+            const x = await this.planService.update(id, input, {
                 ip_address,
                 device_info: getDeviceInfo(user_agent),
                 current_user: user
             });
+
+            this.logger.log('Gym plan updated successfully');
+            return x;
+
         } catch (error) {
             this.logger.error('Error in updating plan', error);
         }
@@ -98,11 +107,15 @@ export class PlanResolver {
                 id
             });
 
-            return this.planService.delete(id, {
+            const x = await this.planService.delete(id, {
                 ip_address,
                 device_info: getDeviceInfo(user_agent),
                 current_user: user
             });
+
+            this.logger.log('Gym plan deleted successfully');
+            return x;
+
         } catch (error) {
             this.logger.error('Error in deleting plan', error);
         }

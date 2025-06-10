@@ -20,7 +20,7 @@ export class UserService {
             where: { username },
             include: {
                 gym_staff: true,
-                gyms: true,
+                gym: true,
             }
         }) as unknown as UserEntity;
     }
@@ -32,7 +32,7 @@ export class UserService {
                 id: true,
                 username: true,
                 role: true,
-                gyms: {
+                gym: {
                     select: {
                         id: true,
                         name: true,

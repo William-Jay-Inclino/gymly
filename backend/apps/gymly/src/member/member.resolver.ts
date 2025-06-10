@@ -42,11 +42,16 @@ export class MemberResolver {
                 input: data
             });
 
-            return this.memberService.create(data, {
+            const x = await this.memberService.create(data, {
                 ip_address,
                 device_info: getDeviceInfo(user_agent),
                 current_user: user
             });
+
+            this.logger.log(x.msg);
+
+            return x
+
         } catch(error) {
             this.logger.error('Error in creating member', error)
         }

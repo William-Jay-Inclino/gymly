@@ -248,6 +248,12 @@ exports.Prisma.MemberTimeLogsScalarFieldEnum = {
   recorded_by: 'recorded_by'
 };
 
+exports.Prisma.MemberTimeLogsMembershipScalarFieldEnum = {
+  id: 'id',
+  member_time_log_id: 'member_time_log_id',
+  membership_id: 'membership_id'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -292,7 +298,8 @@ exports.Prisma.ModelName = {
   GymStaff: 'GymStaff',
   Membership: 'Membership',
   Plan: 'Plan',
-  MemberTimeLogs: 'MemberTimeLogs'
+  MemberTimeLogs: 'MemberTimeLogs',
+  MemberTimeLogsMembership: 'MemberTimeLogsMembership'
 };
 
 /**

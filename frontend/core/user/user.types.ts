@@ -17,7 +17,7 @@ export interface User {
     created_at: string;
     created_by: string;
 
-    gyms: Gym[]
-    gym_staff?: GymStaff
+    gym: Gym
+    gym_staff: GymStaff
     
 }

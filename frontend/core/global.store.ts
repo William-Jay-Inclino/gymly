@@ -27,7 +27,7 @@ export const useGlobalStore = defineStore('global', {
             if (user.role === 'GYM_STAFF' && user.gym_staff) {
                 this._current_gym = user.gym_staff.gym
             } else {
-                this._current_gym = user.gyms.length > 0 ? user.gyms[0] : null
+                this._current_gym = user.gym
             }
         },
     },

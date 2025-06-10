@@ -42,11 +42,15 @@ export class GymStaffResolver {
                 input
             })
 
-            return this.gymStaffService.create(input, {
+            const x = await this.gymStaffService.create(input, {
                 ip_address,
                 device_info: getDeviceInfo(user_agent),
                 current_user: user
             });
+
+            this.logger.log(x.msg)
+
+            return x
 
         } catch (error) {
             this.logger.error('Error in creating gym staff', error)
@@ -69,11 +73,15 @@ export class GymStaffResolver {
                 input
             })
 
-            return this.gymStaffService.update(input, {
+            const x = await this.gymStaffService.update(input, {
                 ip_address,
                 device_info: getDeviceInfo(user_agent),
                 current_user: user
             });
+
+            this.logger.log(x.msg)
+
+            return x
 
         } catch (error) {
             this.logger.error('Error in updating gym staff', error)
@@ -96,11 +104,16 @@ export class GymStaffResolver {
                 user_id
             })
 
-            return this.gymStaffService.delete(user_id, {
+            const x = await this.gymStaffService.delete(user_id, {
                 current_user: user,
                 ip_address,
                 device_info: getDeviceInfo(user_agent)
             });
+
+            this.logger.log(x.msg)
+
+            return x
+
         } catch (error) {
             this.logger.error('Error in deleting gym staff', error)
         }

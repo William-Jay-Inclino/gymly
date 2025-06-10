@@ -26,7 +26,7 @@ export class MemberTimeLogsResolver {
         @Args('date', { type: () => String, nullable: true }) date?: string,
         @Args('member_id', { type: () => String, nullable: true }) member_id?: string,
     ) {
-        return this.memberTimeLogsService.findTimeLogs({ gym_id, checked_in_at: new Date(date), member_id });
+        return this.memberTimeLogsService.find_time_logs({ gym_id, checked_in_at: new Date(date), member_id });
     }
 
     @Mutation(() => MutationMemberTimeLogResponse)
@@ -45,11 +45,15 @@ export class MemberTimeLogsResolver {
                 input
             });
 
-            return this.memberTimeLogsService.logCheckIn(input, {
+            const x = await this.memberTimeLogsService.log_check_in(input, {
                 ip_address,
                 device_info: getDeviceInfo(user_agent),
                 current_user: user
             });
+
+            this.logger.log(x.msg);
+            return x;
+
         } catch (error) {
             this.logger.error('Error in logging member check-in', error);
         }
@@ -60,7 +64,7 @@ export class MemberTimeLogsResolver {
     async total_checked_in_today(
         @Args('gym_id', { type: () => String }) gym_id: string
     ): Promise<number> {
-        return this.memberTimeLogsService.getTotalCheckedInToday(gym_id);
+        return this.memberTimeLogsService.get_total_checked_in_today(gym_id);
     }
 
     @Query(() => [MemberTimeLog])
@@ -70,7 +74,17 @@ export class MemberTimeLogsResolver {
         @Args('member_id', { type: () => String }) member_id: string,
         @Args('gym_id', { type: () => String }) gym_id: string,
     ) {
-        return this.memberTimeLogsService.getMemberLogsByMonth({ year, month, member_id, gym_id });
+        return this.memberTimeLogsService.get_member_logs_by_month({ year, month, member_id, gym_id });
+    }
+
+    @Query(() => [MemberTimeLog])
+    async get_all_attendance_by_date(
+        @Args('date', { type: () => String }) date: string,
+        @Args('gym_id', { type: () => String }) gym_id: string,
+    ) {
+        // Convert date string to Date object
+        const dateObj = new Date(date);
+        return this.memberTimeLogsService.get_all_attendance_by_date({ date: dateObj, gym_id });
     }
     
 }

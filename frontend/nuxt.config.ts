@@ -26,6 +26,8 @@ export default defineNuxtConfig({
             ],
             link: [
                 { rel: 'author', href: 'https://www.facebook.com/jewell.inclino' },
+                { rel: 'icon', type: 'image/png', href: '/gymly/favicon.ico' },
+                
             ],
         }
     },
