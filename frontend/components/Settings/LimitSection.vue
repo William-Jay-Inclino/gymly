@@ -1,5 +1,5 @@
 <template>
-    <section class="bg-white rounded-xl shadow p-6 space-y-4">
+    <section class="bg-white rounded-xl shadow p-4 sm:p-6 space-y-4">
         <div class="flex items-center gap-2 mb-2">
             <BarChart3 class="w-5 h-5 text-primary" />
             <h2 class="font-semibold text-base-content">Limits</h2>
@@ -10,7 +10,7 @@
                     <Users class="w-4 h-4 text-primary" /> Members
                 </span>
                 <span class="badge badge-outline">
-                    {{ getLimitValue(LIMIT.MEMBER_LIMIT) ?? '—' }}
+                    {{ get_limit_value(LIMIT.MEMBER_LIMIT) ?? '—' }}
                 </span>
             </li>
             <li class="py-2 flex items-center justify-between">
@@ -18,7 +18,7 @@
                     <List class="w-4 h-4 text-primary" /> Plans
                 </span>
                 <span class="badge badge-outline">
-                    {{ getLimitValue(LIMIT.PLAN_LIMIT) ?? '—' }}
+                    {{ get_limit_value(LIMIT.PLAN_LIMIT) ?? '—' }}
                 </span>
             </li>
             <li class="py-2 flex items-center justify-between">
@@ -26,7 +26,7 @@
                     <UserCog class="w-4 h-4 text-primary" /> Staffs
                 </span>
                 <span class="badge badge-outline">
-                    {{ getLimitValue(LIMIT.STAFF_LIMIT) ?? '—' }}
+                    {{ get_limit_value(LIMIT.STAFF_LIMIT) ?? '—' }}
                 </span>
             </li>
             <li class="py-2 flex items-center justify-between">
@@ -34,8 +34,8 @@
                     <FileClock class="w-4 h-4 text-primary" /> System Logs
                 </span>
                 <span class="badge badge-outline">
-                    {{ getLimitValue(LIMIT.SYSTEM_LOGS_LIMIT) ?? '—' }}
-                    <template v-if="getLimitValue(LIMIT.SYSTEM_LOGS_LIMIT)">month</template>
+                    {{ get_limit_value(LIMIT.SYSTEM_LOGS_LIMIT) ?? '—' }}
+                    <template v-if="get_limit_value(LIMIT.SYSTEM_LOGS_LIMIT)">month</template>
                 </span>
             </li>
             <li class="py-2 flex items-center justify-between">
@@ -43,7 +43,7 @@
                     <Users2 class="w-4 h-4 text-primary" /> Memberships per Member
                 </span>
                 <span class="badge badge-outline">
-                    {{ getLimitValue(LIMIT.MEMBERSHIP_PER_MEMBER_LIMIT) ?? '—' }}
+                    {{ get_limit_value(LIMIT.MEMBERSHIP_PER_MEMBER_LIMIT) ?? '—' }}
                 </span>
             </li>
         </ul>
@@ -61,22 +61,26 @@ import { get_gym_limits } from '~/core/gym-limit/gym-limit.api'
 import type { GymLimit } from '~/core/gym-limit/gym-limit'
 import { LIMIT } from '~/core/gym-limit/gym-limit'
 
+// --- State ---
 const { gym_id } = useGlobalStore()
 const is_loading_limits = ref(false)
 const gym_limits = ref<GymLimit[]>([])
 
-function getLimitValue(limit_id: number) {
-    console.log('getLimitValue', limit_id);
-    console.log('gym_limits', gym_limits.value);
+// --- Methods ---
+function get_limit_value(limit_id: number) {
     const found = gym_limits.value.find(l => l.limit.id === limit_id)
     return found ? found.value : null
 }
 
+// --- Lifecycle ---
 onMounted(async () => {
     if (!gym_id) return
     is_loading_limits.value = true
-    const _gym_limits = await get_gym_limits({ gym_id })
-    gym_limits.value = _gym_limits
-    is_loading_limits.value = false
+    try {
+        const _gym_limits = await get_gym_limits({ gym_id })
+        gym_limits.value = _gym_limits
+    } finally {
+        is_loading_limits.value = false
+    }
 })
 </script>
