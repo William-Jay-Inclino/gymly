@@ -35,8 +35,6 @@ export class GymlyController {
         // Log audit if login is successful
         if (result && req.user) {
 
-            this.logger.log('User logged in successfully')
-
             await this.audit.createAuditEntry({
                 username: req.user.username,
                 table: DB_TABLE.NONE,
@@ -44,6 +42,7 @@ export class GymlyController {
                 ip_address,
                 device_info: getDeviceInfo(user_agent),
             });
+            
         }
 
         return result;
