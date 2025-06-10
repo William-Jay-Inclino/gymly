@@ -1,15 +1,16 @@
 <template>
-    <div class="bg-base-100 rounded-xl shadow border border-base-200 p-7 col-span-2 min-h-[340px]">
-        <div class="flex items-center justify-between mb-4">
-            <span class="font-semibold text-base-content/70 flex items-center gap-2 text-lg">
-                <LineChart class="w-6 h-6 text-primary/80" /> Revenue Over Time
+    <div class="bg-base-100 rounded-xl shadow border border-base-200 p-4 sm:p-7 col-span-2 min-h-[340px]">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+            <span class="font-semibold text-base-content/70 flex items-center gap-2 text-base sm:text-lg">
+                <LineChart class="w-5 h-5 sm:w-6 sm:h-6 text-primary/80" /> 
+                <span class="truncate">Revenue Over Time</span>
             </span>
-            <div class="flex items-center gap-2">
-                <select v-model="start_year" class="select select-sm bg-base-200 border-base-300 text-base-content/80">
+            <div class="flex flex-col xs:flex-row gap-2 sm:flex-row sm:items-center">
+                <select v-model="start_year" class="select select-xs sm:select-sm bg-base-200 border-base-300 text-base-content/80 w-full xs:w-auto">
                     <option v-for="year in years" :key="'start-' + year" :value="year">{{ year }}</option>
                 </select>
-                <span class="text-base-content/60 text-xs">to</span>
-                <select v-model="end_year" class="select select-sm bg-base-200 border-base-300 text-base-content/80">
+                <span class="text-base-content/60 text-xs text-center xs:text-left">to</span>
+                <select v-model="end_year" class="select select-xs sm:select-sm bg-base-200 border-base-300 text-base-content/80 w-full xs:w-auto">
                     <option v-for="year in years" :key="'end-' + year" :value="year">{{ year }}</option>
                 </select>
             </div>
@@ -17,7 +18,11 @@
         <div v-if="component_loading" class="flex justify-center items-center min-h-[200px]">
             <span class="loading loading-spinner loading-lg"></span>
         </div>
-        <canvas v-else ref="revenue_chart" height="200"></canvas>
+        <div v-else class="w-full overflow-x-auto">
+            <div class="min-w-[400px] sm:min-w-full">
+                <canvas ref="revenue_chart" height="200" class="w-full"></canvas>
+            </div>
+        </div>
     </div>
 </template>
 

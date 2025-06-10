@@ -1,25 +1,25 @@
 <template>
     <div class="bg-base-100 rounded-2xl shadow-sm border border-base-200 p-0 overflow-hidden flex flex-col h-full max-h-[730px]">
         <!-- Header -->
-        <div class="flex items-center gap-2 px-6 py-5 bg-base-100/90 border-b border-base-200">
+        <div class="flex items-center gap-2 px-4 sm:px-6 py-4 sm:py-5 bg-base-100/90 border-b border-base-200">
             <AlertTriangle class="w-5 h-5 text-rose-500/80" />
-            <span class="font-semibold text-base-content/80 text-lg">Upcoming Membership Expirations</span>
+            <span class="font-semibold text-base-content/80 text-base sm:text-lg">Upcoming Membership Expirations</span>
         </div>
         <!-- List -->
-        <div class="flex-1 p-4 overflow-y-auto min-h-0">
+        <div class="flex-1 p-3 sm:p-4 overflow-y-auto min-h-0">
             <div v-if="loading" class="flex justify-center py-10">
                 <span class="loading loading-spinner loading-md"></span>
             </div>
             <template v-else>
-                <ul class="flex flex-col gap-4">
+                <ul class="flex flex-col gap-3 sm:gap-4">
                     <li
                         v-for="exp in store.upcoming_membership_expirations"
                         :key="exp.id"
-                        class="group flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-4 py-4 rounded-xl bg-base-200/70 hover:bg-primary/10 transition-all shadow-sm min-w-0"
+                        class="group flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-3 sm:px-4 py-3 sm:py-4 rounded-xl bg-base-200/70 hover:bg-primary/10 transition-all shadow-sm min-w-0"
                     >
                         <!-- Info Block -->
                         <div class="flex flex-col gap-2 flex-1 min-w-0">
-                            <span class="font-semibold text-base-content/90 text-base break-words leading-tight">
+                            <span class="font-semibold text-base-content/90 text-sm sm:text-base break-words leading-tight">
                                 {{ exp.member.firstname }} {{ exp.member.lastname }}
                             </span>
                             <div class="flex flex-col sm:flex-row sm:flex-wrap gap-2 sm:gap-x-6">
@@ -28,7 +28,7 @@
                                 </span>
                                 <span class="flex items-center gap-1 text-xs text-base-content/60 min-w-0">
                                     <Phone class="w-3 h-3 text-base-content/40" />
-                                    <span class="truncate max-w-[140px] sm:max-w-[180px] md:max-w-[220px]">{{ exp.member.contact_number }}</span>
+                                    <span class="truncate max-w-[120px] xs:max-w-[160px] sm:max-w-[180px] md:max-w-[220px]">{{ exp.member.contact_number }}</span>
                                 </span>
                                 <span
                                     v-if="(exp.days_left !== undefined && exp.days_left !== null && exp.days_left > 0)"
@@ -47,7 +47,7 @@
                             </div>
                         </div>
                         <!-- Reminded Checkbox -->
-                        <div class="flex-shrink-0 flex items-center justify-end mt-3 sm:mt-0">
+                        <div class="flex-shrink-0 flex items-center justify-end mt-2 sm:mt-0">
                             <label class="flex items-center gap-2 cursor-pointer select-none">
                                 <input
                                     type="checkbox"

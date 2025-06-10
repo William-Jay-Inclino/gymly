@@ -1,8 +1,10 @@
 <template>
-    <div class="bg-base-100 rounded-xl shadow border border-base-200 p-5 flex flex-col gap-5 min-w-[320px] w-full max-w-full">
+    <div class="bg-base-100 rounded-xl shadow border border-base-200 p-4 sm:p-6 flex flex-col gap-4 min-w-[0] w-full max-w-full">
+        <!-- Today's Memberships -->
         <div>
-            <span class="text-base-content/60 text-xs flex items-center gap-1">
-                <CalendarDays class="w-4 h-4" /> Today's New Memberships
+            <span class="text-base-content/60 text-xs flex items-center gap-1 flex-wrap">
+                <CalendarDays class="w-4 h-4" />
+                <span>Today's New Memberships</span>
                 <button
                     class="btn btn-xs btn-outline btn-primary ml-2"
                     @click="show_memberships_modal = true"
@@ -11,29 +13,51 @@
                     View
                 </button>
             </span>
-            <div class="text-xl font-bold text-base-content/80 mt-1">{{ store.gym_stat.total_memberships_today }}</div>
+            <div class="text-xl sm:text-2xl font-bold text-base-content/80 mt-1">
+                {{ store.gym_stat.total_memberships_today }}
+            </div>
         </div>
+
+        <!-- Monthly Memberships Table -->
         <div>
             <span class="text-base-content/60 text-xs flex items-center gap-1 mb-2">
-                <CalendarRange class="w-4 h-4" /> Monthly Memberships (Jan - Dec)
+                <CalendarRange class="w-4 h-4" />
+                <span>Monthly Memberships (Jan - Dec)</span>
             </span>
-            <div class="w-full overflow-x-auto mb-2 responsive-table">
+            <div class="w-full overflow-x-auto mb-2">
                 <div v-if="component_loading" class="flex justify-center py-12">
                     <span class="loading loading-spinner loading-lg"></span>
                 </div>
-                <table v-else class="w-full text-xs mt-2 min-w-[400px] sm:min-w-0">
+                <table
+                    v-else
+                    class="table table-zebra w-full text-xs sm:text-sm mt-2 min-w-[400px] sm:min-w-full"
+                >
                     <thead>
                         <tr class="text-base-content/60">
                             <th class="py-1 px-2 font-semibold text-center">Month</th>
-                            <th v-for="year in years" :key="year" class="py-1 px-2 font-semibold text-center">
+                            <th
+                                v-for="year in years"
+                                :key="year"
+                                class="py-1 px-2 font-semibold text-center"
+                            >
                                 {{ year }}
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(month, idx) in months" :key="month" :class="idx === current_month ? 'bg-primary/10 font-semibold' : ''">
-                            <td class="py-1 px-2 font-medium text-base-content/70 text-center whitespace-nowrap">{{ month }}</td>
-                            <td v-for="year in years" :key="year" class="py-1 px-2 text-center text-base-content/80 whitespace-nowrap">
+                        <tr
+                            v-for="(month, idx) in months"
+                            :key="month"
+                            :class="idx === current_month ? 'bg-primary/10 font-semibold' : ''"
+                        >
+                            <td class="py-1 px-2 font-medium text-base-content/70 text-center whitespace-nowrap">
+                                {{ month }}
+                            </td>
+                            <td
+                                v-for="year in years"
+                                :key="year"
+                                class="py-1 px-2 text-center text-base-content/80 whitespace-nowrap"
+                            >
                                 <span class="inline-flex items-center gap-1">
                                     {{ monthly_memberships_by_year[year][idx] ?? 0 }}
                                     <button
@@ -49,8 +73,10 @@
                     </tbody>
                 </table>
             </div>
-            <div class="text-xs text-center text-base-content/40 mb-2 gap-1">
-                Click the <span class="font-semibold text-base-content/60">eye icon</span> beside each counter to view memberships and total revenue for that month.
+            <div class="text-xs text-center text-base-content/40 mb-2 flex flex-wrap justify-center gap-1">
+                Click the
+                <span class="font-semibold text-base-content/60">eye icon</span>
+                beside each counter to view memberships and total revenue for that month.
             </div>
         </div>
 

@@ -104,46 +104,16 @@
     </div>
 
     <!-- Attendance Modal -->
-    <Transition name="modal" appear>
-        <div v-if="show_attendance_modal" class="fixed inset-0 z-50 flex items-start justify-center bg-black/40 pt-8 px-4">
-            <div class="bg-white rounded-xl shadow-lg max-w-md w-full p-6 relative">
-                <button class="absolute top-2 right-2 btn btn-xs btn-circle" @click="show_attendance_modal = false">✕</button>
-                <div class="mb-3 font-semibold text-lg text-center">Attendance for {{ modal_date_label }}</div>
-                <div v-if="attendance_loading" class="flex justify-center py-8">
-                    <span class="loading loading-spinner loading-md"></span>
-                </div>
-                <div v-else>
-                    <div v-if="attendance_list.length === 0" class="text-center text-base-content/60 py-4">
-                        No attendance found.
-                    </div>
-                    <ul v-else class="divide-y divide-base-200">
-                        <li
-                            v-for="item in attendance_list"
-                            :key="item.id"
-                            class="py-3 flex flex-col gap-1"
-                        >
-                            <div class="flex items-center gap-2">
-                                <span class="font-medium text-base-content">{{ item.member.firstname }} {{ item.member.lastname }}</span>
-                                <span class="ml-auto text-xs text-base-content/50">
-                                    {{ format_time(item.checked_in_at) }}
-                                </span>
-                            </div>
-                            <div v-if="item.memberships && item.memberships.length" class="flex flex-wrap gap-1 mt-1">
-                                <span class="text-xs text-base-content/60">Activity done:</span>
-                                <span
-                                    v-for="(m, idx) in item.memberships"
-                                    :key="idx"
-                                    class="inline-block bg-base-200 rounded px-2 py-0.5 text-xs text-primary font-semibold"
-                                >
-                                    {{ m.membership.plan_name }}
-                                </span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </Transition>
+     <AttendanceModal
+        v-if="show_attendance_modal"
+        :show="show_attendance_modal"
+        :gym_id="gym_id"
+        :date="modal_date_label"
+        @close="show_attendance_modal = false"
+        :attendance_list="attendance_list"
+        :attendance_loading="attendance_loading"
+    />
+
 </template>
 
 <script setup lang="ts">
@@ -152,6 +122,7 @@ import { CalendarCheck } from "lucide-vue-next"
 import { useGlobalStore } from "~/core/global.store"
 import { get_monthly_attendance_calendar } from "~/core/dashboard/dashboard.api"
 import { get_all_attendance_by_date } from "~/core/member-time-logs/member-time-logs.api"
+import AttendanceModal from "~/components/Dashboard/AttendanceModal.vue"
 
 // --- State ---
 const { gym_id } = useGlobalStore()

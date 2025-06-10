@@ -1,7 +1,7 @@
 <template>
     <Transition name="modal" appear>
         <div v-if="show" class="fixed inset-0 z-50 flex items-start justify-center bg-black/40 pt-8 px-2 sm:px-4">
-            <div class="bg-base-100 rounded-2xl shadow-2xl p-0 w-full max-w-4xl relative flex flex-col">
+            <div class="bg-base-100 rounded-2xl shadow-2xl p-0 w-full max-w-4xl relative flex flex-col max-h-[90vh]">
                 <!-- Header -->
                 <div class="flex items-center justify-between px-4 sm:px-8 py-4 sm:py-6 border-b border-base-200">
                     <div class="font-semibold text-base sm:text-lg">
@@ -12,7 +12,7 @@
                     </button>
                 </div>
                 <!-- Content -->
-                <div class="p-3 sm:p-8">
+                <div class="flex-1 overflow-y-auto p-3 sm:p-8">
                     <div v-if="loading" class="text-center py-12 text-base-content/60 text-sm">
                         <span class="loading loading-spinner loading-lg"></span>
                     </div>
@@ -49,7 +49,7 @@
                                                 :key="day_idx"
                                                 class="bg-base-100 rounded-lg shadow-sm border border-base-200 p-3"
                                             >
-                                                <div class="flex items-center justify-between mb-2">
+                                                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-2 gap-2">
                                                     <div class="flex items-center gap-2">
                                                         <span class="font-mono text-base-content/80 text-xs">
                                                             {{ format_date(day.date) }}
@@ -103,7 +103,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, computed } from "vue"
 import { get_memberships_by_day, get_all_memberships } from "~/core/dashboard/dashboard.api"
 
 // --- Props & Emits ---
@@ -213,46 +212,3 @@ function format_amount(amount: number | string | null | undefined) {
     return Number(amount).toLocaleString("en-PH", { style: "currency", currency: "PHP", minimumFractionDigits: 2 })
 }
 </script>
-
-<style scoped>
-.modal-enter-active, .modal-leave-active {
-    transition: all 0.25s ease-out;
-}
-.modal-enter-from, .modal-leave-to {
-    opacity: 0;
-}
-.modal-enter-from .bg-base-100, .modal-leave-to .bg-base-100 {
-    transform: translateY(-20px) scale(0.95);
-}
-.modal-enter-to .bg-base-100, .modal-leave-from .bg-base-100 {
-    transform: translateY(0) scale(1);
-    transition: transform 0.25s ease-out;
-}
-
-/* Mobile-friendly adjustments */
-@media (max-width: 640px) {
-    .bg-base-100 {
-        border-radius: 1rem !important;
-    }
-    .p-8 {
-        padding: 1rem !important;
-    }
-    .mb-8 {
-        margin-bottom: 1.5rem !important;
-    }
-    th, td {
-        padding-left: 0.5rem !important;
-        padding-right: 0.5rem !important;
-        font-size: 13px !important;
-    }
-    .font-mono {
-        font-size: 13px !important;
-    }
-    .rounded-xl {
-        border-radius: 0.75rem !important;
-    }
-    .bg-base-100 {
-        box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
-    }
-}
-</style>
