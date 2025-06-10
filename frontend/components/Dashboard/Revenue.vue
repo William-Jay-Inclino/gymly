@@ -19,8 +19,14 @@
             <span class="loading loading-spinner loading-lg"></span>
         </div>
         <div v-else class="w-full overflow-x-auto">
-            <div class="min-w-[400px] sm:min-w-full">
-                <canvas ref="revenue_chart" height="200" class="w-full"></canvas>
+            <div class="min-w-[400px] sm:min-w-full" style="height:500px;">
+                <canvas
+                    :key="chart_key"
+                    ref="revenue_chart"
+                    height="500"
+                    class="w-full"
+                    style="display:block;max-width:100%;height:500px"
+                ></canvas>
             </div>
         </div>
     </div>
@@ -40,6 +46,7 @@ let chart_instance: any = null
 const start_year = ref<number | undefined>()
 const end_year = ref<number | undefined>()
 const component_loading = ref(true)
+const chart_key = ref(0)
 
 // --- Data Fetching ---
 const fetch_revenues = async () => {
@@ -96,6 +103,12 @@ const render_chart = async () => {
     const labels = data.map(d => `${d.month_label} ${d.year}`)
     const values = data.map(d => d.amount)
 
+    // Reset canvas size before rendering
+    if (revenue_chart.value) {
+        revenue_chart.value.width = revenue_chart.value.offsetWidth
+        revenue_chart.value.height = 200
+    }
+
     if (chart_instance) chart_instance.destroy()
     if (revenue_chart.value) {
         chart_instance = new Chart(revenue_chart.value, {
@@ -117,6 +130,8 @@ const render_chart = async () => {
             },
             options: {
                 plugins: { legend: { display: false } },
+                maintainAspectRatio: false, // <-- Add this
+                responsive: true,
                 scales: {
                     y: {
                         beginAtZero: true,
@@ -139,9 +154,20 @@ watch(years, (new_years) => {
         start_year.value = new_years[new_years.length - 1]
         end_year.value = new_years[0]
     }
+    chart_key.value++ // force canvas re-creation on year change
 }, { immediate: true })
 
 watch([start_year, end_year], () => {
-    if (!component_loading.value) render_chart()
+    if (!component_loading.value) {
+        chart_key.value++ // force canvas re-creation on filter change
+        nextTick(() => render_chart())
+    }
+})
+
+onUnmounted(() => {
+    if (chart_instance) {
+        chart_instance.destroy()
+        chart_instance = null
+    }
 })
 </script>
