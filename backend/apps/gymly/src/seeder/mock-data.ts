@@ -6,7 +6,8 @@ const owner_id = 'df30a8c0-9733-4bba-9b0d-1815bc88a550'
 export const users: User[] = [
     {
         id: faker.string.uuid(),
-        username: 'wj.inclino',
+        username: 'wjay.inclino',
+        email: 'wjay.inclino@gmail.com',
         firstname: 'William Jay',
         lastname: 'Inclino',
         password: 'wj.inclino123',
@@ -18,7 +19,8 @@ export const users: User[] = [
     },
     {
         id: owner_id,
-        username: 'j.tayag',
+        username: 'joshua.tayag',
+        email: 'joshua.tayag@gmail.com',
         firstname: 'Joshua',
         lastname: 'Tayag',
         password: 'j.tayag123',
@@ -31,6 +33,7 @@ export const users: User[] = [
     {
         id: faker.string.uuid(),
         username: 'hg.tudio',
+        email: 'hannah.tudio@gmail.com',
         firstname: 'Hannah Grace',
         lastname: 'Tudio',
         password: 'hg.tudio',

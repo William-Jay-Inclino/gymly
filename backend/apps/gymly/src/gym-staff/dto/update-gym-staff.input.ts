@@ -17,6 +17,10 @@ export class UpdateGymStaffInput {
     @IsNotEmpty()
     lastname: string;
 
+    @Field()
+    @IsNotEmpty()
+    email: string;
+
     @Field({ nullable: true })
     @Optional()
     contact_number: string | null;

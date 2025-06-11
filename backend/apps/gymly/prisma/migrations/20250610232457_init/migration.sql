@@ -75,7 +75,8 @@ CREATE TABLE "membership_counts" (
 -- CreateTable
 CREATE TABLE "users" (
     "id" TEXT NOT NULL,
-    "username" TEXT,
+    "username" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
     "firstname" TEXT NOT NULL,
     "lastname" TEXT NOT NULL,
     "password" TEXT NOT NULL,
@@ -197,6 +198,9 @@ CREATE UNIQUE INDEX "membership_counts_gym_id_year_month_key" ON "membership_cou
 
 -- CreateIndex
 CREATE UNIQUE INDEX "users_username_key" ON "users"("username");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
 CREATE INDEX "users_username_idx" ON "users"("username");

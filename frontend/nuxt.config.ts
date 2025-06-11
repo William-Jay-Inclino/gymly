@@ -10,6 +10,8 @@ export default defineNuxtConfig({
             accessTokenKeyName: process.env.ACCESS_TOKEN_KEY_NAME,
             accessTokenKey: process.env.SECRET_KEY_ACCESS_TOKEN,
             SERVER: process.env.SERVER,
+            googleClientId: process.env.GOOGLE_CLIENT_ID,
+            googleClientSecret: process.env.GOOGLE_CLIENT_SECRET,
         }
     },
     compatibilityDate: '2025-05-15',

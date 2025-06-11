@@ -6,7 +6,7 @@ import { useGlobalStore } from '~/core/global.store';
 const redirect_to_login = () => {
     console.log('Redirecting to login')
     delete_access_token()
-    return navigateTo('/')
+    return navigateTo('/login')
 }
 
 const get_api_url = () => {
@@ -16,10 +16,21 @@ const get_api_url = () => {
 
 export default defineNuxtRouteMiddleware(async(to, from) => {
 
+    console.log('Auth middleware triggered', { to, from });
+
     if(import.meta.client) {
 
         if (to.path === '/logout') {
             return redirect_to_login()
+        }
+
+        if(to.path === '/auth/google/callback') {
+            const access_token = to.query.access_token as string
+            if(!access_token) {
+                showToastError('Access token is missing')
+                return redirect_to_login()
+            }
+            set_access_token(access_token)
         }
     
         const access_token = get_access_token()

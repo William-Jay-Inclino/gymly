@@ -23,23 +23,39 @@ export async function login(payload: { username: string; password: string; api_u
 
 
 export function set_access_token(access_token: string) {
-    const config = useRuntimeConfig()
-    const accessTokenKey = config.public.accessTokenKey
-    const accessTokenKeyName = config.public.accessTokenKeyName
-    const encrypted = encryptToken({ token: access_token, secret: accessTokenKey })
-    localStorage.setItem(accessTokenKeyName, encrypted)
+    if(import.meta.client) {
+
+        const config = useRuntimeConfig()
+        const accessTokenKey = config.public.accessTokenKey
+        const accessTokenKeyName = config.public.accessTokenKeyName
+        const encrypted = encryptToken({ token: access_token, secret: accessTokenKey })
+        localStorage.setItem(accessTokenKeyName, encrypted)
+
+    }
+
 }
 
 export function get_access_token(): string | null {
-    const config = useRuntimeConfig()
-    const accessTokenKey = config.public.accessTokenKey
-    const accessTokenKeyName = config.public.accessTokenKeyName
-    const encrypted = localStorage.getItem(accessTokenKeyName)
-    if (!encrypted) return null
-    return decryptToken({ ciphertext: encrypted, secret: accessTokenKey })
+
+    if(import.meta.client) {
+
+        const config = useRuntimeConfig()
+        const accessTokenKey = config.public.accessTokenKey
+        const accessTokenKeyName = config.public.accessTokenKeyName
+        const encrypted = localStorage.getItem(accessTokenKeyName)
+        if (!encrypted) return null
+        return decryptToken({ ciphertext: encrypted, secret: accessTokenKey })
+
+    }
+
+    return null
+
 }
 
 export function delete_access_token() {
+
+    if(!import.meta.client) return
+
     const config = useRuntimeConfig()
     const accessTokenKeyName = config.public.accessTokenKeyName
     localStorage.removeItem(accessTokenKeyName)

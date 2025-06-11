@@ -14,20 +14,23 @@ export class AuthService {
     ) {}
 
     async validateUser(username: string, pass: string): Promise<any> {
-
         this.logger.log(`Logging in user with username: ${username}`);
 
         const user = await this.userService.findByUsername(username);
-        if (user && user.password === pass) {
 
+        // If user does not exist or has no password (e.g., Google signup), do not allow password login
+        if (!user || !user.password) {
+            this.logger.log(`Invalid login attempt. Username: ${username} (no user or no password set)`);
+            return null;
+        }
+
+        if (user.password === pass) {
             this.logger.log(`User ${username} logged in successfully`);
-
             const { password, ...result } = user;
             return result;
         }
 
         this.logger.log(`Invalid login attempt. Username: ${username} and password: ${pass}`);
-
         return null;
     }
 

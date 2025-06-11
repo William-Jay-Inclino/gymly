@@ -7,7 +7,7 @@ const handleSessionExpiration = (errors: any[]): void => {
 	if (hasInvalidToken) {
 		delete_access_token();
 		showToastError('Your session has expired. Please log in again.')
-		window.location.href = '/';
+		window.location.href = '/login';
 	}
 };
   

@@ -77,14 +77,14 @@ export class GymStaffService {
             
             // Use the helper function to generate a unique username
             const username = await this.userService.generateUniqueUsername({
-                firstname: input.firstname, 
-                lastname: input.lastname
+                email: input.email, 
             }, tx as Prisma.TransactionClient);
     
             // Create user
             const user = await tx.user.create({
                 data: {
-                    username,
+                    email: input.email,
+                    username: username,
                     firstname: input.firstname,
                     lastname: input.lastname,
                     password: input.password, 

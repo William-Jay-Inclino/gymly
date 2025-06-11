@@ -176,6 +176,7 @@ exports.Prisma.MembershipCountScalarFieldEnum = {
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   username: 'username',
+  email: 'email',
   firstname: 'firstname',
   lastname: 'lastname',
   password: 'password',

@@ -52,26 +52,30 @@ export class UserService {
         });
     }
 
-    async generateUniqueUsername(payload: {
-        firstname: string, 
-        lastname: string
-    }, tx: Prisma.TransactionClient): Promise<string> {
+    async generateUniqueUsername(
+        payload: { email: string },
+        tx?: Prisma.TransactionClient,
+    ): Promise<string> {
+    const { email } = payload;
 
-        const { firstname, lastname } = payload;
+        // Use the part before @ as base username, remove non-alphanumeric, lowercase
+        let baseUsername = email.split('@')[0].replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
 
-        const names = firstname.trim().split(' ');
-        const firstInitial = names[0][0].toLowerCase();
-        const lastInitial = names[1]?.[0]?.toLowerCase() || '';
-        const baseUsername = lastInitial
-            ? `${firstInitial}${lastInitial}.${lastname.trim().toLowerCase()}`
-            : `${firstInitial}.${lastname.trim().toLowerCase()}`;
+        // Fallback if baseUsername is empty
+        if (!baseUsername) {
+            baseUsername = 'user';
+        }
 
         let username = baseUsername;
         let counter = 1;
-        while (await tx.user.findUnique({ where: { username } })) {
+
+        const prisma = tx ?? this.prisma; // fallback to this.prisma if tx is not provided
+
+        while (await prisma.user.findUnique({ where: { username } })) {
             username = `${baseUsername}${counter}`;
             counter++;
         }
+
         return username;
     }
 

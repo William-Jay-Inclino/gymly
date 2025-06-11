@@ -19,6 +19,10 @@ export class CreateGymStaffInput {
 
     @Field()
     @IsNotEmpty()
+    email: string;
+
+    @Field()
+    @IsNotEmpty()
     password: string;
 
     @Field({ nullable: true })
