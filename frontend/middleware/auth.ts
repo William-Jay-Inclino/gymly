@@ -25,12 +25,7 @@ export default defineNuxtRouteMiddleware(async(to, from) => {
         }
 
         if(to.path === '/auth/google/callback') {
-            const access_token = to.query.access_token as string
-            if(!access_token) {
-                showToastError('Access token is missing')
-                return redirect_to_login()
-            }
-            set_access_token(access_token)
+            return
         }
     
         const access_token = get_access_token()
@@ -44,6 +39,8 @@ export default defineNuxtRouteMiddleware(async(to, from) => {
             access_token,
             api_url: get_api_url()
         })
+
+        console.log('User fetched from API:', user);
         
         if(!user) {
             showToastError('Session expired, please login again')

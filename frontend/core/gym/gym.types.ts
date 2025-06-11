@@ -16,3 +16,24 @@ export interface Gym {
     owner: User[]
     gym_stats: GymStats
 }
+
+export interface CreateGymPlanInput {
+    name: string
+    description?: string | null
+    price: number
+    num_of_days?: number | null
+    num_of_sessions?: number | null
+}
+
+export interface CreateGymInput {
+    owner_id: string
+    name: string
+    location: string
+    plans: CreateGymPlanInput[]
+}
+
+
+export interface UpdateGymInput {
+    name: string
+    location: string
+}

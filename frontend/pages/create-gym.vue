@@ -86,10 +86,11 @@
                         </div>
                     </div>
                     <div class="flex flex-col sm:flex-row gap-3 mt-8">
-                        <button class="btn btn-outline w-full sm:w-auto flex items-center justify-center" @click="go_to_step_1">
+                        <button class="btn btn-outline w-full sm:w-auto flex items-center justify-center" @click="go_to_step_1" :disabled="is_loading">
                             <ArrowLeft class="w-4 h-4 mr-1" /> Back
                         </button>
-                        <button class="btn btn-primary w-full sm:w-auto" @click="finish_setup">
+                        <button class="btn btn-primary w-full sm:w-auto flex items-center justify-center" @click="finish_setup" :disabled="is_loading">
+                            <span v-if="is_loading" class="loading loading-spinner loading-xs mr-2"></span>
                             Finish Setup
                         </button>
                     </div>
@@ -101,7 +102,16 @@
 
 <script setup lang="ts">
 import { Building2, CreditCard, ArrowLeft } from 'lucide-vue-next'
+import { useRouter } from 'vue-router'
+import { create_gym } from '~/core/gym/gym.api'
+import { showToastSuccess, showToastError } from '~/utils/toast'
+import { useGlobalStore } from '~/core/global.store'
 
+definePageMeta({
+    middleware: ["auth"],
+})
+
+const is_loading = ref(false)
 const step = ref(1)
 const gym_name = ref('')
 const gym_location = ref('')
@@ -130,6 +140,9 @@ const default_plans = [
     },
 ]
 
+const router = useRouter()
+const { user } = useGlobalStore()
+
 function go_to_step_2() {
     step.value = 2
 }
@@ -138,10 +151,32 @@ function go_to_step_1() {
     step.value = 1
 }
 
-function finish_setup() {
-    // Here you would send gym_name, gym_location, and default_plans to your backend
-    // For now, just redirect to dashboard or show a success message
-    // router.push('/dashboard')
-    alert('Gym setup complete! You can now manage your gym.')
+async function finish_setup() {
+    if (is_loading.value) return
+    is_loading.value = true
+    try {
+        const owner_id = user?.id
+        if (!owner_id) {
+            showToastError('User not found. Please login again.')
+            is_loading.value = false
+            return
+        }
+        const res = await create_gym({
+            owner_id,
+            name: gym_name.value,
+            location: gym_location.value,
+            plans: default_plans
+        })
+        if (res.success) {
+            showToastSuccess('Gym created successfully!')
+            router.push('/dashboard')
+        } else {
+            showToastError(res.msg || 'Failed to create gym')
+        }
+    } catch (e) {
+        showToastError('Failed to create gym')
+    } finally {
+        is_loading.value = false
+    }
 }
 </script>
