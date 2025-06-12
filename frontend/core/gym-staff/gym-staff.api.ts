@@ -16,6 +16,7 @@ export async function get_gym_staffs(payload: { gym_id: string }): Promise<{
                 user {
                     id
                     username
+                    email
                     firstname
                     lastname
                     contact_number
@@ -54,6 +55,7 @@ export async function create_gym_staff(input: CreateGymStaffInput): Promise<{
         mutation {
             create_gym_staff(
                 input: {
+                    email: "${input.email}"
                     firstname: "${input.firstname}"
                     lastname: "${input.lastname}"
                     password: "${input.password}"
@@ -69,6 +71,7 @@ export async function create_gym_staff(input: CreateGymStaffInput): Promise<{
                         username
                         firstname
                         lastname
+                        email
                         contact_number
                     }
                 }
@@ -96,6 +99,7 @@ export async function update_gym_staff(input: UpdateGymStaffInput): Promise<{
             update_gym_staff(
                 input: {
                     user_id: "${input.user_id}"
+                    email: "${input.email}"
                     firstname: "${input.firstname}"
                     lastname: "${input.lastname}"
                     contact_number: "${input.contact_number || ""}"
@@ -107,6 +111,7 @@ export async function update_gym_staff(input: UpdateGymStaffInput): Promise<{
                     user {
                         id
                         username
+                        email
                         contact_number
                     }
                 }

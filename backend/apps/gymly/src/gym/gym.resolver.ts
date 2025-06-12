@@ -9,6 +9,7 @@ import { User } from '../user/entities/user.entity';
 import { UserAgent } from '../auth/decorators/user-agent.decorator';
 import { IpAddress } from '../auth/decorators/ip-address.decorator';
 import { getDeviceInfo } from '../libs/helpers';
+import { UpdateGymInput } from './dto/update-gym.input';
 
 @UseGuards(GqlAuthGuard)
 @Resolver()
@@ -54,7 +55,7 @@ export class GymResolver {
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
         @Args('id') id: string,
-        @Args('update_gym_input') update_gym_input: CreateGymInput,
+        @Args('update_gym_input') update_gym_input: UpdateGymInput,
     ): Promise<MutationGymResponse> {
         try {
             this.logger.log('Updating gym...', {

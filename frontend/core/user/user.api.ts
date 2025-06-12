@@ -1,3 +1,45 @@
+import type { UpdateUserInput, User } from "./user.types";
+
+export async function update_user(input: { user_id: string } & UpdateUserInput): Promise<{
+    success: boolean;
+    msg: string;
+    data?: User;
+}> {
+    const mutation = `
+        mutation {
+            update_user(
+                user_id: "${input.user_id}",
+                input: {
+                    email: "${input.email}"
+                    firstname: "${input.firstname}"
+                    lastname: "${input.lastname}"
+                    contact_number: ${input.contact_number ? `"${input.contact_number}"` : null}
+                }
+            ) {
+                success
+                msg
+                data {
+                    id
+                    email
+                    firstname
+                    lastname
+                    contact_number
+                }
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(mutation);
+        return deepClone(response.data.data.update_user);
+    } catch (error) {
+        console.error(error);
+        return {
+            success: false,
+            msg: 'An error occurred while updating the user.'
+        }
+    }
+}
 
 export async function update_password(input: {
     user_id: string;

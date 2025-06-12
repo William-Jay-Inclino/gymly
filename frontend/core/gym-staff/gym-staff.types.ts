@@ -13,6 +13,7 @@ export interface GymStaff {
 
 export interface CreateGymStaffInput {
     gym_id: string
+    email: string
     firstname: string
     lastname: string
     password: string
@@ -21,6 +22,7 @@ export interface CreateGymStaffInput {
 
 export interface UpdateGymStaffInput {
     user_id: string
+    email: string
     firstname: string
     lastname: string
     contact_number?: string | null

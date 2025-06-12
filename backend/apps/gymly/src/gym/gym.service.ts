@@ -5,6 +5,7 @@ import { CreateGymInput } from './dto/create-gym.input';
 import { MutationGymResponse } from './entities/gym.response.entity';
 import { DB_TABLE } from '../libs/common-types';
 import { Prisma } from 'apps/gymly/prisma/generated/client';
+import { UpdateGymInput } from './dto/update-gym.input';
 
 @Injectable()
 export class GymService {
@@ -70,7 +71,7 @@ export class GymService {
 
     async update_gym(
         id: string,
-        update_gym_input: Partial<CreateGymInput>,
+        update_gym_input: UpdateGymInput,
         metadata: {
             ip_address: string;
             device_info: any;

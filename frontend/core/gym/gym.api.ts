@@ -75,16 +75,13 @@ export async function update_gym(input: { id: string } & UpdateGymInput): Promis
                     id
                     name
                     location
-                    owner_id
-                    created_at
-                    created_by
                 }
             }
         }
     `;
     try {
         const response = await sendRequest(mutation);
-        return response.data.data.update_gym;
+        return deepClone(response.data.data.update_gym);
     } catch (error) {
         console.error(error);
         return {

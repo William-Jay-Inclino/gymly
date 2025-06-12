@@ -30,5 +30,19 @@ export const useGlobalStore = defineStore('global', {
                 this._current_gym = user.gym
             }
         },
+        set_current_gym(gym: Gym | null) {
+            this._current_gym = gym
+        },
+        set_user_info(payload: {
+            email: string
+            firstname: string
+            lastname: string
+            contact_number?: string | null
+        }) {
+            this._user.email = payload.email
+            this._user.firstname = payload.firstname
+            this._user.lastname = payload.lastname
+            this._user.contact_number = payload.contact_number || null
+        }
     },
 })

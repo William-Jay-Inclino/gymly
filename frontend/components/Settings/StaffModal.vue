@@ -12,6 +12,18 @@
                     <div class="space-y-4">
                         <div>
                             <label class="label pb-1">
+                                <span class="label-text text-base-content/80">Email</span>
+                            </label>
+                            <input
+                                v-model="form.email"
+                                type="email"
+                                class="input input-bordered w-full bg-base-200 focus:bg-base-100 transition"
+                                required
+                                autocomplete="off"
+                            />
+                        </div>
+                        <div>
+                            <label class="label pb-1">
                                 <span class="label-text text-base-content/80">First Name</span>
                             </label>
                             <input
@@ -82,6 +94,7 @@ const props = defineProps<{
         user_id?: string
         firstname: string
         lastname: string
+        email: string
         contact_number: string
         password?: string
     }
@@ -105,6 +118,7 @@ function reset_form() {
         user_id: '',
         firstname: '',
         lastname: '',
+        email: '',
         contact_number: '',
         password: ''
     }

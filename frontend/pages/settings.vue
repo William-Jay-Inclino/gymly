@@ -1,12 +1,19 @@
 <template>
-    <div v-if="user && user.role" class="max-w-2xl mx-auto space-y-8">
-        <SettingsPasswordSection />
 
-        <SettingsStaffSection v-if="user.role === UserRole.GYM_OWNER"/>
+    <div class="max-w-2xl mx-auto space-y-8">
 
-        <SettingsLimitSection />
+            <ClientOnly>
+                <SettingsUserSection />
+                <SettingsGymSection />
+                <SettingsStaffSection v-if="user && user.role === UserRole.GYM_OWNER"/>
+            </ClientOnly>
 
+            <SettingsPasswordSection />
+            
+            <SettingsLimitSection />
+            
     </div>
+
 </template>
 
 <script setup lang="ts">

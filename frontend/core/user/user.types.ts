@@ -9,10 +9,11 @@ export enum UserRole {
 export interface User {
     id: string;
     username: string;
+    email: string;
     firstname: string;
     lastname: string;
     role: UserRole;
-    contact_number: string;
+    contact_number: string | null;
     is_active: boolean;
     created_at: string;
     created_by: string;
@@ -20,4 +21,12 @@ export interface User {
     gym: Gym
     gym_staff: GymStaff
     
+}
+
+
+export interface UpdateUserInput {
+    email: string;
+    firstname: string;
+    lastname: string;
+    contact_number?: string | null;
 }

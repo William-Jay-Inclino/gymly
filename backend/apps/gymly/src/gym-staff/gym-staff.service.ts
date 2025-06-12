@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { GymStaff } from './entities/gym-staff.entity';
 import { CreateGymStaffInput } from './dto/create-gym-staff.input';
 import { MutationGymStaffResponse } from './entities/gym-staff.response.entity';
 import { UserService } from '../user/user.service';
@@ -32,6 +31,7 @@ export class GymStaffService {
                     select: {
                         id: true,
                         username: true,
+                        email: true,
                         firstname: true,
                         lastname: true,
                         contact_number: true,
@@ -153,6 +153,7 @@ export class GymStaffService {
             const user = await tx.user.update({
                 where: { id: input.user_id },
                 data: {
+                    email: input.email,
                     firstname: input.firstname,
                     lastname: input.lastname,
                     contact_number: input.contact_number,

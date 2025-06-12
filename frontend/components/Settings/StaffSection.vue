@@ -107,6 +107,7 @@ const modal_form = ref({
     user_id: '',
     firstname: '',
     lastname: '',
+    email: '',
     contact_number: '',
     password: ''
 })
@@ -130,6 +131,7 @@ function open_add_modal() {
         user_id: '',
         firstname: '',
         lastname: '',
+        email: '',
         contact_number: '',
         password: ''
     }
@@ -142,6 +144,7 @@ function open_edit_modal(staff: GymStaff) {
         user_id: staff.user.id,
         firstname: staff.user.firstname || '',
         lastname: staff.user.lastname || '',
+        email: staff.user.email || '',
         contact_number: staff.user.contact_number || '',
         password: ''
     }
@@ -171,6 +174,7 @@ async function on_add_staff() {
     is_submitting.value = true
     try {
         const res = await create_gym_staff({
+            email: modal_form.value.email,
             firstname: modal_form.value.firstname,
             lastname: modal_form.value.lastname,
             contact_number: modal_form.value.contact_number,
@@ -194,6 +198,7 @@ async function on_edit_staff() {
     try {
         const res = await update_gym_staff({
             user_id: modal_form.value.user_id,
+            email: modal_form.value.email,
             firstname: modal_form.value.firstname,
             lastname: modal_form.value.lastname,
             contact_number: modal_form.value.contact_number

@@ -9,6 +9,7 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { IpAddress } from '../auth/decorators/ip-address.decorator';
 import { UserAgent } from '../auth/decorators/user-agent.decorator';
 import { getDeviceInfo } from '../libs/helpers';
+import { UpdateUserInput } from './dto/update-user.input';
 @UseGuards(GqlAuthGuard)
 @Resolver(() => User)
 export class UserResolver {
@@ -17,6 +18,44 @@ export class UserResolver {
     private filename = 'user.resolver.ts'
 
     constructor(private readonly userService: UserService) {}
+
+    @Mutation(() => MutationUserResponse)
+    async update_user(
+        @CurrentUser() user: User,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
+        @Args('user_id') user_id: string,
+        @Args('input') input: UpdateUserInput
+    ): Promise<MutationUserResponse> {
+        try {
+            this.logger.log('Updating user...', {
+                username: user.username,
+                filename: this.filename,
+                input
+            });
+
+            const result = await this.userService.update_user(
+                user_id,
+                input,
+                {
+                    ip_address,
+                    device_info: getDeviceInfo(user_agent),
+                    current_user: user,
+                }
+            );
+
+            this.logger.log(result.msg);
+
+            return result;
+        } catch (error) {
+            this.logger.error('Error in updating user', error);
+            return {
+                success: false,
+                msg: 'Error in updating user',
+                data: null,
+            };
+        }
+    }
 
     @Mutation(() => MutationUserResponse)
     async update_password(
