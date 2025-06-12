@@ -15,6 +15,8 @@
             </main>
         </div>
 
+        <div class="h-12"></div>
+
         <Footer />
     </div>
 </template>

@@ -37,6 +37,7 @@ export class UserService {
                 firstname: true,
                 lastname: true,
                 contact_number: true,
+                created_by: true,
                 gym: {
                     select: {
                         id: true,

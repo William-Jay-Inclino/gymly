@@ -196,7 +196,7 @@ const filtered_users = computed(() => {
 })
 
 const is_member_limit_reached = computed(() => {
-    if (!limit.value) return false
+    if (!limit.value) return true
     return (members.value?.length || 0) >= limit.value.value
 })
 

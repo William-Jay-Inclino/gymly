@@ -2,7 +2,7 @@
     <section class="bg-white rounded-xl shadow p-4 sm:p-6 space-y-4">
         <div class="flex items-center gap-2 mb-2">
             <UserIcon class="w-5 h-5 text-primary" />
-            <h2 class="font-semibold text-base-content">User Information</h2>
+            <h2 class="font-semibold text-base-content">My Profile</h2>
         </div>
         <form v-if="global_store.user" class="space-y-4" @submit.prevent="update_user_info">
             <div>

@@ -139,7 +139,7 @@ const modal_form = ref<Partial<CreatePlanInput & { id?: string }>>({
 
 // --- Computed ---
 const is_limit_reached = computed(() => {
-    if (!limit.value) return false
+    if (!limit.value) return true
     return plans.value.length >= limit.value.value
 })
 

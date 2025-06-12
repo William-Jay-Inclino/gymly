@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { AuditLogsService } from '../audit-logs/audit-logs.service';
 import { CreateGymInput } from './dto/create-gym.input';
@@ -9,6 +9,8 @@ import { UpdateGymInput } from './dto/update-gym.input';
 
 @Injectable()
 export class GymService {
+
+    private readonly logger = new Logger(GymService.name);
 
     constructor(
         private readonly prisma: PrismaService,
@@ -49,7 +51,21 @@ export class GymService {
                 });
             }
 
-            // 3. Audit log
+            // 3. Create default gym limits based on the Limit model
+            const limits = await tx.limit.findMany();
+
+            const gym_limit_data = limits.map(limit => ({
+                gym_id: created_gym.id,
+                limit_id: limit.id, 
+                value: limit.value
+            }));
+
+
+            await tx.gymLimit.createMany({
+                data: gym_limit_data,
+            });
+
+            // 4. Audit log
             await this.audit.createAuditEntry({
                 gym_id: created_gym.id,
                 username: metadata.current_user.username,

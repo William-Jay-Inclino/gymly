@@ -9,7 +9,7 @@
                 rel="noopener"
                 class="text-primary hover:underline"
             >
-                William Jay Inclino
+                Gymly Team
             </a>
         </span>
     </footer>

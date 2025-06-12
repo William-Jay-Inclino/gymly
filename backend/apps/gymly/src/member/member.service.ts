@@ -73,6 +73,11 @@ export class MemberService {
                         msg: `Member limit reached. You can only have ${limit.value} members.`,
                     };
                 }
+            } else {
+                return {
+                    success: false,
+                    msg: `Limit not found for gym: ${data.plan.gym_id}. Please contact support.`,
+                };
             }
 
             // Create the member

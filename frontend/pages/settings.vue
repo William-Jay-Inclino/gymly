@@ -5,10 +5,10 @@
             <ClientOnly>
                 <SettingsUserSection />
                 <SettingsGymSection />
-                <SettingsStaffSection v-if="user && user.role === UserRole.GYM_OWNER"/>
+                <SettingsStaffSection v-if="show_staff_section"/>
+                <SettingsPasswordSection v-if="show_password_section"/>
             </ClientOnly>
 
-            <SettingsPasswordSection />
             
             <SettingsLimitSection />
             
@@ -26,7 +26,14 @@ definePageMeta({
     middleware: ["auth"],
 })
 
-const { user } = useGlobalStore()
+const global_store = useGlobalStore()
 
+const show_staff_section = computed(() => {
+    return global_store.user && global_store.user.role === UserRole.GYM_OWNER
+})
+
+const show_password_section = computed(() => {
+    return global_store.user && global_store.user.created_by !== 'google-oauth'
+})
 
 </script>
