@@ -5,100 +5,122 @@
                 <Spinner />
             </div>
             <template v-else>
-                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
-                    <button
-                        class="btn btn-primary flex items-center gap-2 btn-sm w-full sm:w-auto"
-                        @click="show_add_modal = true"
-                        :disabled="is_member_limit_reached"
-                        :class="{ 'opacity-50 cursor-not-allowed': is_member_limit_reached }"
-                    >
-                        <UserPlus class="w-4 h-4" />
-                        <span>Add Member</span>
-                    </button>
-                    <div class="flex-1">
-                        <input
-                            v-model="search"
-                            type="text"
-                            placeholder="Search member..."
-                            class="input input-bordered input-sm w-full"
-                        />
+                <div v-if="!members || members.length === 0">
+                    <div class="flex flex-col items-center justify-center mt-16 mb-12">
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-primary mb-2 text-center">
+                            👋 Welcome to Gymly!
+                        </h2>
+                        <p class="text-base-content/70 text-sm sm:text-base mb-4 text-center max-w-md">
+                            Let's get started!
+                            Add your first member and experience how easy it is to manage your gym, log attendance, and view analytics with Gymly.
+                        </p>
+                        <button
+                            class="btn btn-primary btn-lg w-full sm:w-auto mx-auto flex items-center gap-3 justify-center text-lg sm:text-xl py-4 px-8 mt-4"
+                            @click="show_add_modal = true"
+                            :disabled="is_member_limit_reached"
+                            :class="{ 'opacity-50 cursor-not-allowed': is_member_limit_reached }"
+                        >
+                            <UserPlus class="w-7 h-7" />
+                            <span>Add Member</span>
+                        </button>
                     </div>
                 </div>
-                <div v-if="is_near_member_limit && !is_member_limit_reached" class="text-xs text-warning flex items-center gap-1 mb-2">
-                    <span class="w-4 h-4 flex items-center justify-center">
-                        <AlertTriangle class="w-4 h-4" />
-                    </span>
-                    You are approaching your member limit ({{ members?.length || 0 }}/{{ limit?.value }})
-                </div>
-                <div v-if="is_member_limit_reached" class="text-xs text-error flex items-center gap-1 mb-2">
-                    <span class="w-4 h-4 flex items-center justify-center">
-                        <CircleAlert class="w-4 h-4" />
-                    </span>
-                    Member limit reached! Cannot add more members. Contact admin to increase limit.
-                </div>
-                <div class="rounded-lg shadow bg-base-100">
-                    <div class="overflow-x-auto">
-                        <div class="overflow-y-auto max-h-[60vh]">
-                            <table class="table table-zebra w-full text-xs sm:text-sm">
-                                <thead class="sticky top-0 bg-base-100 z-10">
-                                    <tr>
-                                        <th class="font-semibold py-3">Member</th>
-                                        <th class="font-semibold py-3">Contact</th>
-                                        <th class="font-semibold py-3">Status</th>
-                                        <th class="font-semibold py-3">Created</th>
-                                        <th class="font-semibold py-3 text-center">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="member in filtered_users" :key="member.id">
-                                        <td class="py-2 whitespace-nowrap">{{ member.firstname + ' ' + member.lastname }}</td>
-                                        <td class="py-2 whitespace-nowrap">{{ member.contact_number }}</td>
-                                        <td class="py-2">
-                                            <span
-                                                class="badge badge-xs"
-                                                :class="member.is_active ? 'badge-soft badge-success' : 'badge-soft badge-error'"
-                                            >
-                                                {{ member.is_active ? 'Active' : 'Inactive' }}
-                                            </span>
-                                        </td>
-                                        <td class="py-2">
-                                            <span class="text-xs text-base-content/70">
-                                                {{ format_date(member.created_at) }}
-                                            </span>
-                                        </td>
-                                        <td class="py-2">
-                                            <div class="flex gap-2 justify-center">
-                                                <button
-                                                    class="btn btn-xs btn-circle btn-ghost tooltip z-20"
-                                                    data-tip="View Plans"
-                                                    @click="view_plans(member)"
+                <div v-else>
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
+                        <button
+                            class="btn btn-primary flex items-center gap-2 btn-sm w-full sm:w-auto"
+                            @click="show_add_modal = true"
+                            :disabled="is_member_limit_reached"
+                            :class="{ 'opacity-50 cursor-not-allowed': is_member_limit_reached }"
+                        >
+                            <UserPlus class="w-4 h-4" />
+                            <span>Add Member</span>
+                        </button>
+                        <div class="flex-1">
+                            <input
+                                v-model="search"
+                                type="text"
+                                placeholder="Search member..."
+                                class="input input-bordered input-sm w-full"
+                            />
+                        </div>
+                    </div>
+                    <div v-if="is_near_member_limit && !is_member_limit_reached" class="text-xs text-warning flex items-center gap-1 mb-2">
+                        <span class="w-4 h-4 flex items-center justify-center">
+                            <AlertTriangle class="w-4 h-4" />
+                        </span>
+                        You are approaching your member limit ({{ members?.length || 0 }}/{{ limit?.value }})
+                    </div>
+                    <div v-if="is_member_limit_reached" class="text-xs text-error flex items-center gap-1 mb-2">
+                        <span class="w-4 h-4 flex items-center justify-center">
+                            <CircleAlert class="w-4 h-4" />
+                        </span>
+                        Member limit reached! Cannot add more members. Contact admin to increase limit.
+                    </div>
+                    <div class="rounded-lg shadow bg-base-100">
+                        <div class="overflow-x-auto">
+                            <div class="overflow-y-auto max-h-[60vh]">
+                                <table class="table table-zebra w-full text-xs sm:text-sm">
+                                    <thead class="sticky top-0 bg-base-100 z-10">
+                                        <tr>
+                                            <th class="font-semibold py-3">Member</th>
+                                            <th class="font-semibold py-3">Contact</th>
+                                            <th class="font-semibold py-3">Status</th>
+                                            <th class="font-semibold py-3">Created</th>
+                                            <th class="font-semibold py-3 text-center">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="member in filtered_users" :key="member.id">
+                                            <td class="py-2 whitespace-nowrap">{{ member.firstname + ' ' + member.lastname }}</td>
+                                            <td class="py-2 whitespace-nowrap">{{ member.contact_number }}</td>
+                                            <td class="py-2">
+                                                <span
+                                                    class="badge badge-xs"
+                                                    :class="member.is_active ? 'badge-soft badge-success' : 'badge-soft badge-error'"
                                                 >
-                                                    <BookCopy class="w-5 h-5 text-info" />
-                                                </button>
-                                                <button
-                                                    class="btn btn-xs btn-circle btn-ghost tooltip z-20"
-                                                    data-tip="View Attendance"
-                                                    @click="open_attendance_modal(member)"
-                                                >
-                                                    <CalendarCheck class="w-5 h-5 text-success" />
-                                                </button>
-                                                <button
-                                                    class="btn btn-xs btn-circle btn-ghost tooltip z-20"
-                                                    data-tip="Add Plan"
-                                                    @click="open_add_plan_modal(member)"
-                                                >
-                                                    <PlusSquare class="w-5 h-5 text-primary" />
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr v-if="filtered_users.length === 0">
-                                        <td colspan="5" class="text-center text-base-content/60 py-6">
-                                            No member found.
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                                    {{ member.is_active ? 'Active' : 'Inactive' }}
+                                                </span>
+                                            </td>
+                                            <td class="py-2">
+                                                <span class="text-xs text-base-content/70">
+                                                    {{ format_date(member.created_at) }}
+                                                </span>
+                                            </td>
+                                            <td class="py-2">
+                                                <div class="flex gap-2 justify-center">
+                                                    <button
+                                                        class="btn btn-xs btn-circle btn-ghost tooltip z-20"
+                                                        data-tip="View Plans"
+                                                        @click="view_plans(member)"
+                                                    >
+                                                        <BookCopy class="w-5 h-5 text-info" />
+                                                    </button>
+                                                    <button
+                                                        class="btn btn-xs btn-circle btn-ghost tooltip z-20"
+                                                        data-tip="View Attendance"
+                                                        @click="open_attendance_modal(member)"
+                                                    >
+                                                        <CalendarCheck class="w-5 h-5 text-success" />
+                                                    </button>
+                                                    <button
+                                                        class="btn btn-xs btn-circle btn-ghost tooltip z-20"
+                                                        data-tip="Add Plan"
+                                                        @click="open_add_plan_modal(member)"
+                                                    >
+                                                        <PlusSquare class="w-5 h-5 text-primary" />
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr v-if="filtered_users.length === 0">
+                                            <td colspan="5" class="text-center text-base-content/60 py-6">
+                                                No member found.
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
