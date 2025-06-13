@@ -9,6 +9,7 @@ import { AuditLogsService } from '../audit-logs/audit-logs.service';
 import { User } from '../user/entities/user.entity';
 import { DB_TABLE } from '../libs/common-types';
 import { AnalyticsService } from '../analytics/analytics.service';
+import { LIMIT } from '../limit/enums/limit.enums';
 
 @Injectable()
 export class MembershipService {
@@ -36,6 +37,18 @@ export class MembershipService {
             });
             if (!member) {
                 throw new BadRequestException(`Member not found: ${input.member_id}`);
+            }
+
+            const can_create = await this.validate_membership_limit({
+                gym_id: input.gym_id,
+                member_id: input.member_id,
+            }, tx as Prisma.TransactionClient);
+
+            if(!can_create.success) {
+                return {
+                    success: false,
+                    msg: can_create.msg,
+                }
             }
 
             const now = new Date();
@@ -249,6 +262,51 @@ export class MembershipService {
                 msg: 'Failed to update membership reminder status',
             };
         }
+    }
+
+    private async validate_membership_limit(payload: {
+        gym_id: string, member_id: string
+    }, tx: Prisma.TransactionClient): Promise<{
+        success: boolean,
+        msg: string
+    }> {
+
+        const { gym_id, member_id } = payload;
+
+        const membership_count = await tx.membership.count({
+            where: {
+                gym_id,
+                member_id,
+                is_active: true,
+            },
+        });
+
+        // Get the member limit for this gym
+        const limit = await tx.gymLimit.findUnique({
+            where: {
+                gym_id_limit_id: {
+                    gym_id: gym_id,
+                    limit_id: LIMIT.MEMBERSHIP_PER_MEMBER_LIMIT,
+                },
+            },
+        });
+
+        if (limit) {
+
+            if (membership_count >= limit.value) {
+                return {
+                    success: false,
+                    msg: `Membership limit reached. You can only have ${limit.value} memberships.`,
+                };
+            }
+        } else {
+            return {
+                success: false,
+                msg: `Membership Limit not found for gym: ${gym_id}. Please contact support.`,
+            };
+        }
+
+        
     }
 
 }

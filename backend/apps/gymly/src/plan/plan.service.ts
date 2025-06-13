@@ -6,6 +6,7 @@ import { AuditLogsService } from '../audit-logs/audit-logs.service';
 import { User } from '../user/entities/user.entity';
 import { DB_TABLE } from '../libs/common-types';
 import { Prisma } from 'apps/gymly/prisma/generated/client';
+import { LIMIT } from '../limit/enums/limit.enums';
 
 @Injectable()
 export class PlanService {
@@ -31,6 +32,14 @@ export class PlanService {
     }) {
 
         return await this.prisma.$transaction(async (tx) => {
+
+            const plan_limit = await this.validate_plan_limit({
+                gym_id: createPlanInput.gym_id,
+            }, tx as Prisma.TransactionClient);
+
+            if(!plan_limit.success) {
+                throw new Error(plan_limit.msg);
+            }
 
             const created = await tx.plan.create({
                 data: {...createPlanInput, created_by: metadata.current_user.username},
@@ -125,5 +134,45 @@ export class PlanService {
 
         })
 
+    }
+
+    private async validate_plan_limit(payload: {
+        gym_id: string
+    }, tx: Prisma.TransactionClient): Promise<{
+        success: boolean;
+        msg: string;
+    }> {
+
+        const { gym_id } = payload;
+
+        const plan_count = await this.prisma.plan.count({
+            where: { gym_id },
+        });
+
+        // Get the member limit for this gym
+        const limit = await tx.gymLimit.findUnique({
+            where: {
+                gym_id_limit_id: {
+                    gym_id: gym_id,
+                    limit_id: LIMIT.PLAN_LIMIT,
+                },
+            },
+        });
+
+        if (limit) {
+
+            if (plan_count >= limit.value) {
+                return {
+                    success: false,
+                    msg: `Plan limit reached. You can only have ${limit.value} plans.`,
+                };
+            }
+        } else {
+            return {
+                success: false,
+                msg: `Plan Limit not found for gym: ${gym_id}. Please contact support.`,
+            };
+        }
+        
     }
 }
