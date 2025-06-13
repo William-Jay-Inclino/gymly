@@ -16,7 +16,7 @@
             </div>
         </div>
         <div v-if="component_loading" class="flex justify-center items-center min-h-[200px] text-xs text-base-content/50">
-            Loading please wait...
+            <Spinner />
             <!-- <span class="loading loading-spinner loading-lg"></span> -->
         </div>
         <div v-else class="w-full overflow-x-auto">

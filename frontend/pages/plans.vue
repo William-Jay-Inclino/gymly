@@ -31,8 +31,9 @@
             <AlertCircle class="w-4 h-4" />
             <span>Plan limit reached! Cannot add more plans. Contact admin to increase limit.</span>
         </div>
-        <div v-if="is_loading" class="flex justify-center py-16">
-            <span class="loading loading-spinner loading-lg"></span>
+        <div v-if="is_loading" class="flex justify-center py-16 text-base-content/60">
+            <Spinner />
+            <!-- <span class="loading loading-spinner loading-lg"></span> -->
         </div>
         <div v-else>
             <div v-if="plans.length === 0" class="text-center text-base-content/60 py-16">

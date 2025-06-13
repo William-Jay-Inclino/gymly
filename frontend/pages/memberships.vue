@@ -2,7 +2,7 @@
     <div class="bg-white rounded-xl shadow-sm p-2 sm:p-4 md:p-8">
         <section class="max-w-5xl mx-auto py-6 sm:py-8">
             <div v-if="is_loading_page" class="flex justify-center items-center min-h-[200px]">
-                <span class="loading loading-spinner loading-lg text-primary"></span>
+                <Spinner />
             </div>
             <template v-else>
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">

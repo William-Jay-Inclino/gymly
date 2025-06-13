@@ -14,7 +14,8 @@
                 <!-- Content -->
                 <div class="flex-1 overflow-y-auto p-3 sm:p-8">
                     <div v-if="loading" class="text-center py-12 text-base-content/60 text-sm">
-                        <span class="loading loading-spinner loading-lg"></span>
+                        <Spinner />
+                        <!-- <span class="loading loading-spinner loading-lg"></span> -->
                     </div>
                     <div v-else>
                         <div v-if="memberships.length === 0" class="text-base-content/50 text-center py-12 text-sm">

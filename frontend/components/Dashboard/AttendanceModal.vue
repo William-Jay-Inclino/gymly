@@ -7,8 +7,9 @@
                     Attendance for {{ modal_date_label }}
                 </div>
                 <div class="flex-1 overflow-y-auto px-4 pb-6">
-                    <div v-if="attendance_loading" class="flex justify-center py-8">
-                        <span class="loading loading-spinner loading-md"></span>
+                    <div v-if="attendance_loading" class="flex justify-center py-8 text-base-content/70">
+                        <Spinner />           
+                        <!-- <span class="loading loading-spinner loading-md"></span> -->
                     </div>
                     <div v-else>
                         <div v-if="attendance_list.length === 0" class="text-center text-base-content/60 py-4">

@@ -8,8 +8,7 @@
         <!-- List -->
         <div class="flex-1 p-3 sm:p-4 overflow-y-auto min-h-0">
             <div v-if="loading" class="flex justify-center py-10 text-xs text-base-content/50">
-                Loading please wait...
-                <!-- <span class="loading loading-spinner loading-md"></span> -->
+                <Spinner />
             </div>
             <template v-else>
                 <ul class="flex flex-col gap-3 sm:gap-4">

@@ -5,10 +5,8 @@
             <span class="font-semibold text-base-content/80 text-lg">Attendance</span>
         </div>
         <div class="px-6 py-4 flex-1 overflow-y-auto min-h-0">
-            <!-- Loader -->
             <div v-if="component_loading" class="flex justify-center py-20 text-xs text-base-content/50">
-                Loading please wait...
-                <!-- <span class="loading loading-spinner loading-lg"></span> -->
+                <Spinner />           
             </div>
             <template v-else>
                 <!-- Month/Year Selector -->
@@ -209,11 +207,6 @@ const average_attendance = computed(() => {
 })
 
 const total_attendance = computed(() => attendance_data.value.reduce((a, b) => a + b.count, 0))
-
-// --- Modal Logic ---
-function format_time(dt: string) {
-    return format(new Date(dt), "hh:mm a")
-}
 
 async function open_attendance_modal(day: number) {
     if (!gym_id) return

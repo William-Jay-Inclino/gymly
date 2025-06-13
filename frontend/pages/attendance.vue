@@ -1,7 +1,8 @@
 <template>
     <div class="max-w-5xl mx-auto px-2 sm:px-4">
-        <div v-if="is_loading_page" class="flex justify-center items-center min-h-[200px]">
-            <span class="loading loading-spinner loading-lg text-primary"></span>
+        <div v-if="is_loading_page" class="flex justify-center items-center min-h-[200px] text-xs text-base-content/50">
+            <!-- <span class="loading loading-spinner loading-lg text-primary"></span> -->
+            <Spinner />
         </div>
         <template v-else>
             <div class="flex flex-col gap-8 md:flex-row">
