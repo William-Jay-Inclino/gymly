@@ -1,9 +1,20 @@
 <template>
-    <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100" data-theme="light">
+    <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 px-4 sm:px-8" data-theme="light">
+        <!-- Back Arrow Button: Always at the very top left of the viewport -->
+        <button
+            v-if="step === 2"
+            class="fixed top-3 left-3 sm:absolute sm:top-4 sm:left-4 p-2 rounded-full hover:bg-base-200 transition text-base-content/60 hover:text-primary z-30"
+            type="button"
+            @click="go_to_step_1"
+            :disabled="is_loading"
+            aria-label="Back"
+        >
+            <ArrowLeft class="w-5 h-5" />
+        </button>
         <div
             class="w-full max-w-xl relative z-10"
             :class="[
-                'p-0 sm:p-8',
+                'p-4 sm:p-8',
                 'space-y-8',
                 'rounded-none sm:rounded-2xl',
                 'shadow-none sm:shadow-2xl',
@@ -52,7 +63,7 @@
                         Next
                     </button>
                 </form>
-                <div v-else class="px-2 sm:px-0">
+                <div v-else class="relative px-2 sm:px-0">
                     <div class="mb-4 sm:mb-6">
                         <h2 class="text-base sm:text-xl font-bold text-primary mb-1 sm:mb-2 flex items-center gap-2">
                             <CreditCard class="w-5 h-5 text-primary" /> Default Subscription Plans
@@ -85,11 +96,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 mt-6 sm:mt-8">
-                        <button class="btn btn-outline w-full sm:w-auto flex items-center justify-center" @click="go_to_step_1" :disabled="is_loading">
-                            <ArrowLeft class="w-4 h-4 mr-1" /> Back
-                        </button>
-                        <button class="btn btn-primary w-full sm:w-auto flex items-center justify-center" @click="finish_setup" :disabled="is_loading">
+                    <div class="mt-8">
+                        <button class="btn btn-primary w-full flex items-center justify-center" @click="finish_setup" :disabled="is_loading">
                             <span v-if="is_loading" class="loading loading-spinner loading-xs mr-2"></span>
                             Finish Setup
                         </button>
