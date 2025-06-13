@@ -38,6 +38,9 @@ export default defineNuxtConfig({
         esbuild: {
             drop: ['debugger'],
             pure: ['console.log', 'console.debug', 'console.trace'],
+        },
+        server: {
+            allowedHosts: ['jaytechsolutions.cloud']
         }
     },
     plugins: [
