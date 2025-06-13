@@ -52,22 +52,22 @@
                         Next
                     </button>
                 </form>
-                <div v-else class="px-4 sm:px-0">
-                    <div class="mb-6">
-                        <h2 class="text-lg sm:text-xl font-bold text-primary mb-2 flex items-center gap-2">
+                <div v-else class="px-2 sm:px-0">
+                    <div class="mb-4 sm:mb-6">
+                        <h2 class="text-base sm:text-xl font-bold text-primary mb-1 sm:mb-2 flex items-center gap-2">
                             <CreditCard class="w-5 h-5 text-primary" /> Default Subscription Plans
                         </h2>
                         <p class="text-base-content/70 text-xs sm:text-sm">These plans will be available to your members by default. You can customize them later.</p>
                     </div>
-                    <div class="space-y-4">
+                    <div class="space-y-3">
                         <div
                             v-for="plan in default_plans"
                             :key="plan.name"
-                            class="rounded-xl sm:border border-base-200 sm:bg-base-100 p-4 shadow-none sm:shadow-sm flex flex-col sm:flex-row sm:items-center gap-4"
+                            class="rounded-lg sm:rounded-xl border border-base-200 bg-base-100 p-3 sm:p-4 shadow-none sm:shadow-sm flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4"
                         >
                             <div class="flex-1">
                                 <div class="flex items-center gap-2 mb-1">
-                                    <span class="text-base sm:text-lg font-semibold text-base-content/90">{{ plan.name }}</span>
+                                    <span class="text-sm sm:text-lg font-semibold text-base-content/90">{{ plan.name }}</span>
                                     <span
                                         v-if="plan.num_of_days"
                                         class="badge badge-outline text-xs flex items-center"
@@ -78,14 +78,14 @@
                                 </div>
                                 <div class="text-base-content/70 text-xs sm:text-sm mb-1">{{ plan.description }}</div>
                             </div>
-                            <div class="flex flex-col items-end min-w-[100px] sm:min-w-[120px]">
+                            <div class="flex flex-col items-end min-w-[80px] sm:min-w-[120px]">
                                 <span class="text-primary font-bold text-base sm:text-lg">
                                     ₱{{ plan.price.toLocaleString('en-PH', { minimumFractionDigits: 2 }) }}
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <div class="flex flex-col sm:flex-row gap-3 mt-8">
+                    <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 mt-6 sm:mt-8">
                         <button class="btn btn-outline w-full sm:w-auto flex items-center justify-center" @click="go_to_step_1" :disabled="is_loading">
                             <ArrowLeft class="w-4 h-4 mr-1" /> Back
                         </button>
