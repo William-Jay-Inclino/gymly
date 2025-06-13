@@ -176,7 +176,7 @@ async function finish_setup() {
             plans: default_plans
         })
         if (res.success) {
-            showToastSuccess('Welcome to Gymly!')
+            // showToastSuccess('Welcome to Gymly!')
             router.push('/memberships')
         } else {
             showToastError(res.msg || 'Failed to create gym')

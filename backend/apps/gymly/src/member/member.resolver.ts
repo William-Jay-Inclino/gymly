@@ -10,6 +10,7 @@ import { User } from '../user/entities/user.entity';
 import { UserAgent } from '../auth/decorators/user-agent.decorator';
 import { IpAddress } from '../auth/decorators/ip-address.decorator';
 import { getDeviceInfo } from '../libs/helpers';
+import { UpdateMemberInput } from './dto/update-member.input';
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Member)
 export class MemberResolver {
@@ -56,6 +57,37 @@ export class MemberResolver {
             this.logger.error('Error in creating member', error)
         }
 
+    }
+
+    @Mutation(() => MutationMemberResponse)
+    async update_member(
+        @CurrentUser() user: User,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
+        @Args('id', { type: () => String }) id: string,
+        @Args('data') data: UpdateMemberInput,
+    ) {
+        try {
+            this.logger.log('Updating member...', {
+                username: user.username,
+                filename: this.filename,
+                id,
+                input: data
+            });
+
+            const result = await this.memberService.update(id, data, {
+                ip_address,
+                device_info: getDeviceInfo(user_agent),
+                current_user: user
+            });
+
+            this.logger.log(result.msg);
+
+            return result;
+
+        } catch (error) {
+            this.logger.error('Error in updating member', error)
+        }
     }
 
     @ResolveField(() => Boolean)

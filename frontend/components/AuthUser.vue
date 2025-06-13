@@ -5,7 +5,6 @@
         <div>
           <div class="font-semibold text-base-content/60 text-lg flex items-center gap-2">
             Welcome, {{ global_store.user.username }}
-            <Smile class="w-5 h-5 text-yellow-400" />
           </div>
           <div class="text-xs text-base-content/60 mt-1">
             Glad to see you at {{ global_store.current_gym.name }} today!

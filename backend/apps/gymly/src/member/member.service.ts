@@ -8,6 +8,7 @@ import { LIMIT } from '../limit/enums/limit.enums';
 import { AuditLogsService } from '../audit-logs/audit-logs.service';
 import { DB_TABLE } from '../libs/common-types';
 import { AnalyticsService } from '../analytics/analytics.service';
+import { UpdateMemberInput } from './dto/update-member.input';
 
 @Injectable()
 export class MemberService {
@@ -204,6 +205,70 @@ export class MemberService {
                 data: created,
             };
         });
+    }
+
+    async update(
+        id: string,
+        data: UpdateMemberInput,
+        metadata: {
+            ip_address: string,
+            device_info: any,
+            current_user: { id: string, username: string },
+        }
+    ): Promise<MutationMemberResponse> {
+
+        return await this.prisma.$transaction(async (tx) => {
+
+            const existing_member = await tx.member.findUnique({
+                where: { id },
+            })
+
+            if(!existing_member) {
+                return {
+                    success: false,
+                    msg: 'Member not found',
+                };
+            }
+            
+            // Update the member
+            const updated = await tx.member.update({
+                where: { id },
+                data: {
+                    firstname: data.firstname,
+                    lastname: data.lastname,
+                    contact_number: data.contact_number,
+                },
+            });
+
+            const memberships = await tx.membership.findFirst({
+                select: {
+                    gym_id: true,
+                },
+                where: { member_id: id },
+            })
+    
+            // Audit log for member update
+            await this.audit.createAuditEntry({
+                gym_id: memberships.gym_id,
+                username: metadata.current_user.username,
+                table: DB_TABLE.MEMBER,
+                action: 'UPDATE-MEMBER',
+                reference_id: updated.id,
+                metadata: {
+                    'old_value': existing_member,
+                    'new_value': updated,
+                },
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info,
+            }, tx as Prisma.TransactionClient);
+    
+            return {
+                success: true,
+                msg: 'Member updated successfully',
+                data: updated,
+            };
+
+        })
     }
 
     async is_member_active(memberId: string): Promise<boolean> {

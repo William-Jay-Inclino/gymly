@@ -15,7 +15,7 @@ export class SeederService {
         try {
             await this.prisma.$transaction(async (prisma) => {
 
-                // await this.seed_users(prisma as unknown as Prisma.TransactionClient)
+                await this.seed_users(prisma as unknown as Prisma.TransactionClient)
                 // await this.seed_gyms(prisma as unknown as Prisma.TransactionClient)
                 await this.seed_limits(prisma as unknown as Prisma.TransactionClient)
                 // await this.seed_gym_limits(prisma as unknown as Prisma.TransactionClient)

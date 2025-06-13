@@ -103,7 +103,7 @@ async function set_reminded(membership: Membership, event: Event) {
     });
 
     if(response.success) {
-        showToastSuccess("Reminded status updated successfully.")
+        // showToastSuccess("Reminded status updated successfully.")
     } else {
         membership.is_reminded = previous;
         showToastError("Failed to update reminded status. Please try again or refresh the page.");

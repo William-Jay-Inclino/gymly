@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
+import { Injectable, BadRequestException, Logger } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateMembershipInput } from './dto/create-membership.input';
 import { MutationMembershipResponse } from './entities/membership.response.entity';
@@ -13,6 +13,8 @@ import { LIMIT } from '../limit/enums/limit.enums';
 
 @Injectable()
 export class MembershipService {
+    
+    private readonly logger = new Logger(MembershipService.name);
 
     constructor(
         private readonly prisma: PrismaService,
@@ -43,6 +45,7 @@ export class MembershipService {
                 gym_id: input.gym_id,
                 member_id: input.member_id,
             }, tx as Prisma.TransactionClient);
+
 
             if(!can_create.success) {
                 return {
@@ -270,7 +273,7 @@ export class MembershipService {
         success: boolean,
         msg: string
     }> {
-
+        
         const { gym_id, member_id } = payload;
 
         const membership_count = await tx.membership.count({
@@ -280,6 +283,7 @@ export class MembershipService {
                 is_active: true,
             },
         });
+        
 
         // Get the member limit for this gym
         const limit = await tx.gymLimit.findUnique({
@@ -291,6 +295,7 @@ export class MembershipService {
             },
         });
 
+
         if (limit) {
 
             if (membership_count >= limit.value) {
@@ -298,7 +303,13 @@ export class MembershipService {
                     success: false,
                     msg: `Membership limit reached. You can only have ${limit.value} memberships.`,
                 };
+            } else {
+                return {
+                    success: true,
+                    msg: `Membership limit is within range. You can create more memberships.`,
+                };
             }
+
         } else {
             return {
                 success: false,

@@ -1,6 +1,6 @@
-curl -X POST http://localhost:5000/auth/login \
+curl -X POST http://localhost/gymly/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{
-    "username": "j.tayag",
-    "password": "123"
+    "username": "wjay.inclino",
+    "password": "wj.inclino123"
   }'

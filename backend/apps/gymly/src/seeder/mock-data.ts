@@ -17,32 +17,32 @@ export const users: User[] = [
         created_at: new Date(),
         created_by: 'system'
     },
-    {
-        id: owner_id,
-        username: 'joshua.tayag',
-        email: 'joshua.tayag@gmail.com',
-        firstname: 'Joshua',
-        lastname: 'Tayag',
-        password: 'j.tayag123',
-        role: Role.GYM_OWNER,
-        contact_number: '09106024370',
-        is_active: true,
-        created_at: new Date(),
-        created_by: 'system'
-    },
-    {
-        id: faker.string.uuid(),
-        username: 'hg.tudio',
-        email: 'hannah.tudio@gmail.com',
-        firstname: 'Hannah Grace',
-        lastname: 'Tudio',
-        password: 'hg.tudio',
-        role: Role.GYM_STAFF,
-        contact_number: '09106024370',
-        is_active: true,
-        created_at: new Date(),
-        created_by: 'system'
-    },
+    // {
+    //     id: owner_id,
+    //     username: 'joshua.tayag',
+    //     email: 'joshua.tayag@gmail.com',
+    //     firstname: 'Joshua',
+    //     lastname: 'Tayag',
+    //     password: 'j.tayag123',
+    //     role: Role.GYM_OWNER,
+    //     contact_number: '09106024370',
+    //     is_active: true,
+    //     created_at: new Date(),
+    //     created_by: 'system'
+    // },
+    // {
+    //     id: faker.string.uuid(),
+    //     username: 'hg.tudio',
+    //     email: 'hannah.tudio@gmail.com',
+    //     firstname: 'Hannah Grace',
+    //     lastname: 'Tudio',
+    //     password: 'hg.tudio',
+    //     role: Role.GYM_STAFF,
+    //     contact_number: '09106024370',
+    //     is_active: true,
+    //     created_at: new Date(),
+    //     created_by: 'system'
+    // },
 ]
 
 const gym_id = '4a496131-1129-45ac-914f-6f734d408365'
@@ -58,15 +58,15 @@ export const gyms: Gym[] = [
     }
 ]
 
-export const gym_staffs: GymStaff[] = [
-    {
-        id: 1,
-        user_id: users[2].id,
-        gym_id,
-        created_by: 'system',
-        created_at: new Date(),
-    }
-]
+// export const gym_staffs: GymStaff[] = [
+//     {
+//         id: 1,
+//         user_id: users[2].id,
+//         gym_id,
+//         created_by: 'system',
+//         created_at: new Date(),
+//     }
+// ]
 
 export const limits: Limit[] = [
     {id: 1, name: 'Member Limit', value: 50},

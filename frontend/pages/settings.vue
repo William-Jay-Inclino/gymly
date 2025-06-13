@@ -4,7 +4,7 @@
 
             <ClientOnly>
                 <SettingsUserSection />
-                <SettingsGymSection />
+                <SettingsGymSection v-if="show_gym_section" />
                 <SettingsStaffSection v-if="show_staff_section"/>
                 <SettingsPasswordSection v-if="show_password_section"/>
             </ClientOnly>
@@ -27,6 +27,10 @@ definePageMeta({
 })
 
 const global_store = useGlobalStore()
+
+const show_gym_section = computed(() => {
+    return global_store.user && global_store.user.role === UserRole.GYM_OWNER
+})
 
 const show_staff_section = computed(() => {
     return global_store.user && global_store.user.role === UserRole.GYM_OWNER

@@ -103,13 +103,62 @@ export async function create_member(input: {
     try {
         const response = await sendRequest(mutation);
         console.log('response', response)
-        return response.data.data.create_member;
+        return deepClone(response.data.data.create_member);
     } catch (error) {
         console.error(error);
         return {
             success: false,
             msg: 'Failed to create member',
         }
+    }
+}
+
+export async function update_member(input: {
+    id: string;
+    firstname: string;
+    lastname: string;
+    contact_number?: string | null;
+}): Promise<{
+    success: boolean;
+    msg: string;
+    data?: Member;
+}> {
+    const contact_number = input.contact_number ? `"${input.contact_number}"` : null;
+
+    const mutation = `
+        mutation {
+            update_member(
+                id: "${input.id}",
+                data: {
+                    firstname: "${input.firstname}"
+                    lastname: "${input.lastname}"
+                    contact_number: ${contact_number}
+                }
+            ) {
+                success
+                msg
+                data {
+                    id
+                    firstname
+                    lastname
+                    contact_number
+                    is_active
+                    created_at
+                    created_by
+                }
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(mutation);
+        return deepClone(response.data.data.update_member);
+    } catch (error) {
+        console.error(error);
+        return {
+            success: false,
+            msg: 'Failed to update member',
+        };
     }
 }
 

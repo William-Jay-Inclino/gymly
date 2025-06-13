@@ -1,5 +1,5 @@
 <template>
-    <div v-if="user && user.role" class="lg:sticky lg:top-8 self-start w-full">
+    <div v-if="global_store.user && global_store.user.role" class="lg:sticky lg:top-8 self-start w-full">
         <div class="bg-base-100 rounded-xl shadow-lg p-6 space-y-4">
             <nav class="flex flex-col space-y-2">
                 <NuxtLink
@@ -53,14 +53,14 @@ import {
 import { useGlobalStore } from '~/core/global.store'
 import { UserRole } from '~/core/user/user.types'
 
-const { user } = useGlobalStore()
+const global_store = useGlobalStore()
 
 const menuItems = computed(() => [
     { label: 'Dashboard', icon: Home, route: '/dashboard' },
     { label: 'Log Attendance', icon: Clock, route: '/attendance' },
     { label: 'Member Management', icon: Users, route: '/memberships' },
     // Only show Subscription Plans if not GYM_STAFF
-    ...(user.role !== UserRole.GYM_STAFF
+    ...(global_store.user.role !== UserRole.GYM_STAFF
         ? [{ label: 'Subscription Plans', icon: Layers, route: '/plans' }]
         : []),
     { label: 'Settings', icon: Settings, route: '/settings' },

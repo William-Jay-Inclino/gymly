@@ -166,6 +166,11 @@ export class PlanService {
                     success: false,
                     msg: `Plan limit reached. You can only have ${limit.value} plans.`,
                 };
+            } else {
+                return {
+                    success: true,
+                    msg: `Plan limit is ${limit.value}. You can create more plans.`,
+                };
             }
         } else {
             return {
