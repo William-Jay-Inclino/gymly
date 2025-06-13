@@ -1,7 +1,7 @@
 <template>
     <Transition name="modal" appear>
-        <div v-if="show" class="fixed inset-0 z-50 flex items-start justify-center bg-black/40 pt-8 px-2 sm:px-4">
-            <div class="bg-base-100 rounded-2xl shadow-2xl w-full max-w-md relative flex flex-col max-h-[90vh]">
+        <div v-if="show" @mousedown.self="close" class="fixed inset-0 z-50 flex items-start justify-center bg-black/40 pt-8 px-2 sm:px-4">
+            <div @mousedown.stop class="bg-base-100 rounded-2xl shadow-2xl w-full max-w-md relative flex flex-col max-h-[90vh]">
                 <button class="absolute top-2 right-2 btn btn-xs btn-circle btn-ghost" @click="close()" title="Close">✕</button>
                 <div class="mb-3 font-semibold text-base sm:text-lg text-center px-4 pt-6">
                     Attendance for {{ modal_date_label }}

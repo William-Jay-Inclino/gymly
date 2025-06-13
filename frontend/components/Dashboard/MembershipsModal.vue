@@ -1,7 +1,7 @@
 <template>
     <Transition name="modal" appear>
-        <div v-if="show" class="fixed inset-0 z-50 flex items-start justify-center bg-black/40 pt-8 px-2 sm:px-4">
-            <div class="bg-base-100 rounded-2xl shadow-2xl p-0 w-full max-w-4xl relative flex flex-col max-h-[90vh]">
+        <div v-if="show" @mousedown.self="close_modal" class="fixed inset-0 z-50 flex items-start justify-center bg-black/40 pt-8 px-2 sm:px-4">
+            <div @mousedown.stop class="bg-base-100 rounded-2xl shadow-2xl p-0 w-full max-w-4xl relative flex flex-col max-h-[90vh]">
                 <!-- Header -->
                 <div class="flex items-center justify-between px-4 sm:px-8 py-4 sm:py-6 border-b border-base-200">
                     <div class="font-semibold text-base sm:text-lg">

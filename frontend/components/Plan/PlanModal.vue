@@ -1,7 +1,8 @@
 <template>
     <Transition name="modal" appear>
-        <div v-if="show" class="fixed inset-0 z-50 flex items-start justify-center bg-black/40 pt-4 sm:pt-8 px-2 sm:px-4">
+        <div v-if="show" @mousedown.self="handle_close" class="fixed inset-0 z-50 flex items-start justify-center bg-black/40 pt-4 sm:pt-8 px-2 sm:px-4">
             <form
+                @mousedown.stop 
                 class="bg-base-100 rounded-2xl shadow-2xl w-full max-w-md relative flex flex-col max-h-[95vh] overflow-hidden"
                 @submit.prevent="handle_submit"
             >
@@ -90,7 +91,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
 import type { CreatePlanInput } from '~/core/plan/plan.types'
 
 // --- Props & Emits ---

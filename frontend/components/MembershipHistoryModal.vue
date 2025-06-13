@@ -1,7 +1,7 @@
 <template>
     <Transition name="modal" appear>
-        <div v-if="show" class="fixed inset-0 z-50 flex items-start justify-center bg-black/40 pt-4 sm:pt-8 px-2 sm:px-4">
-            <div class="bg-base-100 rounded-2xl shadow-2xl w-full max-w-lg flex flex-col max-h-[95vh] overflow-hidden">
+        <div v-if="show" @mousedown.self="close_modal" class="fixed inset-0 z-50 flex items-start justify-center bg-black/40 pt-4 sm:pt-8 px-2 sm:px-4">
+            <div @mousedown.stop class="bg-base-100 rounded-2xl shadow-2xl w-full max-w-lg flex flex-col max-h-[95vh] overflow-hidden">
                 <div class="overflow-y-auto flex-1 px-4 sm:px-8 pt-6 sm:pt-8 pb-2">
                     <h3 class="font-semibold text-lg sm:text-xl mb-6 text-primary">
                         Membership Plans
