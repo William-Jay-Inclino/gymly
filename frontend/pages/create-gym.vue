@@ -169,7 +169,7 @@ async function finish_setup() {
         })
         if (res.success) {
             showToastSuccess('Welcome to Gymly!')
-            router.push('/dashboard')
+            router.push('/memberships')
         } else {
             showToastError(res.msg || 'Failed to create gym')
         }

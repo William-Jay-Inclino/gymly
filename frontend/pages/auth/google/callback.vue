@@ -1,8 +1,8 @@
 <template>
-    <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
+    <div class="min-h-screen flex items-center justify-center" data-theme="light">
         <div class="bg-white rounded-2xl shadow-2xl p-8 flex flex-col items-center space-y-4">
             <span class="loading loading-spinner loading-lg text-primary"></span>
-            <span class="text-base-content/70 text-sm">Signing you in with Google...</span>
+            <span class="text-black text-lg font-bold">Signing you in with Google...</span>
         </div>
     </div>
 </template>

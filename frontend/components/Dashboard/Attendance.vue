@@ -6,8 +6,9 @@
         </div>
         <div class="px-6 py-4 flex-1 overflow-y-auto min-h-0">
             <!-- Loader -->
-            <div v-if="component_loading" class="flex justify-center py-20">
-                <span class="loading loading-spinner loading-lg"></span>
+            <div v-if="component_loading" class="flex justify-center py-20 text-xs text-base-content/50">
+                Loading please wait...
+                <!-- <span class="loading loading-spinner loading-lg"></span> -->
             </div>
             <template v-else>
                 <!-- Month/Year Selector -->
@@ -105,7 +106,7 @@
 
     <!-- Attendance Modal -->
      <AttendanceModal
-        v-if="show_attendance_modal"
+        v-if="show_attendance_modal && gym_id"
         :show="show_attendance_modal"
         :gym_id="gym_id"
         :date="modal_date_label"

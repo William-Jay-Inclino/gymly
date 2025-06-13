@@ -15,8 +15,9 @@
                 </select>
             </div>
         </div>
-        <div v-if="component_loading" class="flex justify-center items-center min-h-[200px]">
-            <span class="loading loading-spinner loading-lg"></span>
+        <div v-if="component_loading" class="flex justify-center items-center min-h-[200px] text-xs text-base-content/50">
+            Loading please wait...
+            <!-- <span class="loading loading-spinner loading-lg"></span> -->
         </div>
         <div v-else class="w-full overflow-x-auto">
             <div class="min-w-[400px] sm:min-w-full" style="height:500px;">
