@@ -1,6 +1,5 @@
 <template>
     <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 px-4 sm:px-8" data-theme="light">
-        <!-- Back Arrow Button: Always at the very top left of the viewport -->
         <button
             v-if="step === 2"
             class="fixed top-3 left-3 sm:absolute sm:top-4 sm:left-4 p-2 rounded-full hover:bg-base-200 transition text-base-content/60 hover:text-primary z-30"
@@ -21,23 +20,20 @@
                 'bg-transparent sm:bg-white'
             ]"
         >
-            <div class="flex flex-col items-center mb-4 px-4 sm:px-0">
-                <span class="inline-flex items-center gap-2 mb-2">
-                    <Building2 class="w-8 h-8 text-primary" />
-                    <span class="text-2xl sm:text-3xl font-extrabold tracking-tight text-primary">Create Your Gym</span>
+            <div v-if="step === 1" class="flex flex-col items-center mb-5 px-4 sm:px-0">
+                <span class="text-xl sm:text-2xl font-extrabold tracking-tight text-primary text-center">
+                    Great to Have You Here!
                 </span>
-                <span class="text-base-content/70 text-xs sm:text-sm text-center">Welcome! Set up your gym to get started as a Gym Owner.</span>
+                <span class="text-base-content/70 text-xs sm:text-sm text-center">
+                    Let's get you up and running — just a few quick steps to complete your setup.
+                </span>
+            </div>
+            <div v-if="step === 2" class="flex flex-col items-center mb-5 px-4 sm:px-0">
+                <span class="text-xl sm:text-2xl font-extrabold tracking-tight text-primary text-center">
+                    Take Note!
+                </span>
             </div>
             <div>
-                <div class="flex items-center justify-center mb-6 px-4 sm:px-0">
-                    <div class="flex items-center gap-2">
-                        <span :class="['w-8 h-8 flex items-center justify-center rounded-full font-bold transition-all', step === 1 ? 'bg-primary text-white' : 'bg-base-200 text-base-content/60']">1</span>
-                        <span class="text-base-content/80 font-semibold text-xs sm:text-base">Gym Info</span>
-                        <span class="w-8 h-0.5 bg-base-200 mx-2 hidden sm:block"></span>
-                        <span :class="['w-8 h-8 flex items-center justify-center rounded-full font-bold transition-all', step === 2 ? 'bg-primary text-white' : 'bg-base-200 text-base-content/60']">2</span>
-                        <span class="text-base-content/80 font-semibold text-xs sm:text-base">Plans</span>
-                    </div>
-                </div>
                 <form v-if="step === 1" @submit.prevent="go_to_step_2" class="space-y-6 px-4 sm:px-0">
                     <div>
                         <label class="label font-semibold text-base-content/80">Gym Name</label>
@@ -64,18 +60,18 @@
                     </button>
                 </form>
                 <div v-else class="relative px-2 sm:px-0">
-                    <div class="mb-4 sm:mb-6">
-    <h2 class="text-base sm:text-xl font-bold text-primary mb-1 sm:mb-2 flex items-center gap-2">
-        <CreditCard class="w-5 h-5 text-primary" /> Subscription Plans
-    </h2>
-    <p class="text-base-content/70 text-xs sm:text-sm">
-        <span>These are the default subscription plans that will be available for <span class="font-semibold">your gym members</span> to purchase.</span>
-        <br>
-        <span>
-            <span class="text-error font-semibold">Note:</span> These plans are <span class="font-semibold">not</span> for your own subscription to Gymly. You can customize this later.
-        </span>
-    </p>
-</div>
+                    <div class="mb-4 sm:mb-6 mt-4">
+                        <!-- <h2 class="text-base sm:text-xl font-bold text-primary mb-1 sm:mb-2 flex items-center gap-2">
+                            <CreditCard class="w-5 h-5 text-primary" /> Subscription Plans
+                        </h2> -->
+                        <p class="text-base-content/70 text-xs sm:text-sm">
+                            <span>These are the default subscription plans that will be available for <span class="font-semibold">your gym members</span> to purchase.</span>
+                            <br>
+                            <span>
+                                <span class="text-error font-semibold">Note:</span> These plans are <span class="font-semibold">not</span> for your own subscription. You can customize this later.
+                            </span>
+                        </p>
+                    </div>
                     <div class="space-y-3">
                         <div
                             v-for="plan in default_plans"
@@ -115,15 +111,16 @@
 </template>
 
 <script setup lang="ts">
-import { Building2, CreditCard, ArrowLeft } from 'lucide-vue-next'
+import { CreditCard, ArrowLeft } from 'lucide-vue-next'
 import { useRouter } from 'vue-router'
 import { create_gym } from '~/core/gym/gym.api'
-import { showToastSuccess, showToastError } from '~/utils/toast'
+import { showToastError } from '~/utils/toast'
 import { useGlobalStore } from '~/core/global.store'
 
 definePageMeta({
     middleware: ["auth"],
 })
+
 
 const is_loading = ref(false)
 const step = ref(1)
