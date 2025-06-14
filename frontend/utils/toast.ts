@@ -3,7 +3,7 @@ import { useToast } from "vue-toastification"
 const toast = useToast()
 
 export function showToastSuccess(message: string) {
-    toast.info(message)
+    toast.success(message)
 }
 
 export function showToastError(message: string) {

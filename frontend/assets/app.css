@@ -1,2 +1,49 @@
 @import "tailwindcss";
-@plugin "daisyui";
+
+@plugin "daisyui" {
+  themes: light --default;
+}
+
+/* Force primary color override at the component level */
+.btn-primary {
+  --btn-bg: #3b82f6;
+  --btn-color: #ffffff;
+  --tw-border-opacity: 1;
+  border-color: #3b82f6;
+}
+
+.text-primary {
+  color: #3b82f6 !important;
+}
+
+
+.checkbox-primary {
+  --input-color: #3b82f6 !important;
+}
+
+/* Dropdown-specific soft blue styles */
+.dropdown-options-wrapper li {
+  @apply px-4 py-2 cursor-pointer transition;
+}
+
+/* Highlighted item */
+.dropdown-options-wrapper li.bg-primary {
+  background-color: #3b82f6 !important; /* Keep original primary for selected */
+  color: white !important;
+}
+
+/* Hover state */
+.dropdown-options-wrapper li:hover:not(.bg-primary) {
+  background-color: #dbeafe !important; /* soft blue-100 */
+  color: #1e40af !important; /* darker blue text */
+}
+
+/* Selected item (modelValue) */
+.dropdown-options-wrapper li.font-semibold {
+  font-weight: 600;
+}
+
+/* No results */
+.dropdown-options-wrapper li.text-base-content{
+  color: rgba(30, 41, 59, 0.6); /* Equivalent to text-base-content/60 */
+}

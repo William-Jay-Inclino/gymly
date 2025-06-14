@@ -6,7 +6,7 @@ export default defineNuxtPlugin( (nuxtApp) => {
 
     const toastOptions: PluginOptions = {
         // You can set your default options here
-        position: POSITION.BOTTOM_RIGHT,
+        position: POSITION.TOP_RIGHT,
     };
 
     nuxtApp.vueApp.use(Toast, toastOptions)

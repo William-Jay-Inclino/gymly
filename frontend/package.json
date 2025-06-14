@@ -22,18 +22,18 @@
     "crypto-js": "^4.2.0",
     "daisyui": "^5.0.42",
     "date-fns": "^4.1.0",
+    "dotenv": "^16.4.7",
     "lucide-vue-next": "^0.511.0",
     "nuxt": "^3.17.4",
     "pinia": "^3.0.2",
-    "tailwindcss": "^4.1.8",
+    "rimraf": "^5.0.10",
+    "sweetalert2": "^11.15.3",
     "vue": "^3.5.15",
     "vue-router": "^4.5.1",
-    "vue-toastification": "2.0.0-rc.5",
-    "sweetalert2": "^11.15.3",
-    "rimraf": "^5.0.10",
-    "dotenv": "^16.4.7"
+    "vue-toastification": "2.0.0-rc.5"
   },
   "devDependencies": {
-    "@types/crypto-js": "^4.2.2"
+    "@types/crypto-js": "^4.2.2",
+    "tailwindcss": "^4.1.10"
   }
 }

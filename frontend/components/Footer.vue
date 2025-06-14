@@ -9,7 +9,7 @@
                 rel="noopener"
                 class="text-primary hover:underline"
             >
-                Gymly Team
+                JayTechSolutions
             </a>
         </span>
     </footer>

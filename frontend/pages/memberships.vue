@@ -1,81 +1,90 @@
 <template>
     <div class="max-w-5xl mx-auto py-8 px-2 sm:px-4">
-        <!-- Header and Add Member Button -->
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-            <h1 class="text-2xl font-bold text-primary">Memberships</h1>
-            <button
-                class="btn btn-primary flex items-center gap-2 w-full sm:w-auto text-lg sm:text-base py-4 sm:py-2 px-8 sm:px-4"
-                @click="show_add_modal = true"
-                :disabled="is_member_limit_reached"
-                :class="{ 'opacity-50 cursor-not-allowed': is_member_limit_reached }"
-            >
-                <UserPlus class="w-6 h-6" /> Add Member
-            </button>
-        </div>
-
-        <!-- Search and Limit Warnings -->
-        <div class="mb-4 flex flex-col sm:flex-row sm:items-center gap-2 text-xs text-base-content/60">
-            <input
-                v-model="search"
-                type="text"
-                placeholder="Search member..."
-                class="input input-bordered w-full sm:w-80"
-            />
-            <!-- <span v-if="limit" class="badge badge-outline badge-sm ml-0 sm:ml-2">
-                {{ members?.length || 0 }}/{{ limit.value }} members
-            </span> -->
-        </div>
-        <div
-            v-if="is_near_member_limit && !is_member_limit_reached"
-            class="flex items-center gap-2 mb-2 p-2 rounded-lg border border-warning/20 bg-warning/10 text-warning text-xs"
-        >
-            <AlertTriangle class="w-4 h-4" />
-            <span>You are approaching your member limit ({{ members?.length || 0 }}/{{ limit?.value }})</span>
-        </div>
-        <div
-            v-if="is_member_limit_reached"
-            class="flex items-center gap-2 mb-2 p-2 rounded-lg border border-error/20 bg-error/10 text-error text-xs"
-        >
-            <CircleAlert class="w-4 h-4" />
-            <span>Member limit reached! Cannot add more members. Contact admin to increase limit.</span>
-        </div>
-
-        <!-- Content -->
+        <!-- Loading Spinner -->
         <div v-if="is_loading_page" class="flex justify-center items-center min-h-[200px]">
             <Spinner />
         </div>
-        <template v-else>
-            <div v-if="!members || members.length === 0" class="text-center text-base-content/60 py-16">
-                <div class="flex flex-col items-center justify-center mt-16 mb-12">
-                    <h2 class="text-2xl sm:text-3xl font-extrabold text-primary mb-2 text-center">
-                        👋 Welcome to Gymly!
-                    </h2>
-                    <p class="text-base-content/70 text-sm sm:text-base mb-4 text-center max-w-md">
-                        Let's get started!
-                        Add your first member and experience how easy it is to manage your gym, log attendance, and view analytics with Gymly.
-                    </p>
-                </div>
+
+        <!-- No Members: Welcome Message & Add Member Button -->
+        <div v-else-if="!members || members.length === 0" class="text-center text-base-content/60 py-16">
+            <div class="flex flex-col items-center justify-center mt-16 mb-12">
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-primary mb-2 text-center">
+                    👋 Welcome to Gymly!
+                </h2>
+                <p class="text-base-content/70 text-sm sm:text-base mb-4 text-center max-w-md">
+                    Let's get started!
+                    Add your first gym member and experience how easy it is to manage your gym, log attendance, and view analytics.
+                </p>
+                <button
+                    class="btn btn-primary flex items-center gap-2 w-full sm:w-auto text-lg sm:text-base py-4 sm:py-2 px-8 sm:px-4 mt-6"
+                    @click="show_add_modal = true"
+                    :disabled="is_member_limit_reached"
+                    :class="{ 'opacity-50 cursor-not-allowed': is_member_limit_reached }"
+                >
+                    <UserPlus class="w-6 h-6" /> Add Member
+                </button>
             </div>
-            <div v-else>
-                <!-- TileView for mobile, ListView for sm and up -->
-                <MembershipTileView
+        </div>
+
+        <!-- Members List & Actions -->
+        <div v-else>
+            <!-- Header -->
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+                <h1 class="text-2xl font-bold text-primary">Memberships</h1>
+                <button
+                    class="btn btn-primary flex items-center gap-2 w-full sm:w-auto text-lg sm:text-base py-4 sm:py-2 px-8 sm:px-4"
+                    @click="show_add_modal = true"
+                    :disabled="is_member_limit_reached"
+                    :class="{ 'opacity-50 cursor-not-allowed': is_member_limit_reached }"
+                >
+                    <UserPlus class="w-6 h-6" /> Add Member
+                </button>
+            </div>
+
+            <!-- Search -->
+            <div class="mb-4 flex flex-col sm:flex-row sm:items-center gap-2 text-xs text-base-content/60">
+                <input
+                    v-model="search"
+                    type="text"
+                    placeholder="Search member..."
+                    class="input input-bordered w-full sm:w-80"
+                />
+            </div>
+
+            <!-- Limit Warnings -->
+            <div
+                v-if="is_near_member_limit && !is_member_limit_reached"
+                class="flex items-center gap-2 mb-2 p-2 rounded-lg border border-warning/20 bg-warning/10 text-warning text-xs"
+            >
+                <AlertTriangle class="w-4 h-4" />
+                <span>You are approaching your member limit ({{ members?.length || 0 }}/{{ limit?.value }})</span>
+            </div>
+            <div
+                v-if="is_member_limit_reached"
+                class="flex items-center gap-2 mb-2 p-2 rounded-lg border border-error/20 bg-error/10 text-error text-xs"
+            >
+                <CircleAlert class="w-4 h-4" />
+                <span>Member limit reached! Cannot add more members. Contact admin to increase limit.</span>
+            </div>
+
+            <!-- Members Views -->
+            <MembershipTileView
+                :members="filtered_users"
+                @view-plans="view_plans"
+                @view-attendance="open_attendance_modal"
+                @add-plan="open_add_plan_modal"
+                @edit-member="open_edit_member"
+            />
+            <div class="hidden sm:block">
+                <MembershipListView
                     :members="filtered_users"
                     @view-plans="view_plans"
                     @view-attendance="open_attendance_modal"
                     @add-plan="open_add_plan_modal"
                     @edit-member="open_edit_member"
                 />
-                <div class="hidden sm:block">
-                    <MembershipListView
-                        :members="filtered_users"
-                        @view-plans="view_plans"
-                        @view-attendance="open_attendance_modal"
-                        @add-plan="open_add_plan_modal"
-                        @edit-member="open_edit_member"
-                    />
-                </div>
             </div>
-        </template>
+        </div>
 
         <!-- Modals -->
         <AddMemberModal

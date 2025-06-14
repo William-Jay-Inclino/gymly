@@ -21,24 +21,23 @@
             &times;
         </button>
         <div
-            v-show="open"
-            class="absolute z-30 mt-1 w-full bg-base-100 border border-base-200 rounded-lg shadow-lg max-h-60 overflow-auto"
+        v-show="open"
+        class="absolute z-30 mt-1 w-full bg-base-100 border border-base-200 rounded-lg shadow-lg max-h-60 overflow-auto"
         >
-            <ul>
+            <ul class="dropdown-options-wrapper">
                 <li
                     v-for="(option, idx) in filteredOptions"
                     :key="option.value"
                     @mousedown.prevent="select(option)"
                     :class="[
-                        'px-4 py-2 cursor-pointer transition',
-                        idx === highlighted ? 'bg-primary text-white' : 'hover:bg-primary hover:text-white',
+                        idx === highlighted ? 'bg-primary text-white' : '',
                         option.value === modelValue ? 'font-semibold' : ''
                     ]"
                     @mouseenter="highlighted = idx"
                 >
                     {{ option.label }}
                 </li>
-                <li v-if="filteredOptions.length === 0" class="px-4 py-2 text-base-content/60">
+                <li v-if="filteredOptions.length === 0">
                     No results found.
                 </li>
             </ul>
@@ -47,7 +46,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, onMounted, onBeforeUnmount } from "vue"
 
 const props = defineProps<{
     options: { label: string; value: string }[]

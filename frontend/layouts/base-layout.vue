@@ -1,5 +1,5 @@
 <template>
-    <div class="min-h-screen flex flex-col bg-gradient-to-br from-gray-50 to-gray-100" data-theme="light">
+    <div class="min-h-screen flex flex-col bg-gradient-to-br from-gray-50 to-gray-100">
         <Header />
 
         <!-- Mobile Menu: sticky at the top, only on mobile -->
