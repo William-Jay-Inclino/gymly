@@ -1,8 +1,5 @@
 <template>
     <div class="min-h-screen flex items-center justify-center bg-white relative overflow-hidden" data-theme="light">
-        <!-- Decorative background shapes (optional, remove if you want pure white) -->
-        <!-- <div class="absolute -top-32 -left-32 w-96 h-96 bg-primary/10 rounded-full blur-3xl z-0"></div>
-        <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-secondary/10 rounded-full blur-3xl z-0"></div> -->
         <div class="w-full max-w-md mx-auto sm:bg-white sm:rounded-2xl sm:shadow-2xl p-4 sm:p-8 space-y-6 relative z-10">
             <div class="flex flex-col items-center">
                 <span class="inline-flex items-center gap-2 mb-2">
@@ -54,7 +51,7 @@
                 </button>
             </form>
             <div class="flex flex-col sm:flex-row items-center justify-between mt-4 gap-1">
-                <span class="text-xs text-base-content/60">&copy; {{ new Date().getFullYear() }} Gymly</span>
+                <span class="text-xs text-base-content/60">&copy; {{ new Date().getFullYear() }} JayTechSolutions</span>
                 <span class="text-xs text-base-content/60">All rights reserved.</span>
             </div>
         </div>
