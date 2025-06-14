@@ -65,6 +65,8 @@
 
 <script setup lang="ts">
 import { usePlanStore } from '~/core/plan/plan.store';
+const config = useRuntimeConfig()
+const timezone = config.public.TZ || 'Asia/Manila'
 
 const props = defineProps<{
     modelValue: { plan_id: string, start_date: string, sessions_left?: number }[]
@@ -92,13 +94,12 @@ function toggle(id: string) {
     if (isSelected(id)) {
         newValue = props.modelValue.filter(p => p.plan_id !== id)
     } else {
-        // Default sessions_left if plan is per session
         const plan = plans.value.find(p => p.id === id)
         newValue = [
             ...props.modelValue,
             {
                 plan_id: id,
-                start_date: new Date().toISOString().slice(0, 10),
+                start_date: getTodayInTimezone(timezone),
                 ...(plan?.num_of_sessions ? { sessions_left: plan.num_of_sessions } : {})
             }
         ]

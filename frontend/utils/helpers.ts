@@ -1,4 +1,5 @@
 import CryptoJS from "crypto-js";
+import { format, toZonedTime } from "date-fns-tz";
 
 export function deepClone<T>(obj: T): T {
     return JSON.parse(JSON.stringify(obj));
@@ -27,4 +28,12 @@ export function decryptToken(payload: {
     } catch {
         return '';
     }
+}
+
+
+export function getTodayInTimezone(tz: string) {
+    // Returns YYYY-MM-DD in the correct timezone using date-fns-tz
+    const now = new Date();
+    const zonedDate = toZonedTime(now, tz);
+    return format(zonedDate, 'yyyy-MM-dd', { timeZone: tz });
 }

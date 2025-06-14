@@ -65,7 +65,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
 import PlanList from '~/components/PlanList.vue'
 
 // --- Props & Emits ---
