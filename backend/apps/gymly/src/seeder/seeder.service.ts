@@ -65,24 +65,24 @@ export class SeederService {
 
     }
 
-    async seed_gym_staff(prisma: Prisma.TransactionClient) {
-        console.log('inserting gym_staffs data...'); 
-        try {
+    // async seed_gym_staff(prisma: Prisma.TransactionClient) {
+    //     console.log('inserting gym_staffs data...'); 
+    //     try {
 
-            const has_data = await prisma.gymStaff.count();
-            if (has_data > 0) {
-                await prisma.gymStaff.deleteMany({});
-            }
+    //         const has_data = await prisma.gymStaff.count();
+    //         if (has_data > 0) {
+    //             await prisma.gymStaff.deleteMany({});
+    //         }
 
-            await prisma.gymStaff.createMany({
-                data: data.gym_staffs
-            })
+    //         await prisma.gymStaff.createMany({
+    //             data: data.gym_staffs
+    //         })
 
-        } catch (error) {
-            throw error; 
-        }
+    //     } catch (error) {
+    //         throw error; 
+    //     }
 
-    }
+    // }
 
     async seed_limits(prisma: Prisma.TransactionClient) {
         console.log('inserting limits data...'); 
