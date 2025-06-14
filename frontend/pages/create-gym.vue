@@ -65,11 +65,17 @@
                 </form>
                 <div v-else class="relative px-2 sm:px-0">
                     <div class="mb-4 sm:mb-6">
-                        <h2 class="text-base sm:text-xl font-bold text-primary mb-1 sm:mb-2 flex items-center gap-2">
-                            <CreditCard class="w-5 h-5 text-primary" /> Default Subscription Plans
-                        </h2>
-                        <p class="text-base-content/70 text-xs sm:text-sm">These plans will be available to your members by default. You can customize them later.</p>
-                    </div>
+    <h2 class="text-base sm:text-xl font-bold text-primary mb-1 sm:mb-2 flex items-center gap-2">
+        <CreditCard class="w-5 h-5 text-primary" /> Subscription Plans
+    </h2>
+    <p class="text-base-content/70 text-xs sm:text-sm">
+        <span>These are the default subscription plans that will be available for <span class="font-semibold">your gym members</span> to purchase.</span>
+        <br>
+        <span>
+            <span class="text-error font-semibold">Note:</span> These plans are <span class="font-semibold">not</span> for your own subscription to Gymly. You can customize this later.
+        </span>
+    </p>
+</div>
                     <div class="space-y-3">
                         <div
                             v-for="plan in default_plans"
