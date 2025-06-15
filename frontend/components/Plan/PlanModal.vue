@@ -1,12 +1,16 @@
 <template>
     <Transition name="modal" appear>
-        <div v-if="show" @mousedown.self="handle_close" class="fixed inset-0 z-50 flex items-start justify-center bg-black/40 pt-4 sm:pt-8 px-2 sm:px-4">
+        <div v-if="show" @mousedown.self="handle_close" class="fixed inset-0 z-50 flex items-start justify-center bg-black/40">
             <form
-                @mousedown.stop 
-                class="bg-base-100 rounded-2xl shadow-2xl w-full max-w-md relative flex flex-col max-h-[95vh] overflow-hidden"
+                @mousedown.stop
+                :class="[
+                    'bg-base-100 flex flex-col relative shadow-2xl',
+                    'w-full h-full max-w-none max-h-none rounded-none', // mobile
+                    'sm:w-[420px] sm:h-auto sm:max-w-full sm:rounded-2xl sm:my-12 sm:shadow-2xl' // desktop
+                ]"
                 @submit.prevent="handle_submit"
             >
-                <div class="overflow-y-auto flex-1 px-4 sm:px-8 pt-6 sm:pt-8 pb-2">
+                <div class="flex-1 overflow-y-auto px-4 sm:px-8 pt-6 sm:pt-8 pb-32 sm:pb-8">
                     <h3 class="font-semibold text-lg sm:text-xl mb-6 text-primary text-center">
                         {{ is_edit_mode ? 'Edit Plan' : 'Add Plan' }}
                     </h3>
@@ -78,7 +82,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="bg-base-200 px-4 sm:px-8 py-4 flex flex-col sm:flex-row justify-end gap-2">
+                <!-- Fixed Bottom Buttons -->
+                <div class="bg-base-200 px-4 sm:px-8 py-4 flex flex-col sm:flex-row justify-end gap-2 w-full sm:static fixed bottom-0 left-0 z-10">
                     <button class="btn btn-ghost rounded-md w-full sm:w-auto" type="button" @click="handle_close" :disabled="is_submitting">Cancel</button>
                     <button class="btn btn-primary rounded-md w-full sm:w-auto" type="submit" :disabled="is_submitting">
                         <span v-if="is_submitting" class="loading loading-spinner loading-xs mr-2"></span>
@@ -136,6 +141,16 @@ function handle_submit() {
 </script>
 
 <style scoped>
+form {
+    min-height: 100vh;
+}
+@media (min-width: 640px) {
+    form {
+        min-height: unset;
+        height: auto;
+        max-height: 90vh;
+    }
+}
 .modal-enter-active, .modal-leave-active {
     transition: all 0.25s ease-out;
 }
