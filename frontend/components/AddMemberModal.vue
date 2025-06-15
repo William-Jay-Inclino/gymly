@@ -15,7 +15,8 @@
                 @submit.prevent="submit_form"
             >
                 <!-- Scrollable Content -->
-                <div class="flex-1 overflow-y-auto px-4 sm:px-8 pt-6 sm:pt-8 pb-32 sm:pb-8">
+                <div class="flex-1 overflow-y-auto px-4 sm:px-8 pt-6 sm:pt-8 pb-50 sm:pb-16">
+                    <!-- ↑↑ pb-40 sm:pb-16 for more space above footer -->
                     <h3 class="font-semibold text-lg sm:text-xl mb-6 text-primary text-center">Add Member</h3>
                     <div class="space-y-4">
                         <div>
@@ -140,6 +141,9 @@ form {
         height: auto;
         max-height: 90vh;
     }
+}
+.flex-1 {
+    /* pb-40 for mobile, pb-16 for desktop handled in class */
 }
 .modal-enter-active, .modal-leave-active {
     transition: all 0.25s ease-out;
