@@ -1,12 +1,17 @@
 <template>
     <Transition name="modal" appear>
-        <div v-if="show" @mousedown.self="close_modal" class="fixed inset-0 z-50 flex items-start justify-center bg-black/40 pt-4 sm:pt-8 px-2 sm:px-4">
+        <div
+            v-if="show"
+            @mousedown.self="close_modal"
+            class="fixed inset-0 z-50 flex items-start justify-center bg-black/40"
+        >
             <form
                 @mousedown.stop
-                class="bg-base-100 rounded-2xl shadow-2xl w-full max-w-md relative flex flex-col max-h-[95vh] overflow-hidden"
+                class="bg-base-100 w-full h-full max-w-none max-h-none rounded-none shadow-none flex flex-col relative"
                 @submit.prevent="submit_form"
             >
-                <div class="overflow-y-auto flex-1 px-4 sm:px-8 pt-6 sm:pt-8 pb-2">
+                <!-- Scrollable Content -->
+                <div class="flex-1 overflow-y-auto px-4 sm:px-8 pt-6 sm:pt-8 pb-2">
                     <h3 class="font-semibold text-lg sm:text-xl mb-6 text-primary text-center">Add Member</h3>
                     <div class="space-y-4">
                         <div>
@@ -47,13 +52,14 @@
                         </div>
                         <div>
                             <label class="label pb-1">
-                                <span class="label-text text-base-content/80">Select Plan</span>
+                                <span class="label-text text-base-content/80">Click the card to select plan/s</span>
                             </label>
                             <PlanList v-model="selected_plans" />
                         </div>
                     </div>
                 </div>
-                <div class="bg-base-200 px-4 sm:px-8 py-4 flex flex-col sm:flex-row justify-end gap-2">
+                <!-- Fixed Bottom Buttons -->
+                <div class="bg-base-200 px-4 sm:px-8 py-4 flex flex-col sm:flex-row justify-end gap-2 w-full fixed bottom-0 left-0 z-10">
                     <button class="btn btn-ghost rounded-md w-full sm:w-auto" type="button" @click="close_modal" :disabled="is_adding">Cancel</button>
                     <button class="btn btn-primary rounded-md w-full sm:w-auto" type="submit" :disabled="!can_submit || is_adding">
                         {{ is_adding ? 'Adding Member...' : 'Add Member' }}
@@ -121,6 +127,15 @@ watch(() => props.show, (val) => {
 </script>
 
 <style scoped>
+
+/* Make sure the scrollable area doesn't go behind the fixed buttons */
+form {
+    min-height: 100vh;
+}
+.flex-1 {
+    padding-bottom: 96px; /* space for fixed buttons */
+}
+
 .modal-enter-active, .modal-leave-active {
     transition: all 0.25s ease-out;
 }

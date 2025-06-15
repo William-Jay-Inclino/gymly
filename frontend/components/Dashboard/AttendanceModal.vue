@@ -1,15 +1,15 @@
 <template>
     <Transition name="modal" appear>
-        <div v-if="show" @mousedown.self="close" class="fixed inset-0 z-50 flex items-start justify-center bg-black/40 pt-8 px-2 sm:px-4">
-            <div @mousedown.stop class="bg-base-100 rounded-2xl shadow-2xl w-full max-w-md relative flex flex-col max-h-[90vh]">
-                <button class="absolute top-2 right-2 btn btn-xs btn-circle btn-ghost" @click="close()" title="Close">✕</button>
-                <div class="mb-3 font-semibold text-base sm:text-lg text-center px-4 pt-6">
+        <div v-if="show" @mousedown.self="close" class="fixed inset-0 z-50 flex items-start justify-center bg-black/40">
+            <form @mousedown.stop class="bg-base-100 w-full h-full max-w-none max-h-none rounded-none shadow-none flex flex-col relative">
+                <!-- Header -->
+                <div class="font-semibold text-base sm:text-lg text-center px-4 pt-6 mb-3">
                     Attendance for {{ modal_date_label }}
                 </div>
+                <!-- Scrollable Content -->
                 <div class="flex-1 overflow-y-auto px-4 pb-6">
                     <div v-if="attendance_loading" class="flex justify-center py-8 text-base-content/70">
-                        <Spinner />           
-                        <!-- <span class="loading loading-spinner loading-md"></span> -->
+                        <Spinner />
                     </div>
                     <div v-else>
                         <div v-if="attendance_list.length === 0" class="text-center text-base-content/60 py-4">
@@ -41,7 +41,11 @@
                         </ul>
                     </div>
                 </div>
-            </div>
+                <!-- Fixed Bottom Button -->
+                <div class="bg-base-200 px-4 sm:px-8 py-4 flex flex-col sm:flex-row justify-end gap-2 w-full fixed bottom-0 left-0 z-10">
+                    <button class="btn btn-ghost rounded-md w-full sm:w-auto" type="button" @click="close">Close</button>
+                </div>
+            </form>
         </div>
     </Transition>
 </template>
@@ -92,20 +96,23 @@ watch(
 )
 </script>
 
-
 <style scoped>
+form {
+    min-height: 100vh;
+}
+.flex-1 {
+    padding-bottom: 96px; /* space for fixed buttons */
+}
+
 .modal-enter-active, .modal-leave-active {
     transition: all 0.25s ease-out;
 }
-
 .modal-enter-from, .modal-leave-to {
     opacity: 0;
 }
-
 .modal-enter-from .bg-base-100, .modal-leave-to .bg-base-100 {
     transform: translateY(-20px) scale(0.95);
 }
-
 .modal-enter-to .bg-base-100, .modal-leave-from .bg-base-100 {
     transform: translateY(0) scale(1);
     transition: transform 0.25s ease-out;

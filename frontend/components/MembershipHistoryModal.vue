@@ -1,8 +1,8 @@
 <template>
     <Transition name="modal" appear>
-        <div v-if="show" @mousedown.self="close_modal" class="fixed inset-0 z-50 flex items-start justify-center bg-black/40 pt-4 sm:pt-8 px-2 sm:px-4">
-            <div @mousedown.stop class="bg-base-100 rounded-2xl shadow-2xl w-full max-w-lg flex flex-col max-h-[95vh] overflow-hidden">
-                <div class="overflow-y-auto flex-1 px-4 sm:px-8 pt-6 sm:pt-8 pb-2">
+        <div v-if="show" @mousedown.self="close_modal" class="fixed inset-0 z-50 flex items-start justify-center bg-black/40">
+            <form @mousedown.stop class="bg-base-100 w-full h-full max-w-none max-h-none rounded-none shadow-none flex flex-col relative">
+                <div class="flex-1 overflow-y-auto px-4 sm:px-8 pt-6 sm:pt-8 pb-2">
                     <h3 class="font-semibold text-lg sm:text-xl mb-6 text-primary">
                         Membership Plans
                         <span v-if="member" class="block text-base text-base-content/70 font-normal mt-1">
@@ -66,10 +66,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="bg-base-200 px-4 sm:px-8 py-4 flex flex-col sm:flex-row justify-end gap-2">
+                <!-- Fixed Bottom Buttons -->
+                <div class="bg-base-200 px-4 sm:px-8 py-4 flex flex-col sm:flex-row justify-end gap-2 w-full fixed bottom-0 left-0 z-10">
                     <button class="btn btn-ghost rounded-md w-full sm:w-auto" type="button" @click="close_modal">Close</button>
                 </div>
-            </div>
+            </form>
         </div>
     </Transition>
 </template>
@@ -104,6 +105,13 @@ function format_date(date_str: string) {
 </script>
 
 <style scoped>
+form {
+    min-height: 100vh;
+}
+.flex-1 {
+    padding-bottom: 96px; /* space for fixed buttons */
+}
+
 .modal-enter-active, .modal-leave-active {
     transition: all 0.25s ease-out;
 }

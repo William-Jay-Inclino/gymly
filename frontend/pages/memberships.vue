@@ -6,8 +6,8 @@
         </div>
 
         <!-- No Members: Welcome Message & Add Member Button -->
-        <div v-else-if="!members || members.length === 0" class="text-center text-base-content/60 py-16">
-            <div class="flex flex-col items-center justify-center mt-16 mb-12">
+        <div v-else-if="!members || members.length === 0" class="text-center text-base-content/60 py-2">
+            <div class="flex flex-col items-center justify-center mb-12">
                 <h2 class="text-2xl sm:text-3xl font-extrabold text-primary mb-2 text-center">
                     👋 Welcome to Gymly!
                 </h2>

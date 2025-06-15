@@ -1,8 +1,9 @@
 <template>
     <Transition name="modal" appear>
-        <div v-if="show" @mousedown.self="close_modal" class="fixed inset-0 z-50 flex items-start justify-center bg-black/40 pt-6 sm:pt-8 px-2 sm:px-4">
-            <div @mousedown.stop class="bg-base-100 rounded-2xl shadow-2xl w-full max-w-2xl flex flex-col max-h-[95vh] overflow-hidden">
-                <div class="overflow-y-auto flex-1 px-4 sm:px-8 pt-6 sm:pt-8 pb-2">
+        <div v-if="show" @mousedown.self="close_modal" class="fixed inset-0 z-50 flex items-start justify-center bg-black/40">
+            <form @mousedown.stop class="bg-base-100 w-full h-full max-w-none max-h-none rounded-none shadow-none flex flex-col relative">
+                <!-- Scrollable Content -->
+                <div class="flex-1 overflow-y-auto px-4 sm:px-8 pt-6 sm:pt-8 pb-2">
                     <h3 class="font-semibold text-lg sm:text-xl mb-6 text-primary">
                         Attendance
                         <span v-if="member" class="block text-base text-base-content/70 font-normal mt-1">
@@ -42,10 +43,11 @@
                         </table>
                     </div>
                 </div>
-                <div class="bg-base-200 px-4 sm:px-8 py-4 flex flex-col sm:flex-row justify-end gap-2">
+                <!-- Fixed Bottom Buttons -->
+                <div class="bg-base-200 px-4 sm:px-8 py-4 flex flex-col sm:flex-row justify-end gap-2 w-full fixed bottom-0 left-0 z-10">
                     <button class="btn btn-ghost rounded-md w-full sm:w-auto" type="button" @click="close_modal">Close</button>
                 </div>
-            </div>
+            </form>
         </div>
     </Transition>
 </template>
@@ -54,7 +56,6 @@
 import { member_time_logs_by_month } from '~/core/member-time-logs/member-time-logs.api'
 import type { Member } from '~/core/member/member.types'
 
-// --- Props & Emits ---
 const props = defineProps<{
     member?: Member,
     gym_id: string,
@@ -62,7 +63,6 @@ const props = defineProps<{
 }>()
 const emit = defineEmits(['close'])
 
-// --- State ---
 const is_loading = ref(false)
 const attendance = ref<any[]>([])
 
@@ -76,7 +76,6 @@ const months = [
     'July', 'August', 'September', 'October', 'November', 'December'
 ]
 
-// --- Methods ---
 async function fetch_attendance() {
     if (!props.member || !props.gym_id) {
         attendance.value = []
@@ -117,7 +116,6 @@ function format_time(date_str: string) {
     })
 }
 
-// --- Watchers ---
 watch(
     () => [props.member?.id, props.gym_id, selected_year.value, selected_month.value, props.show],
     ([member_id, gym_id, year, month, show]) => {
@@ -130,6 +128,13 @@ watch(
 </script>
 
 <style scoped>
+form {
+    min-height: 100vh;
+}
+.flex-1 {
+    padding-bottom: 96px; /* space for fixed buttons */
+}
+
 .modal-enter-active, .modal-leave-active {
     transition: all 0.25s ease-out;
 }

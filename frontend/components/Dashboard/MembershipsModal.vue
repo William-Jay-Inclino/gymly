@@ -1,7 +1,7 @@
 <template>
     <Transition name="modal" appear>
-        <div v-if="show" @mousedown.self="close_modal" class="fixed inset-0 z-50 flex items-start justify-center bg-black/40 pt-8 px-2 sm:px-4">
-            <div @mousedown.stop class="bg-base-100 rounded-2xl shadow-2xl p-0 w-full max-w-4xl relative flex flex-col max-h-[90vh]">
+        <div v-if="show" @mousedown.self="close_modal" class="fixed inset-0 z-50 flex items-start justify-center bg-black/40">
+            <form @mousedown.stop class="bg-base-100 w-full h-full max-w-none max-h-none rounded-none shadow-none flex flex-col relative">
                 <!-- Header -->
                 <div class="flex items-center justify-between px-4 sm:px-8 py-4 sm:py-6 border-b border-base-200">
                     <div class="font-semibold text-base sm:text-lg">
@@ -15,7 +15,6 @@
                 <div class="flex-1 overflow-y-auto p-3 sm:p-8">
                     <div v-if="loading" class="text-center py-12 text-base-content/60 text-sm">
                         <Spinner />
-                        <!-- <span class="loading loading-spinner loading-lg"></span> -->
                     </div>
                     <div v-else>
                         <div v-if="memberships.length === 0" class="text-base-content/50 text-center py-12 text-sm">
@@ -98,7 +97,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
+                <!-- Fixed Bottom Button -->
+                <div class="bg-base-200 px-4 sm:px-8 py-4 flex flex-col sm:flex-row justify-end gap-2 w-full fixed bottom-0 left-0 z-10">
+                    <button class="btn btn-ghost rounded-md w-full sm:w-auto" type="button" @click="close_modal">Close</button>
+                </div>
+            </form>
         </div>
     </Transition>
 </template>
@@ -214,20 +217,23 @@ function format_amount(amount: number | string | null | undefined) {
 }
 </script>
 
-
 <style scoped>
+form {
+    min-height: 100vh;
+}
+.flex-1 {
+    padding-bottom: 96px; /* space for fixed buttons */
+}
+
 .modal-enter-active, .modal-leave-active {
     transition: all 0.25s ease-out;
 }
-
 .modal-enter-from, .modal-leave-to {
     opacity: 0;
 }
-
 .modal-enter-from .bg-base-100, .modal-leave-to .bg-base-100 {
     transform: translateY(-20px) scale(0.95);
 }
-
 .modal-enter-to .bg-base-100, .modal-leave-from .bg-base-100 {
     transform: translateY(0) scale(1);
     transition: transform 0.25s ease-out;
