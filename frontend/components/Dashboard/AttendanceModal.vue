@@ -1,13 +1,20 @@
 <template>
     <Transition name="modal" appear>
         <div v-if="show" @mousedown.self="close" class="fixed inset-0 z-50 flex items-start justify-center bg-black/40">
-            <form @mousedown.stop class="bg-base-100 w-full h-full max-w-none max-h-none rounded-none shadow-none flex flex-col relative">
+            <form
+                @mousedown.stop
+                :class="[
+                    'bg-base-100 flex flex-col relative shadow-none',
+                    'w-full h-full max-w-none max-h-none rounded-none', // mobile
+                    'sm:w-[480px] sm:h-auto sm:max-w-full sm:rounded-xl sm:my-12 sm:shadow-xl' // desktop
+                ]"
+            >
                 <!-- Header -->
                 <div class="font-semibold text-base sm:text-lg text-center px-4 pt-6 mb-3">
                     Attendance for {{ modal_date_label }}
                 </div>
                 <!-- Scrollable Content -->
-                <div class="flex-1 overflow-y-auto px-4 pb-6">
+                <div class="flex-1 overflow-y-auto px-4 pb-32 sm:pb-8">
                     <div v-if="attendance_loading" class="flex justify-center py-8 text-base-content/70">
                         <Spinner />
                     </div>
@@ -42,7 +49,7 @@
                     </div>
                 </div>
                 <!-- Fixed Bottom Button -->
-                <div class="bg-base-200 px-4 sm:px-8 py-4 flex flex-col sm:flex-row justify-end gap-2 w-full fixed bottom-0 left-0 z-10">
+                <div class="bg-base-200 px-4 sm:px-8 py-4 flex flex-col sm:flex-row justify-end gap-2 w-full sm:static fixed bottom-0 left-0 z-10">
                     <button class="btn btn-ghost rounded-md w-full sm:w-auto" type="button" @click="close">Close</button>
                 </div>
             </form>
@@ -100,10 +107,13 @@ watch(
 form {
     min-height: 100vh;
 }
-.flex-1 {
-    padding-bottom: 96px; /* space for fixed buttons */
+@media (min-width: 640px) {
+    form {
+        min-height: unset;
+        height: auto;
+        max-height: 90vh;
+    }
 }
-
 .modal-enter-active, .modal-leave-active {
     transition: all 0.25s ease-out;
 }

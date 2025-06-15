@@ -1,7 +1,14 @@
 <template>
     <Transition name="modal" appear>
         <div v-if="show" @mousedown.self="close_modal" class="fixed inset-0 z-50 flex items-start justify-center bg-black/40">
-            <form @mousedown.stop class="bg-base-100 w-full h-full max-w-none max-h-none rounded-none shadow-none flex flex-col relative">
+            <form
+                @mousedown.stop
+                :class="[
+                    'bg-base-100 flex flex-col relative shadow-none',
+                    'w-full h-full max-w-none max-h-none rounded-none', // mobile
+                    'sm:w-[800px] sm:h-auto sm:max-w-full sm:rounded-xl sm:my-12 sm:shadow-xl' // desktop
+                ]"
+            >
                 <!-- Header -->
                 <div class="flex items-center justify-between px-4 sm:px-8 py-4 sm:py-6 border-b border-base-200">
                     <div class="font-semibold text-base sm:text-lg">
@@ -12,7 +19,7 @@
                     </button>
                 </div>
                 <!-- Content -->
-                <div class="flex-1 overflow-y-auto p-3 sm:p-8">
+                <div class="flex-1 overflow-y-auto p-3 sm:p-8 pb-32 sm:pb-8">
                     <div v-if="loading" class="text-center py-12 text-base-content/60 text-sm">
                         <Spinner />
                     </div>
@@ -98,7 +105,7 @@
                     </div>
                 </div>
                 <!-- Fixed Bottom Button -->
-                <div class="bg-base-200 px-4 sm:px-8 py-4 flex flex-col sm:flex-row justify-end gap-2 w-full fixed bottom-0 left-0 z-10">
+                <div class="bg-base-200 px-4 sm:px-8 py-4 flex flex-col sm:flex-row justify-end gap-2 w-full sm:static fixed bottom-0 left-0 z-10">
                     <button class="btn btn-ghost rounded-md w-full sm:w-auto" type="button" @click="close_modal">Close</button>
                 </div>
             </form>
@@ -221,10 +228,13 @@ function format_amount(amount: number | string | null | undefined) {
 form {
     min-height: 100vh;
 }
-.flex-1 {
-    padding-bottom: 96px; /* space for fixed buttons */
+@media (min-width: 640px) {
+    form {
+        min-height: unset;
+        height: auto;
+        max-height: 90vh;
+    }
 }
-
 .modal-enter-active, .modal-leave-active {
     transition: all 0.25s ease-out;
 }
