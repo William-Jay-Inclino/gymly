@@ -9,7 +9,7 @@
                     'sm:w-[480px] sm:h-auto sm:max-w-full sm:rounded-xl sm:my-12 sm:shadow-xl' // desktop
                 ]"
             >
-                <div class="flex-1 overflow-y-auto px-4 sm:px-8 pt-6 sm:pt-8 pb-32 sm:pb-8">
+                <div class="flex-1 overflow-y-auto px-4 sm:px-8 pt-6 sm:pt-8 pb-50 sm:pb-8">
                     <h3 class="font-semibold text-lg sm:text-xl mb-6 text-primary">
                         Membership Plans
                         <span v-if="member" class="block text-base text-base-content/70 font-normal mt-1">

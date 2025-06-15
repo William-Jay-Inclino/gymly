@@ -10,7 +10,7 @@
                 ]"
                 @submit.prevent="is_edit_mode ? handle_edit_staff() : handle_add_staff()"
             >
-                <div class="flex-1 overflow-y-auto px-4 sm:px-8 pt-6 sm:pt-8 pb-32 sm:pb-8">
+                <div class="flex-1 overflow-y-auto px-4 sm:px-8 pt-6 sm:pt-8 pb-50 sm:pb-8">
                     <h3 class="font-semibold text-lg sm:text-xl mb-6 text-primary text-center">
                         {{ is_edit_mode ? 'Edit Staff' : 'Add Staff' }}
                     </h3>

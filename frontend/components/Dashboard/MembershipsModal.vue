@@ -19,7 +19,7 @@
                     </button>
                 </div>
                 <!-- Content -->
-                <div class="flex-1 overflow-y-auto p-3 sm:p-8 pb-32 sm:pb-8">
+                <div class="flex-1 overflow-y-auto p-3 sm:p-8 pb-50 sm:pb-8">
                     <div v-if="loading" class="text-center py-12 text-base-content/60 text-sm">
                         <Spinner />
                     </div>

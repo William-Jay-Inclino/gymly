@@ -14,7 +14,7 @@
                     Attendance for {{ modal_date_label }}
                 </div>
                 <!-- Scrollable Content -->
-                <div class="flex-1 overflow-y-auto px-4 pb-32 sm:pb-8">
+                <div class="flex-1 overflow-y-auto px-4 pb-50 sm:pb-8">
                     <div v-if="attendance_loading" class="flex justify-center py-8 text-base-content/70">
                         <Spinner />
                     </div>
