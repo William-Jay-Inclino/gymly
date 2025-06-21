@@ -14,7 +14,7 @@
                     <div class="font-semibold text-base sm:text-lg">
                         {{ modal_title }}
                     </div>
-                    <button class="btn btn-xs btn-circle btn-ghost" @click="close_modal" title="Close">
+                    <button type="button" class="btn btn-xs btn-circle btn-ghost" @click="close_modal" title="Close">
                         ✕
                     </button>
                 </div>

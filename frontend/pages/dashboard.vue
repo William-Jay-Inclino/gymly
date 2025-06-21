@@ -8,7 +8,7 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 items-stretch">
-            <UpcomingExpirations :upcomingExpirations="upcomingExpirations" />
+            <UpcomingExpirations />
             <Attendance />
         </div>
     </div>
@@ -16,7 +16,6 @@
 
 <script setup lang="ts">
 import { useDashboardStore } from "~/core/dashboard/dashboard.store"
-import { useDashboardStore2 } from "~/core/dashboard/dashboard.store2"
 import StatsCards from "~/components/Dashboard/StatsCards.vue"
 import Revenue from "~/components/Dashboard/Revenue.vue"
 import MembershipCount from "~/components/Dashboard/MembershipCount.vue"
@@ -28,7 +27,6 @@ import { useGlobalStore } from '~/core/global.store'
 const { gym_id } = useGlobalStore()
 const store = useDashboardStore()
 
-const { stats, upcomingExpirations } = useDashboardStore2()
 
 definePageMeta({
     layout: "base-layout",

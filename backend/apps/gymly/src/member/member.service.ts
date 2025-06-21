@@ -110,9 +110,6 @@ export class MemberService {
             }, tx as Prisma.TransactionClient);
 
             // For each plan, create a membership and update stats for analytics
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = now.getMonth() + 1;
             const createdMemberships = [];
 
             for (const planObj of data.plan.plans) {
@@ -156,6 +153,8 @@ export class MemberService {
 
                 // --- Update stats ---
                 const amount = plan.price;
+                const year = startDate.getFullYear();
+                const month = startDate.getMonth() + 1;
 
                 // Update total revenue
                 await this.analytics.update_gym_stats({

@@ -54,10 +54,6 @@ export class MembershipService {
                 }
             }
 
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = now.getMonth() + 1;
-
             const createdMemberships = [];
 
             for (const planInput of input.plans) {
@@ -102,6 +98,8 @@ export class MembershipService {
 
                 // --- Update analytics ---
                 const amount = plan.price;
+                const year = startDate.getFullYear();
+                const month = startDate.getMonth() + 1;
 
                 // Update total revenue
                 await this.analytics.update_gym_stats({
@@ -164,7 +162,7 @@ export class MembershipService {
         const count = await this.prisma.membership.count({
             where: {
                 gym_id,
-                created_at: {
+                start_date: {
                     gte: startOfDay(today),
                     lte: endOfDay(today),
                 },
