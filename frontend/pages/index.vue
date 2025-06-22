@@ -117,7 +117,8 @@
                     <p class="mb-4 text-base-content/70">Basic features for small gyms</p>
                     <ul class="mb-4 space-y-2 text-base-content/80">
                         <li>
-                            <UserIcon class="inline w-4 h-4 mr-1" /> Up to 50 members <span class="text-xs text-gray-500">(limit can be increased)</span>
+                            <UserIcon class="inline w-4 h-4 mr-1" /> Up to 50 members <br/>
+                            <span class="text-xs text-gray-500">(limit can be increased)</span>
                         </li>
                         <li>
                             <CalendarCheckIcon class="inline w-4 h-4 mr-1" /> Attendance tracking
