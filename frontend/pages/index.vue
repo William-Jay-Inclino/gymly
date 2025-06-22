@@ -1,5 +1,5 @@
 <template>
-    <div class="min-h-screen bg-base-100">
+    <div class="min-h-screen bg-base-100 flex flex-col">
         <!-- Hero Section -->
         <header class="flex flex-col md:flex-row items-center justify-center gap-8 py-12 px-4 bg-gradient-to-r from-base-100 to-blue-50 rounded-b-3xl shadow">
             <img
@@ -29,9 +29,9 @@
         </header>
 
         <!-- Features Section -->
-        <section class="max-w-6xl mx-auto py-12 px-4">
+        <section class="max-w-6xl mx-auto py-12 px-4 w-full">
             <h2 class="text-2xl font-bold text-center mb-8 text-primary">Features</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center gap-3">
                     <UserIcon class="w-12 h-12 text-primary mb-2" />
                     <h3 class="font-semibold text-lg text-blue-600 flex items-center gap-2">
@@ -47,7 +47,7 @@
                         Attendance Tracking
                     </h3>
                     <p class="text-base-content/70 text-center">
-                        Log member check-ins, and automatically validate if a member's subscription has expired.
+                        Track check-ins, auto-validate expired subscriptions, and renew in just 3 clicks.
                     </p>
                 </div>
                 <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center gap-3">
@@ -71,15 +71,28 @@
             </div>
         </section>
 
+        <!-- Loom Video Section -->
+        <section class="max-w-3xl mx-auto my-12 px-4 w-full">
+            <h2 class="text-2xl font-bold text-primary mb-4 text-center">See Gymly in Action</h2>
+            <div class="w-full aspect-w-16 aspect-h-9 rounded-xl overflow-hidden shadow-lg">
+                <iframe
+                    src="https://www.loom.com/embed/faed0e88e8d84b1b8045f6c7ba3d19c6"
+                    frameborder="0"
+                    allowfullscreen
+                    class="w-full h-72 md:h-96"
+                ></iframe>
+            </div>
+        </section>
+
         <!-- Advantages Section -->
-        <section class="bg-blue-50 rounded-xl max-w-4xl mx-auto my-12 py-10 px-6 text-center">
+        <section class="bg-blue-50 rounded-xl max-w-4xl mx-auto my-12 py-10 px-6 text-center w-full">
             <h2 class="text-2xl font-bold mb-4 text-primary">Why Choose Gymly?</h2>
             <ul class="space-y-3 text-base-content/80 text-lg max-w-md mx-auto text-left">
                 <li class="flex items-center gap-2">
                     <CheckCircle2Icon class="w-5 h-5 text-success" /> Simple, intuitive interface
                 </li>
                 <li class="flex items-center gap-2">
-                    <GiftIcon class="w-5 h-5 text-success" /> Very cheap compared to other gym apps
+                    <GiftIcon class="w-5 h-5 text-success" /> Very cheap compared to other gym management apps
                 </li>
                 <li class="flex items-center gap-2">
                     <CloudIcon class="w-5 h-5 text-success" /> Cloud-based, access anywhere
@@ -94,18 +107,17 @@
         </section>
 
         <!-- Pricing Section -->
-        <section class="max-w-4xl mx-auto py-12 px-4">
+        <section class="max-w-4xl mx-auto py-12 px-4 w-full">
             <h2 class="text-2xl font-bold text-center mb-8 text-primary">Pricing</h2>
             <div class="flex flex-col md:flex-row gap-8 justify-center">
-                <div class="bg-white rounded-xl shadow p-8 flex-1 flex flex-col items-center">
+                <div class="bg-white rounded-xl shadow p-8 flex-1 flex flex-col items-center mb-6 md:mb-0">
                     <h3 class="text-xl font-semibold text-success mb-2 flex items-center gap-2">
                         <GiftIcon class="w-5 h-5" /> Free Tier
                     </h3>
                     <p class="mb-4 text-base-content/70">Basic features for small gyms</p>
                     <ul class="mb-4 space-y-2 text-base-content/80">
                         <li>
-                            <UserIcon class="inline w-4 h-4 mr-1" /> Up to 50 members <br>
-                            <span class="text-xs text-gray-500">(limit can be increased)</span>
+                            <UserIcon class="inline w-4 h-4 mr-1" /> Up to 50 members <span class="text-xs text-gray-500">(limit can be increased)</span>
                         </li>
                         <li>
                             <CalendarCheckIcon class="inline w-4 h-4 mr-1" /> Attendance tracking
@@ -153,3 +165,14 @@ function signUpWithGoogle() {
 }
 </script>
 
+<style scoped>
+/* Responsive aspect ratio for Loom video */
+.aspect-w-16 {
+    aspect-ratio: 16 / 9;
+}
+@media (max-width: 768px) {
+    .aspect-w-16 {
+        aspect-ratio: 16 / 9;
+    }
+}
+</style>
