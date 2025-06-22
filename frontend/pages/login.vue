@@ -54,6 +54,9 @@
                 <span class="text-xs text-base-content/60">&copy; {{ new Date().getFullYear() }} JayTechSolutions</span>
                 <span class="text-xs text-base-content/60">All rights reserved.</span>
             </div>
+            <div class="mt-4 text-center">
+                <NuxtLink to="/" class="text-blue-600 hover:underline text-sm font-medium">Go to homepage</NuxtLink>
+            </div>
         </div>
     </div>
 </template>
@@ -62,6 +65,7 @@
 import { Dumbbell } from 'lucide-vue-next'
 import { login, set_access_token } from '~/utils/session'
 import { showToastError } from '~/utils/toast'
+import { NuxtLink } from '#components'
 
 const config = useRuntimeConfig()
 const API_URL = config.public.apiUrl
@@ -93,4 +97,5 @@ async function handleLogin() {
 function login_with_google() {
     window.location.href = `${API_URL}/auth/google/signup`
 }
+
 </script>
