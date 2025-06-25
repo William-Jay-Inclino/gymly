@@ -1,9 +1,14 @@
-import { Controller, Get, Req, Res, Inject, Logger } from '@nestjs/common';
+import { Controller, Get, Req, Res, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '../prisma/prisma.service';
 import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import axios from 'axios';
+import { AuditLogsService } from '../audit-logs/audit-logs.service';
+import { DB_TABLE } from '../libs/common-types';
+import { IpAddress } from './decorators/ip-address.decorator';
+import { UserAgent } from './decorators/user-agent.decorator';
+import { getDeviceInfo } from '../libs/helpers';
 
 @Controller('auth')
 export class AuthController {
@@ -15,6 +20,7 @@ export class AuthController {
         private readonly prisma: PrismaService,
         private readonly userService: UserService,
         private readonly jwtService: JwtService,
+        private readonly audit: AuditLogsService,
     ) {}
 
     @Get('google/signup')
@@ -30,7 +36,12 @@ export class AuthController {
     }
 
     @Get('google/callback')
-    async googleCallback(@Req() req, @Res() res) {
+    async googleCallback(
+        @Req() req, 
+        @Res() res, 
+        @IpAddress() ip_address: string, 
+        @UserAgent() user_agent: string
+    ) {
         const code = req.query.code;
         const clientId = this.config.get('GOOGLE_CLIENT_ID');
         const clientSecret = this.config.get('GOOGLE_CLIENT_SECRET');
@@ -86,6 +97,14 @@ export class AuthController {
                 }
             });
         }
+
+        await this.audit.createAuditEntry({
+            username: user.username,
+            table: DB_TABLE.NONE,
+            action: 'GOOGLE-LOGIN',
+            ip_address,
+            device_info: getDeviceInfo(user_agent),
+        });
 
         // 4. Create JWT for your app
         const payload = {
