@@ -32,7 +32,7 @@
         <section class="max-w-6xl mx-auto py-12 px-4 w-full">
             <h2 class="text-2xl font-bold text-center mb-8 text-primary">Features</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center gap-3">
+                <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center gap-3" @mouseenter="track_feature_view('member-management')">
                     <UserIcon class="w-12 h-12 text-primary mb-2" />
                     <h3 class="font-semibold text-lg text-blue-600 flex items-center gap-2">
                         Member Management
@@ -41,7 +41,7 @@
                         Easily add, edit, and organize your gym members in one place.
                     </p>
                 </div>
-                <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center gap-3">
+                <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center gap-3" @mouseenter="track_feature_view('attendance-tracking')">
                     <CalendarCheckIcon class="w-12 h-12 text-primary mb-2" />
                     <h3 class="font-semibold text-lg text-blue-600 flex items-center gap-2">
                         Attendance Tracking
@@ -50,7 +50,7 @@
                         Track check-ins, auto-validate expired subscriptions, and renew in just 3 clicks.
                     </p>
                 </div>
-                <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center gap-3">
+                <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center gap-3" @mouseenter="track_feature_view('analytics-insights')">
                     <BarChart3Icon class="w-12 h-12 text-primary mb-2" />
                     <h3 class="font-semibold text-lg text-blue-600 flex items-center gap-2">
                         Analytics & Insights
@@ -59,7 +59,7 @@
                         View revenue (daily, weekly, monthly, or custom), membership count, and attendance stats.
                     </p>
                 </div>
-                <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center gap-3">
+                <div class="bg-white rounded-xl shadow p-6 flex flex-col items-center gap-3" @mouseenter="track_feature_view('notifications')">
                     <BellIcon class="w-12 h-12 text-primary mb-2" />
                     <h3 class="font-semibold text-lg text-blue-600 flex items-center gap-2">
                         Notifications
@@ -72,17 +72,21 @@
         </section>
 
         <!-- Loom Video Section -->
-        <section class="max-w-3xl mx-auto my-12 px-4 w-full">
-            <h2 class="text-2xl font-bold text-primary mb-4 text-center">See Gymly in Action</h2>
-            <div class="w-full aspect-w-16 aspect-h-9 rounded-xl overflow-hidden shadow-lg">
-                <iframe
-                    src="https://www.loom.com/embed/faed0e88e8d84b1b8045f6c7ba3d19c6"
-                    frameborder="0"
-                    allowfullscreen
-                    class="w-full h-72 md:h-96"
-                ></iframe>
-            </div>
-        </section>
+        <client-only>
+            <section class="max-w-3xl mx-auto my-12 px-4 w-full">
+                <h2 class="text-2xl font-bold text-primary mb-4 text-center">See Gymly in Action</h2>
+                <div 
+                    class="w-full aspect-w-16 aspect-h-9 rounded-xl overflow-hidden shadow-lg video-container"
+                >
+                        <iframe
+                            src="https://www.loom.com/embed/faed0e88e8d84b1b8045f6c7ba3d19c6?autoplay=false"
+                            frameborder="0"
+                            allowfullscreen
+                            class="w-full h-72 md:h-96"
+                        ></iframe>
+                    </div>
+                </section>
+        </client-only>
 
         <!-- Advantages Section -->
         <section class="bg-blue-50 rounded-xl max-w-4xl mx-auto my-12 py-10 px-6 text-center w-full">
@@ -107,10 +111,10 @@
         </section>
 
         <!-- Pricing Section -->
-        <section class="max-w-4xl mx-auto py-12 px-4 w-full">
+        <section class="max-w-4xl mx-auto py-12 px-4 w-full" @mouseenter="track_pricing_view">
             <h2 class="text-2xl font-bold text-center mb-8 text-primary">Pricing</h2>
             <div class="flex flex-col md:flex-row gap-8 justify-center">
-                <div class="bg-white rounded-xl shadow p-8 flex-1 flex flex-col items-center mb-6 md:mb-0">
+                <div class="bg-white rounded-xl shadow p-8 flex-1 flex flex-col items-center mb-6 md:mb-0" @click="track_user_action('free-tier-click')">
                     <h3 class="text-xl font-semibold text-success mb-2 flex items-center gap-2">
                         <GiftIcon class="w-5 h-5" /> Free Tier
                     </h3>
@@ -128,7 +132,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="bg-white rounded-xl shadow p-8 flex-1 flex flex-col items-center border-2 border-primary">
+                <div class="bg-white rounded-xl shadow p-8 flex-1 flex flex-col items-center border-2 border-primary" @click="track_user_action('paid-tier-click')">
                     <h3 class="text-xl font-semibold text-primary mb-2 flex items-center gap-2">
                         <CrownIcon class="w-5 h-5" /> Paid Tier
                     </h3>
@@ -163,8 +167,75 @@ import {
 const config = useRuntimeConfig()
 const API_URL = config.public.apiUrl
 
+// Track site visit when page loads
+onMounted(async () => {
+    await track_page_visit()
+})
+
+/**
+ * Track the current page visit
+ */
+async function track_page_visit() {
+    try {
+        const page_url = window.location.href
+        
+        await $fetch(`${API_URL}/site-visit/track`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: {
+                page_url,
+                // Add user_id if user is authenticated
+                user_id: undefined // You can set this from auth store if available
+            }
+        })
+        
+        console.log('Page visit tracked successfully')
+    } catch (error) {
+        // Silently fail - don't show errors to users for tracking
+        console.log('Failed to track page visit:', error)
+    }
+}
+
+/**
+ * Track specific user actions/events
+ */
+async function track_user_action(action: string) {
+    try {
+        const page_url = `${window.location.href}#${action}`
+        
+        await $fetch(`${API_URL}/site-visit/track`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: {
+                page_url,
+                user_id: undefined // Set from auth if available
+            }
+        })
+    } catch (error) {
+        console.log('Failed to track user action:', error)
+    }
+}
+
 function login_with_google() {
-    window.location.href = `${API_URL}/auth/google/signup`
+    // Track login attempt before redirect
+    track_user_action('google-login-attempt')
+    
+    setTimeout(() => {
+        window.location.href = `${API_URL}/auth/google/signup`
+    }, 100) // Small delay to ensure tracking request is sent
+}
+
+// Track user interactions
+function track_feature_view(feature: string) {
+    track_user_action(`feature-view-${feature}`)
+}
+
+function track_pricing_view() {
+    track_user_action('pricing-section-view')
 }
 
 </script>

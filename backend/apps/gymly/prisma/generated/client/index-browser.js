@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.9.0
- * Query Engine version: 81e4af48011447c3cc503a190e86995b66d2a28e
+ * Prisma Client JS version: 6.10.1
+ * Query Engine version: 9b628578b3b7cae625e8c927178f15a170e74a9c
  */
 Prisma.prismaVersion = {
-  client: "6.9.0",
-  engine: "81e4af48011447c3cc503a190e86995b66d2a28e"
+  client: "6.10.1",
+  engine: "9b628578b3b7cae625e8c927178f15a170e74a9c"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -255,6 +255,44 @@ exports.Prisma.MemberTimeLogsMembershipScalarFieldEnum = {
   membership_id: 'membership_id'
 };
 
+exports.Prisma.SiteVisitScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  session_id: 'session_id',
+  ip_address: 'ip_address',
+  user_agent: 'user_agent',
+  referer: 'referer',
+  page_url: 'page_url',
+  country: 'country',
+  region: 'region',
+  city: 'city',
+  device_type: 'device_type',
+  browser: 'browser',
+  os: 'os',
+  is_bot: 'is_bot',
+  is_unique: 'is_unique',
+  visit_duration: 'visit_duration',
+  page_views: 'page_views',
+  visited_at: 'visited_at'
+};
+
+exports.Prisma.DailyVisitStatsScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  total_visits: 'total_visits',
+  unique_visits: 'unique_visits',
+  page_views: 'page_views',
+  bounce_rate: 'bounce_rate',
+  avg_session_time: 'avg_session_time',
+  top_page: 'top_page',
+  top_referer: 'top_referer',
+  mobile_visits: 'mobile_visits',
+  desktop_visits: 'desktop_visits',
+  tablet_visits: 'tablet_visits',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -300,7 +338,9 @@ exports.Prisma.ModelName = {
   Membership: 'Membership',
   Plan: 'Plan',
   MemberTimeLogs: 'MemberTimeLogs',
-  MemberTimeLogsMembership: 'MemberTimeLogsMembership'
+  MemberTimeLogsMembership: 'MemberTimeLogsMembership',
+  SiteVisit: 'SiteVisit',
+  DailyVisitStats: 'DailyVisitStats'
 };
 
 /**

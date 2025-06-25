@@ -55,7 +55,7 @@
                 <span class="text-xs text-base-content/60">All rights reserved.</span>
             </div>
             <div class="mt-4 text-center">
-                <NuxtLink to="/" class="text-blue-600 hover:underline text-sm font-medium">Go to homepage</NuxtLink>
+                <NuxtLink to="/" class="text-blue-600 hover:underline text-sm font-medium" @click="track_user_action('homepage-link-click')">Go to homepage</NuxtLink>
             </div>
         </div>
     </div>
@@ -75,19 +75,86 @@ const username = ref('')
 const password = ref('')
 const isLoading = ref(false)
 
+// Track site visit when page loads
+onMounted(async () => {
+    await track_page_visit()
+})
+
+// Track site visit when page loads
+onMounted(async () => {
+    await track_page_visit()
+})
+
+/**
+ * Track the current page visit
+ */
+async function track_page_visit() {
+    try {
+        const page_url = window.location.href
+        
+        await $fetch(`${API_URL}/site-visit/track`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: {
+                page_url,
+                // Add user_id if user is authenticated
+                user_id: undefined // You can set this from auth store if available
+            }
+        })
+        
+        console.log('Page visit tracked successfully')
+    } catch (error) {
+        // Silently fail - don't show errors to users for tracking
+        console.log('Failed to track page visit:', error)
+    }
+}
+
+/**
+ * Track specific user actions/events
+ */
+async function track_user_action(action: string) {
+    try {
+        const page_url = `${window.location.href}#${action}`
+        
+        await $fetch(`${API_URL}/site-visit/track`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: {
+                page_url,
+                user_id: undefined // Set from auth if available
+            }
+        })
+    } catch (error) {
+        console.log('Failed to track user action:', error)
+    }
+}
+
 async function handleLogin() {
+    // Track login attempt
+    track_user_action('username-login-attempt')
+    
     isLoading.value = true
     try {
         const response = await login({ username: username.value, password: password.value, api_url: API_URL })
         if(response.access_token) {
             set_access_token(response.access_token)
+            // Track successful login
+            track_user_action('username-login-success')
             // showToastSuccess('Welcome back! You are now logged in.')
             router.push('/dashboard');
         } else {
+            // Track failed login
+            track_user_action('username-login-failed')
             showToastError('Login failed. Please check your credentials.')
             return
         }
     } catch (e: any) {
+        // Track failed login
+        track_user_action('username-login-error')
         showToastError('Login failed. Please try again.')
     } finally {
         isLoading.value = false
@@ -95,7 +162,12 @@ async function handleLogin() {
 }
 
 function login_with_google() {
-    window.location.href = `${API_URL}/auth/google/signup`
+    // Track Google login attempt before redirect
+    track_user_action('google-login-attempt')
+    
+    setTimeout(() => {
+        window.location.href = `${API_URL}/auth/google/signup`
+    }, 100) // Small delay to ensure tracking request is sent
 }
 
 </script>
