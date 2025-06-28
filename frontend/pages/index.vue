@@ -2,11 +2,24 @@
     <div class="min-h-screen bg-base-100 flex flex-col">
         <!-- Hero Section -->
         <header class="flex flex-col md:flex-row items-center justify-center gap-8 py-12 px-4 bg-gradient-to-r from-base-100 to-blue-50 rounded-b-3xl shadow">
-            <img
-                src="/images/gym.png"
-                alt="Gym"
-                class="w-full max-w-md h-64 object-cover rounded-2xl shadow-lg"
-            />
+            <div class="relative w-full max-w-md h-64 rounded-2xl shadow-lg overflow-hidden">
+                <img
+                    src="/images/gym.png"
+                    alt="Gym"
+                    class="w-full h-full object-cover"
+                />
+                <!-- Text overlay centered -->
+                <div class="absolute inset-0 bg-black/10 flex items-center justify-center">
+                    <div class="text-center">
+                        <h2 class="text-white text-4xl md:text-5xl font-extrabold tracking-wide drop-shadow-2xl">
+                            GYMLY
+                        </h2>
+                        <p class="text-amber-300 text-sm md:text-base font-bold tracking-widest drop-shadow-lg">
+                            PHILIPPINES
+                        </p>
+                    </div>
+                </div>
+            </div>
             <div class="max-w-lg flex flex-col gap-4 items-start">
                 <h1 class="text-4xl font-extrabold text-primary flex flex-wrap items-center gap-2">
                     Gymly
