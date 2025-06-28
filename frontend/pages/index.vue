@@ -86,19 +86,19 @@
 
         <!-- Loom Video Section -->
         <client-only>
-            <section class="max-w-3xl mx-auto my-12 px-4 w-full">
-                <h2 class="text-2xl font-bold text-primary mb-4 text-center">See Gymly in Action</h2>
-                <div 
-                    class="w-full aspect-w-16 aspect-h-9 rounded-xl overflow-hidden shadow-lg video-container"
-                >
+            <section class="max-w-5xl mx-auto my-12 px-4 w-full">
+                <h2 class="text-2xl md:text-3xl font-bold text-primary mb-6 text-center">See Gymly in Action</h2>
+                <div class="relative w-full bg-gray-100 rounded-xl overflow-hidden shadow-lg">
+                    <div class="aspect-w-16 aspect-h-9">
                         <iframe
                             src="https://www.loom.com/embed/faed0e88e8d84b1b8045f6c7ba3d19c6?autoplay=false"
                             frameborder="0"
                             allowfullscreen
-                            class="w-full h-72 md:h-96"
+                            class="absolute inset-0 w-full h-full"
                         ></iframe>
                     </div>
-                </section>
+                </div>
+            </section>
         </client-only>
 
         <!-- Advantages Section -->
@@ -256,11 +256,35 @@ function track_pricing_view() {
 <style scoped>
 /* Responsive aspect ratio for Loom video */
 .aspect-w-16 {
-    aspect-ratio: 16 / 9;
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
 }
-@media (max-width: 768px) {
+
+.aspect-h-9 {
+    position: relative;
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
     .aspect-w-16 {
-        aspect-ratio: 16 / 9;
+        padding-bottom: 56.25%; /* Maintain 16:9 ratio */
+        min-height: 250px; /* Minimum height for mobile */
+    }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+    .aspect-w-16 {
+        padding-bottom: 56.25%;
+        min-height: 350px; /* Better size for tablets */
+    }
+}
+
+@media (min-width: 1025px) {
+    .aspect-w-16 {
+        padding-bottom: 56.25%;
+        min-height: 450px; /* Larger size for desktop */
     }
 }
 </style>
