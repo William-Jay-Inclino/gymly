@@ -127,7 +127,7 @@
         <section class="max-w-4xl mx-auto py-12 px-4 w-full" @mouseenter="track_pricing_view">
             <h2 class="text-2xl font-bold text-center mb-8 text-primary">Pricing</h2>
             <div class="flex flex-col md:flex-row gap-8 justify-center">
-                <div class="bg-white rounded-xl shadow p-8 flex-1 flex flex-col items-center mb-6 md:mb-0" @click="track_user_action('free-tier-click')">
+                <div class="bg-white rounded-xl shadow p-8 flex-1 flex flex-col items-center mb-6 md:mb-0" @click="login_with_google">
                     <h3 class="text-xl font-semibold text-success mb-2 flex items-center gap-2">
                         <GiftIcon class="w-5 h-5" /> Free Tier
                     </h3>
