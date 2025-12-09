@@ -3,11 +3,7 @@
   <p><strong>A Modern Gym Management System</strong></p>
   <p>Streamline your fitness business with powerful member management, attendance tracking, and real-time analytics.</p>
   
-  <p>
-    <a href="https://jaytechsolutions.cloud/gymly/" target="_blank">
-      <img src="https://img.shields.io/badge/🌐_Live_Demo-View_Application-success?style=for-the-badge" alt="Live Demo" />
-    </a>
-  </p>
+  <h3>🌐 <a href="https://jaytechsolutions.cloud/gymly/" target="_blank">View Live Demo</a></h3>
   
   <p>
     <img src="https://img.shields.io/badge/NuxtJS-00DC82?style=for-the-badge&logo=nuxt.js&logoColor=white" alt="Nuxt.js" />
