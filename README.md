@@ -4,6 +4,12 @@
   <p>Streamline your fitness business with powerful member management, attendance tracking, and real-time analytics.</p>
   
   <p>
+    <a href="https://jaytechsolutions.cloud/gymly/" target="_blank">
+      <img src="https://img.shields.io/badge/🌐_Live_Demo-View_Application-success?style=for-the-badge" alt="Live Demo" />
+    </a>
+  </p>
+  
+  <p>
     <img src="https://img.shields.io/badge/NuxtJS-00DC82?style=for-the-badge&logo=nuxt.js&logoColor=white" alt="Nuxt.js" />
     <img src="https://img.shields.io/badge/NestJS-E0234E?style=for-the-badge&logo=nestjs&logoColor=white" alt="NestJS" />
     <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
